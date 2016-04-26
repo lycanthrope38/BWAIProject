@@ -6,6 +6,8 @@ using namespace Filter;
 
 void ExampleAIModule::onStart()
 {
+
+	
   // Hello World!
   Broodwar->sendText("Hello world!");
 
@@ -53,6 +55,8 @@ void ExampleAIModule::onStart()
   counterWorker = 0;
 
   counterGateway = 0;
+
+  supplyBuilderTemp == NULL;
 
 
 }
@@ -116,11 +120,15 @@ void ExampleAIModule::onFrame()
 	  {
 
 
-		  createGateWay((Unit)u);
+		  if (supplyBuilderTemp != NULL)
+		  {
+			  createGateWay(supplyBuilderTemp);
+		  }
+		 
 
 		  if (u->isIdle())
 		  {
-
+			
 			
 			  Broodwar->sendText("isIdle" + u->isIdle());
 
@@ -171,9 +179,10 @@ void ExampleAIModule::onFrame()
 				  lastChecked = Broodwar->getFrameCount();
 
 				  // Retrieve a unit that is capable of constructing the supply needed
-				  Unit supplyBuilder = u->getClosestUnit(GetType == supplyProviderType.whatBuilds().first &&
+				   Unit supplyBuilder = u->getClosestUnit(GetType == supplyProviderType.whatBuilds().first &&
 					  (IsIdle || IsGatheringMinerals) &&
 					  IsOwned);
+				   supplyBuilderTemp = supplyBuilder;
 				  // If a unit was found
 				  if (supplyBuilder)
 				  {
@@ -211,7 +220,7 @@ void ExampleAIModule::onFrame()
   } // closure: unit iterator
 }
 
-void ExampleAIModule::createGateWay(Unit &u){
+void ExampleAIModule::createGateWay(Unit u){
 	// if our worker is idle
 	if ((Broodwar->self()->minerals() >= UnitTypes::Protoss_Gateway.mineralPrice())&&counterGateway<=2)
 	{

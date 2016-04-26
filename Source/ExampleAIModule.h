@@ -7,6 +7,7 @@ class ExampleAIModule : public BWAPI::AIModule
 {
 	bool pool;
 	int counterWorker,counterGateway;
+	BWAPI::Unit supplyBuilderTemp;
 	
 public:
   // Virtual functions for callbacks, leave these as they are.
@@ -29,6 +30,6 @@ public:
   virtual void onUnitComplete(BWAPI::Unit unit);
   // Everything below this line is safe to modify.
 
-  void createGateWay(BWAPI::Unit &u);
+  void createGateWay(BWAPI::Unit u);
 
 };
