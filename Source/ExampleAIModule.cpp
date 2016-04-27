@@ -217,11 +217,11 @@ void ExampleAIModule::onFrame()
 		}
 
 	} // closure: unit iterator
+	armyOrder->trainZealot();
 }
 
 void ExampleAIModule::createGateWay(Unit u){
 	// if our worker is idle
-	armyOrder->trainZealot();
 	if ((Broodwar->self()->minerals() >= UnitTypes::Protoss_Gateway.mineralPrice()) && counterGateway <= 2)
 	{
 		//find a location for gate way and construct it
