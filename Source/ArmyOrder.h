@@ -5,10 +5,6 @@ class ArmyOrder
 {
 
 private: 
-	//current game AIModule
-	BWAPI::AIModule* root;
-	//current GameWrapper::Broodwar
-	BWAPI::GameWrapper* Broodwar;
 	BWAPI::Player self;
 public:
 
