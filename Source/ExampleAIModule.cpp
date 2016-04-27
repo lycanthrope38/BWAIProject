@@ -1,4 +1,4 @@
-#include "ExampleAIModule.h"
+﻿#include "ExampleAIModule.h"
 #include <iostream>
 
 using namespace BWAPI;
@@ -50,13 +50,16 @@ void ExampleAIModule::onStart()
       Broodwar << "The matchup is " << Broodwar->self()->getRace() << " vs " << Broodwar->enemy()->getRace() << std::endl;
   }
 
+ 
+  // cái pool này để khi nào mình cần xây dựng pylon sau khi đã thực hiện xong các case trong switch, chứ không phụ thuộc vào việc không thể 
+  // tạo ra được woker như trong example , như vậy nó sẽ ảnh hưởng tới lúc chạy switch
   pool = false;
 
-  counterWorker = 0;
+  supplyCounter = 0;
 
   counterGateway = 0;
 
-  supplyBuilderTemp == NULL;
+  supplyBuilderTemp = NULL;
 
 
 }
@@ -76,7 +79,15 @@ void ExampleAIModule::onFrame()
 
   // Display the game frame rate as text in the upper left area of the screen
   Broodwar->drawTextScreen(200, 0,  "FPS: %d", Broodwar->getFPS() );
- Broodwar->drawTextScreen(200, 20, "Counter : %d ", counterGateway);
+  Broodwar->drawTextScreen(200, 20, "Counter : %d %d", supplyCounter,supplyTotalCounter);
+
+  //số woker
+  supplyCounter = Broodwar->self()->supplyUsed() / 2;
+  // tổng unit
+  supplyTotalCounter = Broodwar->self()->supplyTotal() / 2;
+
+  
+  
 
   // Return if the game is a replay or is paused
   if (Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self())
@@ -119,18 +130,43 @@ void ExampleAIModule::onFrame()
 	  if (u->getType().isWorker())
 	  {
 
-
-		  if (supplyBuilderTemp != NULL)
+		/*  if (supplyBuilderTemp != NULL)
 		  {
 			  createGateWay(supplyBuilderTemp);
+		  }*/
+
+		  //cái này để xây nhà theo thứ tự
+		  switch (supplyCounter-1)
+		  {
+		  case 8:
+			  Broodwar->sendText("case: 8 createPylon");
+			  createPylon(supplyBuilderTemp);
+			  break;
+		  case 10:
+			  Broodwar->sendText("case: 10 createGateWay");
+			  createGateWay(supplyBuilderTemp);
+			  break;
+		  case 11:
+			  Broodwar->sendText("case: 11 createAssimilator");
+			  createAssimilator(supplyBuilderTemp);
+			  break;
+		  case 13:
+			  Broodwar->sendText("case: 13 createCybernetics");
+			  createCybernetics(supplyBuilderTemp);
+			  break;
+		  case 15:
+			  Broodwar->sendText("case: 15 createGateWay");
+			  createGateWay(supplyBuilderTemp);
+			  pool = true;
+			  break;
+
 		  }
 		 
-
 		  if (u->isIdle())
 		  {
 			
 			
-			  Broodwar->sendText("isIdle" + u->isIdle());
+		//	  Broodwar->sendText("isIdle" + u->isIdle());
 
 
 			  // Order workers carrying a resource to return them to the center,
@@ -154,9 +190,16 @@ void ExampleAIModule::onFrame()
 	  }
 	  else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
 	  {
-
+		  if (supplyBuilderTemp == NULL){
+			  // Retrieve the supply provider type in the case that we have run out of supplies
+			  UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
+			  Unit supplyBuilder = u->getClosestUnit(GetType == supplyProviderType.whatBuilds().first &&
+				  (IsIdle || IsGatheringMinerals) &&
+				  IsOwned);
+			  supplyBuilderTemp = supplyBuilder;
+		  }
 		  // Order the depot to construct more workers! But only when it is idle.
-		  if (u->isIdle() && !u->train(u->getType().getRace().getWorker()))
+		  if (u->isIdle() && !u->train(u->getType().getRace().getWorker())&&pool)
 		  {
 			  // If that fails, draw the error at the location so that you can visibly see what went wrong!
 			  // However, drawing the error once will only appear for a single frame
@@ -218,22 +261,77 @@ void ExampleAIModule::onFrame()
 	  
 
   } // closure: unit iterator
+
 }
 
 void ExampleAIModule::createGateWay(Unit u){
 	// if our worker is idle
-	if ((Broodwar->self()->minerals() >= UnitTypes::Protoss_Gateway.mineralPrice())&&counterGateway<=2)
+	if ((Broodwar->self()->minerals() >= UnitTypes::Protoss_Gateway.mineralPrice()))
 	{
 		//find a location for gate way and construct it
 		TilePosition buildPosition = Broodwar->getBuildLocation(BWAPI::UnitTypes::Protoss_Gateway, u->getTilePosition());
 		if (u->build(UnitTypes::Protoss_Gateway, buildPosition)){
-			Broodwar->sendText("Protoss_Gateway" );
-			counterGateway += 1;
-			pool = true;
+			Broodwar->sendText("Protoss_Gateway");
+		}
+	}
+}
+
+void ExampleAIModule::createPylon(BWAPI::Unit u)
+{
+	if ((Broodwar->self()->minerals() >= UnitTypes::Protoss_Pylon.mineralPrice()))
+	{
+		//find a location for gate way and construct it
+		TilePosition buildPosition = Broodwar->getBuildLocation(BWAPI::UnitTypes::Protoss_Pylon, u->getTilePosition());
+		if (u->build(UnitTypes::Protoss_Pylon, buildPosition)){
+			Broodwar->sendText("Protoss_Pylon");
 		}
 
 	}
 }
+
+void ExampleAIModule::createCybernetics(BWAPI::Unit u)
+{
+	if ((Broodwar->self()->minerals() >= UnitTypes::Protoss_Cybernetics_Core.mineralPrice()))
+	{
+		//find a location for gate way and construct it
+		TilePosition buildPosition = Broodwar->getBuildLocation(BWAPI::UnitTypes::Protoss_Cybernetics_Core, u->getTilePosition());
+		if (u->build(UnitTypes::Protoss_Cybernetics_Core, buildPosition)){
+			Broodwar->sendText("Protoss_Cybernetics_Core");
+		}
+
+	}
+}
+
+void ExampleAIModule::createAssimilator(BWAPI::Unit u)
+{
+	if ((Broodwar->self()->minerals() >= UnitTypes::Protoss_Assimilator.mineralPrice()))
+	{
+		//find a location for gate way and construct it
+		TilePosition buildPosition = Broodwar->getBuildLocation(BWAPI::UnitTypes::Protoss_Assimilator, u->getTilePosition());
+		if (u->build(UnitTypes::Protoss_Assimilator, buildPosition)){
+			Broodwar->sendText("Protoss_Assimilator");
+		}
+
+	}
+}
+
+
+
+
+void ExampleAIModule::built(BWAPI::Unit u,UnitType unitType)
+{
+
+	if ((Broodwar->self()->minerals() >= unitType.mineralPrice()))
+	{
+		//find a location for gate way and construct it
+		TilePosition buildPosition = Broodwar->getBuildLocation(unitType, u->getTilePosition());
+		if (u->build(unitType, buildPosition)){
+			Broodwar->sendText("Protoss_Pylon");
+		}
+
+	}
+}
+
 
 void ExampleAIModule::onSendText(std::string text)
 {
