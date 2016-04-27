@@ -1,4 +1,5 @@
 ﻿#include "ExampleAIModule.h"
+#include "Collections.h"
 #include <iostream>
 
 using namespace BWAPI;
@@ -81,7 +82,8 @@ void ExampleAIModule::onFrame()
 	supplyCounter = Broodwar->self()->supplyUsed() / 2;
 	// tổng unit
 	supplyTotalCounter = Broodwar->self()->supplyTotal() / 2;
-
+	//so supply con lai
+	supplyAvailable = Broodwar->self()->supplyTotal() - Broodwar->self()->supplyUsed();
 
 
 
@@ -130,17 +132,23 @@ void ExampleAIModule::onFrame()
 			createGateWay(supplyBuilderTemp);
 			}*/
 
-			//cái này để xây nhà theo thứ tự
-			switch (supplyCounter - 1)
-			{
-			case 8:
-				Broodwar->sendText("case: 8 createPylon");
+			if (supplyAvailable < 5)
 				createPylon(supplyBuilderTemp);
-				break;
-			case 10:
+
+			if (supplyAvailable > 10 && Collections::getUnitVolume(Broodwar->self(), UnitTypes::Protoss_Gateway) < 2){
 				Broodwar->sendText("case: 10 createGateWay");
 				createGateWay(supplyBuilderTemp);
-				break;
+			}
+
+			//cái này để xây nhà theo thứ tự
+			//xay nhu the nay co the trong game se khong xay duoc 
+			// vi gia tri supplyCounter co the khong bac cac gia tri ben duoi
+			switch (supplyCounter - 1)
+			{
+				/*case 8:
+					Broodwar->sendText("case: 8 createPylon");
+					createPylon(supplyBuilderTemp);
+					break;*/
 			case 11:
 				Broodwar->sendText("case: 11 createAssimilator");
 				createAssimilator(supplyBuilderTemp);

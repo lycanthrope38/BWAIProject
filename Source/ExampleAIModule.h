@@ -6,7 +6,7 @@
 class ExampleAIModule : public BWAPI::AIModule
 {
 	bool pool;
-	int supplyCounter, supplyTotalCounter, counterGateway;
+	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;
 	BWAPI::Unit supplyBuilderTemp;
 	ArmyOrder* armyOrder;
 
