@@ -74,10 +74,14 @@ void ExampleAIModule::onFrame()
 {
 	// Called once every game frame
 
+	// Return if the game is a replay or is paused. Viết code ở bên dưới dòng này!
+	if (Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self())
+		return;
+
 	// Display the game frame rate as text in the upper left area of the screen
 	Broodwar->drawTextScreen(200, 0, "FPS: %d", Broodwar->getFPS());
-	Broodwar->drawTextScreen(200, 20, "Counter : %d %d", supplyCounter, supplyTotalCounter);
-
+	//Broodwar->drawTextScreen(200, 20, "Counter : %d %d", supplyCounter, supplyTotalCounter);
+	Broodwar->drawTextScreen(200, 20, "FPS Counter : %d", Broodwar->getFrameCount());
 	//số woker
 	supplyCounter = Broodwar->self()->supplyUsed() / 2;
 	// tổng unit
@@ -87,20 +91,16 @@ void ExampleAIModule::onFrame()
 
 
 
-	// Return if the game is a replay or is paused
-	if (Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self())
-		return;
-
 	// Prevent spamming by only running our onFrame once every number of latency frames.
 	// Latency frames are the number of frames before commands are processed.
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
 		return;
 
-
 	//cứ 13 frame sẽ xét hàm mua lính một lần để tránh lag
 	if (Broodwar->getFrameCount() % 13 == 0){
 		armyOrder->trainZealot();
 	}
+
 	//cứ 7 frame sẽ xét việc xây nhà một lần để tránh lag
 	if (Broodwar->getFrameCount() % 7 == 0){
 
