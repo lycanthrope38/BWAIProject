@@ -90,10 +90,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\ArmyOrder.cpp" />
+    <ClCompile Include="Source\Collections.cpp" />
     <ClCompile Include="Source\Dll.cpp" />
     <ClCompile Include="Source\ExampleAIModule.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\ArmyOrder.h" />
+    <ClInclude Include="Source\Collections.h" />
     <ClInclude Include="Source\ExampleAIModule.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
