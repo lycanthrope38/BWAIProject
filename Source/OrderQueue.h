@@ -14,7 +14,7 @@ private:
 	std::vector<OrderType> queue;
 public:
 	
-	//high thì order sẽ được chèn vào giữa hàng đợi
+	//high thì order sẽ được chèn vào đầu hàng đợi
 	const int PRIORITY_HIGH = 0;
 	//normal thì order sẽ được chèn vào cuối hàng đợi
 	const int PRIORITY_NORMAL = 1;
