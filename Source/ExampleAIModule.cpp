@@ -78,6 +78,11 @@ void ExampleAIModule::onFrame()
 	if (Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self())
 		return;
 
+	// Prevent spamming by only running our onFrame once every number of latency frames.
+	// Latency frames are the number of frames before commands are processed.
+	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
+		return;
+
 	// Display the game frame rate as text in the upper left area of the screen
 	Broodwar->drawTextScreen(200, 0, "FPS: %d", Broodwar->getFPS());
 	//Broodwar->drawTextScreen(200, 20, "Counter : %d %d", supplyCounter, supplyTotalCounter);
@@ -91,13 +96,8 @@ void ExampleAIModule::onFrame()
 
 
 
-	// Prevent spamming by only running our onFrame once every number of latency frames.
-	// Latency frames are the number of frames before commands are processed.
-	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
-		return;
-
 	//cứ 13 frame sẽ xét hàm mua lính một lần để tránh lag
-	if (Broodwar->getFrameCount() % 13 == 0){
+	if (Broodwar->getFrameCount() % 17 == 0){
 		armyOrder->trainZealot();
 	}
 
@@ -151,27 +151,44 @@ void ExampleAIModule::onFrame()
 				//cái này để xây nhà theo thứ tự
 				//xay nhu the nay co the trong game se khong xay duoc 
 				// vi gia tri supplyCounter co the khong bac cac gia tri ben duoi
-				switch (supplyCounter - 1)
-				{
-					/*case 8:
-					Broodwar->sendText("case: 8 createPylon");
-					createPylon(supplyBuilderTemp);
-					break;*/
-				case 11:
-					//Broodwar->sendText("case: 11 createAssimilator");
-					createAssimilator(supplyBuilderTemp);
-					break;
-				case 13:
-					//Broodwar->sendText("case: 13 createCybernetics");
-					createCybernetics(supplyBuilderTemp);
-					break;
-				case 15:
-					//Broodwar->sendText("case: 15 createGateWay");
-					createGateWay(supplyBuilderTemp);
-					pool = true;
-					break;
+				// 
 
-				}
+				/*if (supplyCounter > 11){
+					if (Collections::getUnitVolume(Broodwar->self(), UnitTypes::Protoss_Assimilator))
+					createAssimilator(supplyBuilderTemp);
+					}*/
+				if (supplyCounter > 13)
+					if (Collections::getUnitVolume(Broodwar->self(), UnitTypes::Protoss_Cybernetics_Core))
+					{
+						createCybernetics(supplyBuilderTemp);
+					}
+				/*if (supplyCounter > 15)
+					if (Collections::getUnitVolume(Broodwar->self(), UnitTypes::Protoss_Cybernetics_Core))
+					{
+					createCybernetics(supplyBuilderTemp);
+					}*/
+
+				//switch (supplyCounter - 1)
+				//{
+				//	/*case 8:
+				//	Broodwar->sendText("case: 8 createPylon");
+				//	createPylon(supplyBuilderTemp);
+				//	break;*/
+				////case 11:
+				////	//Broodwar->sendText("case: 11 createAssimilator");
+				////	createAssimilator(supplyBuilderTemp);
+				////	break;
+				//case 13:
+				//	//Broodwar->sendText("case: 13 createCybernetics");
+				//	createCybernetics(supplyBuilderTemp);
+				//	break;
+				//case 15:
+				//	//Broodwar->sendText("case: 15 createGateWay");
+				//	createGateWay(supplyBuilderTemp);
+				//	pool = true;
+				//	break;
+
+				//}
 
 				if (u->isIdle())
 				{
@@ -297,15 +314,15 @@ void ExampleAIModule::createPylon(BWAPI::Unit u)
 		//find a location for gate way and construct it
 		TilePosition buildPosition = Broodwar->getBuildLocation(BWAPI::UnitTypes::Protoss_Pylon, u->getTilePosition());
 		if (u->build(UnitTypes::Protoss_Pylon, buildPosition)){
-			Broodwar->sendText("Protoss_Pylon");
-		}
-
+			//Broodwar->sendText("Protoss_Pylon");
+		}else Broodwar->sendText("Can't build Protos_Pylon");
 	}
 }
 
 void ExampleAIModule::createCybernetics(BWAPI::Unit u)
 {
 	if ((Broodwar->self()->minerals() >= UnitTypes::Protoss_Cybernetics_Core.mineralPrice()))
+		if (Collections::getUnitVolume(Broodwar->self(),UnitTypes::Protoss_Cybernetics_Core)<1)
 	{
 		//find a location for gate way and construct it
 		TilePosition buildPosition = Broodwar->getBuildLocation(BWAPI::UnitTypes::Protoss_Cybernetics_Core, u->getTilePosition());
