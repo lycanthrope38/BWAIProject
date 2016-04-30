@@ -80,15 +80,16 @@ bool OrderQueue::build(BWAPI::UnitType* buildingType){
 
 //xử lí các yêu cầu mua quân lính
 bool OrderQueue::train(BWAPI::UnitType* forceType){
-	//nếu train được thì return true
-
+	//nếu train được thì return true và xóa phần tử đầu tiên trong hàng đợi
+	//this->queue.erase(queue.begin());
 
 	return false;
 }
 
 //xử lý các yêu cầu nâng cấp
 bool OrderQueue::upgrade(BWAPI::UpgradeType* upgradeType){
-	//nếu upgrade được thì return true;
+	//nếu upgrade được thì return true và xóa phần tử đầu tiên trong hàng đợi
+	//this->queue.erase(queue.begin());
 
 	return false;
 }
