@@ -19,7 +19,7 @@ std::vector<Unit> ArmyOrder::getGatewayList(){
 	return result;
 }
 
-void ArmyOrder::trainZealot(){
+bool ArmyOrder::trainZealot(){
 	std::vector<Unit> gatewayList = getGatewayList();
 	if (gatewayList.size() == 0)
 		return;

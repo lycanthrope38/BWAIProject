@@ -9,7 +9,7 @@ private:
 public:
 
 	//by anh
-	void trainZealot();
+	bool trainZealot();
 	std::vector<BWAPI::Unit> getGatewayList();
 	ArmyOrder(BWAPI::Player self);
 	~ArmyOrder();

@@ -7,7 +7,7 @@
 #include <BWAPI.h>
 #include "OrderType.h"3
 
-class OrderQueue
+class OrderQueue : ArmyOrder
 {
 private:
 	//hàng đợi thực thi các lệnh như xây nhà và mua lính
