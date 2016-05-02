@@ -22,14 +22,14 @@ std::vector<Unit> ArmyOrder::getGatewayList(){
 bool ArmyOrder::trainZealot(){
 	std::vector<Unit> gatewayList = getGatewayList();
 	if (gatewayList.size() == 0)
-		return;
+		return false;
 	Broodwar->sendText(std::to_string(gatewayList.size()).c_str());
 	//trường hợp lúc đầu ít tiền thì chọn cái nào đang rảnh rỗi để train lính
 	for (Unit u:gatewayList){
 		if (!(u->isTraining()))
 			if (self->minerals() >= 100){
-				u->train(UnitTypes::Protoss_Zealot);
-				return;
+				return u->train(UnitTypes::Protoss_Zealot);
+				
 			}
 	}
 	for (Unit u : gatewayList)
@@ -37,6 +37,18 @@ bool ArmyOrder::trainZealot(){
 			u->train(UnitTypes::Protoss_Zealot);
 		}
 		
+}
+
+bool train(BWAPI::Unit parentUnit, BWAPI::UnitType typeOfUnit){
+	return parentUnit->train(typeOfUnit);
+}
+
+bool ArmyOrder::train(BWAPI::Unit parentUnit, BWAPI::UnitType typeOfUnit, int unitVolume){
+	parentUnit->train(typeOfUnit);		
+}
+
+bool ArmyOrder::train(std::vector<BWAPI::Unit> parentUnits, BWAPI::UnitType typeOfUnit, int unitVolume){
+
 }
 
 ArmyOrder::~ArmyOrder()

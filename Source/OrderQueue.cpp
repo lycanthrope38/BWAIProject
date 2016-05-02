@@ -5,11 +5,7 @@
 **/
 #include "OrderQueue.h"
 #include "ArmyOrder.h"
-
-using namespace std;
-OrderQueue::OrderQueue()
-{
-}
+#include <BWAPI.h>
 
 //hàm thực thi order
 bool OrderQueue::excutive(){
@@ -83,6 +79,7 @@ bool OrderQueue::build(BWAPI::UnitType* buildingType){
 bool OrderQueue::train(BWAPI::UnitType* forceType){
 	//nếu train được thì return true và xóa phần tử đầu tiên trong hàng đợi
 	//this->queue.erase(queue.begin());
+	forceType->whatBuilds();
 	bool result = trainZealot();
 	if (result)
 		queue.erase(queue.begin());

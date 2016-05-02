@@ -5,9 +5,10 @@
  *Nếu trong tình trạng khẩn cấp thì mới dùng PRIORITY_HIGH
  **/
 #include <BWAPI.h>
-#include "OrderType.h"3
+#include "OrderType.h"
+#include "ArmyOrder.h"
 
-class OrderQueue : ArmyOrder
+class OrderQueue : public ArmyOrder
 {
 private:
 	//hàng đợi thực thi các lệnh như xây nhà và mua lính
