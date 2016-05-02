@@ -4,11 +4,8 @@
 *Nếu trong tình trạng khẩn cấp thì mới dùng PRIORITY_HIGH
 **/
 #include "OrderQueue.h"
-
-using namespace std;
-OrderQueue::OrderQueue()
-{
-}
+#include "ArmyOrder.h"
+#include <BWAPI.h>
 
 //hàm thực thi order
 bool OrderQueue::excutive(){
@@ -82,8 +79,11 @@ bool OrderQueue::build(BWAPI::UnitType* buildingType){
 bool OrderQueue::train(BWAPI::UnitType* forceType){
 	//nếu train được thì return true và xóa phần tử đầu tiên trong hàng đợi
 	//this->queue.erase(queue.begin());
-
-	return false;
+	forceType->whatBuilds();
+	bool result = trainZealot();
+	if (result)
+		queue.erase(queue.begin());
+	return result;
 }
 
 //xử lý các yêu cầu nâng cấp
