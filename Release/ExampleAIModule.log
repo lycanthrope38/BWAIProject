@@ -1,21 +1,23 @@
-﻿Build started 5/2/2016 4:46:21 PM.
-     1>Project "D:\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 5/3/2016 10:27:13 PM.
+     1>Project "D:\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I../include /Zi /nologo /W3 /WX- /MP /O2 /Oi /Oy- /GL /D NOMINMAX /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\ArmyOrder.cpp Source\Collections.cpp Source\Dll.cpp Source\ExampleAIModule.cpp Source\OrderQueue.cpp Source\OrderType.cpp
-         ArmyOrder.cpp
-         Collections.cpp
-         Dll.cpp
-         ExampleAIModule.cpp
-     1>Source\ArmyOrder.cpp(25): error C2561: 'ArmyOrder::trainZealot' : function must return a value
-                 d:\bwapi\exampleaimodule\source\ArmyOrder.h(12) : see declaration of 'ArmyOrder::trainZealot'
-     1>Source\ArmyOrder.cpp(32): error C2561: 'ArmyOrder::trainZealot' : function must return a value
-                 d:\bwapi\exampleaimodule\source\ArmyOrder.h(12) : see declaration of 'ArmyOrder::trainZealot'
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I../include /Zi /nologo /W3 /WX- /MP /O2 /Oi /Oy- /GL /D NOMINMAX /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\OrderQueue.cpp
          OrderQueue.cpp
-         OrderType.cpp
-     1>Source\OrderQueue.cpp(11): error C2512: 'ArmyOrder' : no appropriate default constructor available
-     1>Source\OrderQueue.cpp(63): warning C4018: '<' : signed/unsigned mismatch
-     1>Done Building Project "D:\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (Rebuild target(s)) -- FAILED.
+     1>Source\OrderQueue.cpp(14): warning C4101: 'result' : unreferenced local variable
+     1>Source\OrderQueue.cpp(87): warning C4018: '<' : signed/unsigned mismatch
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\BWAPI\Release\ExampleAIModule.dll" /INCREMENTAL:NO /NOLOGO ../lib/BWAPI.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\BWAPI\Release\ExampleAIModule.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Release\ExampleAIModule.lib" /MACHINE:X86 /SAFESEH /DLL Release\ArmyOrder.obj
+         Release\Collections.obj
+         Release\Dll.obj
+         Release\ExampleAIModule.obj
+         Release\OrderQueue.obj
+         Release\OrderType.obj
+            Creating library Release\ExampleAIModule.lib and object Release\ExampleAIModule.exp
+         Generating code
+         Finished generating code
+         ExampleAIModule.vcxproj -> D:\BWAPI\Release\ExampleAIModule.dll
+     1>Done Building Project "D:\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:03.55
+Time Elapsed 00:00:11.72

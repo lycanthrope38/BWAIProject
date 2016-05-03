@@ -2,26 +2,27 @@
 #include "OrderType.h"
 #include "BWAPI.h"
 
-//trả về UnitType nếu là UnitType
-OrderType::OrderType(BWAPI::UnitType unitType, int frame){
-	this->unit = unit;
-	this->isUnitType = true;
-	this->frame = frame; 
-};
-
-//trả về UnitType nếu là UnitType
+//dành cho việc order nhà
 OrderType::OrderType(BWAPI::UnitType unitType){
-	this->unit = unit;
+	this->unit = unitType;
 	this->isUnitType = true;
+	this->failed = 0;
 };
-
-//trả về OrderType nếu là OrderType
+//dành cho việc order lính
+OrderType::OrderType(BWAPI::UnitType unitType, BWAPI::UnitType parentUnit, int vol){
+	this->unit = unitType;
+	this->isUnitType = true;
+	this->failed = 0;
+	this->volume = vol;
+	this->parent = parentUnit;
+};
+//dành cho việc order upgrade
 OrderType::OrderType(BWAPI::UpgradeType upgradeType){
 	this->upgrade = upgradeType;
 	this->isUnitType = false;
+	this->failed = 0;
 };
 
 OrderType::~OrderType()
 {
-
 }

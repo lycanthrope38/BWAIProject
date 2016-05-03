@@ -1,18 +1,17 @@
 #pragma once
 #include <BWAPI.h>
-#include <map>
-
 #include "ArmyOrder.h"
+#include "OrderQueue.h"
 
 // Remember not to use "Broodwar" in any global class constructor!
 
 class ExampleAIModule : public BWAPI::AIModule
 {
 	bool pool;
-
 	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;
 	BWAPI::Unit supplyBuilderTemp;
 	ArmyOrder* armyOrder;
+	OrderQueue mainOrderQueue;
 
 public:
 	// Virtual functions for callbacks, leave these as they are.
@@ -35,13 +34,4 @@ public:
 	virtual void onUnitComplete(BWAPI::Unit unit);
 	// Everything below this line is safe to modify.
 
-	void createGateWay(BWAPI::Unit u);
-	void createPylon(BWAPI::Unit u);
-	void createAssimulator(BWAPI::Unit u);
-	void createCubemetics(BWAPI::Unit u);
-	void createAssimilator(BWAPI::Unit u);
-	void createCybernetics(BWAPI::Unit u);
-	void built(BWAPI::Unit u, BWAPI::UnitType unitType);
-
 };
-
