@@ -34,13 +34,4 @@ public:
 	virtual void onUnitComplete(BWAPI::Unit unit);
 	// Everything below this line is safe to modify.
 
-	void createGateWay(BWAPI::Unit u);
-	void createPylon(BWAPI::Unit u);
-	void createAssimulator(BWAPI::Unit u);
-	void createCubemetics(BWAPI::Unit u);
-	void createAssimilator(BWAPI::Unit u);
-	void createCybernetics(BWAPI::Unit u);
-	void built(BWAPI::Unit u, BWAPI::UnitType unitType);
-
-	//void find
 };
