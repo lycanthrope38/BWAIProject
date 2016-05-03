@@ -59,6 +59,9 @@ void ExampleAIModule::onStart()
 
 	armyOrder = new ArmyOrder(Broodwar->self());
 
+	mainOrderQueue = OrderQueue();
+	//test đẩy 20 Zealot vào hàng đợi
+	mainOrderQueue.push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 20, OrderQueue::PRIORITY_NORMAL);
 }
 
 void ExampleAIModule::onEnd(bool isWinner)
@@ -98,7 +101,8 @@ void ExampleAIModule::onFrame()
 
 	//cứ 13 frame sẽ xét hàm mua lính một lần để tránh lag
 	if (Broodwar->getFrameCount() % 17 == 0){
-		armyOrder->trainZealot();
+		//armyOrder->trainZealot();
+		mainOrderQueue.execute();
 	}
 
 	//cứ 7 frame sẽ xét việc xây nhà một lần để tránh lag

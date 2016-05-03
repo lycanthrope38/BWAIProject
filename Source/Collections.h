@@ -10,7 +10,7 @@ public:
 	static std::vector<BWAPI::Unit> getUnitList(BWAPI::Player self, BWAPI::UnitType unitName){
 		std::vector<BWAPI::Unit> result;
 		for (BWAPI::Unit u : self->getUnits()){
-			if (u->getType() == BWAPI::UnitTypes::Protoss_Gateway)
+			if (u->getType().getName() == unitName.getName())
 				result.push_back(u);
 		}
 		return result;
@@ -19,7 +19,7 @@ public:
 	static int getUnitVolume(BWAPI::Player self, BWAPI::UnitType unitName){
 		int result = 0;
 		for (BWAPI::Unit u : self->getUnits()){
-			if (u->getType() == BWAPI::UnitTypes::Protoss_Gateway)
+			if (u->getType().getName() == unitName.getName())
 				result++;
 		}
 		return result;
