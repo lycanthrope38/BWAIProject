@@ -1,6 +1,8 @@
 #pragma once
 #include <BWAPI.h>
 #include "ArmyOrder.h"
+#include "OrderQueue.h"
+
 // Remember not to use "Broodwar" in any global class constructor!
 
 class ExampleAIModule : public BWAPI::AIModule
@@ -9,6 +11,7 @@ class ExampleAIModule : public BWAPI::AIModule
 	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;
 	BWAPI::Unit supplyBuilderTemp;
 	ArmyOrder* armyOrder;
+	OrderQueue mainOrderQueue;
 
 public:
 	// Virtual functions for callbacks, leave these as they are.

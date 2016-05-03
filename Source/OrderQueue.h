@@ -16,26 +16,28 @@ private:
 public:
 	
 	//high thì order sẽ được chèn vào đầu hàng đợi
-	const int PRIORITY_HIGH = 0;
+	static const int PRIORITY_HIGH = 0;
 	//normal thì order sẽ được chèn vào cuối hàng đợi
-	const int PRIORITY_NORMAL = 1;
+	static const int PRIORITY_NORMAL = 1;
 
 	OrderQueue();
 	//hàm thực thi order
-	bool excutive();
-	//hàm đẩy order vào hàng đợi. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
-	bool push(BWAPI::UnitType* unitType, int priority);
+	bool execute();
+	//hàm đẩy order nhà vào hàng đợi. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
+	bool push(BWAPI::UnitType unitType, int priority);
+	//hàm đẩy order lính vào hàng đợi. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
+	bool push(BWAPI::UnitType unitType, BWAPI::UnitType parentUnit,int volume, int priority);
 	//hàm đẩy upgrade vào hàng đợi. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
-	bool push(BWAPI::UpgradeType* unitType, int priority);
+	bool push(BWAPI::UpgradeType unitType, int priority);
 	//hủy yêu cầu
 	bool cancel(int queueIndex);
 	//lấy số phần tử đang được chờ thực thi
 	int getSize();
 	//xử lý các yêu cầu xây dựng
-	bool build(BWAPI::UnitType* buildingType);
+	bool build(BWAPI::UnitType buildingType);
 	//xử lí các yêu cầu mua quân lính
-	bool train(BWAPI::UnitType* forceType);
+	bool training();
 	//xử lý các yêu cầu nâng cấp
-	bool upgrade(BWAPI::UpgradeType* upgradeType);
+	bool upgrade(BWAPI::UpgradeType upgradeType);
 	~OrderQueue();
 };
