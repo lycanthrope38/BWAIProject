@@ -22,14 +22,16 @@ InformationManager::InformationManager(BWAPI::Unit unit)
 	
 }
 
-//phân tích và lưu thông tin tình hình xung quanh một Unit
+// Phân tích và lưu thông tin tình hình xung quanh một Unit
+// Nên hạn chế dùng thường xuyên vì số lượng unit lớn có thể gây lag
 void InformationManager::updateMapAll(){
 	updateMapSelf();
 	updateMapEnemy();
 };
 
 
-//cập nhật lại bản đồ bên mình
+// Cập nhật lại bản đồ bên mình
+// Nên hạn chế dùng thường xuyên vì số lượng unit lớn có thể gây lag
 void InformationManager::updateMapSelf(){
 	BWAPI::Position tmpPos;
 	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
@@ -46,7 +48,8 @@ void InformationManager::updateMapSelf(){
 	}
 }
 
-//cập nhật lại bản đồ bên địch
+// Cập nhật lại bản đồ bên địch
+// Nên hạn chế dùng thường xuyên vì số lượng unit lớn có thể gây lag
 void InformationManager::updateMapEnemy(){
 	BWAPI::Position tmpPos;
 	for (BWAPI::Unit u : BWAPI::Broodwar->enemies ().getUnits()){

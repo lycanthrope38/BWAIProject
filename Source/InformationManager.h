@@ -32,14 +32,16 @@ public:
 	//Truyền một unit ở ban đầu game để khởi tạo
 	InformationManager(BWAPI::Unit u);
 
-	//Cập nhật lại toàn bộ thông tin trên bản đồ cả bên mình lẫn địch. 
-	// Nên hạn chế dùng thường xuyên vì tính toán nhiều nên sẽ gây lag
+	// Cập nhật lại toàn bộ thông tin trên bản đồ cả bên mình lẫn địch. 
+	// Nên hạn chế dùng thường xuyên vì số lượng unit lớn có thể gây lag
 	void updateMapAll();
 
-	//cập nhật lại bản đồ bên mình
+	// Cập nhật lại bản đồ bên mình
+	// Nên hạn chế dùng thường xuyên vì số lượng unit lớn có thể gây lag
 	void updateMapSelf();
 
-	//cập nhật lại bản đồ bên địch
+	// Cập nhật lại bản đồ bên địch
+	// Nên hạn chế dùng thường xuyên vì số lượng unit lớn có thể gây lag
 	void updateMapEnemy();
 
 	//đánh dấu tạm thời vị trí địch trên bản đồ. Dùng các const FLAG_* để đánh dấu
