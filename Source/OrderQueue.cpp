@@ -125,7 +125,6 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 	return false;
 }
 
-
 //xử lí các yêu cầu mua quân lính
 bool OrderQueue::training(){
 	//nếu train được thì return true và xóa phần tử đầu tiên trong hàng đợi
