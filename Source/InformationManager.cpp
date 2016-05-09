@@ -17,9 +17,7 @@ InformationManager::InformationManager(BWAPI::Unit unit)
 	BWAPI::Position tmpPos;
 	//set base position
 	basePosition = unit->getPosition();
-	//put my Unit to mapInfor
-	
-	
+	//put my Unit to mapInfor	
 }
 
 // Phân tích và lưu thông tin tình hình xung quanh một Unit
