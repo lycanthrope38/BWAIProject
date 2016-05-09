@@ -71,6 +71,9 @@ public:
 	//lấy danh sách các tọa độ địch trong bán kính 1 màn hình game
 	std::vector<BWAPI::Position> getNearestEnemyPosition(BWAPI::TilePosition inputPosition);
 
+	//lấy vị trí nhà địch
+	BWAPI::Position getEnemyBasePosition();
+
 	//lấy số lượng lính địch đã phát hiện
 	int getEnemyTroopVolume();
 

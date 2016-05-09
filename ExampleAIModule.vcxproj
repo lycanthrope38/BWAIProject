@@ -91,18 +91,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\ArmyOrder.cpp" />
+    <ClCompile Include="Source\BattleCommander.cpp" />
+    <ClCompile Include="Source\BattleField.cpp" />
+    <ClCompile Include="Source\BattleSquad.cpp" />
     <ClCompile Include="Source\Collections.cpp" />
     <ClCompile Include="Source\Dll.cpp" />
     <ClCompile Include="Source\ExampleAIModule.cpp" />
     <ClCompile Include="Source\InformationManager.cpp" />
+    <ClCompile Include="Source\LordCommander.cpp" />
     <ClCompile Include="Source\OrderQueue.cpp" />
     <ClCompile Include="Source\OrderType.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ArmyOrder.h" />
+    <ClInclude Include="Source\BattleCommander.h" />
+    <ClInclude Include="Source\BattleField.h" />
+    <ClInclude Include="Source\BattleSquad.h" />
     <ClInclude Include="Source\Collections.h" />
     <ClInclude Include="Source\ExampleAIModule.h" />
     <ClInclude Include="Source\InformationManager.h" />
+    <ClInclude Include="Source\LordCommander.h" />
     <ClInclude Include="Source\OrderQueue.h" />
     <ClInclude Include="Source\OrderType.h" />
   </ItemGroup>
