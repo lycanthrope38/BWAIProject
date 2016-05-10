@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Source\ArmyOrder.cpp" />
+    <ClCompile Include="Source\Collections.cpp" />
+    <ClCompile Include="Source\Dll.cpp" />
+    <ClCompile Include="Source\ExampleAIModule.cpp" />
+    <ClCompile Include="Source\scoutMananger.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\ArmyOrder.h" />
+    <ClInclude Include="Source\Collections.h" />
+    <ClInclude Include="Source\ExampleAIModule.h" />
+    <ClInclude Include="Source\scoutManager.h" />
+  </ItemGroup>
+</Project>

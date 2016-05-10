@@ -1,5 +1,6 @@
 ﻿#include "ExampleAIModule.h"
 #include "Collections.h"
+#include "scoutManager.h"
 #include <iostream>
 
 using namespace BWAPI;
@@ -59,6 +60,7 @@ void ExampleAIModule::onStart()
 
 	armyOrder = new ArmyOrder(Broodwar->self());
 
+
 }
 
 void ExampleAIModule::onEnd(bool isWinner)
@@ -72,6 +74,7 @@ void ExampleAIModule::onEnd(bool isWinner)
 
 void ExampleAIModule::onFrame()
 {
+	static scoutManager scoutInstance;
 	// Called once every game frame
 
 	// Return if the game is a replay or is paused. Viết code ở bên dưới dòng này!
@@ -82,14 +85,12 @@ void ExampleAIModule::onFrame()
 	Broodwar->drawTextScreen(200, 0, "FPS: %d", Broodwar->getFPS());
 	//Broodwar->drawTextScreen(200, 20, "Counter : %d %d", supplyCounter, supplyTotalCounter);
 	Broodwar->drawTextScreen(200, 20, "FPS Counter : %d", Broodwar->getFrameCount());
-	//số woker
+
 	supplyCounter = Broodwar->self()->supplyUsed() / 2;
 	// tổng unit
 	supplyTotalCounter = Broodwar->self()->supplyTotal() / 2;
 	//so supply con lai
 	supplyAvailable = Broodwar->self()->supplyTotal() - Broodwar->self()->supplyUsed();
-
-
 
 	// Prevent spamming by only running our onFrame once every number of latency frames.
 	// Latency frames are the number of frames before commands are processed.
@@ -124,7 +125,7 @@ void ExampleAIModule::onFrame()
 			if (!u->isCompleted() || u->isConstructing())
 				continue;
 
-
+			if (scoutInstance.isScout(u)) continue; // nếu con này là scout thì bỏ qua , nhưng sai ở đây
 			// Finally make the unit do some stuff!
 
 			/* if ((u->getType() == UnitTypes::Protoss_Gateway) && Broodwar->self()->minerals() >= UnitTypes::Pro.mineralPrice())
@@ -201,6 +202,8 @@ void ExampleAIModule::onFrame()
 			}
 			else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
 			{
+				if(!scoutInstance.returnScout() && Broodwar->getFrameCount() <= 1000) scoutInstance.onUnitCreate();// designate scout
+				scoutInstance.moveScout();
 				if (supplyBuilderTemp == NULL){
 					// Retrieve the supply provider type in the case that we have run out of supplies
 					UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
