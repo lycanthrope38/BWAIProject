@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <BWAPI.h>
 #include "OrderType.h"
 #include "Collections.h"
@@ -7,7 +7,7 @@ using namespace std;
 class ArmyOrder
 {
 
-private: 
+private:
 	BWAPI::Player self;
 public:
 
@@ -25,4 +25,3 @@ public:
 	ArmyOrder(BWAPI::Player self);
 	~ArmyOrder();
 };
-

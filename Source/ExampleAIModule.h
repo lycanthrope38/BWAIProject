@@ -1,9 +1,15 @@
 #pragma once
 #include <BWAPI.h>
+#include <BWTA.h>
+#include <Windows.h>
 #include "ArmyOrder.h"
 #include "OrderQueue.h"
+#include "ScoutManager.h"
+
 
 // Remember not to use "Broodwar" in any global class constructor!
+
+DWORD WINAPI AnalyzeThread();
 
 class ExampleAIModule : public BWAPI::AIModule
 {
@@ -12,6 +18,7 @@ class ExampleAIModule : public BWAPI::AIModule
 	BWAPI::Unit supplyBuilderTemp;
 	ArmyOrder* armyOrder;
 	OrderQueue mainOrderQueue;
+	ScoutManager scoutManager;
 
 public:
 	// Virtual functions for callbacks, leave these as they are.
@@ -34,4 +41,5 @@ public:
 	virtual void onUnitComplete(BWAPI::Unit unit);
 	// Everything below this line is safe to modify.
 
+	void drawTerrainData();
 };
