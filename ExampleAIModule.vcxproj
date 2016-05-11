@@ -61,7 +61,7 @@
       <SubSystem>Windows</SubSystem>
       <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>../lib/BWAPId.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -86,7 +86,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>../lib/BWAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -101,6 +101,7 @@
     <ClCompile Include="Source\LordCommander.cpp" />
     <ClCompile Include="Source\OrderQueue.cpp" />
     <ClCompile Include="Source\OrderType.cpp" />
+    <ClCompile Include="Source\ScoutManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ArmyOrder.h" />
@@ -113,6 +114,7 @@
     <ClInclude Include="Source\LordCommander.h" />
     <ClInclude Include="Source\OrderQueue.h" />
     <ClInclude Include="Source\OrderType.h" />
+    <ClInclude Include="Source\ScoutManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
