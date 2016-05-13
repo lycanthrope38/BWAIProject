@@ -139,7 +139,7 @@ BWAPI::Position ScoutManager::getEnemyBase()
 	{
 		return BWAPI::Position(0, 0);
 	}
-
+	
 	//refineries are not properly removed from the set of buildings when destroyed
 	//if we find a position of a neutral geyser in the set of enemy bases, then remove it
 	for (auto geyser : BWAPI::Broodwar->getGeysers())
