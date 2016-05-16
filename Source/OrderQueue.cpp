@@ -5,6 +5,8 @@
 **/
 #include "OrderQueue.h"
 #include "ArmyOrder.h"
+#include "BuidingManager.h"
+
 #include <BWAPI.h>
 
 OrderQueue::OrderQueue() :ArmyOrder(BWAPI::Broodwar->self()){
@@ -22,6 +24,8 @@ bool OrderQueue::execute(){
 
 			//truyền vào this->queue.at(0) sai
 			BWAPI::UnitType unitType = this->queue.at(0).getUnit();
+
+			BWAPI::Broodwar->printf("Building name unit type '%s'", unitType.getName().c_str());
 			return build(unitType);
 
 		}
@@ -78,7 +82,12 @@ bool OrderQueue::push(BWAPI::UpgradeType upgradeType, int priority){
 		return false;
 	}
 }
-//hủy yêu cầu
+bool OrderQueue::pushBaseOnWorker(BWAPI::UnitType unitType, int worker)
+{
+	this->queue.insert(queue.begin(),OrderType(unitType,worker));
+}
+
+//hủy yêu cầu	
 bool OrderQueue::cancel(int queueIndex){
 	if (queueIndex < queue.size()){
 		this->queue.erase(queue.begin() + queueIndex);
@@ -96,10 +105,10 @@ int OrderQueue::getSize(){
 
 //xử lý các yêu cầu xây dựng
 bool OrderQueue::build(BWAPI::UnitType buildingType){
+	
 	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
 		if (u->getType().isWorker()){
-			//BWAPI::UnitType buildingType = BWAPI::UnitTypes::Protoss_Gateway;
-			BWAPI::Broodwar->sendText("Building");
+
 			BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
 			if (targetBuildLocation)
 			{
@@ -120,7 +129,26 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 					return true;
 				}
 			}
+			
+
+			/*BuidingManager manager = BuidingManager();
+			if (manager.createBuilding(u, buildingType))
+			{
+				BWAPI::Broodwar->sendText("Building success");
+				queue.erase(queue.begin());
+				return true;
+			}*/
+		
+			break;
+			
 		}
+	}
+	queue.at(0).failed++;
+	if (queue.at(0).failed > 2){
+		queue.at(0).failed = 0;
+		OrderType tmp = OrderType(queue.at(0));
+		queue.erase(queue.begin());
+		queue.push_back(tmp);
 	}
 	return false;
 }
