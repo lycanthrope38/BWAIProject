@@ -33,6 +33,14 @@ OrderType::OrderType(BWAPI::UpgradeType upgradeType){
 	this->failed = 0;
 };
 
+//xây nhà theo số dân
+OrderType::OrderType(BWAPI::UnitType unitType, int worker)
+{
+	this->unit = unitType;
+	this->countWorker = worker;
+}
+
+
 OrderType::~OrderType()
 {
 }
