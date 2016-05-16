@@ -1,2 +1,10 @@
 #TargetFrameworkVersion=v4.0:PlatformToolSet=v120:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit
+<<<<<<< HEAD
 Release|Win32|F:\ProgramFiles\BWAPI\|
+=======
+<<<<<<< HEAD
+Release|Win32|E:\SCAIBot\Libraries\BWAPI\BWAIProject\|
+=======
+Release|Win32|D:\BWAPI\|
+>>>>>>> master
+>>>>>>> 81e4c1bd4782db1835332aa56189226763c2e682

@@ -6,7 +6,7 @@ BattleSquad::BattleSquad()
 }
 
 
-void BattleSquad::addUnit(BWAPI::Unit* u){
+void BattleSquad::addUnit(BWAPI::Unit u){
 	squad.insert(u);
 	freeSquad.insert(u);
 }
@@ -16,7 +16,7 @@ void BattleSquad::attack(BWAPI::Unitset targets, int devidedBy){
 }
 
 
-void BattleSquad::attack(std::vector<BWAPI::Unit*> targets, int devidedBy){
+void BattleSquad::attack(std::vector<BWAPI::Unit> targets, int devidedBy){
 	//chưa xong
 }
 
@@ -26,12 +26,12 @@ void BattleSquad::clearSquad(){
 
 void BattleSquad::addSquad(BWAPI::Unitset unitSet){
 	for (BWAPI::Unit u : unitSet){
-		squad.insert(&u);
-		freeSquad.insert(&u);
+		squad.insert(u);
+		freeSquad.insert(u);
 	}
 }
-void BattleSquad::addSquad(std::vector<BWAPI::Unit*> unitSet){
-	for (BWAPI::Unit* u : unitSet){
+void BattleSquad::addSquad(std::vector<BWAPI::Unit> unitSet){
+	for (BWAPI::Unit u : unitSet){
 		squad.insert(u);
 		freeSquad.insert(u);
 	}

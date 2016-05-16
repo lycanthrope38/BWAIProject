@@ -19,11 +19,11 @@ class BattleSquad
 {
 private:
 	//tổng quân số của đơn vị
-	std::set<BWAPI::Unit*> squad;
+	std::set<BWAPI::Unit> squad;
 	//những đơn vị đang bận
-	std::set<BWAPI::Unit*> busySquad;
+	std::set<BWAPI::Unit> busySquad;
 	//những đơn vị rảnh rỗi
-	std::set<BWAPI::Unit*> freeSquad;
+	std::set<BWAPI::Unit> freeSquad;
 	//những squad nhỏ hơn sau khi chia nhỏ để trị các mục tiêu riêng lẻ
 	std::set<BattleSquad> dutySquad;
 	/*số unit trong mỗi nhóm nhỏ sẽ được chia nhỏ(nếu có) trong giao tranh
@@ -32,7 +32,7 @@ private:
 	 */
 	int devider;
 	//mục tiêu của đơn vị trong giao tranh
-	std::vector<BWAPI::Unit*> targets;
+	std::vector<BWAPI::Unit> targets;
 	//có đang làm nhiệu vụ hay ko
 	bool isOnDuty;
 
@@ -41,15 +41,15 @@ public:
 	//Cho squad tấn công mục tiêu
 	void attack(BWAPI::Unitset targets, int devidedBy);
 	//Cho squad tấn công mục tiêu
-	void attack(std::vector<BWAPI::Unit*> targets, int devidedBy);
+	void attack(std::vector<BWAPI::Unit> targets, int devidedBy);
 	//Thêm Unit vào squad
-	void addUnit(BWAPI::Unit* u);
+	void addUnit(BWAPI::Unit u);
 	//Di chuyển nhóm quân đến địa điểm nào đó
 	void move(BWAPI::Position position);
 	//Thêm một Squad vào squad
 	void addSquad(BWAPI::Unitset unitSet);
 	//Thêm một Squad vào squad
-	void addSquad(std::vector<BWAPI::Unit*> unitSet);
+	void addSquad(std::vector<BWAPI::Unit> unitSet);
 	//xóa hết danh sách quân
 	void clearSquad();
 	//Tính toán tỉ lệ chia
@@ -58,6 +58,7 @@ public:
 	bool isCompleted();
 	//Kiểm tra xem nhóm quân đã bị quét sạch(chết sạch) hay chưa
 	bool isWiped();
+
 	~BattleSquad();
 };
 
