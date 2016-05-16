@@ -70,6 +70,7 @@ BWAPI::Position InformationManager::getBasePosition(){
 
 //lấy tọa độ các thuộc địa - các địa điểm sau khi mở rộng gần đó
 std::vector<BWAPI::Position> InformationManager::getColonyPositions(){
+	return std::vector<BWAPI::Position>();
 };
 
 //lấy tất cả các tọa độ có hiện diện nhà của ta
@@ -86,6 +87,8 @@ std::vector<BWAPI::Position> InformationManager::getOursPositions(){
 	std::vector<BWAPI::Position> result;
 	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits())
 		result.push_back(u->getPosition());
+
+	return result;
 };
 
 //lấy tất cả tọa độ có hiện diện tài nguyên mineral
@@ -115,7 +118,7 @@ std::vector<BWAPI::Position> InformationManager::getEnemyTroopPositions(){
 
 //lấy danh sách các tọa độ địch trong bán kính 1 màn hình game
 std::vector<BWAPI::Position> InformationManager::getNearestEnemyPositions(BWAPI::Position inputPosition){
-	
+	return std::vector<BWAPI::Position>();
 }
 
 //lấy số lượng lính địch đã phát hiện
@@ -134,12 +137,12 @@ std::vector<BWAPI::Unit> InformationManager::getEnemyTroopList(){
 
 //kiểm tra xem xung quanh có mối đe dọa hay không
 bool InformationManager::isThreatsNear(BWAPI::Position pos){
-
+	return false;
 }
 
 //kiểm tra xem xung quanh 1 màn hình có tài nguyên hay không
 bool InformationManager::isResourcesNear(BWAPI::Position pos){
-	
+	return false;
 }
 
 void InformationManager::flagEnemy(int flag, BWAPI::Position tilePosition){

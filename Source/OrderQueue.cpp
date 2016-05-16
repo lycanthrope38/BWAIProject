@@ -13,7 +13,7 @@ OrderQueue::OrderQueue() :ArmyOrder(BWAPI::Broodwar->self()){
 }
 //hàm thực thi order
 bool OrderQueue::execute(){
-	bool result;
+	//bool result;
 	BWAPI::Broodwar->sendText("Executed. Queue size %d", queue.size());
 	if ((this->queue.size()) == 0)
 		return false;
@@ -54,8 +54,7 @@ bool OrderQueue::execute(){
 			return training();
 	}
 	//nếu là upgrade thì upgrade
-	else
-		return upgrade(queue.at(0).getUpgrade());
+	return upgrade(queue.at(0).getUpgrade());
 }
 
 //hàm đẩy order nhà vào hàng đợi. sử dụng các biến static PRIORITY_VERY_HIGH, PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
@@ -125,7 +124,7 @@ bool OrderQueue::pushBaseOnWorker(BWAPI::UnitType unitType, int worker)
 
 //hủy yêu cầu	
 bool OrderQueue::cancel(int queueIndex){
-	if (queueIndex < queue.size()){
+	if (queueIndex < static_cast<int>(queue.size())){
 		this->queue.erase(queue.begin() + queueIndex);
 		return true;
 	}
