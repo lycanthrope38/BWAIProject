@@ -7,6 +7,7 @@
 #include <BWAPI.h>
 #include "OrderType.h"
 #include "ArmyOrder.h"
+#include "BuidingManager.h"
 
 class OrderQueue : public ArmyOrder
 {
@@ -31,6 +32,8 @@ public:
 	bool push(BWAPI::UnitType unitType, BWAPI::UnitType parentUnit,int volume, int priority);
 	//hàm đẩy upgrade vào hàng đợi. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
 	bool push(BWAPI::UpgradeType unitType, int priority);
+	//xây nhà dựa trên worker
+	bool pushBaseOnWorker(BWAPI::UnitType unitType,int worker);
 	//hủy yêu cầu
 	bool cancel(int queueIndex);
 	//lấy số phần tử đang được chờ thực thi

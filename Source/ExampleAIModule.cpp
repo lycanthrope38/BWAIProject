@@ -8,10 +8,15 @@ using namespace Filter;
 bool analyzed;
 bool analysis_just_finished;
 
+BWTA::Region* home;
+
 DWORD WINAPI AnalyzeThread()
 {
 	BWTA::analyze();
-
+	if (BWTA::getStartLocation(BWAPI::Broodwar->self()) != NULL)
+	{
+		home = BWTA::getStartLocation(BWAPI::Broodwar->self())->getRegion();
+	}
 	analyzed = true;
 	analysis_just_finished = true;
 	return 0;
@@ -129,8 +134,30 @@ void ExampleAIModule::onStart()
 	armyOrder = new ArmyOrder(Broodwar->self());
 
 	mainOrderQueue = OrderQueue();
-	//test đẩy 20 Zealot vào hàng đợi
+	buildingManager = BuidingManager();
 
+<<<<<<< HEAD
+
+	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
+	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
+
+
+
+	mainOrderQueue.push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 100, OrderQueue::PRIORITY_NORMAL);
+	
+	
+	mainOrderQueue.push(UnitTypes::Protoss_Cybernetics_Core, OrderQueue::PRIORITY_HIGH);
+
+	mainOrderQueue.push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH);
+
+	mainOrderQueue.push(UnitTypes::Protoss_Forge, OrderQueue::PRIORITY_HIGH);
+
+
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	
+
+=======
 	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
 	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
 	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
@@ -140,6 +167,7 @@ void ExampleAIModule::onStart()
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 100, OrderQueue::PRIORITY_NORMAL);
+>>>>>>> master
 }
 
 void ExampleAIModule::onEnd(bool isWinner)
@@ -169,6 +197,11 @@ void ExampleAIModule::onFrame()
 	{
 		Broodwar << "Finished analyzing map." << std::endl;;
 		analysis_just_finished = false;
+
+		if ((Broodwar->mapFileName() != "(4)Andromeda.scx"))
+		{
+			buildingManager.setCentre(TilePosition(home->getCenter()));
+		}
 	}
 
 	// Prevent spamming by only running our onFrame once every number of latency frames.
@@ -237,8 +270,19 @@ void ExampleAIModule::onFrame()
 					}
 				}
 
+			
+
+				if (buildingManager.getWorkerCount() <= 2)
+				{
+				
+					buildingManager.makeAvailable(u);
+				}
+
 				if (u->isIdle())
 				{
+
+					
+					
 					// Broodwar->sendText("isIdle" + u->isIdle());
 
 					// Order workers carrying a resource to return them to the center,
@@ -261,6 +305,7 @@ void ExampleAIModule::onFrame()
 			}
 			else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
 			{
+				BWAPI::Broodwar->printf("Building Placement '%d %d %d %d' ", u->getTilePosition().x,u->getTilePosition().y,u->getPosition().x,u->getPosition().y);
 				if (supplyBuilderTemp == nullptr){
 					// Retrieve the supply provider type in the case that we have run out of supplies
 					UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
@@ -272,27 +317,12 @@ void ExampleAIModule::onFrame()
 				// Order the depot to construct more workers! But only when it is idle.
 				if (u->isIdle() && !u->train(u->getType().getRace().getWorker()))
 				{
-					// If that fails, draw the error at the location so that you can visibly see what went wrong!
-					// However, drawing the error once will only appear for a single frame
-					// so create an event that keeps it on the screen for some frames
+					
 					Position pos = u->getPosition();
-					Error lastErr = Broodwar->getLastError();
-					Broodwar->registerEvent([pos, lastErr](Game*){ Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
-						nullptr,    // condition
-						Broodwar->getLatencyFrames());  // frames to run
-
-					// Retrieve the supply provider type in the case that we have run out of supplies
+					
 					UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
-					static int lastChecked = 0;
-
-					// If we are supply blocked and haven't tried constructing more recently
-					if (lastErr == Errors::Insufficient_Supply &&
-						lastChecked + 400 < Broodwar->getFrameCount() &&
-						Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
-					{
-						lastChecked = Broodwar->getFrameCount();
-
-						// Retrieve a unit that is capable of constructing the supply needed
+					
+				
 						Unit supplyBuilder = u->getClosestUnit(GetType == supplyProviderType.whatBuilds().first &&
 							(IsIdle || IsGatheringMinerals) &&
 							IsOwned);
@@ -304,21 +334,18 @@ void ExampleAIModule::onFrame()
 							{
 								TilePosition targetBuildLocation = Broodwar->getBuildLocation(supplyProviderType,
 									supplyBuilder->getTilePosition());
-								if (targetBuildLocation)
-								{
-									// Register an event that draws the target build location
-									Broodwar->registerEvent([targetBuildLocation, supplyProviderType](Game*)
-									{
-										Broodwar->drawBoxMap(Position(targetBuildLocation),
-											Position(targetBuildLocation + supplyProviderType.tileSize()),
-											Colors::Blue);
-									},
-										nullptr,  // condition
-										supplyProviderType.buildTime() + 100);  // frames to run
-
-									// Order the builder to construct the supply structure
-									supplyBuilder->build(supplyProviderType, targetBuildLocation);
-								}
+								//if (targetBuildLocation)
+								//{
+								//	BWAPI::Position shiftPositionX(20, 20);
+								//	Position position = u->getPosition() + shiftPositionX;
+								//	BWAPI::Broodwar->printf("Building Shilf '%d %d' ", position.x, position.y);
+									Unit worker = buildingManager.getWorker();
+								//	//supplyBuilder->build(supplyProviderType, targetBuildLocation);
+								//
+								//	buildingManager.moveWorker(worker, position);
+									//buildingManager.placeExpansion(worker, supplyProviderType, TilePosition(position.x/32,position.y/32));
+									buildingManager.placeBuilding(worker, supplyProviderType,targetBuildLocation);
+								//}
 							}
 							else
 							{
@@ -326,7 +353,9 @@ void ExampleAIModule::onFrame()
 								supplyBuilder->train(supplyProviderType);
 							}
 						} // closure: supplyBuilder is valid
-					} // closure: insufficient supply
+					
+				
+				
 				} // closure: failed to train idle unit
 			}
 		} // closure: unit iterator
@@ -394,17 +423,14 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 		// if we are in a replay, then we will print out the build order of the structures
 		if (unit->getType().isBuilding() && !unit->getPlayer()->isNeutral())
 		{
-			int seconds = Broodwar->getFrameCount() / 24;
-			int minutes = seconds / 60;
-			seconds %= 60;
-			Broodwar->sendText("%.2d:%.2d: %s creates a %s", minutes, seconds,
-				unit->getPlayer()->getName().c_str(), unit->getType().c_str());
+			BWAPI::Broodwar->printf("onUnitCreate '%d %d %d %d' ", unit->getTilePosition().x, unit->getTilePosition().y, unit->getPosition().x, unit->getPosition().y);
 		}
 	}
 }
 
 void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 {
+	mainOrderQueue.push(unit->getType(), OrderQueue::PRIORITY_HIGH);
 }
 
 void ExampleAIModule::onUnitMorph(BWAPI::Unit unit)
