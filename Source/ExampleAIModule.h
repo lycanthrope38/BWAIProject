@@ -5,6 +5,10 @@
 #include "ArmyOrder.h"
 #include "OrderQueue.h"
 #include "ScoutManager.h"
+<<<<<<< HEAD
+=======
+#include "BuidingManager.h"
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
 
 
 // Remember not to use "Broodwar" in any global class constructor!
@@ -18,6 +22,10 @@ class ExampleAIModule : public BWAPI::AIModule
 	ArmyOrder* armyOrder;
 	OrderQueue mainOrderQueue;
 	ScoutManager scoutManager;
+<<<<<<< HEAD
+=======
+	BuidingManager buildingManager;
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
 
 public:
 	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;

@@ -1,9 +1,20 @@
 ﻿#pragma once
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+#include "BuidingManager.h"
+//xử lí một nhóm quân trong một trận chiến
+=======
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
 #include <BWAPI.h>
 /*Xử lí một nhóm quân trong một trận chiến
  *Việc chia mục tiêu sẽ chi tiết đến từng quân lính một
  *Áp dụng tư tưởng chia để trị.
  */
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
 class BattleSquad
 {
 private:

@@ -93,6 +93,10 @@
     <ClCompile Include="Source\ArmyOrder.cpp" />
     <ClCompile Include="Source\BattleField.cpp" />
     <ClCompile Include="Source\BattleSquad.cpp" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="Source\BuidingManager.cpp" />
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
     <ClCompile Include="Source\Collections.cpp" />
     <ClCompile Include="Source\Dll.cpp" />
     <ClCompile Include="Source\ExampleAIModule.cpp" />
@@ -106,6 +110,10 @@
     <ClInclude Include="Source\ArmyOrder.h" />
     <ClInclude Include="Source\BattleField.h" />
     <ClInclude Include="Source\BattleSquad.h" />
+<<<<<<< HEAD
+=======
+    <ClInclude Include="Source\BuidingManager.h" />
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
     <ClInclude Include="Source\Collections.h" />
     <ClInclude Include="Source\ExampleAIModule.h" />
     <ClInclude Include="Source\InformationManager.h" />

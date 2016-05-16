@@ -5,6 +5,11 @@
 **/
 #include "OrderQueue.h"
 #include "ArmyOrder.h"
+<<<<<<< HEAD
+=======
+#include "BuidingManager.h"
+
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
 #include <BWAPI.h>
 
 OrderQueue::OrderQueue() :ArmyOrder(BWAPI::Broodwar->self()){
@@ -19,6 +24,18 @@ bool OrderQueue::execute(){
 	if (this->queue.at(0).isUnit()){
 		//nếu là nhà thì xây
 		if (this->queue.at(0).isBuilding()){
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+			//truyền vào this->queue.at(0) sai
+			BWAPI::UnitType unitType = this->queue.at(0).getUnit();
+
+			BWAPI::Broodwar->printf("Building name unit type '%s'", unitType.getName().c_str());
+			return build(unitType);
+
+=======
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
 			//nếu nhà có yêu cầu số dân thì kiểm tra xem số dân đã đủ hay chưa
 			if (queue.at(0).supplyRequire != -1){
 				if (BWAPI::Broodwar->self()->supplyTotal() / 2 >= queue.at(0).supplyRequire){
@@ -36,6 +53,10 @@ bool OrderQueue::execute(){
 				BWAPI::UnitType unitType = this->queue.at(0).getUnit();
 				return build(unitType);
 			}
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
 		}
 		//nếu là lính thì train
 		else
@@ -106,7 +127,16 @@ bool OrderQueue::push(BWAPI::UpgradeType upgradeType, int priority){
 		return false;
 	}
 }
+<<<<<<< HEAD
 //hủy yêu cầu
+=======
+bool OrderQueue::pushBaseOnWorker(BWAPI::UnitType unitType, int worker)
+{
+	this->queue.insert(queue.begin(),OrderType(unitType,worker));
+}
+
+//hủy yêu cầu	
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
 bool OrderQueue::cancel(int queueIndex){
 	if (queueIndex < queue.size()){
 		this->queue.erase(queue.begin() + queueIndex);
@@ -124,10 +154,17 @@ int OrderQueue::getSize(){
 
 //xử lý các yêu cầu xây dựng
 bool OrderQueue::build(BWAPI::UnitType buildingType){
+<<<<<<< HEAD
 	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
 		if (u->getType().isWorker()){
 			//BWAPI::UnitType buildingType = BWAPI::UnitTypes::Protoss_Gateway;
 			BWAPI::Broodwar->sendText("Building");
+=======
+	
+	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
+		if (u->getType().isWorker()){
+
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
 			BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
 			if (targetBuildLocation)
 			{
@@ -160,8 +197,32 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 					}
 				}
 			}
+<<<<<<< HEAD
 		}
 	}
+=======
+			
+
+			/*BuidingManager manager = BuidingManager();
+			if (manager.createBuilding(u, buildingType))
+			{
+				BWAPI::Broodwar->sendText("Building success");
+				queue.erase(queue.begin());
+				return true;
+			}*/
+		
+			break;
+			
+		}
+	}
+	queue.at(0).failed++;
+	if (queue.at(0).failed > 2){
+		queue.at(0).failed = 0;
+		OrderType tmp = OrderType(queue.at(0));
+		queue.erase(queue.begin());
+		queue.push_back(tmp);
+	}
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
 	return false;
 }
 

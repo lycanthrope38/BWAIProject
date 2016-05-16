@@ -1,2 +1,6 @@
 #TargetFrameworkVersion=v4.0:PlatformToolSet=v120:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit
+<<<<<<< HEAD
 Release|Win32|F:\ProgramFiles\BWAPI\|
+=======
+Release|Win32|D:\BWAPI\|
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101

@@ -1,3 +1,39 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+﻿Build started 5/16/2016 10:01:26 PM.
+     1>Project "D:\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I../include /Zi /nologo /W3 /WX- /MP /O2 /Oi /Oy- /GL /D NOMINMAX /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\ExampleAIModule.cpp Source\OrderQueue.cpp
+         ExampleAIModule.cpp
+         OrderQueue.cpp
+     1>Source\OrderQueue.cpp(16): warning C4101: 'result' : unreferenced local variable
+     1>Source\OrderQueue.cpp(92): warning C4018: '<' : signed/unsigned mismatch
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\BWAPI\Release\ExampleAIModule.dll" /INCREMENTAL:NO /NOLOGO ../lib/BWAPI.lib ../lib/BWTA.lib "../lib/libboost_thread-vc120-mt-1_56.lib" "../lib/libboost_system-vc120-mt-1_56.lib" "../lib/libboost_filesystem-vc120-mt-1_56.lib" "../lib/libCGAL-vc120-mt-4.4.lib" "../lib/libgmp-10.lib" "../lib/libmpfr-4.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\BWAPI\Release\ExampleAIModule.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Release\ExampleAIModule.lib" /MACHINE:X86 /SAFESEH /DLL Release\ArmyOrder.obj
+         Release\BattleCommander.obj
+         Release\BattleField.obj
+         Release\BattleSquad.obj
+         Release\BuidingManager.obj
+         Release\Collections.obj
+         Release\Dll.obj
+         Release\ExampleAIModule.obj
+         Release\InformationManager.obj
+         Release\LordCommander.obj
+         Release\OrderQueue.obj
+         Release\OrderType.obj
+         Release\ScoutManager.obj
+            Creating library Release\ExampleAIModule.lib and object Release\ExampleAIModule.exp
+         Generating code
+         Finished generating code
+         ExampleAIModule.vcxproj -> D:\BWAPI\Release\ExampleAIModule.dll
+     1>Done Building Project "D:\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:10.67
+=======
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
 ﻿Build started 5/14/2016 12:49:12 AM.
 Environment at start of build:
 ALLUSERSPROFILE = C:\ProgramData
@@ -1410,6 +1446,7 @@ XTC_IDE = 2d6a15081a994b248032e4dc4a4c9e55
                      Task Parameter:
                          Sources=
                              Source\ArmyOrder.cpp
+<<<<<<< HEAD
                                      AcceptableNonZeroExitCodes=
                                      AdditionalIncludeDirectories=../include;
                                      AssemblerListingLocation=
@@ -1586,6 +1623,1300 @@ XTC_IDE = 2d6a15081a994b248032e4dc4a4c9e55
                                      StructMemberAlignment=Default
                                      SuppressStartupBanner=true
                                      TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TreatWarningAsError=false
+                                     TreatWChar_tAsBuiltInType=true
+                                     UndefineAllPreprocessorDefinitions=false
+                                     UseFullPaths=false
+                                     UseUnicodeForAssemblerListing=
+                                     WarningLevel=Level3
+                                     WholeProgramOptimization=true
+                                     WinRTNoStdLib=false
+                                     XMLDocumentationFileName=Release\
+                             Source\Collections.cpp
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalIncludeDirectories=../include;
+                                     AssemblerListingLocation=
+                                     AssemblerOutput=NoListing
+                                     BasicRuntimeChecks=Default
+                                     BrowseInformation=false
+                                     BrowseInformationFile=Release\
+                                     BufferSecurityCheck=true
+                                     CallingConvention=Cdecl
+                                     CompileAs=CompileAsCpp
+                                     DebugInformationFormat=ProgramDatabase
+                                     DisableLanguageExtensions=false
+                                     EnableEnhancedInstructionSet=NotSet
+                                     EnableFiberSafeOptimizations=false
+                                     EnablePREfast=false
+                                     ErrorReporting=Prompt
+                                     ExceptionHandling=Sync
+                                     ExpandAttributedSource=false
+                                     FavorSizeOrSpeed=Neither
+                                     FloatingPointModel=Precise
+                                     ForceConformanceInForLoopScope=true
+                                     ForcedIncludeFiles=
+                                     ForcedUsingFiles=
+                                     FunctionLevelLinking=true
+                                     GenerateXMLDocumentationFiles=false
+                                     IgnoreStandardIncludePath=false
+                                     ImpLibCompiled=
+                                     InlineFunctionExpansion=Default
+                                     IntrinsicFunctions=true
+                                     LibCompiled=
+                                     LinkCompiled=true
+                                     MinimalRebuild=false
+                                     MinimalRebuildFromTracking=true
+                                     MultiProcessorCompilation=true
+                                     ObjectFileName=Release\
+                                     OmitDefaultLibName=false
+                                     OmitFramePointers=false
+                                     Optimization=MaxSpeed
+                                     PrecompiledHeader=
+                                     PrecompiledHeaderFile=
+                                     PrecompiledHeaderOutputFile=
+                                     PreprocessKeepComments=false
+                                     PreprocessorDefinitions=NOMINMAX;WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEAIMODULE_EXPORTS;_WINDLL;
+                                     PreprocessSuppressLineNumbers=false
+                                     PreprocessToFile=false
+                                     ProgramDataBaseFileName=Release\vc120.pdb
+                                     RuntimeLibrary=MultiThreadedDLL
+                                     ShowIncludes=false
+                                     SmallerTypeCheck=false
+                                     StructMemberAlignment=Default
+                                     SuppressStartupBanner=true
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TreatWarningAsError=false
+                                     TreatWChar_tAsBuiltInType=true
+                                     UndefineAllPreprocessorDefinitions=false
+                                     UseFullPaths=false
+                                     UseUnicodeForAssemblerListing=
+                                     WarningLevel=Level3
+                                     WholeProgramOptimization=true
+                                     WinRTNoStdLib=false
+                                     XMLDocumentationFileName=Release\
+                             Source\Dll.cpp
+=======
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalIncludeDirectories=../include;
+                                     AssemblerListingLocation=
+                                     AssemblerOutput=NoListing
+                                     BasicRuntimeChecks=Default
+                                     BrowseInformation=false
+                                     BrowseInformationFile=Release\
+                                     BufferSecurityCheck=true
+                                     CallingConvention=Cdecl
+                                     CompileAs=CompileAsCpp
+                                     DebugInformationFormat=ProgramDatabase
+                                     DisableLanguageExtensions=false
+                                     EnableEnhancedInstructionSet=NotSet
+                                     EnableFiberSafeOptimizations=false
+                                     EnablePREfast=false
+                                     ErrorReporting=Prompt
+                                     ExceptionHandling=Sync
+                                     ExpandAttributedSource=false
+                                     FavorSizeOrSpeed=Neither
+                                     FloatingPointModel=Precise
+                                     ForceConformanceInForLoopScope=true
+                                     ForcedIncludeFiles=
+                                     ForcedUsingFiles=
+                                     FunctionLevelLinking=true
+                                     GenerateXMLDocumentationFiles=false
+                                     IgnoreStandardIncludePath=false
+                                     ImpLibCompiled=
+                                     InlineFunctionExpansion=Default
+                                     IntrinsicFunctions=true
+                                     LibCompiled=
+                                     LinkCompiled=true
+                                     MinimalRebuild=false
+                                     MinimalRebuildFromTracking=true
+                                     MultiProcessorCompilation=true
+                                     ObjectFileName=Release\
+                                     OmitDefaultLibName=false
+                                     OmitFramePointers=false
+                                     Optimization=MaxSpeed
+                                     PrecompiledHeader=
+                                     PrecompiledHeaderFile=
+                                     PrecompiledHeaderOutputFile=
+                                     PreprocessKeepComments=false
+                                     PreprocessorDefinitions=NOMINMAX;WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEAIMODULE_EXPORTS;_WINDLL;
+                                     PreprocessSuppressLineNumbers=false
+                                     PreprocessToFile=false
+                                     ProgramDataBaseFileName=Release\vc120.pdb
+                                     RuntimeLibrary=MultiThreadedDLL
+                                     ShowIncludes=false
+                                     SmallerTypeCheck=false
+                                     StructMemberAlignment=Default
+                                     SuppressStartupBanner=true
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TreatWarningAsError=false
+                                     TreatWChar_tAsBuiltInType=true
+                                     UndefineAllPreprocessorDefinitions=false
+                                     UseFullPaths=false
+                                     UseUnicodeForAssemblerListing=
+                                     WarningLevel=Level3
+                                     WholeProgramOptimization=true
+                                     WinRTNoStdLib=false
+                                     XMLDocumentationFileName=Release\
+                             Source\BattleField.cpp
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalIncludeDirectories=../include;
+                                     AssemblerListingLocation=
+                                     AssemblerOutput=NoListing
+                                     BasicRuntimeChecks=Default
+                                     BrowseInformation=false
+                                     BrowseInformationFile=Release\
+                                     BufferSecurityCheck=true
+                                     CallingConvention=Cdecl
+                                     CompileAs=CompileAsCpp
+                                     DebugInformationFormat=ProgramDatabase
+                                     DisableLanguageExtensions=false
+                                     EnableEnhancedInstructionSet=NotSet
+                                     EnableFiberSafeOptimizations=false
+                                     EnablePREfast=false
+                                     ErrorReporting=Prompt
+                                     ExceptionHandling=Sync
+                                     ExpandAttributedSource=false
+                                     FavorSizeOrSpeed=Neither
+                                     FloatingPointModel=Precise
+                                     ForceConformanceInForLoopScope=true
+                                     ForcedIncludeFiles=
+                                     ForcedUsingFiles=
+                                     FunctionLevelLinking=true
+                                     GenerateXMLDocumentationFiles=false
+                                     IgnoreStandardIncludePath=false
+                                     ImpLibCompiled=
+                                     InlineFunctionExpansion=Default
+                                     IntrinsicFunctions=true
+                                     LibCompiled=
+                                     LinkCompiled=true
+                                     MinimalRebuild=false
+                                     MinimalRebuildFromTracking=true
+                                     MultiProcessorCompilation=true
+                                     ObjectFileName=Release\
+                                     OmitDefaultLibName=false
+                                     OmitFramePointers=false
+                                     Optimization=MaxSpeed
+                                     PrecompiledHeader=
+                                     PrecompiledHeaderFile=
+                                     PrecompiledHeaderOutputFile=
+                                     PreprocessKeepComments=false
+                                     PreprocessorDefinitions=NOMINMAX;WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEAIMODULE_EXPORTS;_WINDLL;
+                                     PreprocessSuppressLineNumbers=false
+                                     PreprocessToFile=false
+                                     ProgramDataBaseFileName=Release\vc120.pdb
+                                     RuntimeLibrary=MultiThreadedDLL
+                                     ShowIncludes=false
+                                     SmallerTypeCheck=false
+                                     StructMemberAlignment=Default
+                                     SuppressStartupBanner=true
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TreatWarningAsError=false
+                                     TreatWChar_tAsBuiltInType=true
+                                     UndefineAllPreprocessorDefinitions=false
+                                     UseFullPaths=false
+                                     UseUnicodeForAssemblerListing=
+                                     WarningLevel=Level3
+                                     WholeProgramOptimization=true
+                                     WinRTNoStdLib=false
+                                     XMLDocumentationFileName=Release\
+                             Source\InformationManager.cpp
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalIncludeDirectories=../include;
+                                     AssemblerListingLocation=
+                                     AssemblerOutput=NoListing
+                                     BasicRuntimeChecks=Default
+                                     BrowseInformation=false
+                                     BrowseInformationFile=Release\
+                                     BufferSecurityCheck=true
+                                     CallingConvention=Cdecl
+                                     CompileAs=CompileAsCpp
+                                     DebugInformationFormat=ProgramDatabase
+                                     DisableLanguageExtensions=false
+                                     EnableEnhancedInstructionSet=NotSet
+                                     EnableFiberSafeOptimizations=false
+                                     EnablePREfast=false
+                                     ErrorReporting=Prompt
+                                     ExceptionHandling=Sync
+                                     ExpandAttributedSource=false
+                                     FavorSizeOrSpeed=Neither
+                                     FloatingPointModel=Precise
+                                     ForceConformanceInForLoopScope=true
+                                     ForcedIncludeFiles=
+                                     ForcedUsingFiles=
+                                     FunctionLevelLinking=true
+                                     GenerateXMLDocumentationFiles=false
+                                     IgnoreStandardIncludePath=false
+                                     ImpLibCompiled=
+                                     InlineFunctionExpansion=Default
+                                     IntrinsicFunctions=true
+                                     LibCompiled=
+                                     LinkCompiled=true
+                                     MinimalRebuild=false
+                                     MinimalRebuildFromTracking=true
+                                     MultiProcessorCompilation=true
+                                     ObjectFileName=Release\
+                                     OmitDefaultLibName=false
+                                     OmitFramePointers=false
+                                     Optimization=MaxSpeed
+                                     PrecompiledHeader=
+                                     PrecompiledHeaderFile=
+                                     PrecompiledHeaderOutputFile=
+                                     PreprocessKeepComments=false
+                                     PreprocessorDefinitions=NOMINMAX;WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEAIMODULE_EXPORTS;_WINDLL;
+                                     PreprocessSuppressLineNumbers=false
+                                     PreprocessToFile=false
+                                     ProgramDataBaseFileName=Release\vc120.pdb
+                                     RuntimeLibrary=MultiThreadedDLL
+                                     ShowIncludes=false
+                                     SmallerTypeCheck=false
+                                     StructMemberAlignment=Default
+                                     SuppressStartupBanner=true
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TreatWarningAsError=false
+                                     TreatWChar_tAsBuiltInType=true
+                                     UndefineAllPreprocessorDefinitions=false
+                                     UseFullPaths=false
+                                     UseUnicodeForAssemblerListing=
+                                     WarningLevel=Level3
+                                     WholeProgramOptimization=true
+                                     WinRTNoStdLib=false
+                                     XMLDocumentationFileName=Release\
+                             Source\LordCommander.cpp
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalIncludeDirectories=../include;
+                                     AssemblerListingLocation=
+                                     AssemblerOutput=NoListing
+                                     BasicRuntimeChecks=Default
+                                     BrowseInformation=false
+                                     BrowseInformationFile=Release\
+                                     BufferSecurityCheck=true
+                                     CallingConvention=Cdecl
+                                     CompileAs=CompileAsCpp
+                                     DebugInformationFormat=ProgramDatabase
+                                     DisableLanguageExtensions=false
+                                     EnableEnhancedInstructionSet=NotSet
+                                     EnableFiberSafeOptimizations=false
+                                     EnablePREfast=false
+                                     ErrorReporting=Prompt
+                                     ExceptionHandling=Sync
+                                     ExpandAttributedSource=false
+                                     FavorSizeOrSpeed=Neither
+                                     FloatingPointModel=Precise
+                                     ForceConformanceInForLoopScope=true
+                                     ForcedIncludeFiles=
+                                     ForcedUsingFiles=
+                                     FunctionLevelLinking=true
+                                     GenerateXMLDocumentationFiles=false
+                                     IgnoreStandardIncludePath=false
+                                     ImpLibCompiled=
+                                     InlineFunctionExpansion=Default
+                                     IntrinsicFunctions=true
+                                     LibCompiled=
+                                     LinkCompiled=true
+                                     MinimalRebuild=false
+                                     MinimalRebuildFromTracking=true
+                                     MultiProcessorCompilation=true
+                                     ObjectFileName=Release\
+                                     OmitDefaultLibName=false
+                                     OmitFramePointers=false
+                                     Optimization=MaxSpeed
+                                     PrecompiledHeader=
+                                     PrecompiledHeaderFile=
+                                     PrecompiledHeaderOutputFile=
+                                     PreprocessKeepComments=false
+                                     PreprocessorDefinitions=NOMINMAX;WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEAIMODULE_EXPORTS;_WINDLL;
+                                     PreprocessSuppressLineNumbers=false
+                                     PreprocessToFile=false
+                                     ProgramDataBaseFileName=Release\vc120.pdb
+                                     RuntimeLibrary=MultiThreadedDLL
+                                     ShowIncludes=false
+                                     SmallerTypeCheck=false
+                                     StructMemberAlignment=Default
+                                     SuppressStartupBanner=true
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TreatWarningAsError=false
+                                     TreatWChar_tAsBuiltInType=true
+                                     UndefineAllPreprocessorDefinitions=false
+                                     UseFullPaths=false
+                                     UseUnicodeForAssemblerListing=
+                                     WarningLevel=Level3
+                                     WholeProgramOptimization=true
+                                     WinRTNoStdLib=false
+                                     XMLDocumentationFileName=Release\
+                             Source\OrderQueue.cpp
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalIncludeDirectories=../include;
+                                     AssemblerListingLocation=
+                                     AssemblerOutput=NoListing
+                                     BasicRuntimeChecks=Default
+                                     BrowseInformation=false
+                                     BrowseInformationFile=Release\
+                                     BufferSecurityCheck=true
+                                     CallingConvention=Cdecl
+                                     CompileAs=CompileAsCpp
+                                     DebugInformationFormat=ProgramDatabase
+                                     DisableLanguageExtensions=false
+                                     EnableEnhancedInstructionSet=NotSet
+                                     EnableFiberSafeOptimizations=false
+                                     EnablePREfast=false
+                                     ErrorReporting=Prompt
+                                     ExceptionHandling=Sync
+                                     ExpandAttributedSource=false
+                                     FavorSizeOrSpeed=Neither
+                                     FloatingPointModel=Precise
+                                     ForceConformanceInForLoopScope=true
+                                     ForcedIncludeFiles=
+                                     ForcedUsingFiles=
+                                     FunctionLevelLinking=true
+                                     GenerateXMLDocumentationFiles=false
+                                     IgnoreStandardIncludePath=false
+                                     ImpLibCompiled=
+                                     InlineFunctionExpansion=Default
+                                     IntrinsicFunctions=true
+                                     LibCompiled=
+                                     LinkCompiled=true
+                                     MinimalRebuild=false
+                                     MinimalRebuildFromTracking=true
+                                     MultiProcessorCompilation=true
+                                     ObjectFileName=Release\
+                                     OmitDefaultLibName=false
+                                     OmitFramePointers=false
+                                     Optimization=MaxSpeed
+                                     PrecompiledHeader=
+                                     PrecompiledHeaderFile=
+                                     PrecompiledHeaderOutputFile=
+                                     PreprocessKeepComments=false
+                                     PreprocessorDefinitions=NOMINMAX;WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEAIMODULE_EXPORTS;_WINDLL;
+                                     PreprocessSuppressLineNumbers=false
+                                     PreprocessToFile=false
+                                     ProgramDataBaseFileName=Release\vc120.pdb
+                                     RuntimeLibrary=MultiThreadedDLL
+                                     ShowIncludes=false
+                                     SmallerTypeCheck=false
+                                     StructMemberAlignment=Default
+                                     SuppressStartupBanner=true
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TreatWarningAsError=false
+                                     TreatWChar_tAsBuiltInType=true
+                                     UndefineAllPreprocessorDefinitions=false
+                                     UseFullPaths=false
+                                     UseUnicodeForAssemblerListing=
+                                     WarningLevel=Level3
+                                     WholeProgramOptimization=true
+                                     WinRTNoStdLib=false
+                                     XMLDocumentationFileName=Release\
+                             Source\OrderType.cpp
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalIncludeDirectories=../include;
+                                     AssemblerListingLocation=
+                                     AssemblerOutput=NoListing
+                                     BasicRuntimeChecks=Default
+                                     BrowseInformation=false
+                                     BrowseInformationFile=Release\
+                                     BufferSecurityCheck=true
+                                     CallingConvention=Cdecl
+                                     CompileAs=CompileAsCpp
+                                     DebugInformationFormat=ProgramDatabase
+                                     DisableLanguageExtensions=false
+                                     EnableEnhancedInstructionSet=NotSet
+                                     EnableFiberSafeOptimizations=false
+                                     EnablePREfast=false
+                                     ErrorReporting=Prompt
+                                     ExceptionHandling=Sync
+                                     ExpandAttributedSource=false
+                                     FavorSizeOrSpeed=Neither
+                                     FloatingPointModel=Precise
+                                     ForceConformanceInForLoopScope=true
+                                     ForcedIncludeFiles=
+                                     ForcedUsingFiles=
+                                     FunctionLevelLinking=true
+                                     GenerateXMLDocumentationFiles=false
+                                     IgnoreStandardIncludePath=false
+                                     ImpLibCompiled=
+                                     InlineFunctionExpansion=Default
+                                     IntrinsicFunctions=true
+                                     LibCompiled=
+                                     LinkCompiled=true
+                                     MinimalRebuild=false
+                                     MinimalRebuildFromTracking=true
+                                     MultiProcessorCompilation=true
+                                     ObjectFileName=Release\
+                                     OmitDefaultLibName=false
+                                     OmitFramePointers=false
+                                     Optimization=MaxSpeed
+                                     PrecompiledHeader=
+                                     PrecompiledHeaderFile=
+                                     PrecompiledHeaderOutputFile=
+                                     PreprocessKeepComments=false
+                                     PreprocessorDefinitions=NOMINMAX;WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEAIMODULE_EXPORTS;_WINDLL;
+                                     PreprocessSuppressLineNumbers=false
+                                     PreprocessToFile=false
+                                     ProgramDataBaseFileName=Release\vc120.pdb
+                                     RuntimeLibrary=MultiThreadedDLL
+                                     ShowIncludes=false
+                                     SmallerTypeCheck=false
+                                     StructMemberAlignment=Default
+                                     SuppressStartupBanner=true
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TreatWarningAsError=false
+                                     TreatWChar_tAsBuiltInType=true
+                                     UndefineAllPreprocessorDefinitions=false
+                                     UseFullPaths=false
+                                     UseUnicodeForAssemblerListing=
+                                     WarningLevel=Level3
+                                     WholeProgramOptimization=true
+                                     WinRTNoStdLib=false
+                                     XMLDocumentationFileName=Release\
+                             Source\ScoutManager.cpp
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalIncludeDirectories=../include;
+                                     AssemblerListingLocation=
+                                     AssemblerOutput=NoListing
+                                     BasicRuntimeChecks=Default
+                                     BrowseInformation=false
+                                     BrowseInformationFile=Release\
+                                     BufferSecurityCheck=true
+                                     CallingConvention=Cdecl
+                                     CompileAs=CompileAsCpp
+                                     DebugInformationFormat=ProgramDatabase
+                                     DisableLanguageExtensions=false
+                                     EnableEnhancedInstructionSet=NotSet
+                                     EnableFiberSafeOptimizations=false
+                                     EnablePREfast=false
+                                     ErrorReporting=Prompt
+                                     ExceptionHandling=Sync
+                                     ExpandAttributedSource=false
+                                     FavorSizeOrSpeed=Neither
+                                     FloatingPointModel=Precise
+                                     ForceConformanceInForLoopScope=true
+                                     ForcedIncludeFiles=
+                                     ForcedUsingFiles=
+                                     FunctionLevelLinking=true
+                                     GenerateXMLDocumentationFiles=false
+                                     IgnoreStandardIncludePath=false
+                                     ImpLibCompiled=
+                                     InlineFunctionExpansion=Default
+                                     IntrinsicFunctions=true
+                                     LibCompiled=
+                                     LinkCompiled=true
+                                     MinimalRebuild=false
+                                     MinimalRebuildFromTracking=true
+                                     MultiProcessorCompilation=true
+                                     ObjectFileName=Release\
+                                     OmitDefaultLibName=false
+                                     OmitFramePointers=false
+                                     Optimization=MaxSpeed
+                                     PrecompiledHeader=
+                                     PrecompiledHeaderFile=
+                                     PrecompiledHeaderOutputFile=
+                                     PreprocessKeepComments=false
+                                     PreprocessorDefinitions=NOMINMAX;WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEAIMODULE_EXPORTS;_WINDLL;
+                                     PreprocessSuppressLineNumbers=false
+                                     PreprocessToFile=false
+                                     ProgramDataBaseFileName=Release\vc120.pdb
+                                     RuntimeLibrary=MultiThreadedDLL
+                                     ShowIncludes=false
+                                     SmallerTypeCheck=false
+                                     StructMemberAlignment=Default
+                                     SuppressStartupBanner=true
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TreatWarningAsError=false
+                                     TreatWChar_tAsBuiltInType=true
+                                     UndefineAllPreprocessorDefinitions=false
+                                     UseFullPaths=false
+                                     UseUnicodeForAssemblerListing=
+                                     WarningLevel=Level3
+                                     WholeProgramOptimization=true
+                                     WinRTNoStdLib=false
+                                     XMLDocumentationFileName=Release\ (TaskId:17)
+                     Task Parameter:AdditionalIncludeDirectories=../include (TaskId:17)
+                     Task Parameter:AssemblerOutput=NoListing (TaskId:17)
+                     Task Parameter:BasicRuntimeChecks=Default (TaskId:17)
+                     Task Parameter:BrowseInformation=False (TaskId:17)
+                     Task Parameter:BrowseInformationFile=Release\ (TaskId:17)
+                     Task Parameter:BufferSecurityCheck=true (TaskId:17)
+                     Task Parameter:CallingConvention=Cdecl (TaskId:17)
+                     Task Parameter:CompileAs=CompileAsCpp (TaskId:17)
+                     Task Parameter:DebugInformationFormat=ProgramDatabase (TaskId:17)
+                     Task Parameter:DisableLanguageExtensions=False (TaskId:17)
+                     Task Parameter:EnableEnhancedInstructionSet=NotSet (TaskId:17)
+                     Task Parameter:EnableFiberSafeOptimizations=False (TaskId:17)
+                     Task Parameter:EnablePREfast=False (TaskId:17)
+                     Task Parameter:ErrorReporting=Prompt (TaskId:17)
+                     Task Parameter:ExceptionHandling=Sync (TaskId:17)
+                     Task Parameter:
+                         ExcludedInputPaths=
+                             C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include
+                             C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\atlmfc\include
+                             C:\Program Files (x86)\Windows Kits\8.1\Include\um
+                             C:\Program Files (x86)\Windows Kits\8.1\Include\shared
+                             C:\Program Files (x86)\Windows Kits\8.1\Include\winrt
+                             C:\Program Files (x86)\MSBuild\12.0\bin\
+                             C:\Windows\Microsoft.NET\Framework\v4.0.30319\
+                             C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\lib
+                             C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\atlmfc\lib (TaskId:17)
+                     Task Parameter:ExpandAttributedSource=False (TaskId:17)
+                     Task Parameter:FavorSizeOrSpeed=Neither (TaskId:17)
+                     Task Parameter:FloatingPointModel=Precise (TaskId:17)
+                     Task Parameter:ForceConformanceInForLoopScope=True (TaskId:17)
+                     Task Parameter:FunctionLevelLinking=True (TaskId:17)
+                     Task Parameter:GenerateXMLDocumentationFiles=False (TaskId:17)
+                     Task Parameter:IgnoreStandardIncludePath=False (TaskId:17)
+                     Task Parameter:InlineFunctionExpansion=Default (TaskId:17)
+                     Task Parameter:IntrinsicFunctions=True (TaskId:17)
+                     Task Parameter:MinimalRebuild=False (TaskId:17)
+                     Task Parameter:MultiProcessorCompilation=True (TaskId:17)
+                     Task Parameter:ObjectFileName=Release\ (TaskId:17)
+                     Task Parameter:OmitDefaultLibName=False (TaskId:17)
+                     Task Parameter:OmitFramePointers=False (TaskId:17)
+                     Task Parameter:Optimization=MaxSpeed (TaskId:17)
+                     Task Parameter:PreprocessKeepComments=False (TaskId:17)
+                     Task Parameter:
+                         PreprocessorDefinitions=
+                             NOMINMAX
+                             WIN32
+                             NDEBUG
+                             _WINDOWS
+                             _USRDLL
+                             EXAMPLEAIMODULE_EXPORTS
+                             _WINDLL (TaskId:17)
+                     Task Parameter:PreprocessSuppressLineNumbers=False (TaskId:17)
+                     Task Parameter:PreprocessToFile=False (TaskId:17)
+                     Task Parameter:ProgramDataBaseFileName=Release\vc120.pdb (TaskId:17)
+                     Task Parameter:RuntimeLibrary=MultiThreadedDLL (TaskId:17)
+                     Task Parameter:ShowIncludes=False (TaskId:17)
+                     Task Parameter:SmallerTypeCheck=False (TaskId:17)
+                     Task Parameter:StructMemberAlignment=Default (TaskId:17)
+                     Task Parameter:SuppressStartupBanner=True (TaskId:17)
+                     Task Parameter:TreatWarningAsError=False (TaskId:17)
+                     Task Parameter:TreatWChar_tAsBuiltInType=True (TaskId:17)
+                     Task Parameter:UndefineAllPreprocessorDefinitions=False (TaskId:17)
+                     Task Parameter:UseFullPaths=False (TaskId:17)
+                     Task Parameter:WarningLevel=Level3 (TaskId:17)
+                     Task Parameter:WholeProgramOptimization=True (TaskId:17)
+                     Task Parameter:WinRTNoStdLib=False (TaskId:17)
+                     Task Parameter:XMLDocumentationFileName=Release\ (TaskId:17)
+                     Task Parameter:TrackerLogDirectory=Release\ExampleAIModule.tlog\ (TaskId:17)
+                     Task Parameter:TrackFileAccess=True (TaskId:17)
+                     Task Parameter:MinimalRebuildFromTracking=True (TaskId:17)
+                     Task Parameter:ToolArchitecture=Native32Bit (TaskId:17)
+                     Task Parameter:DeleteOutputOnExecute=True (TaskId:17)
+                     Task Parameter:YieldDuringToolExecution=True (TaskId:17)
+                     Read Tracking Logs: (TaskId:17)
+                     	Release\ExampleAIModule.tlog\cl.read.1.tlog (TaskId:17)
+                     Outputs for F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\ARMYORDER.CPP|F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\BATTLEFIELD.CPP|F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\BATTLESQUAD.CPP|F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\COLLECTIONS.CPP|F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\DLL.CPP|F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\EXAMPLEAIMODULE.CPP|F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\INFORMATIONMANAGER.CPP|F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\LORDCOMMANDER.CPP|F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\ORDERQUEUE.CPP|F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\ORDERTYPE.CPP|F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\SCOUTMANAGER.CPP: (TaskId:17)
+                     	F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\RELEASE\ARMYORDER.OBJ (TaskId:17)
+                     	F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEFIELD.OBJ (TaskId:17)
+                     	F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLESQUAD.OBJ (TaskId:17)
+                     	F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\RELEASE\COLLECTIONS.OBJ (TaskId:17)
+                     	F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\RELEASE\DLL.OBJ (TaskId:17)
+                     	F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\RELEASE\EXAMPLEAIMODULE.OBJ (TaskId:17)
+                     	F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\RELEASE\INFORMATIONMANAGER.OBJ (TaskId:17)
+                     	F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\RELEASE\LORDCOMMANDER.OBJ (TaskId:17)
+                     	F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERQUEUE.OBJ (TaskId:17)
+                     	F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERTYPE.OBJ (TaskId:17)
+                     	F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\RELEASE\SCOUTMANAGER.OBJ (TaskId:17)
+                     Source\ExampleAIModule.cpp will be compiled as F:\ProgramFiles\BWAPI\ExampleAIModule\Source\ExampleAIModule.cpp was modified at 5/14/2016 12:49:09 AM. (TaskId:17)
+                     Outputs for F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\EXAMPLEAIMODULE.CPP: (TaskId:17)
+                     	F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\RELEASE\EXAMPLEAIMODULE.OBJ (TaskId:17)
+                     Write Tracking Logs: (TaskId:17)
+                     	Release\ExampleAIModule.tlog\cl.write.1.tlog (TaskId:17)
+                     Environment Variables passed to tool: (TaskId:17)
+                       VS_UNICODE_OUTPUT=1752 (TaskId:17)
+                     C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I../include /Zi /nologo /W3 /WX- /MP /O2 /Oi /Oy- /GL /D NOMINMAX /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\ExampleAIModule.cpp (TaskId:17)
+                     Tracking command: (TaskId:17)
+                     C:\Program Files (x86)\MSBuild\12.0\bin\Tracker.exe /d "C:\Program Files (x86)\MSBuild\12.0\bin\FileTracker.dll" /i F:\ProgramFiles\BWAPI\ExampleAIModule\Release\ExampleAIModule.tlog /r F:\PROGRAMFILES\BWAPI\EXAMPLEAIMODULE\SOURCE\EXAMPLEAIMODULE.CPP /b MSBuildConsole_CancelEventea7866f6bc544be7b8f8dbb625b4eadd  /c "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe"  /c /I../include /Zi /nologo /W3 /WX- /MP /O2 /Oi /Oy- /GL /D NOMINMAX /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\ExampleAIModule.cpp (TaskId:17)
+                     ExampleAIModule.cpp (TaskId:17)
+                   Done executing task "CL". (TaskId:17)
+00:49:13.948     1>Done building target "ClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:44)
+                   Target "ManagedIncrementalBuildPostProcessDependencyGraph" skipped, due to false condition; ('@(ClCompile)' != '' and '$(EnableManagedIncrementalBuild)' == 'True') was evaluated as ('Source\ArmyOrder.cpp;Source\BattleField.cpp;Source\BattleSquad.cpp;Source\Collections.cpp;Source\Dll.cpp;Source\ExampleAIModule.cpp;Source\InformationManager.cpp;Source\LordCommander.cpp;Source\OrderQueue.cpp;Source\OrderType.cpp;Source\ScoutManager.cpp' != '' and 'false' == 'True').
+00:49:13.948     1>Target "AfterClCompile: (TargetId:45)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
+00:49:13.948     1>Done building target "AfterClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:45)
+00:49:13.948     1>Target "_ClCompile: (TargetId:46)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildCompileAction" depends on it):
+00:49:13.948     1>Done building target "_ClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:46)
+                   Target "_ResGen" skipped, due to false condition; ('@(EmbeddedResource)'!='') was evaluated as (''!='').
+00:49:13.948     1>Target "BeforeResourceCompile: (TargetId:47)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ResourceCompile" depends on it):
+00:49:13.948     1>Done building target "BeforeResourceCompile" in project "ExampleAIModule.vcxproj".: (TargetId:47)
+00:49:13.948     1>Target "MakeDirsForResourceCompile: (TargetId:48)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ResourceCompile" depends on it):
+                   Task "MakeDir" (TaskId:18)
+                   Done executing task "MakeDir". (TaskId:18)
+00:49:13.949     1>Done building target "MakeDirsForResourceCompile" in project "ExampleAIModule.vcxproj".: (TargetId:48)
+                   Target "ResourceCompile" skipped, due to false condition; ('@(ResourceCompile)' != '') was evaluated as ('' != '').
+00:49:13.949     1>Target "AfterResourceCompile: (TargetId:49)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ResourceCompile" depends on it):
+00:49:13.949     1>Done building target "AfterResourceCompile" in project "ExampleAIModule.vcxproj".: (TargetId:49)
+00:49:13.949     1>Target "_ResourceCompile: (TargetId:50)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildCompileAction" depends on it):
+00:49:13.949     1>Done building target "_ResourceCompile" in project "ExampleAIModule.vcxproj".: (TargetId:50)
+                   Target "_ImpLib" skipped, due to false condition; ('$(ImpLibCompiled)' == 'true') was evaluated as ('' == 'true').
+                   Target "_Lib" skipped, due to false condition; ('$(LibCompiled)' == 'true') was evaluated as ('' == 'true').
+00:49:13.949     1>Target "AfterBuildCompileEvent: (TargetId:51)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildCompileAction" depends on it):
+00:49:13.949     1>Done building target "AfterBuildCompileEvent" in project "ExampleAIModule.vcxproj".: (TargetId:51)
+00:49:13.949     1>Target "_BuildCompileAction: (TargetId:52)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildCompile" depends on it):
+00:49:13.949     1>Done building target "_BuildCompileAction" in project "ExampleAIModule.vcxproj".: (TargetId:52)
+00:49:13.949     1>Target "BuildCompile: (TargetId:53)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
+00:49:13.949     1>Done building target "BuildCompile" in project "ExampleAIModule.vcxproj".: (TargetId:53)
+                   Target "AssignProjectConfiguration" skipped. Previously built successfully.
+                   Target "_SplitProjectReferencesByFileExistence" skipped. Previously built successfully.
+00:49:13.949     1>Target "BuildLinkTraverse: (TargetId:54)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildLink" depends on it):
+                   Task "MSBuild" skipped, due to false condition; ('$(BuildPassReferences)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceExistent)' != ''  and '%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true') was evaluated as ('' == 'true' and '' != '' and '' != ''  and '' == 'true').
+00:49:13.949     1>Done building target "BuildLinkTraverse" in project "ExampleAIModule.vcxproj".: (TargetId:54)
+                   Target "PrepareForBuild" skipped. Previously built successfully.
+                   Target "ResolveReferences" skipped. Previously built successfully.
+00:49:13.949     1>Target "ComputeLegacyManifestEmbedding: (TargetId:55)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+                   Task "VCMessage" skipped, due to false condition; ('$(RevertManifestEmbedding)' == 'true' and '$(_LegacyManifestEmbeddingDebug)' == 'true') was evaluated as ('' == 'true' and '' == 'true').
+00:49:13.950     1>Done building target "ComputeLegacyManifestEmbedding" in project "ExampleAIModule.vcxproj".: (TargetId:55)
+00:49:13.950     1>Target "BeforeLink: (TargetId:56)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+00:49:13.950     1>Done building target "BeforeLink" in project "ExampleAIModule.vcxproj".: (TargetId:56)
+00:49:13.950     1>Target "ComputeRCOutputs: (TargetId:57)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ComputeRCGeneratedLinkInputs" depends on it):
+00:49:13.950     1>Done building target "ComputeRCOutputs" in project "ExampleAIModule.vcxproj".: (TargetId:57)
+00:49:13.950     1>Target "ComputeRCGeneratedLinkInputs: (TargetId:58)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+00:49:13.950     1>Done building target "ComputeRCGeneratedLinkInputs" in project "ExampleAIModule.vcxproj".: (TargetId:58)
+00:49:13.950     1>Target "ComputeManifestGeneratedLinkerInputs: (TargetId:59)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+00:49:13.950     1>Done building target "ComputeManifestGeneratedLinkerInputs" in project "ExampleAIModule.vcxproj".: (TargetId:59)
+00:49:13.950     1>Target "ComputeCustomBuildOutput: (TargetId:60)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+                   Task "CreateItem" skipped, due to false condition; ('%(CustomBuildDirsToMake.OutputFileToTool)'!='') was evaluated as (''!='').
+                   Task "MakeDir" (TaskId:19)
+                   Done executing task "MakeDir". (TaskId:19)
+00:49:13.950     1>Done building target "ComputeCustomBuildOutput" in project "ExampleAIModule.vcxproj".: (TargetId:60)
+                   Target "ComputeMIDLGeneratedCompileInputs" skipped. Previously built successfully.
+                   Target "ComputeCLInputPDBName" skipped. Previously built successfully.
+                   Target "ComputeReferenceCLInput" skipped. Previously built successfully.
+                   Target "WarnCompileDuplicatedFilename" skipped. Previously built successfully.
+00:49:13.950     1>Target "ComputeCLOutputs: (TargetId:61)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ComputeCLGeneratedLinkInputs" depends on it):
+00:49:13.952     1>Done building target "ComputeCLOutputs" in project "ExampleAIModule.vcxproj".: (TargetId:61)
+00:49:13.952     1>Target "ComputeCLGeneratedLinkInputs: (TargetId:62)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+00:49:13.952     1>Done building target "ComputeCLGeneratedLinkInputs" in project "ExampleAIModule.vcxproj".: (TargetId:62)
+00:49:13.952     1>Target "ComputeLinkInputsFromProject: (TargetId:63)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+00:49:13.952     1>Done building target "ComputeLinkInputsFromProject" in project "ExampleAIModule.vcxproj".: (TargetId:63)
+                   Target "ComputeReferenceLinkInputs" skipped, due to false condition; (@(ProjectReference) != '') was evaluated as ( != '').
+00:49:13.952     1>Target "ComputeManifestInputsTargets: (TargetId:64)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+00:49:13.952     1>Done building target "ComputeManifestInputsTargets" in project "ExampleAIModule.vcxproj".: (TargetId:64)
+                   Target "ManifestResourceCompile" skipped, due to false condition; ('$(EmbedManifestBy)' == 'LINK' and '@(Manifest)' != '') was evaluated as ('MT' == 'LINK' and '' != '').
+                   Target "AssignWinFXEmbeddedResource" skipped, due to false condition; ('@(WinFXEmbeddedResource)' != '') was evaluated as ('' != '').
+00:49:13.952     1>Target "AssignTargetPaths: (TargetId:65)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareResourceNames" depends on it):
+                   Using "AssignTargetPath" task from assembly "Microsoft.Build.Tasks.v12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
+                   Task "AssignTargetPath" (TaskId:20)
+                     Task Parameter:RootFolder=F:\ProgramFiles\BWAPI\ExampleAIModule (TaskId:20)
+                   Done executing task "AssignTargetPath". (TaskId:20)
+                   Task "AssignTargetPath" (TaskId:21)
+                     Task Parameter:RootFolder=F:\ProgramFiles\BWAPI\ExampleAIModule (TaskId:21)
+                   Done executing task "AssignTargetPath". (TaskId:21)
+                   Task "AssignTargetPath" (TaskId:22)
+                     Task Parameter:RootFolder=F:\ProgramFiles\BWAPI\ExampleAIModule (TaskId:22)
+                   Done executing task "AssignTargetPath". (TaskId:22)
+                   Task "AssignTargetPath" (TaskId:23)
+                     Task Parameter:RootFolder=F:\ProgramFiles\BWAPI\ExampleAIModule (TaskId:23)
+                   Done executing task "AssignTargetPath". (TaskId:23)
+                   Task "AssignTargetPath" skipped, due to false condition; ('@(_DeploymentBaseManifestWithTargetPath)'=='' and '%(None.Extension)'=='.manifest') was evaluated as (''=='' and ''=='.manifest').
+00:49:13.953     1>Done building target "AssignTargetPaths" in project "ExampleAIModule.vcxproj".: (TargetId:65)
+                   Target "AssignTargetPaths" skipped. Previously built successfully.
+00:49:13.953     1>Target "SplitResourcesByCulture: (TargetId:66)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareResourceNames" depends on it):
+                   Task "Warning" skipped, due to false condition; ('@(ResxWithNoCulture)'!='') was evaluated as (''!='').
+                   Task "Warning" skipped, due to false condition; ('@(ResxWithCulture)'!='') was evaluated as (''!='').
+                   Task "Warning" skipped, due to false condition; ('@(NonResxWithCulture)'!='') was evaluated as (''!='').
+                   Task "Warning" skipped, due to false condition; ('@(NonResxWithNoCulture)'!='') was evaluated as (''!='').
+                   Using "AssignCulture" task from assembly "Microsoft.Build.Tasks.v12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
+                   Task "AssignCulture" (TaskId:24)
+                   Done executing task "AssignCulture". (TaskId:24)
+00:49:13.954     1>Done building target "SplitResourcesByCulture" in project "ExampleAIModule.vcxproj".: (TargetId:66)
+                   Target "CreateManifestResourceNames" skipped, due to false condition; ('@(EmbeddedResource)' != '') was evaluated as ('' != '').
+00:49:13.954     1>Target "CreateCustomManifestResourceNames: (TargetId:67)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareResourceNames" depends on it):
+00:49:13.954     1>Done building target "CreateCustomManifestResourceNames" in project "ExampleAIModule.vcxproj".: (TargetId:67)
+00:49:13.954     1>Target "PrepareResourceNames: (TargetId:68)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+00:49:13.954     1>Done building target "PrepareResourceNames" in project "ExampleAIModule.vcxproj".: (TargetId:68)
+00:49:13.954     1>Target "MakeDirsForLink: (TargetId:69)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+                   Task "MakeDir" (TaskId:25)
+                     Task Parameter:
+                         Directories=
+                             F:\ProgramFiles\BWAPI\Release
+                             F:\ProgramFiles\BWAPI\ExampleAIModule\Release
+                             F:\ProgramFiles\BWAPI\Release
+                             F:\ProgramFiles\BWAPI\ExampleAIModule\Release\ (TaskId:25)
+                   Done executing task "MakeDir". (TaskId:25)
+00:49:13.955     1>Done building target "MakeDirsForLink" in project "ExampleAIModule.vcxproj".: (TargetId:69)
+00:49:13.956     1>Target "DoLinkOutputFilesMatch: (TargetId:70)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+                   Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' == '') was evaluated as ('F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll' == '').
+                   Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' != '' and '%(_OutputFileFromLink.FullPath)' != '$([System.IO.Path]::GetFullPath($(TargetPath)))') was evaluated as ('F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll' != '' and 'F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll' != 'F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll').
+                   Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' != '' and '%(_OutputFileFromLink.Extension)' != '' and '%(_OutputFileFromLink.Extension)' != '$(TargetExt)') was evaluated as ('F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll' != '' and '.dll' != '' and '.dll' != '.dll').
+                   Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' != '' and '%(_OutputFileFromLink.Filename)' != '' and '%(_OutputFileFromLink.Filename)' != '$(TargetName)') was evaluated as ('F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll' != '' and 'ExampleAIModule' != '' and 'ExampleAIModule' != 'ExampleAIModule').
+                   Task "VCMessage" skipped, due to false condition; ('%(Link.MinimumRequiredVersion)' != '' and ('%(Link.Subsystem)' == '' or '%(Link.Subsystem)' == 'NotSet')) was evaluated as ('' != '' and ('Windows' == '' or 'Windows' == 'NotSet')).
+00:49:13.959     1>Done building target "DoLinkOutputFilesMatch" in project "ExampleAIModule.vcxproj".: (TargetId:70)
+00:49:13.959     1>Target "PreLinkEvent: (TargetId:71)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+                   Task "Message" skipped, due to false condition; ('%(PreLinkEvent.Message)' != '' and '%(PreLinkEvent.Command)' != '') was evaluated as ('' != '' and '' != '').
+                   Task "Exec" skipped, due to false condition; ('%(PreLinkEvent.Command)' != '') was evaluated as ('' != '').
+00:49:13.959     1>Done building target "PreLinkEvent" in project "ExampleAIModule.vcxproj".: (TargetId:71)
+00:49:13.959     1>Target "ComputeLinkSwitches: (TargetId:72)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Link" depends on it):
+00:49:13.959     1>Done building target "ComputeLinkSwitches" in project "ExampleAIModule.vcxproj".: (TargetId:72)
+00:49:13.959     1>Target "Link: (TargetId:73)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "F:\ProgramFiles\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+                   Using "Link" task from assembly "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Build.CppTasks.Common.dll".
+                   Task "Link" (TaskId:26)
+                     Task Parameter:BuildingInIde=True (TaskId:26)
+                     Task Parameter:
+                         Sources=
+                             Release\ArmyOrder.obj
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalDependencies=../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;
+                                     AllowIsolation=true
+                                     CLRImageType=Default
+                                     DataExecutionPrevention=true
+                                     DelaySign=
+                                     Driver=NotSet
+                                     EnableCOMDATFolding=true
+                                     EnableUAC=true
+                                     GenerateDebugInformation=true
+                                     GenerateMapFile=false
+                                     IgnoreEmbeddedIDL=false
+                                     ImageHasSafeExceptionHandlers=true
+                                     ImportLibrary=Release\ExampleAIModule.lib
+                                     KeyFile=
+                                     LinkDLL=true
+                                     LinkErrorReporting=PromptImmediately
+                                     LinkTimeCodeGeneration=UseLinkTimeCodeGeneration
+                                     ManifestEmbed=true
+                                     ManifestFile=
+                                     ManifestInput=;;;;;;;;;;;;
+                                     MapExports=false
+                                     MinimalRebuildFromTracking=true
+                                     NoEntryPoint=false
+                                     OptimizeReferences=true
+                                     OutputFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll
+                                     PerUserRedirection=false
+                                     Profile=false
+                                     ProfileGuidedDatabase=
+                                     ProgramDatabaseFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.pdb
+                                     RandomizedBaseAddress=true
+                                     RegisterOutput=false
+                                     SetChecksum=false
+                                     ShowProgress=NotSet
+                                     SubSystem=Windows
+                                     SuppressStartupBanner=true
+                                     SwapRunFromCD=false
+                                     SwapRunFromNET=false
+                                     TargetMachine=MachineX86
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TurnOffAssemblyGeneration=false
+                                     TypeLibraryResourceID=1
+                                     UACExecutionLevel=AsInvoker
+                                     UACUIAccess=false
+                                     WindowsMetadataFile=
+                                     WindowsMetadataKeyContainer=
+                                     WindowsMetadataLinkDelaySign=
+                                     WindowsMetadataLinkKeyFile=
+                                     WindowsMetadataSignHash=
+                             Release\BattleField.obj
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalDependencies=../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;
+                                     AllowIsolation=true
+                                     CLRImageType=Default
+                                     DataExecutionPrevention=true
+                                     DelaySign=
+                                     Driver=NotSet
+                                     EnableCOMDATFolding=true
+                                     EnableUAC=true
+                                     GenerateDebugInformation=true
+                                     GenerateMapFile=false
+                                     IgnoreEmbeddedIDL=false
+                                     ImageHasSafeExceptionHandlers=true
+                                     ImportLibrary=Release\ExampleAIModule.lib
+                                     KeyFile=
+                                     LinkDLL=true
+                                     LinkErrorReporting=PromptImmediately
+                                     LinkTimeCodeGeneration=UseLinkTimeCodeGeneration
+                                     ManifestEmbed=true
+                                     ManifestFile=
+                                     ManifestInput=;;;;;;;;;;;;
+                                     MapExports=false
+                                     MinimalRebuildFromTracking=true
+                                     NoEntryPoint=false
+                                     OptimizeReferences=true
+                                     OutputFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll
+                                     PerUserRedirection=false
+                                     Profile=false
+                                     ProfileGuidedDatabase=
+                                     ProgramDatabaseFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.pdb
+                                     RandomizedBaseAddress=true
+                                     RegisterOutput=false
+                                     SetChecksum=false
+                                     ShowProgress=NotSet
+                                     SubSystem=Windows
+                                     SuppressStartupBanner=true
+                                     SwapRunFromCD=false
+                                     SwapRunFromNET=false
+                                     TargetMachine=MachineX86
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TurnOffAssemblyGeneration=false
+                                     TypeLibraryResourceID=1
+                                     UACExecutionLevel=AsInvoker
+                                     UACUIAccess=false
+                                     WindowsMetadataFile=
+                                     WindowsMetadataKeyContainer=
+                                     WindowsMetadataLinkDelaySign=
+                                     WindowsMetadataLinkKeyFile=
+                                     WindowsMetadataSignHash=
+                             Release\BattleSquad.obj
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalDependencies=../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;
+                                     AllowIsolation=true
+                                     CLRImageType=Default
+                                     DataExecutionPrevention=true
+                                     DelaySign=
+                                     Driver=NotSet
+                                     EnableCOMDATFolding=true
+                                     EnableUAC=true
+                                     GenerateDebugInformation=true
+                                     GenerateMapFile=false
+                                     IgnoreEmbeddedIDL=false
+                                     ImageHasSafeExceptionHandlers=true
+                                     ImportLibrary=Release\ExampleAIModule.lib
+                                     KeyFile=
+                                     LinkDLL=true
+                                     LinkErrorReporting=PromptImmediately
+                                     LinkTimeCodeGeneration=UseLinkTimeCodeGeneration
+                                     ManifestEmbed=true
+                                     ManifestFile=
+                                     ManifestInput=;;;;;;;;;;;;
+                                     MapExports=false
+                                     MinimalRebuildFromTracking=true
+                                     NoEntryPoint=false
+                                     OptimizeReferences=true
+                                     OutputFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll
+                                     PerUserRedirection=false
+                                     Profile=false
+                                     ProfileGuidedDatabase=
+                                     ProgramDatabaseFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.pdb
+                                     RandomizedBaseAddress=true
+                                     RegisterOutput=false
+                                     SetChecksum=false
+                                     ShowProgress=NotSet
+                                     SubSystem=Windows
+                                     SuppressStartupBanner=true
+                                     SwapRunFromCD=false
+                                     SwapRunFromNET=false
+                                     TargetMachine=MachineX86
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TurnOffAssemblyGeneration=false
+                                     TypeLibraryResourceID=1
+                                     UACExecutionLevel=AsInvoker
+                                     UACUIAccess=false
+                                     WindowsMetadataFile=
+                                     WindowsMetadataKeyContainer=
+                                     WindowsMetadataLinkDelaySign=
+                                     WindowsMetadataLinkKeyFile=
+                                     WindowsMetadataSignHash=
+                             Release\Collections.obj
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalDependencies=../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;
+                                     AllowIsolation=true
+                                     CLRImageType=Default
+                                     DataExecutionPrevention=true
+                                     DelaySign=
+                                     Driver=NotSet
+                                     EnableCOMDATFolding=true
+                                     EnableUAC=true
+                                     GenerateDebugInformation=true
+                                     GenerateMapFile=false
+                                     IgnoreEmbeddedIDL=false
+                                     ImageHasSafeExceptionHandlers=true
+                                     ImportLibrary=Release\ExampleAIModule.lib
+                                     KeyFile=
+                                     LinkDLL=true
+                                     LinkErrorReporting=PromptImmediately
+                                     LinkTimeCodeGeneration=UseLinkTimeCodeGeneration
+                                     ManifestEmbed=true
+                                     ManifestFile=
+                                     ManifestInput=;;;;;;;;;;;;
+                                     MapExports=false
+                                     MinimalRebuildFromTracking=true
+                                     NoEntryPoint=false
+                                     OptimizeReferences=true
+                                     OutputFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll
+                                     PerUserRedirection=false
+                                     Profile=false
+                                     ProfileGuidedDatabase=
+                                     ProgramDatabaseFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.pdb
+                                     RandomizedBaseAddress=true
+                                     RegisterOutput=false
+                                     SetChecksum=false
+                                     ShowProgress=NotSet
+                                     SubSystem=Windows
+                                     SuppressStartupBanner=true
+                                     SwapRunFromCD=false
+                                     SwapRunFromNET=false
+                                     TargetMachine=MachineX86
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TurnOffAssemblyGeneration=false
+                                     TypeLibraryResourceID=1
+                                     UACExecutionLevel=AsInvoker
+                                     UACUIAccess=false
+                                     WindowsMetadataFile=
+                                     WindowsMetadataKeyContainer=
+                                     WindowsMetadataLinkDelaySign=
+                                     WindowsMetadataLinkKeyFile=
+                                     WindowsMetadataSignHash=
+                             Release\Dll.obj
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalDependencies=../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;
+                                     AllowIsolation=true
+                                     CLRImageType=Default
+                                     DataExecutionPrevention=true
+                                     DelaySign=
+                                     Driver=NotSet
+                                     EnableCOMDATFolding=true
+                                     EnableUAC=true
+                                     GenerateDebugInformation=true
+                                     GenerateMapFile=false
+                                     IgnoreEmbeddedIDL=false
+                                     ImageHasSafeExceptionHandlers=true
+                                     ImportLibrary=Release\ExampleAIModule.lib
+                                     KeyFile=
+                                     LinkDLL=true
+                                     LinkErrorReporting=PromptImmediately
+                                     LinkTimeCodeGeneration=UseLinkTimeCodeGeneration
+                                     ManifestEmbed=true
+                                     ManifestFile=
+                                     ManifestInput=;;;;;;;;;;;;
+                                     MapExports=false
+                                     MinimalRebuildFromTracking=true
+                                     NoEntryPoint=false
+                                     OptimizeReferences=true
+                                     OutputFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll
+                                     PerUserRedirection=false
+                                     Profile=false
+                                     ProfileGuidedDatabase=
+                                     ProgramDatabaseFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.pdb
+                                     RandomizedBaseAddress=true
+                                     RegisterOutput=false
+                                     SetChecksum=false
+                                     ShowProgress=NotSet
+                                     SubSystem=Windows
+                                     SuppressStartupBanner=true
+                                     SwapRunFromCD=false
+                                     SwapRunFromNET=false
+                                     TargetMachine=MachineX86
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TurnOffAssemblyGeneration=false
+                                     TypeLibraryResourceID=1
+                                     UACExecutionLevel=AsInvoker
+                                     UACUIAccess=false
+                                     WindowsMetadataFile=
+                                     WindowsMetadataKeyContainer=
+                                     WindowsMetadataLinkDelaySign=
+                                     WindowsMetadataLinkKeyFile=
+                                     WindowsMetadataSignHash=
+                             Release\ExampleAIModule.obj
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalDependencies=../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;
+                                     AllowIsolation=true
+                                     CLRImageType=Default
+                                     DataExecutionPrevention=true
+                                     DelaySign=
+                                     Driver=NotSet
+                                     EnableCOMDATFolding=true
+                                     EnableUAC=true
+                                     GenerateDebugInformation=true
+                                     GenerateMapFile=false
+                                     IgnoreEmbeddedIDL=false
+                                     ImageHasSafeExceptionHandlers=true
+                                     ImportLibrary=Release\ExampleAIModule.lib
+                                     KeyFile=
+                                     LinkDLL=true
+                                     LinkErrorReporting=PromptImmediately
+                                     LinkTimeCodeGeneration=UseLinkTimeCodeGeneration
+                                     ManifestEmbed=true
+                                     ManifestFile=
+                                     ManifestInput=;;;;;;;;;;;;
+                                     MapExports=false
+                                     MinimalRebuildFromTracking=true
+                                     NoEntryPoint=false
+                                     OptimizeReferences=true
+                                     OutputFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll
+                                     PerUserRedirection=false
+                                     Profile=false
+                                     ProfileGuidedDatabase=
+                                     ProgramDatabaseFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.pdb
+                                     RandomizedBaseAddress=true
+                                     RegisterOutput=false
+                                     SetChecksum=false
+                                     ShowProgress=NotSet
+                                     SubSystem=Windows
+                                     SuppressStartupBanner=true
+                                     SwapRunFromCD=false
+                                     SwapRunFromNET=false
+                                     TargetMachine=MachineX86
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TurnOffAssemblyGeneration=false
+                                     TypeLibraryResourceID=1
+                                     UACExecutionLevel=AsInvoker
+                                     UACUIAccess=false
+                                     WindowsMetadataFile=
+                                     WindowsMetadataKeyContainer=
+                                     WindowsMetadataLinkDelaySign=
+                                     WindowsMetadataLinkKeyFile=
+                                     WindowsMetadataSignHash=
+                             Release\InformationManager.obj
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalDependencies=../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;
+                                     AllowIsolation=true
+                                     CLRImageType=Default
+                                     DataExecutionPrevention=true
+                                     DelaySign=
+                                     Driver=NotSet
+                                     EnableCOMDATFolding=true
+                                     EnableUAC=true
+                                     GenerateDebugInformation=true
+                                     GenerateMapFile=false
+                                     IgnoreEmbeddedIDL=false
+                                     ImageHasSafeExceptionHandlers=true
+                                     ImportLibrary=Release\ExampleAIModule.lib
+                                     KeyFile=
+                                     LinkDLL=true
+                                     LinkErrorReporting=PromptImmediately
+                                     LinkTimeCodeGeneration=UseLinkTimeCodeGeneration
+                                     ManifestEmbed=true
+                                     ManifestFile=
+                                     ManifestInput=;;;;;;;;;;;;
+                                     MapExports=false
+                                     MinimalRebuildFromTracking=true
+                                     NoEntryPoint=false
+                                     OptimizeReferences=true
+                                     OutputFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll
+                                     PerUserRedirection=false
+                                     Profile=false
+                                     ProfileGuidedDatabase=
+                                     ProgramDatabaseFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.pdb
+                                     RandomizedBaseAddress=true
+                                     RegisterOutput=false
+                                     SetChecksum=false
+                                     ShowProgress=NotSet
+                                     SubSystem=Windows
+                                     SuppressStartupBanner=true
+                                     SwapRunFromCD=false
+                                     SwapRunFromNET=false
+                                     TargetMachine=MachineX86
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TurnOffAssemblyGeneration=false
+                                     TypeLibraryResourceID=1
+                                     UACExecutionLevel=AsInvoker
+                                     UACUIAccess=false
+                                     WindowsMetadataFile=
+                                     WindowsMetadataKeyContainer=
+                                     WindowsMetadataLinkDelaySign=
+                                     WindowsMetadataLinkKeyFile=
+                                     WindowsMetadataSignHash=
+                             Release\LordCommander.obj
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalDependencies=../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;
+                                     AllowIsolation=true
+                                     CLRImageType=Default
+                                     DataExecutionPrevention=true
+                                     DelaySign=
+                                     Driver=NotSet
+                                     EnableCOMDATFolding=true
+                                     EnableUAC=true
+                                     GenerateDebugInformation=true
+                                     GenerateMapFile=false
+                                     IgnoreEmbeddedIDL=false
+                                     ImageHasSafeExceptionHandlers=true
+                                     ImportLibrary=Release\ExampleAIModule.lib
+                                     KeyFile=
+                                     LinkDLL=true
+                                     LinkErrorReporting=PromptImmediately
+                                     LinkTimeCodeGeneration=UseLinkTimeCodeGeneration
+                                     ManifestEmbed=true
+                                     ManifestFile=
+                                     ManifestInput=;;;;;;;;;;;;
+                                     MapExports=false
+                                     MinimalRebuildFromTracking=true
+                                     NoEntryPoint=false
+                                     OptimizeReferences=true
+                                     OutputFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll
+                                     PerUserRedirection=false
+                                     Profile=false
+                                     ProfileGuidedDatabase=
+                                     ProgramDatabaseFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.pdb
+                                     RandomizedBaseAddress=true
+                                     RegisterOutput=false
+                                     SetChecksum=false
+                                     ShowProgress=NotSet
+                                     SubSystem=Windows
+                                     SuppressStartupBanner=true
+                                     SwapRunFromCD=false
+                                     SwapRunFromNET=false
+                                     TargetMachine=MachineX86
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+                                     TurnOffAssemblyGeneration=false
+                                     TypeLibraryResourceID=1
+                                     UACExecutionLevel=AsInvoker
+                                     UACUIAccess=false
+                                     WindowsMetadataFile=
+                                     WindowsMetadataKeyContainer=
+                                     WindowsMetadataLinkDelaySign=
+                                     WindowsMetadataLinkKeyFile=
+                                     WindowsMetadataSignHash=
+                             Release\OrderQueue.obj
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalDependencies=../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;
+                                     AllowIsolation=true
+                                     CLRImageType=Default
+                                     DataExecutionPrevention=true
+                                     DelaySign=
+                                     Driver=NotSet
+                                     EnableCOMDATFolding=true
+                                     EnableUAC=true
+                                     GenerateDebugInformation=true
+                                     GenerateMapFile=false
+                                     IgnoreEmbeddedIDL=false
+                                     ImageHasSafeExceptionHandlers=true
+                                     ImportLibrary=Release\ExampleAIModule.lib
+                                     KeyFile=
+                                     LinkDLL=true
+                                     LinkErrorReporting=PromptImmediately
+                                     LinkTimeCodeGeneration=UseLinkTimeCodeGeneration
+                                     ManifestEmbed=true
+                                     ManifestFile=
+                                     ManifestInput=;;;;;;;;;;;;
+                                     MapExports=false
+                                     MinimalRebuildFromTracking=true
+                                     NoEntryPoint=false
+                                     OptimizeReferences=true
+                                     OutputFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll
+                                     PerUserRedirection=false
+                                     Profile=false
+                                     ProfileGuidedDatabase=
+                                     ProgramDatabaseFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.pdb
+                                     RandomizedBaseAddress=true
+                                     RegisterOutput=false
+                                     SetChecksum=false
+                                     ShowProgress=NotSet
+                                     SubSystem=Windows
+                                     SuppressStartupBanner=true
+                                     SwapRunFromCD=false
+                                     SwapRunFromNET=false
+                                     TargetMachine=MachineX86
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+<<<<<<< HEAD
+                                     TurnOffAssemblyGeneration=false
+                                     TypeLibraryResourceID=1
+                                     UACExecutionLevel=AsInvoker
+                                     UACUIAccess=false
+                                     WindowsMetadataFile=
+                                     WindowsMetadataKeyContainer=
+                                     WindowsMetadataLinkDelaySign=
+                                     WindowsMetadataLinkKeyFile=
+                                     WindowsMetadataSignHash=
+                             Release\OrderType.obj
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalDependencies=../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;
+                                     AllowIsolation=true
+                                     CLRImageType=Default
+                                     DataExecutionPrevention=true
+                                     DelaySign=
+                                     Driver=NotSet
+                                     EnableCOMDATFolding=true
+                                     EnableUAC=true
+                                     GenerateDebugInformation=true
+                                     GenerateMapFile=false
+                                     IgnoreEmbeddedIDL=false
+                                     ImageHasSafeExceptionHandlers=true
+                                     ImportLibrary=Release\ExampleAIModule.lib
+                                     KeyFile=
+                                     LinkDLL=true
+                                     LinkErrorReporting=PromptImmediately
+                                     LinkTimeCodeGeneration=UseLinkTimeCodeGeneration
+                                     ManifestEmbed=true
+                                     ManifestFile=
+                                     ManifestInput=;;;;;;;;;;;;
+                                     MapExports=false
+                                     MinimalRebuildFromTracking=true
+                                     NoEntryPoint=false
+                                     OptimizeReferences=true
+                                     OutputFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.dll
+                                     PerUserRedirection=false
+                                     Profile=false
+                                     ProfileGuidedDatabase=
+                                     ProgramDatabaseFile=F:\ProgramFiles\BWAPI\Release\ExampleAIModule.pdb
+                                     RandomizedBaseAddress=true
+                                     RegisterOutput=false
+                                     SetChecksum=false
+                                     ShowProgress=NotSet
+                                     SubSystem=Windows
+=======
+                                     TreatWarningAsError=false
+                                     TreatWChar_tAsBuiltInType=true
+                                     UndefineAllPreprocessorDefinitions=false
+                                     UseFullPaths=false
+                                     UseUnicodeForAssemblerListing=
+                                     WarningLevel=Level3
+                                     WholeProgramOptimization=true
+                                     WinRTNoStdLib=false
+                                     XMLDocumentationFileName=Release\
+                             Source\BattleSquad.cpp
+                                     AcceptableNonZeroExitCodes=
+                                     AdditionalIncludeDirectories=../include;
+                                     AssemblerListingLocation=
+                                     AssemblerOutput=NoListing
+                                     BasicRuntimeChecks=Default
+                                     BrowseInformation=false
+                                     BrowseInformationFile=Release\
+                                     BufferSecurityCheck=true
+                                     CallingConvention=Cdecl
+                                     CompileAs=CompileAsCpp
+                                     DebugInformationFormat=ProgramDatabase
+                                     DisableLanguageExtensions=false
+                                     EnableEnhancedInstructionSet=NotSet
+                                     EnableFiberSafeOptimizations=false
+                                     EnablePREfast=false
+                                     ErrorReporting=Prompt
+                                     ExceptionHandling=Sync
+                                     ExpandAttributedSource=false
+                                     FavorSizeOrSpeed=Neither
+                                     FloatingPointModel=Precise
+                                     ForceConformanceInForLoopScope=true
+                                     ForcedIncludeFiles=
+                                     ForcedUsingFiles=
+                                     FunctionLevelLinking=true
+                                     GenerateXMLDocumentationFiles=false
+                                     IgnoreStandardIncludePath=false
+                                     ImpLibCompiled=
+                                     InlineFunctionExpansion=Default
+                                     IntrinsicFunctions=true
+                                     LibCompiled=
+                                     LinkCompiled=true
+                                     MinimalRebuild=false
+                                     MinimalRebuildFromTracking=true
+                                     MultiProcessorCompilation=true
+                                     ObjectFileName=Release\
+                                     OmitDefaultLibName=false
+                                     OmitFramePointers=false
+                                     Optimization=MaxSpeed
+                                     PrecompiledHeader=
+                                     PrecompiledHeaderFile=
+                                     PrecompiledHeaderOutputFile=
+                                     PreprocessKeepComments=false
+                                     PreprocessorDefinitions=NOMINMAX;WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEAIMODULE_EXPORTS;_WINDLL;
+                                     PreprocessSuppressLineNumbers=false
+                                     PreprocessToFile=false
+                                     ProgramDataBaseFileName=Release\vc120.pdb
+                                     RuntimeLibrary=MultiThreadedDLL
+                                     ShowIncludes=false
+                                     SmallerTypeCheck=false
+                                     StructMemberAlignment=Default
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
+                                     SuppressStartupBanner=true
+                                     TrackerLogDirectory=Release\ExampleAIModule.tlog\
+<<<<<<< HEAD
+                                     TurnOffAssemblyGeneration=false
+                                     TypeLibraryResourceID=1
+                                     UACExecutionLevel=AsInvoker
+                                     UACUIAccess=false
+                                     WindowsMetadataFile=
+                                     WindowsMetadataKeyContainer=
+                                     WindowsMetadataLinkDelaySign=
+                                     WindowsMetadataLinkKeyFile=
+                                     WindowsMetadataSignHash=
+                             Release\ScoutManager.obj
+                                     AcceptableNonZeroExitCodes=
+=======
                                      TreatWarningAsError=false
                                      TreatWChar_tAsBuiltInType=true
                                      UndefineAllPreprocessorDefinitions=false
@@ -2816,6 +4147,7 @@ XTC_IDE = 2d6a15081a994b248032e4dc4a4c9e55
                                      WindowsMetadataSignHash=
                              Release\ScoutManager.obj
                                      AcceptableNonZeroExitCodes=
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
                                      AdditionalDependencies=../lib/BWAPI.lib;../lib/BWTA.lib;../lib/libboost_thread-vc120-mt-1_56.lib;../lib/libboost_system-vc120-mt-1_56.lib;../lib/libboost_filesystem-vc120-mt-1_56.lib;../lib/libCGAL-vc120-mt-4.4.lib;../lib/libgmp-10.lib;../lib/libmpfr-4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;
                                      AllowIsolation=true
                                      CLRImageType=Default
@@ -3269,3 +4601,7 @@ Task Performance Summary:
 Build succeeded.
 
 Time Elapsed 00:00:13.44
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> 9009a9f1c437d822bdc485c5b05a3c97727a9101
