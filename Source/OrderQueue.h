@@ -26,6 +26,8 @@ public:
 	bool execute();
 	//hàm đẩy order nhà vào hàng đợi. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
 	bool push(BWAPI::UnitType unitType, int priority);
+	//hàm đẩy order nhà vào hàng đợi có kèm ràng buộc số dân. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
+	bool push(BWAPI::UnitType unitType, int priority, int supplyRequired);
 	//hàm đẩy order lính vào hàng đợi. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
 	bool push(BWAPI::UnitType unitType, BWAPI::UnitType parentUnit,int volume, int priority);
 	//hàm đẩy upgrade vào hàng đợi. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên

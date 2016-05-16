@@ -136,6 +136,7 @@ void ExampleAIModule::onStart()
 	mainOrderQueue = OrderQueue();
 	buildingManager = BuidingManager();
 
+<<<<<<< HEAD
 
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
@@ -156,6 +157,17 @@ void ExampleAIModule::onStart()
 	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
 	
 
+=======
+	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
+	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
+	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
+	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 9);
+	//mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 15);
+
+	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 100, OrderQueue::PRIORITY_NORMAL);
+>>>>>>> master
 }
 
 void ExampleAIModule::onEnd(bool isWinner)

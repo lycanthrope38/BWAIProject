@@ -1,6 +1,5 @@
 ﻿#include "InformationManager.h"
 
-
 InformationManager::InformationManager(BWAPI::Unit unit)
 {
 	selfMapInfor = new char*[BWAPI::Broodwar->mapHeight()];

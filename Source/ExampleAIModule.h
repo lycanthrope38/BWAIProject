@@ -15,7 +15,6 @@ DWORD WINAPI AnalyzeThread();
 class ExampleAIModule : public BWAPI::AIModule
 {
 	bool pool;
-	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;
 	BWAPI::Unit supplyBuilderTemp;
 	ArmyOrder* armyOrder;
 	OrderQueue mainOrderQueue;
@@ -23,6 +22,7 @@ class ExampleAIModule : public BWAPI::AIModule
 	BuidingManager buildingManager;
 
 public:
+	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;
 	// Virtual functions for callbacks, leave these as they are.
 	virtual void onStart();
 	virtual void onEnd(bool isWinner);

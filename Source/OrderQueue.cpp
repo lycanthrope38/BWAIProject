@@ -21,6 +21,7 @@ bool OrderQueue::execute(){
 	if (this->queue.at(0).isUnit()){
 		//nếu là nhà thì xây
 		if (this->queue.at(0).isBuilding()){
+<<<<<<< HEAD
 
 			//truyền vào this->queue.at(0) sai
 			BWAPI::UnitType unitType = this->queue.at(0).getUnit();
@@ -28,6 +29,25 @@ bool OrderQueue::execute(){
 			BWAPI::Broodwar->printf("Building name unit type '%s'", unitType.getName().c_str());
 			return build(unitType);
 
+=======
+			//nếu nhà có yêu cầu số dân thì kiểm tra xem số dân đã đủ hay chưa
+			if (queue.at(0).supplyRequire != -1){
+				if (BWAPI::Broodwar->self()->supplyTotal() / 2 >= queue.at(0).supplyRequire){
+					//truyền vào this->queue.at(0) sai
+					BWAPI::UnitType unitType = this->queue.at(0).getUnit();
+					return build(unitType);
+				}
+				else{
+					BWAPI::Broodwar->sendText("SupplyTotal %d is not enough to build! Required %d", (BWAPI::Broodwar->self()->supplyTotal() / 2), queue.at(0).supplyRequire);
+					return false;
+				}
+			}
+			//nếu không yêu cầu số dân thì xây luôn
+			else{
+				BWAPI::UnitType unitType = this->queue.at(0).getUnit();
+				return build(unitType);
+			}
+>>>>>>> master
 		}
 		//nếu là lính thì train
 		else
@@ -40,14 +60,30 @@ bool OrderQueue::execute(){
 
 //hàm đẩy order nhà vào hàng đợi. sử dụng các biến static PRIORITY_VERY_HIGH, PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
 bool OrderQueue::push(BWAPI::UnitType unitType, int priority){
-	BWAPI::Broodwar->sendText("PUSED %d",unitType.getName());
+	BWAPI::Broodwar->sendText("PUSED %d", unitType.getName());
 	switch (priority)
 	{
 	case 0:
-		this->queue.insert(queue.begin(),OrderType(unitType));
+		this->queue.insert(queue.begin(), OrderType(unitType));
 		return true;
 	case 1:
 		this->queue.push_back(OrderType(unitType));
+		return true;
+	default:
+		return false;
+	}
+}
+
+//hàm đẩy order nhà vào hàng đợi có ràng buộc số dân. sử dụng các biến static PRIORITY_VERY_HIGH, PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
+bool OrderQueue::push(BWAPI::UnitType unitType, int priority, int supplyRequired){
+	BWAPI::Broodwar->sendText("PUSED %d", unitType.getName());
+	switch (priority)
+	{
+	case 0:
+		this->queue.insert(queue.begin(), OrderType(unitType, supplyRequired));
+		return true;
+	case 1:
+		this->queue.push_back(OrderType(unitType, supplyRequired));
 		return true;
 	default:
 		return false;
@@ -114,19 +150,31 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 			{
 				// Order the builder to construct the supply structure
 				if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
-					u->build(buildingType, targetBuildLocation);
-					// Register an event that draws the target build location
-					BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
-					{
-						BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
-							BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
-							BWAPI::Colors::Red);
-					},
-						nullptr,  // condition
-						buildingType.buildTime() + 100);  // frames to run
+					if (u->build(buildingType, targetBuildLocation)){
+						queue.erase(queue.begin());
+						// Register an event that draws the target build location
+						BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+						{
+							BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
+								BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
+								BWAPI::Colors::Red);
+						},
+							nullptr,  // condition
+							buildingType.buildTime() + 100);  // frames to run
 
-					queue.erase(queue.begin());
-					return true;
+						return true;
+					}
+					else{
+						queue.at(0).failed++;
+						BWAPI::Broodwar->sendText("Building failed %d", queue.at(0).failed);
+						if (queue.at(0).failed > 2){
+							queue.at(0).failed = 0;
+							OrderType tmp = OrderType(queue.at(0));
+							queue.erase(queue.begin());
+							queue.push_back(tmp);
+						}
+						return false;
+					}
 				}
 			}
 			
