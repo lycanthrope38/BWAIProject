@@ -6,6 +6,7 @@
 #include "OrderQueue.h"
 #include "ScoutManager.h"
 #include "BuidingManager.h"
+#include "WorkerManager.h"
 
 
 // Remember not to use "Broodwar" in any global class constructor!
@@ -21,6 +22,7 @@ class ExampleAIModule : public BWAPI::AIModule
 	OrderQueue mainOrderQueue;
 	ScoutManager scoutManager;
 	BuidingManager buildingManager;
+	
 
 public:
 	// Virtual functions for callbacks, leave these as they are.

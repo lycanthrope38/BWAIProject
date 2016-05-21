@@ -52,14 +52,14 @@ void ScoutManager::sendScout()
 		}
 
 
-		for (auto u : BWAPI::Broodwar->self()->getUnits())
+		/*for (auto u : BWAPI::Broodwar->self()->getUnits())
 		{
 			if (u->getType().isResourceDepot())
 			{
 				scout->move(u->getPosition(), true);
 				break;
 			}
-		}
+		}*/
 	}
 	else
 	{

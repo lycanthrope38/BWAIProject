@@ -259,8 +259,9 @@ void ExampleAIModule::onFrame()
 				}
 
 			
+				
 
-				if (buildingManager.getWorkerCount() <= 2)
+				if (buildingManager.getWorkerCount() <= 1)
 				{
 				
 					buildingManager.makeAvailable(u);
@@ -322,18 +323,11 @@ void ExampleAIModule::onFrame()
 							{
 								TilePosition targetBuildLocation = Broodwar->getBuildLocation(supplyProviderType,
 									supplyBuilder->getTilePosition());
-								//if (targetBuildLocation)
-								//{
-								//	BWAPI::Position shiftPositionX(20, 20);
-								//	Position position = u->getPosition() + shiftPositionX;
-								//	BWAPI::Broodwar->printf("Building Shilf '%d %d' ", position.x, position.y);
+								
 									Unit worker = buildingManager.getWorker();
-								//	//supplyBuilder->build(supplyProviderType, targetBuildLocation);
-								//
-								//	buildingManager.moveWorker(worker, position);
-									//buildingManager.placeExpansion(worker, supplyProviderType, TilePosition(position.x/32,position.y/32));
+						
 									buildingManager.placeBuilding(worker, supplyProviderType,targetBuildLocation);
-								//}
+						
 							}
 							else
 							{
@@ -398,6 +392,10 @@ void ExampleAIModule::onUnitEvade(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitShow(BWAPI::Unit unit)
 {
+	if ((unit->getPlayer()->isEnemy(Broodwar->self())) && (unit->getType().isBuilding()))
+	{
+		scoutManager.addEnemyBase(unit);
+	}
 }
 
 void ExampleAIModule::onUnitHide(BWAPI::Unit unit)
@@ -423,17 +421,9 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitMorph(BWAPI::Unit unit)
 {
-	if (Broodwar->isReplay())
+	if (!(unit->getPlayer() == Broodwar->self()))
 	{
-		// if we are in a replay, then we will print out the build order of the structures
-		if (unit->getType().isBuilding() && !unit->getPlayer()->isNeutral())
-		{
-			int seconds = Broodwar->getFrameCount() / 24;
-			int minutes = seconds / 60;
-			seconds %= 60;
-			Broodwar->sendText("%.2d:%.2d: %s morphs a %s", minutes, seconds,
-				unit->getPlayer()->getName().c_str(), unit->getType().c_str());
-		}
+		scoutManager.addEnemyBase(unit);
 	}
 }
 

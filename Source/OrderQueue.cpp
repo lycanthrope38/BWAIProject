@@ -114,31 +114,25 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 			{
 				// Order the builder to construct the supply structure
 				if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
-					u->build(buildingType, targetBuildLocation);
-					// Register an event that draws the target build location
-					BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+					if (u->build(buildingType, targetBuildLocation))
 					{
-						BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
-							BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
-							BWAPI::Colors::Red);
-					},
-						nullptr,  // condition
-						buildingType.buildTime() + 100);  // frames to run
+						// Register an event that draws the target build location
+						BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+						{
+							BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
+								BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
+								BWAPI::Colors::Red);
+						},
+							nullptr,  // condition
+							buildingType.buildTime() + 100);  // frames to run
 
-					queue.erase(queue.begin());
-					return true;
+						queue.erase(queue.begin());
+						return true;
+					}
+					
 				}
 			}
 			
-
-			/*BuidingManager manager = BuidingManager();
-			if (manager.createBuilding(u, buildingType))
-			{
-				BWAPI::Broodwar->sendText("Building success");
-				queue.erase(queue.begin());
-				return true;
-			}*/
-		
 			break;
 			
 		}

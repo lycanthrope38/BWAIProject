@@ -13,6 +13,7 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 	int count = 0;
 	int spiralCount = 1;
 	bool isX = true;
+	bool isBuiding = false;
 	BWAPI::TilePosition buildPosition;
 	BWAPI::TilePosition shiftPositionX(5, 0);
 	BWAPI::TilePosition shiftPositionY(0, 5);
@@ -36,8 +37,29 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 	//begin search for valid structure placement at approxLocation and then spiral outwards until /
 	//acceptable location is found
 	buildPosition = approxLocation;
-	while (!builder->build(building, buildPosition))
+	while (isBuiding!=true)
 	{
+
+		//if (buildPosition)
+		//{
+		//	// Register an event that draws the target build location
+		//	Broodwar->registerEvent([buildPosition, building](Game*)
+		//	{
+		//		Broodwar->drawBoxMap(Position(buildPosition),
+		//			Position(buildPosition + building.tileSize()),
+		//			Colors::Blue);
+		//	},
+		//		nullptr,  // condition
+		//		building.buildTime() + 100);  // frames to run
+
+		//	// Order the builder to construct the supply structure
+		//	builder->build(building, buildPosition);
+		//}
+		if (!builder->build(building, buildPosition) && !isBuiding)
+		{
+			isBuiding = true;
+			break;
+		}
 		do{
 			//check the location of the closest minerals - continue to increment position without /
 			//attempting to construct until the minerals are no longer too close
