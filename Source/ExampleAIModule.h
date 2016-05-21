@@ -1,11 +1,10 @@
-#pragma once
+﻿#pragma once
 #include <BWAPI.h>
 #include <BWTA.h>
 #include <Windows.h>
 #include "ArmyOrder.h"
 #include "OrderQueue.h"
 #include "ScoutManager.h"
-#include "BuidingManager.h"
 
 
 // Remember not to use "Broodwar" in any global class constructor!
@@ -19,7 +18,6 @@ class ExampleAIModule : public BWAPI::AIModule
 	ArmyOrder* armyOrder;
 	OrderQueue mainOrderQueue;
 	ScoutManager scoutManager;
-	BuidingManager buildingManager;
 
 public:
 	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;

@@ -7,6 +7,7 @@
 #include <BWAPI.h>
 #include "OrderType.h"
 #include "ArmyOrder.h"
+
 #include "BuidingManager.h"
 
 class OrderQueue : public ArmyOrder
