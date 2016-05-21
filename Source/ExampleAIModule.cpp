@@ -316,21 +316,6 @@ void ExampleAIModule::onFrame()
 						
 									buildingManager.placeBuilding(worker, supplyProviderType,targetBuildLocation);
 
-								if (targetBuildLocation)
-								{
-									// Register an event that draws the target build location
-									Broodwar->registerEvent([targetBuildLocation, supplyProviderType](Game*)
-									{
-										Broodwar->drawBoxMap(Position(targetBuildLocation),
-											Position(targetBuildLocation + supplyProviderType.tileSize()),
-											Colors::Blue);
-									},
-										nullptr,  // condition
-										supplyProviderType.buildTime() + 100);  // frames to run
-
-									// Order the builder to construct the supply structure
-									supplyBuilder->build(supplyProviderType, targetBuildLocation);
-								}
 							}
 							else
 							{
