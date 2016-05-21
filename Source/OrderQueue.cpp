@@ -8,6 +8,7 @@
 #include "BuidingManager.h"
 
 #include <BWAPI.h>
+#include <queue>
 
 OrderQueue::OrderQueue() :ArmyOrder(BWAPI::Broodwar->self()){
 }
@@ -134,61 +135,25 @@ int OrderQueue::getSize(){
 
 //xử lý các yêu cầu xây dựng
 bool OrderQueue::build(BWAPI::UnitType buildingType){
-	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
-		if (u->getType().isWorker()){
-			//BWAPI::UnitType buildingType = BWAPI::UnitTypes::Protoss_Gateway;
-			BWAPI::Broodwar->sendText("Building");
-	
-	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
-		if (u->getType().isWorker()){
-
-			BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
+	BuidingManager manager = BuidingManager();
+	BWAPI::Unit worker = manager.getWorker();
+			
+	BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, worker->getTilePosition());
 			if (targetBuildLocation)
 			{
 				// Order the builder to construct the supply structure
 				if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
-
-					if (u->build(buildingType, targetBuildLocation))
-					{
-
-					if (u->build(buildingType, targetBuildLocation)){
-						queue.erase(queue.begin());
-						// Register an event that draws the target build location
-						BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
-						{
-							BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
-								BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
-								BWAPI::Colors::Red);
-						},
-							nullptr,  // condition
-							buildingType.buildTime() + 100);  // frames to run
-						queue.erase(queue.begin());
-						return true;
-					}
 					
+					if (manager.placeBuilding(worker, buildingType, targetBuildLocation))
+					{
 						return true;
-					}
-					else{
-						queue.at(0).failed++;
-						BWAPI::Broodwar->sendText("Building failed %d", queue.at(0).failed);
-						if (queue.at(0).failed > 2){
-							queue.at(0).failed = 0;
-							OrderType tmp = OrderType(queue.at(0));
-							queue.erase(queue.begin());
-							queue.push_back(tmp);
-						}
-						return false;
 					}
 				}
+				
 			}
-		}
-	}
-			
-			break;
-			
-		}
-	}
+
 	queue.at(0).failed++;
+	BWAPI::Broodwar->sendText("Building failed %d", queue.at(0).failed);
 	if (queue.at(0).failed > 2){
 		queue.at(0).failed = 0;
 		OrderType tmp = OrderType(queue.at(0));
@@ -196,6 +161,7 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 		queue.push_back(tmp);
 	}
 	return false;
+
 }
 
 //xử lí các yêu cầu mua quân lính

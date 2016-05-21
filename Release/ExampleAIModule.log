@@ -1,8 +1,7 @@
-﻿Build started 5/21/2016 3:54:22 PM.
+﻿Build started 5/21/2016 4:48:22 PM.
      1>Project "D:\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I../include /Zi /nologo /W3 /WX- /MP /O2 /Oi /Oy- /GL /D NOMINMAX /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Dll.cpp Source\ExampleAIModule.cpp Source\OrderQueue.cpp
-         Dll.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I../include /Zi /nologo /W3 /WX- /MP /O2 /Oi /Oy- /GL /D NOMINMAX /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\ExampleAIModule.cpp Source\OrderQueue.cpp
          ExampleAIModule.cpp
          OrderQueue.cpp
        Link:
@@ -29,4 +28,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:11.51
+Time Elapsed 00:00:43.96
