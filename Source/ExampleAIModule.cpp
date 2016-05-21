@@ -1,6 +1,7 @@
 ﻿#include "ExampleAIModule.h"
 #include "Collections.h"
 #include <iostream>
+#include <BWAPI.h>
 
 using namespace BWAPI;
 using namespace Filter;

@@ -27,32 +27,32 @@ bool OrderQueue::execute(){
 			BWAPI::UnitType unitType = this->queue.at(0).getUnit();
 
 			BWAPI::Broodwar->printf("Building name unit type '%s'", unitType.getName().c_str());
-			return build(unitType);
+			return resultAnalyze(build(unitType));
 
 			//nếu nhà có yêu cầu số dân thì kiểm tra xem số dân đã đủ hay chưa
 			if (queue.at(0).supplyRequire != -1){
 				if (BWAPI::Broodwar->self()->supplyTotal() / 2 >= queue.at(0).supplyRequire){
 					//truyền vào this->queue.at(0) sai
 					BWAPI::UnitType unitType = this->queue.at(0).getUnit();
-					return build(unitType);
+					return resultAnalyze(build(unitType));
 				}
 				else{
 					BWAPI::Broodwar->sendText("SupplyTotal %d is not enough to build! Required %d", (BWAPI::Broodwar->self()->supplyTotal() / 2), queue.at(0).supplyRequire);
-					return false;
+					return resultAnalyze(false);
 				}
 			}
 			//nếu không yêu cầu số dân thì xây luôn
 			else{
 				BWAPI::UnitType unitType = this->queue.at(0).getUnit();
-				return build(unitType);
+				return resultAnalyze(build(unitType));
 			}
 		}
 		//nếu là lính thì train
 		else
-			return training();
+			return resultAnalyze(training());
 	}
 	//nếu là upgrade thì upgrade
-	return upgrade(queue.at(0).getUpgrade());
+	return resultAnalyze(upgrade(queue.at(0).getUpgrade()));
 }
 
 //hàm đẩy order nhà vào hàng đợi. sử dụng các biến static PRIORITY_VERY_HIGH, PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
@@ -87,12 +87,12 @@ bool OrderQueue::push(BWAPI::UnitType unitType, int priority, int supplyRequired
 	}
 }
 //hàm đẩy order lính vào hàng đợi. sử dụng các biến static PRIORITY_VERY_HIGH, PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
-bool OrderQueue::push(BWAPI::UnitType unitType, BWAPI::UnitType parentUnit,int vol, int priority){
+bool OrderQueue::push(BWAPI::UnitType unitType, BWAPI::UnitType parentUnit, int vol, int priority){
 	BWAPI::Broodwar->sendText("PUSED %d", unitType.getName());
 	switch (priority)
 	{
 	case 0:
-		this->queue.insert(queue.begin(), OrderType(unitType, parentUnit,vol));
+		this->queue.insert(queue.begin(), OrderType(unitType, parentUnit, vol));
 		return true;
 	case 1:
 		this->queue.push_back(OrderType(unitType, parentUnit, vol));
@@ -135,33 +135,28 @@ int OrderQueue::getSize(){
 
 //xử lý các yêu cầu xây dựng
 bool OrderQueue::build(BWAPI::UnitType buildingType){
-	BuidingManager manager = BuidingManager();
+	/*BuidingManager manager = BuidingManager();
 	BWAPI::Unit worker = manager.getWorker();
-			
-	BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, worker->getTilePosition());
-			if (targetBuildLocation)
-			{
-				// Order the builder to construct the supply structure
-				if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
-					
-					if (manager.placeBuilding(worker, buildingType, targetBuildLocation))
-					{
-						return true;
-					}
-				}
-				
-			}
 
-	queue.at(0).failed++;
-	BWAPI::Broodwar->sendText("Building failed %d", queue.at(0).failed);
-	if (queue.at(0).failed > 2){
-		queue.at(0).failed = 0;
-		OrderType tmp = OrderType(queue.at(0));
-		queue.erase(queue.begin());
-		queue.push_back(tmp);
+	BWAPI::TilePosition targetBuildLocation =
+	BWAPI::Broodwar->
+	getBuildLocation(buildingType,
+	worker->getTilePosition()
+	);
+	if (targetBuildLocation)
+	{
+	// Order the builder to construct the supply structure
+	if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
+
+	if (manager.placeBuilding(worker, buildingType, targetBuildLocation))
+	{
+	return true;
 	}
-	return false;
+	}
 
+	}
+	*/
+	return false;
 }
 
 //xử lí các yêu cầu mua quân lính
@@ -176,17 +171,7 @@ bool OrderQueue::training(){
 		queue.erase(queue.begin());
 		return true;
 	}
-	else{
-		queue.at(0).failed++;
-		BWAPI::Broodwar->sendText("Training failed %d", queue.at(0).failed);
-		if (queue.at(0).failed > 2){
-			queue.at(0).failed = 0;
-			OrderType tmp = OrderType(queue.at(0));
-			queue.erase(queue.begin());
-			queue.push_back(tmp);
-		}
-		return false;
-	}
+	return false;
 }
 
 //xử lý các yêu cầu nâng cấp
@@ -196,6 +181,24 @@ bool OrderQueue::upgrade(BWAPI::UpgradeType upgradeType){
 	//nếu upgrade không được thì tăng số lần failed lên và kiểm tra số lần failed. 
 	// nếu failed 3 lần thì đẩy phần tử này xuống cuối hàng đợi
 	return false;
+}
+bool OrderQueue::resultAnalyze(bool result){
+	if (result){
+		queue.erase(queue.begin());
+		return true;
+	}
+	else{
+		queue.at(0).failed++;
+		BWAPI::Broodwar->sendText("Training failed %d", queue.at(0).failed);
+		if (queue.at(0).failed > 2){
+			queue.at(0).failed = 0;
+			OrderType tmp = OrderType(queue.at(0));
+			queue.erase(queue.begin());
+			queue.push_back(tmp);
+			BWAPI::Broodwar->sendText("Moved to the end of queue!");
+		}
+		return false;
+	}
 }
 
 OrderQueue::~OrderQueue()

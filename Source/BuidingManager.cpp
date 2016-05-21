@@ -209,7 +209,7 @@ bool BuidingManager::placeExpansion(BWAPI::Unit builder, BWAPI::UnitType buildin
 // đẩy dịch chuyển các vị trí xây nhà 
 BWAPI::TilePosition BuidingManager::getNextBase(BWAPI::TilePosition basePosition, BWAPI::TilePosition shiftPosition)
 {
-
+	return basePosition;
 }
 
 
