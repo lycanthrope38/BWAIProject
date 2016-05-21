@@ -100,7 +100,7 @@
     <ClCompile Include="Source\OrderQueue.cpp" />
     <ClCompile Include="Source\OrderType.cpp" />
     <ClCompile Include="Source\ScoutManager.cpp" />
-    <ClCompile Include="WorkerManager.cpp" />
+    <ClCompile Include="Source\WorkerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ArmyOrder.h" />
@@ -114,7 +114,7 @@
     <ClInclude Include="Source\OrderQueue.h" />
     <ClInclude Include="Source\OrderType.h" />
     <ClInclude Include="Source\ScoutManager.h" />
-    <ClInclude Include="WorkerManager.h" />
+    <ClInclude Include="Source\WorkerManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
