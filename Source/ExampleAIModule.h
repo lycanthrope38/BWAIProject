@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <BWAPI.h>
 #include <BWTA.h>
 #include <Windows.h>
@@ -9,6 +9,7 @@
 #include "WorkerManager.h"
 
 
+
 // Remember not to use "Broodwar" in any global class constructor!
 
 DWORD WINAPI AnalyzeThread();
@@ -16,7 +17,6 @@ DWORD WINAPI AnalyzeThread();
 class ExampleAIModule : public BWAPI::AIModule
 {
 	bool pool;
-	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;
 	BWAPI::Unit supplyBuilderTemp;
 	ArmyOrder* armyOrder;
 	OrderQueue mainOrderQueue;
@@ -25,6 +25,7 @@ class ExampleAIModule : public BWAPI::AIModule
 	
 
 public:
+	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;
 	// Virtual functions for callbacks, leave these as they are.
 	virtual void onStart();
 	virtual void onEnd(bool isWinner);

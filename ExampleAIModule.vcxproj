@@ -91,7 +91,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\ArmyOrder.cpp" />
-    <ClCompile Include="Source\BattleCommander.cpp" />
     <ClCompile Include="Source\BattleField.cpp" />
     <ClCompile Include="Source\BattleSquad.cpp" />
     <ClCompile Include="Source\BuidingManager.cpp" />
@@ -107,7 +106,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ArmyOrder.h" />
-    <ClInclude Include="Source\BattleCommander.h" />
     <ClInclude Include="Source\BattleField.h" />
     <ClInclude Include="Source\BattleSquad.h" />
     <ClInclude Include="Source\BuidingManager.h" />
