@@ -15,6 +15,7 @@ OrderQueue::OrderQueue() :ArmyOrder(BWAPI::Broodwar->self()){
 //hàm thực thi order
 bool OrderQueue::execute(){
 	//bool result;
+	
 	BWAPI::Broodwar->sendText("Executed. Queue size %d", queue.size());
 	if ((this->queue.size()) == 0)
 		return false;
@@ -23,36 +24,50 @@ bool OrderQueue::execute(){
 		//nếu là nhà thì xây
 		if (this->queue.at(0).isBuilding()){
 
-			//truyền vào this->queue.at(0) sai
-			BWAPI::UnitType unitType = this->queue.at(0).getUnit();
-
-			BWAPI::Broodwar->printf("Building name unit type '%s'", unitType.getName().c_str());
-			return build(unitType);
-
 			//nếu nhà có yêu cầu số dân thì kiểm tra xem số dân đã đủ hay chưa
 			if (queue.at(0).supplyRequire != -1){
 				if (BWAPI::Broodwar->self()->supplyTotal() / 2 >= queue.at(0).supplyRequire){
 					//truyền vào this->queue.at(0) sai
 					BWAPI::UnitType unitType = this->queue.at(0).getUnit();
-					return build(unitType);
+					return resultAnalyze(build(unitType));
+
 				}
 				else{
 					BWAPI::Broodwar->sendText("SupplyTotal %d is not enough to build! Required %d", (BWAPI::Broodwar->self()->supplyTotal() / 2), queue.at(0).supplyRequire);
-					return false;
+					return resultAnalyze(false);
 				}
 			}
 			//nếu không yêu cầu số dân thì xây luôn
 			else{
 				BWAPI::UnitType unitType = this->queue.at(0).getUnit();
-				return build(unitType);
+				return resultAnalyze(build(unitType));
 			}
 		}
 		//nếu là lính thì train
 		else
-			return training();
+			return resultAnalyze(training());
 	}
 	//nếu là upgrade thì upgrade
-	return upgrade(queue.at(0).getUpgrade());
+	return resultAnalyze(upgrade(queue.at(0).getUpgrade()));
+}
+
+bool OrderQueue::resultAnalyze(bool result){
+	if (result){
+		queue.erase(queue.begin());
+		return true;
+	}
+	else{
+		queue.at(0).failed++;
+		BWAPI::Broodwar->sendText("Training failed %d", queue.at(0).failed);
+		if (queue.at(0).failed > 2){
+			queue.at(0).failed = 0;
+			OrderType tmp = OrderType(queue.at(0));
+			queue.erase(queue.begin());
+			queue.push_back(tmp);
+			BWAPI::Broodwar->sendText("Moved to the end of queue!");
+		}
+		return false;
+	}
 }
 
 //hàm đẩy order nhà vào hàng đợi. sử dụng các biến static PRIORITY_VERY_HIGH, PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
@@ -135,58 +150,100 @@ int OrderQueue::getSize(){
 
 //xử lý các yêu cầu xây dựng
 bool OrderQueue::build(BWAPI::UnitType buildingType){
-	BuidingManager manager = BuidingManager();
-	BWAPI::Unit worker = manager.getWorker();
+
+
+	//BuidingManager manager = BuidingManager();
+	//BWAPI::Unit worker = manager.getWorker();
+
+	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
+		if (u->getType().isWorker()){
+			//BWAPI::UnitType buildingType = BWAPI::UnitTypes::Protoss_Gateway;
 			
-	BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, worker->getTilePosition());
+			
+			BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
 			if (targetBuildLocation)
 			{
 				// Order the builder to construct the supply structure
 				if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
 					
-					if (manager.placeBuilding(worker, buildingType, targetBuildLocation))
+					/*BWAPI::Error lastErr = BWAPI::Broodwar->getLastError();
+					static int lastChecked = 0;
+					if (lastErr == BWAPI::Errors::Insufficient_Supply &&
+						lastChecked + 400 < BWAPI::Broodwar->getFrameCount() &&
+						BWAPI::Broodwar->self()->incompleteUnitCount(buildingType) == 0)
 					{
-						return true;
-					}
-				}
-				
-			}
+*/
+					if (u->build(buildingType, targetBuildLocation))
+					{
+						BWAPI::Broodwar->printf("Dang xay dung");
+					//	lastChecked = BWAPI::Broodwar->getFrameCount();
+						// Register an event that draws the target build location
+						BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+						{
+							BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
+								BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
+								BWAPI::Colors::Red);
+						},
+							nullptr,  // condition
+							buildingType.buildTime() + 100);  // frames to run
 
-	queue.at(0).failed++;
-	BWAPI::Broodwar->sendText("Building failed %d", queue.at(0).failed);
-	if (queue.at(0).failed > 2){
-		queue.at(0).failed = 0;
-		OrderType tmp = OrderType(queue.at(0));
-		queue.erase(queue.begin());
-		queue.push_back(tmp);
+
+						return true;
+
+					}
+					
+				//}
+			}
+			}
+		}
 	}
 	return false;
+	
+	//BuidingManager manager = BuidingManager();
+	//BWAPI::Unit worker = manager.getWorker();
+
+	//BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, worker->getTilePosition());
+	//		if (targetBuildLocation)
+	//		{
+	//			// Order the builder to construct the supply structure
+	//			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
+	//				if (worker->build(buildingType, targetBuildLocation))
+	//				{
+	//					// Register an event that draws the target build location
+	//					BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+	//					{
+	//						BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
+	//							BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
+	//							BWAPI::Colors::Red);
+	//					},
+	//						nullptr,  // condition
+	//						buildingType.buildTime() + 100);  // frames to run
+
+	//					return true;
+	//				}
+	//				
+	//			}
+	//		}
+
+	//
+	//			
+	//return false;
 
 }
 
 //xử lí các yêu cầu mua quân lính
 bool OrderQueue::training(){
-	//nếu train được thì return true và xóa phần tử đầu tiên trong hàng đợi
-	//this->queue.erase(queue.begin());
-	//nếu upgrade không được thì tăng số lần failed lên và kiểm tra số lần failed. 
-	// nếu failed 3 lần thì đẩy phần tử này xuống cuối hàng đợi
+	////nếu train được thì return true và xóa phần tử đầu tiên trong hàng đợi
+	////this->queue.erase(queue.begin());
+	////nếu upgrade không được thì tăng số lần failed lên và kiểm tra số lần failed. 
+	//// nếu failed 3 lần thì đẩy phần tử này xuống cuối hàng đợi
 	if (queue.size() == 0)
 		return true;
 	if (train(queue.at(0))){
-		queue.erase(queue.begin());
+		//queue.erase(queue.begin());
 		return true;
 	}
-	else{
-		queue.at(0).failed++;
-		BWAPI::Broodwar->sendText("Training failed %d", queue.at(0).failed);
-		if (queue.at(0).failed > 2){
-			queue.at(0).failed = 0;
-			OrderType tmp = OrderType(queue.at(0));
-			queue.erase(queue.begin());
-			queue.push_back(tmp);
-		}
-		return false;
-	}
+	return false;
 }
 
 //xử lý các yêu cầu nâng cấp

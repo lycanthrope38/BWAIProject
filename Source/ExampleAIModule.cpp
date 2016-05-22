@@ -7,10 +7,16 @@ using namespace Filter;
 
 bool analyzed;
 bool analysis_just_finished;
+BWTA::Region* home;
 
 DWORD WINAPI AnalyzeThread()
 {
 	BWTA::analyze();
+
+	if (BWTA::getStartLocation(BWAPI::Broodwar->self()) != NULL)
+	{
+		home = BWTA::getStartLocation(BWAPI::Broodwar->self())->getRegion();
+	}
 
 	analyzed = true;
 	analysis_just_finished = true;
@@ -129,10 +135,12 @@ void ExampleAIModule::onStart()
 	mainOrderQueue = OrderQueue();
 	//test đẩy 20 Zealot vào hàng đợi
 
+	buildingManager = BuidingManager();
+
+	/*mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
 	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
 	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
-	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
-	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 9);
+	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 9);*/
 	//mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 15);
 
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_NORMAL);
@@ -167,6 +175,10 @@ void ExampleAIModule::onFrame()
 	{
 		Broodwar << "Finished analyzing map." << std::endl;;
 		analysis_just_finished = false;
+		if ((Broodwar->self()->getRace() != BWAPI::Races::Zerg) && (Broodwar->mapFileName() != "(4)Andromeda.scx"))
+		{
+			buildingManager.setCentre(TilePosition(home->getCenter()));
+		}
 	}
 
 	// Prevent spamming by only running our onFrame once every number of latency frames.
@@ -237,7 +249,7 @@ void ExampleAIModule::onFrame()
 			
 				
 
-				if (buildingManager.getWorkerCount() <= 1)
+				if (buildingManager.getWorkerCount() <= 2)
 				{
 				
 					buildingManager.makeAvailable(u);
@@ -267,16 +279,7 @@ void ExampleAIModule::onFrame()
 
 			}
 			else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
-			{
-				if (supplyBuilderTemp == nullptr){
-					// Retrieve the supply provider type in the case that we have run out of supplies
-					UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
-					Unit supplyBuilder = u->getClosestUnit(GetType == supplyProviderType.whatBuilds().first &&
-						(IsIdle || IsGatheringMinerals) &&
-						IsOwned);
-					supplyBuilderTemp = supplyBuilder;
-				}
-				// Order the depot to construct more workers! But only when it is idle.
+			{				
 				if (u->isIdle() && !u->train(u->getType().getRace().getWorker()))
 				{
 					// If that fails, draw the error at the location so that you can visibly see what went wrong!
@@ -299,28 +302,18 @@ void ExampleAIModule::onFrame()
 					{
 						lastChecked = Broodwar->getFrameCount();
 
-						// Retrieve a unit that is capable of constructing the supply needed
-						Unit supplyBuilder = u->getClosestUnit(GetType == supplyProviderType.whatBuilds().first &&
-							(IsIdle || IsGatheringMinerals) &&
-							IsOwned);
-						supplyBuilderTemp = supplyBuilder;
-						// If a unit was found
-						if (supplyBuilder)
+						Unit worker = buildingManager.getWorker();
+						if (worker)
 						{
+					
 							if (supplyProviderType.isBuilding())
 							{
-								TilePosition targetBuildLocation = Broodwar->getBuildLocation(supplyProviderType,
-									supplyBuilder->getTilePosition());
-								
-									Unit worker = buildingManager.getWorker();
-						
-									buildingManager.placeBuilding(worker, supplyProviderType,targetBuildLocation);
-
+									buildingManager.createBuilding(worker, supplyProviderType);
 							}
 							else
 							{
 								// Train the supply provider (Overlord) if the provider is not a structure
-								supplyBuilder->train(supplyProviderType);
+								worker->train(supplyProviderType);
 							}
 						} // closure: supplyBuilder is valid
 					} // closure: insufficient supply
@@ -406,6 +399,16 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 {
+
+	Unit worker = buildingManager.getWorker();
+	if (worker)
+	{
+		if (unit->getType().isBuilding())
+		{
+			buildingManager.createBuilding(worker, unit->getType());
+		}
+	}
+
 }
 
 void ExampleAIModule::onUnitMorph(BWAPI::Unit unit)
