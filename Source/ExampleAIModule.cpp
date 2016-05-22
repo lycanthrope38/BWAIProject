@@ -305,7 +305,7 @@ void ExampleAIModule::onFrame()
 						Unit worker = buildingManager.getWorker();
 						if (worker)
 						{
-							Broodwar->printf("get worker");
+
 							if (supplyProviderType.isBuilding())
 							{
 								buildingManager.createBuilding(worker, supplyProviderType);
@@ -399,8 +399,16 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 {
+
 	Unit worker = buildingManager.getWorker();
-	buildingManager.createBuilding(buildingManager.getWorker(), unit->getType());
+	if (worker)
+	{
+		if (unit->getType().isBuilding())
+		{
+			buildingManager.createBuilding(worker, unit->getType());
+		}
+	}
+
 }
 
 void ExampleAIModule::onUnitMorph(BWAPI::Unit unit)

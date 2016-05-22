@@ -17,7 +17,7 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 	BWAPI::TilePosition buildPosition;
 	BWAPI::TilePosition shiftPositionX(5, 0);
 	BWAPI::TilePosition shiftPositionY(0, 5);
-
+	//lam error
 	//check parameters are acceptable
 	if (builder->getType() != BWAPI::Broodwar->self()->getRace().getWorker())
 	{
@@ -37,29 +37,8 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 	//begin search for valid structure placement at approxLocation and then spiral outwards until /
 	//acceptable location is found
 	buildPosition = approxLocation;
-	while (isBuiding!=true)
+	while (!builder->build(building, buildPosition))
 	{
-
-		//if (buildPosition)
-		//{
-		//	// Register an event that draws the target build location
-		//	Broodwar->registerEvent([buildPosition, building](Game*)
-		//	{
-		//		Broodwar->drawBoxMap(Position(buildPosition),
-		//			Position(buildPosition + building.tileSize()),
-		//			Colors::Blue);
-		//	},
-		//		nullptr,  // condition
-		//		building.buildTime() + 100);  // frames to run
-
-		//	// Order the builder to construct the supply structure
-		//	builder->build(building, buildPosition);
-		//}
-		if (!builder->build(building, buildPosition) && !isBuiding)
-		{
-			isBuiding = true;
-			break;
-		}
 		do{
 			//check the location of the closest minerals - continue to increment position without /
 			//attempting to construct until the minerals are no longer too close
@@ -152,11 +131,7 @@ bool BuidingManager::createBuilding(BWAPI::Unit builder, BWAPI::UnitType buildin
 {
 	BWAPI::TilePosition buildPosition;
 
-	int a[] = { 4, 3 };
 
-	BWAPI::Position shiftPositionX(3, 0);
-
-	
 	//if we have analyzed the map then we will set the buildPosition at the centre of our region, otherwise it will be set to our main base
 	if (centre != TilePosition(0, 0))
 	{
@@ -176,13 +151,13 @@ bool BuidingManager::createBuilding(BWAPI::Unit builder, BWAPI::UnitType buildin
 
 	//buildPosition = moveWorker(builder, builder->getPosition() + shiftPositionX);
 
-	if (BWAPI::Broodwar->self()->minerals() >= building.mineralPrice() && BWAPI::Broodwar->self()->gas() >= building.gasPrice()){
-		if (placeBuilding(builder, building, buildPosition))
-		{
-			Broodwar->sendText("createBuilding");
-			return true;
-		}
+
+	if (placeBuilding(builder, building, buildPosition))
+	{
+		Broodwar->sendText("createBuilding");
+		return true;
 	}
+
 	return false;
 
 }
@@ -196,7 +171,7 @@ void BuidingManager::setCentre(BWAPI::TilePosition tilePosition)
 // xây dựng các công trình tại vị trí hiện tại của builder để tránh việc mở rộng và xây dựng không đúng chỗ
 bool BuidingManager::placeExpansion(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition location)
 {
-	if (builder->build(building,TilePosition(builder->getPosition())))
+	if (builder->build(building, TilePosition(builder->getPosition())))
 	{
 		return true;
 	}
@@ -219,10 +194,10 @@ BWAPI::Unit BuidingManager::getBuilding(BWAPI::UnitType buildingType)
 	for (Unit i : Broodwar->getAllUnits())
 	{
 		if (i->getType().isBuilding())
-		if ((i->getType() == buildingType) && (i->isIdle()) && (i->isCompleted()))
-		{
-			return i;
-		}
+			if ((i->getType() == buildingType) && (i->isIdle()) && (i->isCompleted()))
+			{
+				return i;
+			}
 	}
 	return NULL;
 }
@@ -320,7 +295,7 @@ int BuidingManager::getNumGasWorkers()
 	return count;
 }
 
-BuidingManager::BuidingManager()	
+BuidingManager::BuidingManager()
 {
 }
 

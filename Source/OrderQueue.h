@@ -15,6 +15,7 @@ class OrderQueue : public ArmyOrder
 private:
 	//hàng đợi thực thi các lệnh như xây nhà và mua lính
 	std::vector<OrderType> queue;
+	BuidingManager manager;
 public:
 
 	//high thì order sẽ được chèn vào đầu hàng đợi
@@ -43,6 +44,7 @@ public:
 	bool training();
 	//xử lý các yêu cầu nâng cấp
 	bool upgrade(BWAPI::UpgradeType upgradeType);
+
 	//xử lý kết quả khi execute
 	bool resultAnalyze(bool result);
 	~OrderQueue();
