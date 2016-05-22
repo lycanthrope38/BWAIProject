@@ -15,6 +15,7 @@ OrderQueue::OrderQueue() :ArmyOrder(BWAPI::Broodwar->self()){
 //hàm thực thi order
 bool OrderQueue::execute(){
 	//bool result;
+	BWAPI::UnitType unitType = this->queue.at(0).getUnit();
 	BWAPI::Broodwar->sendText("Executed. Queue size %d", queue.size());
 	if ((this->queue.size()) == 0)
 		return false;
@@ -23,17 +24,10 @@ bool OrderQueue::execute(){
 		//nếu là nhà thì xây
 		if (this->queue.at(0).isBuilding()){
 
-			//truyền vào this->queue.at(0) sai
-			BWAPI::UnitType unitType = this->queue.at(0).getUnit();
-
-			BWAPI::Broodwar->printf("Building name unit type '%s'", unitType.getName().c_str());
-			return resultAnalyze(build(unitType));
-
 			//nếu nhà có yêu cầu số dân thì kiểm tra xem số dân đã đủ hay chưa
 			if (queue.at(0).supplyRequire != -1){
 				if (BWAPI::Broodwar->self()->supplyTotal() / 2 >= queue.at(0).supplyRequire){
 					//truyền vào this->queue.at(0) sai
-					BWAPI::UnitType unitType = this->queue.at(0).getUnit();
 					return resultAnalyze(build(unitType));
 				}
 				else{
@@ -43,7 +37,6 @@ bool OrderQueue::execute(){
 			}
 			//nếu không yêu cầu số dân thì xây luôn
 			else{
-				BWAPI::UnitType unitType = this->queue.at(0).getUnit();
 				return resultAnalyze(build(unitType));
 			}
 		}
@@ -135,27 +128,31 @@ int OrderQueue::getSize(){
 
 //xử lý các yêu cầu xây dựng
 bool OrderQueue::build(BWAPI::UnitType buildingType){
-	/*BuidingManager manager = BuidingManager();
+	BuidingManager manager = BuidingManager();
 	BWAPI::Unit worker = manager.getWorker();
 
-	BWAPI::TilePosition targetBuildLocation =
-	BWAPI::Broodwar->
-	getBuildLocation(buildingType,
-	worker->getTilePosition()
-	);
-	if (targetBuildLocation)
-	{
+
+
 	// Order the builder to construct the supply structure
+
 	if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
+		if (manager.createBuilding(worker, buildingType))
+		{
+			return true;
+		}
+		else
+		{
+			queue.at(0).failed++;
+			BWAPI::Broodwar->sendText("Building failed %d", queue.at(0).failed);
+			if (queue.at(0).failed > 2){
+				queue.at(0).failed = 0;
+				OrderType tmp = OrderType(queue.at(0));
+				queue.erase(queue.begin());
+				queue.push_back(tmp);
+			}
+		}
+	}
 
-	if (manager.placeBuilding(worker, buildingType, targetBuildLocation))
-	{
-	return true;
-	}
-	}
-
-	}
-	*/
 	return false;
 }
 
