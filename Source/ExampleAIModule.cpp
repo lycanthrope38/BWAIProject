@@ -143,8 +143,25 @@ void ExampleAIModule::onStart()
 	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 9);*/
 	//mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 15);
 
+	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
+	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
+
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH);
+	mainOrderQueue.push(UnitTypes::Protoss_Forge, OrderQueue::PRIORITY_HIGH);
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_NORMAL);
+	
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+
+	mainOrderQueue.push(UnitTypes::Protoss_Cybernetics_Core, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Citadel_of_Adun, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Templar_Archives, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Robotics_Facility, OrderQueue::PRIORITY_NORMAL);
+	
+
+
 	mainOrderQueue.push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 100, OrderQueue::PRIORITY_NORMAL);
 }
 
