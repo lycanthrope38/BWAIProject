@@ -23,6 +23,8 @@ class ExampleAIModule : public BWAPI::AIModule
 	ScoutManager scoutManager;
 	BuidingManager buildingManager;
 	
+	
+	
 
 public:
 	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;
