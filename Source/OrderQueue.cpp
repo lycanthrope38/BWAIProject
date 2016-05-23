@@ -16,7 +16,7 @@ OrderQueue::OrderQueue() :ArmyOrder(BWAPI::Broodwar->self()){
 bool OrderQueue::execute(){
 	//bool result;
 	
-	BWAPI::Broodwar->sendText("Executed. Queue size %d", queue.size());
+	//BWAPI::Broodwar->sendText("Executed. Queue size %d", queue.size());
 	if ((this->queue.size()) == 0)
 		return false;
 	//kiểm tra xem có phải là nhà hoặc quân lính hay không
@@ -165,18 +165,16 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 			{
 				// Order the builder to construct the supply structure
 				if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
-					
-					/*BWAPI::Error lastErr = BWAPI::Broodwar->getLastError();
 					static int lastChecked = 0;
-					if (lastErr == BWAPI::Errors::Insufficient_Supply &&
-						lastChecked + 400 < BWAPI::Broodwar->getFrameCount() &&
-						BWAPI::Broodwar->self()->incompleteUnitCount(buildingType) == 0)
+		
+					
+					if (lastChecked + 400 < BWAPI::Broodwar->getFrameCount())
 					{
-*/
+
 					if (u->build(buildingType, targetBuildLocation))
 					{
-						BWAPI::Broodwar->printf("Dang xay dung");
-					//	lastChecked = BWAPI::Broodwar->getFrameCount();
+					lastChecked = BWAPI::Broodwar->getFrameCount();
+					
 						// Register an event that draws the target build location
 						BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
 						{
@@ -192,7 +190,7 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 
 					}
 					
-				//}
+				}
 			}
 			}
 		}
