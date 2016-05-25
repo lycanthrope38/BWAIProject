@@ -346,6 +346,8 @@ void ExampleAIModule::onPlayerLeft(BWAPI::Player player)
 void ExampleAIModule::onNukeDetect(BWAPI::Position target)
 {
 
+	
+
 	// Check if the target is a valid position
 	if (target)
 	{

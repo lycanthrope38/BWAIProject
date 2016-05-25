@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include "BattleHorde.h"
 #include "BuidingManager.h"
 //xử lí một nhóm quân trong một trận chiến
 #include <BWAPI.h>
@@ -17,9 +17,9 @@ private:
 	//những đơn vị rảnh rỗi
 	std::set<BWAPI::Unit> freeSquad;
 	//những squad nhỏ hơn sau khi chia nhỏ để trị các mục tiêu riêng lẻ
-	std::set<BattleSquad> dutySquad;
+	std::set<BattleHorde> hordes;
 	/*số unit trong mỗi nhóm nhỏ sẽ được chia nhỏ(nếu có) trong giao tranh
-	 *mục đích của việc chia nhỏ theo một tỉ lệ là dùng lợi thế về số lượng để diệt một unit nguy hiểm của đối phương 
+	 *mục đích của việc chia nhỏ theo một tỉ lệ là dùng lợi thế về số lượng để diệt một unit nguy hiểm của đối phương
 	 *nhanh nhất có thế, tỉ lệ này sẽ được tính dựa trên độ nguy hiểm, số lượng máu và một số thuộc tính khác của đối phương
 	 */
 	int devider;
@@ -30,6 +30,8 @@ private:
 
 public:
 	BattleSquad();
+	//xử lý mỗi frame
+	void onCheck();
 	//Cho squad tấn công mục tiêu
 	void attack(BWAPI::Unitset targets, int devidedBy);
 	//Cho squad tấn công mục tiêu
@@ -50,6 +52,10 @@ public:
 	bool isCompleted();
 	//Kiểm tra xem nhóm quân đã bị quét sạch(chết sạch) hay chưa
 	bool isWiped();
+	//Lấy danh sách quân ta hiện tại
+	std::vector<BWAPI::Unit> getCurrentSelfList();
+	//Lấy danh sách quân địch hiện tại
+	std::vector<BWAPI::Unit> getCurrentEnemyList();
 
 	~BattleSquad();
 };
