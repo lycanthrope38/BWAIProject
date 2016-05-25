@@ -1,6 +1,5 @@
 ﻿#include "ExampleAIModule.h"
 #include "Collections.h"
-#include <iostream>
 
 using namespace BWAPI;
 using namespace Filter;
@@ -145,7 +144,35 @@ void ExampleAIModule::onStart()
 
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue.push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 100, OrderQueue::PRIORITY_NORMAL);
+	//mainOrderQueue.push(UnitTypes::Protoss_Cybernetics_Core, OrderQueue::PRIORITY_HIGH);
+	mainOrderQueue.push(UnitTypes::Protoss_Forge, OrderQueue::PRIORITY_HIGH);
+	mainOrderQueue.push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 5, OrderQueue::PRIORITY_HIGH);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 50, OrderQueue::PRIORITY_HIGH);
 }
 
 void ExampleAIModule::onEnd(bool isWinner)
@@ -206,9 +233,10 @@ void ExampleAIModule::onFrame()
 		mainOrderQueue.execute();
 	}
 
-	if (scoutManager.getScout() != nullptr)
+	if (ScoutManager::getInstance().getScout() != nullptr)
 	{
-		scoutManager.sendScout();
+		ScoutManager::getInstance().sendScout();
+		//ScoutManager::getInstance().scoutExpos();
 	}
 
 	//cứ 7 frame sẽ xét việc xây nhà một lần để tránh lag
@@ -239,22 +267,17 @@ void ExampleAIModule::onFrame()
 			// If the unit is a worker unit
 			if (u->getType().isWorker())
 			{
+
 				if (supplyCounter == 8)
 				{
-					if (scoutManager.getScout() == nullptr)
-					{
-						scoutManager.setScout(u);
-					}
+					ScoutManager::getInstance().setScout(u);
 				}
-
-
 
 				if (buildingManager.getWorkerCount() <= 2)
 				{
 
 					buildingManager.makeAvailable(u);
 				}
-
 
 				if (u->isIdle())
 				{
@@ -375,7 +398,7 @@ void ExampleAIModule::onUnitShow(BWAPI::Unit unit)
 {
 	if ((unit->getPlayer()->isEnemy(Broodwar->self())) && (unit->getType().isBuilding()))
 	{
-		scoutManager.addEnemyBase(unit);
+		ScoutManager::getInstance().addEnemyBase(unit);
 	}
 }
 
@@ -401,7 +424,6 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 {
-
 	Unit worker = buildingManager.getWorker();
 	if (worker)
 	{
@@ -417,7 +439,7 @@ void ExampleAIModule::onUnitMorph(BWAPI::Unit unit)
 {
 	if (!(unit->getPlayer() == Broodwar->self()))
 	{
-		scoutManager.addEnemyBase(unit);
+		ScoutManager::getInstance().addEnemyBase(unit);
 	}
 }
 
