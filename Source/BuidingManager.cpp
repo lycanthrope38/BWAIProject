@@ -43,13 +43,13 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 			//check the location of the closest minerals - continue to increment position without /
 			//attempting to construct until the minerals are no longer too close
 			//This is to avoid constructing structures in mineral lines
-			BWAPI::Unit closestMineral = NULL;
+			BWAPI::Unit closestMineral = nullptr;
 			for (Unit m : Broodwar->getMinerals())
 			{
-				if (closestMineral == NULL || buildPosition.getDistance((m)->getTilePosition()) < buildPosition.getDistance(closestMineral->getTilePosition()))
+				if (closestMineral == nullptr || buildPosition.getDistance((m)->getTilePosition()) < buildPosition.getDistance(closestMineral->getTilePosition()))
 					closestMineral = m;
 			}
-			if (closestMineral != NULL)
+			if (closestMineral != nullptr)
 			{
 				if (buildPosition.getDistance(closestMineral->getTilePosition()) < MINERALDIST)
 				{
@@ -62,13 +62,13 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 			}
 
 			//check we aren't blocking gas too
-			Unit closestGas = NULL;
+			Unit closestGas = nullptr;
 			for (Unit g : Broodwar->getGeysers())
 			{
-				if (closestGas == NULL || buildPosition.getDistance((g)->getTilePosition()) < buildPosition.getDistance(closestGas->getTilePosition()))
+				if (closestGas == nullptr || buildPosition.getDistance((g)->getTilePosition()) < buildPosition.getDistance(closestGas->getTilePosition()))
 					closestGas = g;
 			}
-			if (closestGas != NULL)
+			if (closestGas != nullptr)
 			{
 				if (buildPosition.getDistance(closestMineral->getTilePosition()) < MINERALDIST)
 				{
@@ -124,6 +124,7 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 			}
 		} while (closeToMinerals || closeToGas);
 	}
+
 	return true;
 }
 
@@ -175,10 +176,8 @@ bool BuidingManager::placeExpansion(BWAPI::Unit builder, BWAPI::UnitType buildin
 	{
 		return true;
 	}
-	else
-	{
-		return false;
-	}
+
+	return false;
 }
 
 // đẩy dịch chuyển các vị trí xây nhà 
@@ -186,8 +185,6 @@ BWAPI::TilePosition BuidingManager::getNextBase(BWAPI::TilePosition basePosition
 {
 	return basePosition;
 }
-
-
 
 BWAPI::Unit BuidingManager::getBuilding(BWAPI::UnitType buildingType)
 {
@@ -199,7 +196,8 @@ BWAPI::Unit BuidingManager::getBuilding(BWAPI::UnitType buildingType)
 				return i;
 			}
 	}
-	return NULL;
+
+	return nullptr;
 }
 
 void BuidingManager::startUpgrade(UnitType element, UpgradeType upgrade)
@@ -207,7 +205,7 @@ void BuidingManager::startUpgrade(UnitType element, UpgradeType upgrade)
 	BWAPI::Unit structure;
 
 	structure = getBuilding(element);
-	if (structure != NULL && structure->isCompleted())
+	if (structure != nullptr && structure->isCompleted())
 	{
 		structure->upgrade(upgrade);
 	}
@@ -226,14 +224,7 @@ TilePosition BuidingManager::moveWorker(Unit unit, Position position)
 
 bool BuidingManager::makeAvailable(BWAPI::Unit worker)
 {
-	if (availableWorkers.insert(worker).second)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return availableWorkers.insert(worker).second;
 }
 
 BWAPI::Unit BuidingManager::getWorker()
@@ -242,13 +233,14 @@ BWAPI::Unit BuidingManager::getWorker()
 
 	for (std::set<Unit>::const_iterator i = availableWorkers.begin(); i != availableWorkers.end(); i++)
 	{
-		if (*i != NULL)
+		if (*i != nullptr)
 		{
 			worker = (*i);
 			return worker;
 		}
 	}
-	return NULL;
+
+	return nullptr;
 }
 
 int BuidingManager::getWorkerCount()
@@ -256,16 +248,9 @@ int BuidingManager::getWorkerCount()
 	return availableWorkers.size();
 }
 
-bool BuidingManager::addWorker(BWAPI::Unit* newWorker)
+bool BuidingManager::addWorker(BWAPI::Unit newWorker)
 {
-	if (allWorkers.insert(newWorker).second)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return allWorkers.insert(newWorker).second;
 }
 
 int BuidingManager::getNumMineralWorkers()
@@ -279,6 +264,7 @@ int BuidingManager::getNumMineralWorkers()
 			count++;
 		}
 	}
+
 	return count;
 }
 

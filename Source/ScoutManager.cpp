@@ -18,12 +18,18 @@ void ScoutManager::update()
 {
 }
 
+ScoutManager& ScoutManager::getInstance()
+{
+	static ScoutManager instance;
+	return instance;
+}
+
 /*
 sends the scout to the possible enemy base locations
 */
 void ScoutManager::sendScout()
 {
-	if (!scout || !scout->exists())
+	if (!scout || !scout->exists() || !(scout->getHitPoints() > 0))
 	{
 		return;
 	}
@@ -34,12 +40,14 @@ void ScoutManager::sendScout()
 
 		if ((*s)->getRegion() != BWTA::getStartLocation(BWAPI::Broodwar->self())->getRegion())
 		{
-			scout->move((*s)->getPosition(), false);
+			//scout->move((*s)->getPosition(), false);
+			Micro::move(scout, (*s)->getPosition());
 		}
 		else
 		{
 			s++;
-			scout->move((*s)->getPosition(), false);
+			//scout->move((*s)->getPosition(), false);
+			Micro::move(scout, (*s)->getPosition());
 		}
 
 		while (s != BWTA::getStartLocations().end())
@@ -47,19 +55,30 @@ void ScoutManager::sendScout()
 			if ((*s)->getRegion() != BWTA::getStartLocation(BWAPI::Broodwar->self())->getRegion())
 			{
 				scout->move((*s)->getPosition(), true);
+				//Micro::move(scout, (*s)->getPosition());
 			}
 			s++;
 		}
-
-
-		/*for (auto u : BWAPI::Broodwar->self()->getUnits())
+		
+		for (auto u : BWAPI::Broodwar->self()->getUnits())
 		{
 			if (u->getType().isResourceDepot())
 			{
 				scout->move(u->getPosition(), true);
+				//Micro::move(scout, (*s)->getPosition());
 				break;
 			}
-		}*/
+		}
+
+		if (enemyWorkerInRadius())
+		{
+			scoutExpos();
+		}
+
+		if (immediateThreat())
+		{
+			scout = nullptr;
+		}
 	}
 	else
 	{
@@ -72,11 +91,16 @@ void ScoutManager::scoutExpos()
 {
 	if (!BWTA::getBaseLocations().empty())
 	{
-		scout->move((*BWTA::getBaseLocations().begin())->getPosition(), false);
+		auto base = BWTA::getBaseLocations().begin();
 
-		for (auto base : BWTA::getBaseLocations())
+		//scout->move((*base)->getPosition());
+		Micro::move(scout, (*base)->getPosition());
+		base++;
+
+		while (base != BWTA::getBaseLocations().end())
 		{
-			scout->move(base->getPosition(), true);
+			scout->move((*base)->getPosition(), true);
+			base++;
 		}
 	}
 	else
@@ -180,6 +204,41 @@ void ScoutManager::removeEnemyUnit(BWAPI::Unit unit)
 			break;
 		}
 	}
+}
+
+//determines whether enemy workers in radius or not
+bool ScoutManager::enemyWorkerInRadius()
+{
+	for (auto u : BWAPI::Broodwar->enemy()->getUnits())
+	{
+		if (u->getType().isWorker() && u->getDistance(scout) < 1000)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool ScoutManager::immediateThreat()
+{
+	if (scout->isUnderAttack())
+	{
+		return true;
+	}
+
+	for (auto u : BWAPI::Broodwar->enemy()->getUnits())
+	{
+		int dist = u->getDistance(scout);
+		int range = u->getType().groundWeapon().maxRange();
+
+		if (u->getType().canAttack() && !u->getType() && (dist <= range + 32))
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 ScoutManager::~ScoutManager()

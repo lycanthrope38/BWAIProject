@@ -97,10 +97,10 @@
     <ClCompile Include="Source\ExampleAIModule.cpp" />
     <ClCompile Include="Source\InformationManager.cpp" />
     <ClCompile Include="Source\LordCommander.cpp" />
+    <ClCompile Include="Source\Micro.cpp" />
     <ClCompile Include="Source\OrderQueue.cpp" />
     <ClCompile Include="Source\OrderType.cpp" />
     <ClCompile Include="Source\ScoutManager.cpp" />
-    <ClCompile Include="Source\WorkerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ArmyOrder.h" />
@@ -111,10 +111,10 @@
     <ClInclude Include="Source\ExampleAIModule.h" />
     <ClInclude Include="Source\InformationManager.h" />
     <ClInclude Include="Source\LordCommander.h" />
+    <ClInclude Include="Source\Micro.h" />
     <ClInclude Include="Source\OrderQueue.h" />
     <ClInclude Include="Source\OrderType.h" />
     <ClInclude Include="Source\ScoutManager.h" />
-    <ClInclude Include="Source\WorkerManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
