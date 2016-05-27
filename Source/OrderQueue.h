@@ -47,5 +47,9 @@ public:
 
 	//xử lý kết quả khi execute
 	bool resultAnalyze(bool result);
+	//tìm cách xây các nhà cần thiết để tạo ra một unit nào đó
+	void buildRequiredFor(BWAPI::UnitType u);
+	//kiểm tra một unittype đã tồn tại hay chưa
+	bool checkExist(BWAPI::UnitType type);
 	~OrderQueue();
 };

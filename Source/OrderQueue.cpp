@@ -10,6 +10,8 @@
 #include <BWAPI.h>
 #include <queue>
 
+using namespace BWAPI;
+
 OrderQueue::OrderQueue() :ArmyOrder(BWAPI::Broodwar->self()){
 }
 //hàm thực thi order
@@ -217,6 +219,31 @@ bool OrderQueue::upgrade(BWAPI::UpgradeType upgradeType){
 	return false;
 }
 
+void OrderQueue::buildRequiredFor(BWAPI::UnitType u){
+	UnitType requiredUnit = (u.whatBuilds()).first;
+
+	//check if a unittype is exist
+	if (checkExist(requiredUnit)){
+		return;
+	}
+	else{
+		buildRequiredFor(requiredUnit);
+		push(requiredUnit, PRIORITY_HIGH);
+	}	
+}
+
+bool OrderQueue::checkExist(BWAPI::UnitType unitType){
+	UnitType type;
+	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
+		type = u->getType();
+		if (type.isBuilding()){
+			if (type == unitType){
+				return true;
+			}
+		}
+	}
+	return false;
+}
 OrderQueue::~OrderQueue()
 {
 }

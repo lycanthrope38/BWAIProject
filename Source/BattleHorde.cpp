@@ -8,19 +8,20 @@ BattleHorde::BattleHorde(BWAPI::Unitset troops, BWAPI::Unit target)
 	this->target = target;
 	selfTroops.attack(target);
 	for (Unit u : troops){
-		selfType = u->getType;
+		selfType = u->getType();
 		break;
 	}
 	isMoving = false;
 	
 }
 
-//xử lý mỗi lần gọi
-void BattleHorde::onFrame(){
+//xử lý mỗi frame
+bool BattleHorde::onFrame(){
 	//kiểm tra nếu bên ta có loại đánh xa thì áp dụng hit and run
 	
-	
-
+	if (isCompleted())
+		return false;
+	return true;
 }
 
 //kiểm tra xem mục tiêu đã chết hoặc quân ta đã chết hết hay chưa

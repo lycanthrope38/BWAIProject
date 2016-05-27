@@ -18,7 +18,7 @@ private:
 public:
 
 	//xử lý mỗi frame
-	void onFrame();
+	bool onFrame();
 	//nạp nhóm quân và mục tiêu để tiến hành tấn công
 	BattleHorde(BWAPI::Unitset, BWAPI::Unit);
 	//kiểm tra xem mục tiêu đã chết hoặc quân ta đã chết hết hay chưa

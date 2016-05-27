@@ -2,6 +2,8 @@
 #include "OrderType.h"
 #include "BWAPI.h"
 
+using namespace BWAPI;
+
 //dành cho việc order nhà
 OrderType::OrderType(BWAPI::UnitType unitType){
 	this->unit = unitType;
@@ -32,6 +34,7 @@ OrderType::OrderType(BWAPI::UpgradeType upgradeType){
 	this->supplyRequire = -1;
 	this->failed = 0;
 };
+
 
 OrderType::~OrderType()
 {

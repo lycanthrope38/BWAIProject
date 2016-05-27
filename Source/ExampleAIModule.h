@@ -42,4 +42,5 @@ public:
 	// Everything below this line is safe to modify.
 
 	void drawTerrainData();
+	void pushQueueProtoss();
 };

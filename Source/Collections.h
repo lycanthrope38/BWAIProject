@@ -24,6 +24,11 @@ public:
 		}
 		return result;
 	};
+
+	////Check if a unittype is exist 
+	//static bool isExist(BWAPI::UnitType u){
+	//	for (BWAPI::UnitType type : BWAPI::Broodwar->self()->getUnits())
+	//}
 	~Collections();
 };
 //

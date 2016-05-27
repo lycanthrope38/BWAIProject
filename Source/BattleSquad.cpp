@@ -1,23 +1,40 @@
 ﻿#include "BattleSquad.h"
 
 
-BattleSquad::BattleSquad()
+BattleSquad::BattleSquad(std::set<BWAPI::Unit> selfUnitSet, std::set<BWAPI::Unit> enemyUnitSet)
 {
+	isOnDuty = true;
+	squad = selfUnitSet;
+	targets = enemyUnitSet;
+	freeSquad = squad;
+	targetsOnRisk = targets;
 }
 
+
+bool BattleSquad::onFrame(){
+
+	if (isCompleted())
+		return false;
+
+	if (freeSquad.size() != 0)
+		matching();
+	else
+		callBelowOnFrames();
+	return true;
+}
+
+bool BattleSquad::matching(){
+
+}
+
+void BattleSquad::callBelowOnFrames(){
+	for (BattleHorde* b : this->hordes)
+		b->onFrame();
+}
 
 void BattleSquad::addUnit(BWAPI::Unit u){
 	squad.insert(u);
 	freeSquad.insert(u);
-}
-
-void BattleSquad::attack(BWAPI::Unitset targets, int devidedBy){
-	//chưa xong
-}
-
-
-void BattleSquad::attack(std::vector<BWAPI::Unit> targets, int devidedBy){
-	//chưa xong
 }
 
 void BattleSquad::clearSquad(){
@@ -37,9 +54,10 @@ void BattleSquad::addSquad(std::vector<BWAPI::Unit> unitSet){
 	}
 }
 bool BattleSquad::isCompleted(){
-	if (isOnDuty)
-		return false;
-	return true;
+
+	if (isWiped()||!isOnDuty)
+		return true;
+	return false;
 }
 
 bool BattleSquad::isWiped(){

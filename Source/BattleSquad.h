@@ -17,21 +17,27 @@ private:
 	//những đơn vị rảnh rỗi
 	std::set<BWAPI::Unit> freeSquad;
 	//những squad nhỏ hơn sau khi chia nhỏ để trị các mục tiêu riêng lẻ
-	std::set<BattleHorde> hordes;
+	std::set<BattleHorde*> hordes;
 	/*số unit trong mỗi nhóm nhỏ sẽ được chia nhỏ(nếu có) trong giao tranh
 	 *mục đích của việc chia nhỏ theo một tỉ lệ là dùng lợi thế về số lượng để diệt một unit nguy hiểm của đối phương
 	 *nhanh nhất có thế, tỉ lệ này sẽ được tính dựa trên độ nguy hiểm, số lượng máu và một số thuộc tính khác của đối phương
 	 */
 	int devider;
 	//mục tiêu của đơn vị trong giao tranh
-	std::vector<BWAPI::Unit> targets;
+	std::set<BWAPI::Unit> targets;
+	//các mục tiên đã được phát lệnh tấn công
+	std::set<BWAPI::Unit> targetsOnRisk;
 	//có đang làm nhiệu vụ hay ko
 	bool isOnDuty;
 
 public:
-	BattleSquad();
+	BattleSquad(std::set<BWAPI::Unit> selfUnitSet, std::set<BWAPI::Unit> enemyUnitSet);
 	//xử lý mỗi frame
-	void onCheck();
+	bool onFrame();
+	//ghép cặp đánh nhau
+	bool matching();
+	//gọi các hàm onFrame của các BattleHorde
+	void callBelowOnFrames();
 	//Cho squad tấn công mục tiêu
 	void attack(BWAPI::Unitset targets, int devidedBy);
 	//Cho squad tấn công mục tiêu
