@@ -168,7 +168,7 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 					static int lastChecked = 0;
 		
 					
-					if (lastChecked + 400 < BWAPI::Broodwar->getFrameCount())
+					if (lastChecked + 500 < BWAPI::Broodwar->getFrameCount())
 					{
 
 					if (u->build(buildingType, targetBuildLocation))
@@ -185,7 +185,10 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 							nullptr,  // condition
 							buildingType.buildTime() + 100);  // frames to run
 
-
+						if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
+						{
+							isAssimilatorBuilt = true;
+						}
 						return true;
 
 					}

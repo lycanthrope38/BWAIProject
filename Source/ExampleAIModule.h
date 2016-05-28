@@ -22,7 +22,7 @@ class ExampleAIModule : public BWAPI::AIModule
 	OrderQueue mainOrderQueue;
 	ScoutManager scoutManager;
 	BuidingManager buildingManager;
-	
+	WorkerManager workerManager;
 	
 	
 

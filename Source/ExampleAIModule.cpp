@@ -9,6 +9,8 @@ bool analyzed;
 bool analysis_just_finished;
 BWTA::Region* home;
 
+bool stopTraining ;
+
 DWORD WINAPI AnalyzeThread()
 {
 	BWTA::analyze();
@@ -137,6 +139,10 @@ void ExampleAIModule::onStart()
 
 	buildingManager = BuidingManager();
 
+	workerManager = WorkerManager();
+
+	stopTraining = false;
+
 	/*mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
 	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
 	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
@@ -147,9 +153,8 @@ void ExampleAIModule::onStart()
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
 
 	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue.push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH);
+	mainOrderQueue.push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH,15);
 	mainOrderQueue.push(UnitTypes::Protoss_Forge, OrderQueue::PRIORITY_HIGH);
-	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_NORMAL);
 	
 	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
@@ -223,10 +228,10 @@ void ExampleAIModule::onFrame()
 		mainOrderQueue.execute();
 	}
 
-	if (scoutManager.getScout() != nullptr)
+	/*if (scoutManager.getScout() != nullptr)
 	{
 		scoutManager.sendScout();
-	}
+	}*/
 
 	//cứ 7 frame sẽ xét việc xây nhà một lần để tránh lag
 	if (Broodwar->getFrameCount() % 7 == 0)
@@ -271,9 +276,8 @@ void ExampleAIModule::onFrame()
 				
 					buildingManager.makeAvailable(u);
 				}
-
-
-				if (u->isIdle())
+			
+				if (u->isIdle() && u->isCompleted())
 				{
 					// Broodwar->sendText("isIdle" + u->isIdle());
 
@@ -286,55 +290,117 @@ void ExampleAIModule::onFrame()
 					else if (!u->getPowerUp())  // The worker cannot harvest anything if it
 					{                             // is carrying a powerup such as a flag
 						// Harvest from the nearest mineral patch or gas refinery
-						if (!u->gather(u->getClosestUnit(IsMineralField || IsRefinery)))
+						//if (!u->gather(u->getClosestUnit(IsMineralField || IsRefinery)))
+						//{
+						//	// If the call fails, then print the last error message
+						//	Broodwar << Broodwar->getLastError() << std::endl;
+						//}
+						Broodwar->printf("stopTraining,isAssimilatorBuilt: '%d' '%d' ", stopTraining ? 1 : 0, mainOrderQueue.isAssimilatorBuilt ? 1 : 0);
+						Broodwar->printf("minerals,gas: '%d' '%d' ", workerManager.getNumMineralWorkers(), workerManager.getNumGasWorkers());
+
+						if (workerManager.getNumMineralWorkers() <= 10)
 						{
-							// If the call fails, then print the last error message
-							Broodwar << Broodwar->getLastError() << std::endl;
+						
+							workerManager.returnToMineral(u);
+							if (workerManager.getNumMineralWorkers() == 10)
+							{
+								stopTraining = true;
+							}
+							
 						}
+						else
+						{
+							if (mainOrderQueue.isAssimilatorBuilt)
+							{
+								stopTraining = false;
+								if (!stopTraining)
+								{
+									workerManager.returnToGas(u);
+									
+									if (workerManager.getNumGasWorkers() == 3)
+									{
+										stopTraining = true;
+									}
+								}
+								
+							}
+							
+						}
+						
 					} // closure: has no powerup
 				} // closure: if idle
 
 			}
 			else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
-			{				
-				if (u->isIdle() && !u->train(u->getType().getRace().getWorker()))
+			{
+				if (!stopTraining)
 				{
-					// If that fails, draw the error at the location so that you can visibly see what went wrong!
-					// However, drawing the error once will only appear for a single frame
-					// so create an event that keeps it on the screen for some frames
-					Position pos = u->getPosition();
-					Error lastErr = Broodwar->getLastError();
-					Broodwar->registerEvent([pos, lastErr](Game*){ Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
-						nullptr,    // condition
-						Broodwar->getLatencyFrames());  // frames to run
-
-					// Retrieve the supply provider type in the case that we have run out of supplies
-					UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
-					static int lastChecked = 0;
-
-					// If we are supply blocked and haven't tried constructing more recently
-					if (lastErr == Errors::Insufficient_Supply &&
-						lastChecked + 400 < Broodwar->getFrameCount() &&
-						Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
+					if (u->isIdle() && !u->train(u->getType().getRace().getWorker()))
 					{
-						lastChecked = Broodwar->getFrameCount();
+						
+						Position pos = u->getPosition();
+						Error lastErr = Broodwar->getLastError();
+						Broodwar->registerEvent([pos, lastErr](Game*){ Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
+							nullptr,    
+							Broodwar->getLatencyFrames());  
 
-						Unit worker = buildingManager.getWorker();
-						if (worker)
+						UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
+						static int lastChecked = 0;
+
+						if (lastErr == Errors::Insufficient_Supply &&
+							lastChecked + 400 < Broodwar->getFrameCount() &&
+							Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
 						{
-					
-							if (supplyProviderType.isBuilding())
+							lastChecked = Broodwar->getFrameCount();
+
+							Unit worker = buildingManager.getWorker();
+							if (worker)
 							{
+
+								if (supplyProviderType.isBuilding())
+								{
 									buildingManager.createBuilding(worker, supplyProviderType);
-							}
-							else
+								}
+								else
+								{
+									worker->train(supplyProviderType);
+								}
+							} 
+						} 
+					} 
+				}
+				else
+				{
+
+					if (supplyCounter == supplyTotalCounter)
+					{
+
+						Error lastErr = Broodwar->getLastError();
+
+
+						UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
+						static int lastChecked = 0;
+
+						if (lastErr == Errors::Insufficient_Supply &&
+							lastChecked + 400 < Broodwar->getFrameCount() &&
+							Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
+						{
+							lastChecked = Broodwar->getFrameCount();
+
+							Unit worker = buildingManager.getWorker();
+							if (worker)
 							{
-								// Train the supply provider (Overlord) if the provider is not a structure
-								worker->train(supplyProviderType);
+
+								if (supplyProviderType.isBuilding())
+								{
+									buildingManager.createBuilding(worker, supplyProviderType);
+								}
+
 							}
-						} // closure: supplyBuilder is valid
-					} // closure: insufficient supply
-				} // closure: failed to train idle unit
+						}
+
+					}
+				}
 			}
 		} // closure: unit iterator
 	}
@@ -417,15 +483,12 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 {
 
-	Unit worker = buildingManager.getWorker();
-	if (worker)
+	if (unit->getType().isBuilding())
 	{
-		if (unit->getType().isBuilding())
-		{
-			buildingManager.createBuilding(worker, unit->getType());
-		}
+		Unit worker = buildingManager.getWorker();
+		mainOrderQueue.build(unit->getType());
 	}
-
+	
 }
 
 void ExampleAIModule::onUnitMorph(BWAPI::Unit unit)

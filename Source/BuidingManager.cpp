@@ -154,7 +154,6 @@ bool BuidingManager::createBuilding(BWAPI::Unit builder, BWAPI::UnitType buildin
 	
 		if (placeBuilding(builder, building, buildPosition))
 		{
-			Broodwar->sendText("createBuilding");
 			return true;
 		}
 	
@@ -268,32 +267,7 @@ bool BuidingManager::addWorker(BWAPI::Unit* newWorker)
 	}
 }
 
-int BuidingManager::getNumMineralWorkers()
-{
-	int count = 0;
 
-	for (Unit i : BWAPI::Broodwar->self()->getUnits())
-	{
-		if ((i)->isGatheringMinerals())
-		{
-			count++;
-		}
-	}
-	return count;
-}
-
-int BuidingManager::getNumGasWorkers()
-{
-	int count = 0;
-	for (Unit i : BWAPI::Broodwar->self()->getUnits())
-	{
-		if ((i)->isGatheringGas())
-		{
-			count++;
-		}
-	}
-	return count;
-}
 
 BuidingManager::BuidingManager()	
 {
