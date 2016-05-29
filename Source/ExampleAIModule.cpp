@@ -19,7 +19,6 @@ DWORD WINAPI AnalyzeThread()
 	{
 		home = BWTA::getStartLocation(BWAPI::Broodwar->self())->getRegion();
 	}
-
 	analyzed = true;
 	analysis_just_finished = true;
 	return 0;
@@ -141,32 +140,32 @@ void ExampleAIModule::onStart()
 
 	workerManager = WorkerManager();
 
+	mainOrderQueue.isAssimilatorBuilt = false;
+
 	stopTraining = false;
 
-	/*mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
-	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
-	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
-	mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 9);*/
-	//mainOrderQueue.push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 15);
+	for (Unit i : Broodwar->self()->getUnits())
+	{
+		if (i->getType().isWorker())
+		{
+			workerManager.makeAvailable(i);
+		}
+			
+	}
 
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
 
 	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue.push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH,15);
+	mainOrderQueue.push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH,12);
 	mainOrderQueue.push(UnitTypes::Protoss_Forge, OrderQueue::PRIORITY_HIGH);
 	
-	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
 
 	mainOrderQueue.push(UnitTypes::Protoss_Cybernetics_Core, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Citadel_of_Adun, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Templar_Archives, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Robotics_Facility, OrderQueue::PRIORITY_NORMAL);
 	
-
-
 	mainOrderQueue.push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 100, OrderQueue::PRIORITY_NORMAL);
 }
 
@@ -203,62 +202,75 @@ void ExampleAIModule::onFrame()
 		}
 	}
 
-	// Prevent spamming by only running our onFrame once every number of latency frames.
-	// Latency frames are the number of frames before commands are processed.
+	
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
 		return;
 
-	// Display the game frame rate as text in the upper left area of the screen
-	Broodwar->drawTextScreen(200, 0, "FPS: %d", Broodwar->getFPS());
-	//Broodwar->drawTextScreen(200, 20, "Counter : %d %d", supplyCounter, supplyTotalCounter);
-	Broodwar->drawTextScreen(200, 20, "FPS Counter : %d", Broodwar->getFrameCount());
-
-	//số woker
+	
 	supplyCounter = Broodwar->self()->supplyUsed() / 2;
-	// tổng unit
+	
 	supplyTotalCounter = Broodwar->self()->supplyTotal() / 2;
-	//so supply con lai
+	
 	supplyAvailable = Broodwar->self()->supplyTotal() - Broodwar->self()->supplyUsed();
 
 
-	//cứ 13 frame sẽ xét hàm mua lính một lần để tránh lag
+//	Broodwar->printf("stopTraining,isAssimilatorBuilt: '%d' '%d' ", stopTraining ? 1 : 0, mainOrderQueue.isAssimilatorBuilt ? 1 : 0);
+//	Broodwar->printf("'%d' '%d' '%d' '%d' ", workerManager.getNumMineralWorkers(), workerManager.getNumGasWorkers(), workerManager.getWorkerCount(), workerManager.getIdleCount());
+
+	if (workerManager.getNumMineralWorkers() <= 10)
+	{
+		workerManager.gatherMineral();
+	}
+	else
+	{
+		stopTraining = true;
+	}
+
+	if (mainOrderQueue.isAssimilatorBuilt)
+	{
+		stopTraining = false;
+		if (workerManager.getNumMineralWorkers() <= 14)
+		{
+			workerManager.gatherMineral();
+		}
+		else
+		{
+			workerManager.gatherGas();
+			if (workerManager.getNumGasWorkers() >= 3)
+			{
+				stopTraining = true;
+			}
+		}
+	}
+
+
 	if (Broodwar->getFrameCount() % 17 == 0)
 	{
-		//armyOrder->trainZealot();
 		mainOrderQueue.execute();
 	}
 
-	/*if (scoutManager.getScout() != nullptr)
-	{
-		scoutManager.sendScout();
-	}*/
-
-	//cứ 7 frame sẽ xét việc xây nhà một lần để tránh lag
+	
 	if (Broodwar->getFrameCount() % 7 == 0)
-	{
-		// Iterate through all the units that we own
+	{	
+				
 		for (auto &u : Broodwar->self()->getUnits())
 		{
-			// Ignore the unit if it no longer exists
-			// Make sure to include this block when handling any Unit pointer!
 			if (!u->exists())
 				continue;
 
-			// Ignore the unit if it has one of the following status ailments
+			
 			if (u->isLockedDown() || u->isMaelstrommed() || u->isStasised())
 				continue;
 
-			// Ignore the unit if it is in one of the following states
+			
 			if (u->isLoaded() || !u->isPowered() || u->isStuck())
 				continue;
 
-			// Ignore the unit if it is incomplete or busy constructing
+			
 			if (!u->isCompleted() || u->isConstructing())
 				continue;
 
-			// Finally make the unit do some stuff!
-
-			// If the unit is a worker unit
+			
 			if (u->getType().isWorker())
 			{
 				if (supplyCounter == 8)
@@ -270,67 +282,65 @@ void ExampleAIModule::onFrame()
 				}
 			
 				
-
 				if (buildingManager.getWorkerCount() <= 2)
 				{
 				
 					buildingManager.makeAvailable(u);
 				}
-			
-				if (u->isIdle() && u->isCompleted())
-				{
-					// Broodwar->sendText("isIdle" + u->isIdle());
+				
 
-					// Order workers carrying a resource to return them to the center,
-					// otherwise find a mineral patch to harvest.
+				if (u->isIdle())
+				//{
+				//	// Broodwar->sendText("isIdle" + u->isIdle());
+
+				//	// Order workers carrying a resource to return them to the center,
+				//	// otherwise find a mineral patch to harvest.
 					if (u->isCarryingGas() || u->isCarryingMinerals())
 					{
 						u->returnCargo();
 					}
-					else if (!u->getPowerUp())  // The worker cannot harvest anything if it
-					{                             // is carrying a powerup such as a flag
-						// Harvest from the nearest mineral patch or gas refinery
-						//if (!u->gather(u->getClosestUnit(IsMineralField || IsRefinery)))
-						//{
-						//	// If the call fails, then print the last error message
-						//	Broodwar << Broodwar->getLastError() << std::endl;
-						//}
-						Broodwar->printf("stopTraining,isAssimilatorBuilt: '%d' '%d' ", stopTraining ? 1 : 0, mainOrderQueue.isAssimilatorBuilt ? 1 : 0);
-						Broodwar->printf("minerals,gas: '%d' '%d' ", workerManager.getNumMineralWorkers(), workerManager.getNumGasWorkers());
-
-						if (workerManager.getNumMineralWorkers() <= 10)
-						{
-						
-							workerManager.returnToMineral(u);
-							if (workerManager.getNumMineralWorkers() == 10)
-							{
-								stopTraining = true;
-							}
-							
-						}
-						else
-						{
-							if (mainOrderQueue.isAssimilatorBuilt)
-							{
-								stopTraining = false;
-								if (!stopTraining)
-								{
-									workerManager.returnToGas(u);
-									
-									if (workerManager.getNumGasWorkers() == 3)
-									{
-										stopTraining = true;
-									}
-								}
-								
-							}
-							
-						}
-						
-					} // closure: has no powerup
+				//	else if (!u->getPowerUp())  // The worker cannot harvest anything if it
+				//	{                             // is carrying a powerup such as a flag
+				//		// Harvest from the nearest mineral patch or gas refinery
+				//		//if (!u->gather(u->getClosestUnit(IsMineralField || IsRefinery)))
+				//		//{
+				//		//	// If the call fails, then print the last error message
+				//		//	Broodwar << Broodwar->getLastError() << std::endl;
+				//		//}
+				
+				//		if (workerManager.getNumMineralWorkers() <= 10)
+				//		{
+				//		
+				//			workerManager.returnToMineral(u);
+				//			if (workerManager.getNumMineralWorkers() == 10)
+				//			{
+				//				stopTraining = true;
+				//			}
+				//			
+				//		}
+				//		else
+				//		{
+				//			if (mainOrderQueue.isAssimilatorBuilt)
+				//			{
+				//				stopTraining = false;
+				//				if (!stopTraining)
+				//				{
+				//					workerManager.returnToGas(u);
+				//					
+				//					if (workerManager.getNumGasWorkers() == 3)
+				//					{
+				//						stopTraining = true;
+				//					}
+				//				}
+				//				
+				//			}
+				//			
+				//		}
+				//		
+				//	} // closure: has no powerup
 				} // closure: if idle
 
-			}
+			
 			else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
 			{
 				if (!stopTraining)
@@ -466,16 +476,15 @@ void ExampleAIModule::onUnitHide(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 {
-	if (Broodwar->isReplay())
+	if ( Broodwar->getFrameCount() > 1)
 	{
-		// if we are in a replay, then we will print out the build order of the structures
-		if (unit->getType().isBuilding() && !unit->getPlayer()->isNeutral())
+		if (unit->getPlayer() == Broodwar->self())
 		{
-			int seconds = Broodwar->getFrameCount() / 24;
-			int minutes = seconds / 60;
-			seconds %= 60;
-			Broodwar->sendText("%.2d:%.2d: %s creates a %s", minutes, seconds,
-				unit->getPlayer()->getName().c_str(), unit->getType().c_str());
+			
+			if (unit->getType().isWorker())
+			{
+				workerManager.makeAvailable(unit);
+			}
 		}
 	}
 }
@@ -510,4 +519,13 @@ void ExampleAIModule::onSaveGame(std::string gameName)
 
 void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 {
+	if (unit->getPlayer() == Broodwar->self())
+	{
+		
+		if (unit->getType().isWorker() )
+		{
+			workerManager.makeAvailable(unit);
+		}
+		
+	}
 }

@@ -44,6 +44,25 @@ int WorkerManager::getWorkerCount()
 }
 
 
+int WorkerManager::getIdleCount()
+{
+	int count = 0;
+
+	for (BWAPI::Unit i : BWAPI::Broodwar->self()->getUnits())
+	{
+		if (i->getType().isWorker())
+		{
+			if (i->isIdle())
+			{
+				count++;
+			}
+			
+		}
+	}
+	return count;
+}
+
+
 
 void WorkerManager::addWorkerGas(BWAPI::Unit gas)
 {
@@ -75,11 +94,11 @@ bool WorkerManager::returnToMineral(BWAPI::Unit worker)
 		}
 		else
 		{
-			BWAPI::Broodwar->printf("WorkerManager Error: command to mine minerals failed");
+			//BWAPI::Broodwar->printf("WorkerManager Error: command to mine minerals failed");
 			return false;
 		}
 	}
-	BWAPI::Broodwar->printf("WorkerManager Error: unable to find mineral field");
+	//BWAPI::Broodwar->printf("WorkerManager Error: unable to find mineral field");
 	return false;
 }
 
@@ -102,12 +121,50 @@ bool WorkerManager::returnToGas(BWAPI::Unit worker)
 		}
 		else
 		{
-			BWAPI::Broodwar->printf("WorkerManager Error: command to mine gas failed");
+			//BWAPI::Broodwar->printf("WorkerManager Error: command to mine gas failed");
 			return false;
 		}
 	}
-	BWAPI::Broodwar->printf("WorkerManager Error: unable to find gas field");
+	//BWAPI::Broodwar->printf("WorkerManager Error: unable to find gas field");
 	return false;
+}
+
+void WorkerManager::gatherMineral()
+{
+	for (BWAPI::Unit u : availableWorkers)
+	{
+
+		if (returnToMineral(u))
+		{
+			makeUnavailable(u);
+		}
+		
+	}
+}
+
+void WorkerManager::gatherGas()
+{
+	/*for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
+		{
+			if (u->getType().isWorker() && u->isIdle() && !u->isCarryingMinerals())
+			{
+				if (returnToGas(u))
+				{
+					makeUnavailable(u);
+				}
+			}
+		}
+	}*/
+
+
+	for (BWAPI::Unit u : availableWorkers)
+	{
+		if (u->gather(u->getClosestUnit(BWAPI::Filter::IsRefinery)))
+		{
+			makeUnavailable(u);
+		}
+				
+	}
 }
 
 bool WorkerManager::makeAvailable(BWAPI::Unit worker)
@@ -134,6 +191,12 @@ bool WorkerManager::makeUnavailable(BWAPI::Unit worker)
 	}
 }
 
+
+int WorkerManager::getAvailableCount()
+{
+	return availableWorkers.size();
+}
+ 
 
 
 

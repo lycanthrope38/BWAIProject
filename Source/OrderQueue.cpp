@@ -150,86 +150,50 @@ int OrderQueue::getSize(){
 
 //xử lý các yêu cầu xây dựng
 bool OrderQueue::build(BWAPI::UnitType buildingType){
-
-
-	//BuidingManager manager = BuidingManager();
-	//BWAPI::Unit worker = manager.getWorker();
-
 	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
 		if (u->getType().isWorker()){
 			//BWAPI::UnitType buildingType = BWAPI::UnitTypes::Protoss_Gateway;
-			
-			
+
+
 			BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
 			if (targetBuildLocation)
 			{
 				// Order the builder to construct the supply structure
 				if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
 					static int lastChecked = 0;
-		
-					
+
+
 					if (lastChecked + 500 < BWAPI::Broodwar->getFrameCount())
 					{
 
-					if (u->build(buildingType, targetBuildLocation))
-					{
-					lastChecked = BWAPI::Broodwar->getFrameCount();
-					
-						// Register an event that draws the target build location
-						BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+						if (u->build(buildingType, targetBuildLocation))
 						{
-							BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
-								BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
-								BWAPI::Colors::Red);
-						},
-							nullptr,  // condition
-							buildingType.buildTime() + 100);  // frames to run
+							lastChecked = BWAPI::Broodwar->getFrameCount();
 
-						if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
-						{
-							isAssimilatorBuilt = true;
+							// Register an event that draws the target build location
+							BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+							{
+								BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
+									BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
+									BWAPI::Colors::Red);
+							},
+								nullptr,  // condition
+								buildingType.buildTime() + 100);  // frames to run
+
+							if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
+							{
+								isAssimilatorBuilt = true;
+							}
+							return true;
+
 						}
-						return true;
 
 					}
-					
 				}
-			}
 			}
 		}
 	}
 	return false;
-	
-	//BuidingManager manager = BuidingManager();
-	//BWAPI::Unit worker = manager.getWorker();
-
-	//BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, worker->getTilePosition());
-	//		if (targetBuildLocation)
-	//		{
-	//			// Order the builder to construct the supply structure
-	//			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
-	//				if (worker->build(buildingType, targetBuildLocation))
-	//				{
-	//					// Register an event that draws the target build location
-	//					BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
-	//					{
-	//						BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
-	//							BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
-	//							BWAPI::Colors::Red);
-	//					},
-	//						nullptr,  // condition
-	//						buildingType.buildTime() + 100);  // frames to run
-
-	//					return true;
-	//				}
-	//				
-	//			}
-	//		}
-
-	//
-	//			
-	//return false;
-
 }
 
 //xử lí các yêu cầu mua quân lính

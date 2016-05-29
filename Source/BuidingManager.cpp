@@ -239,11 +239,11 @@ BWAPI::Unit BuidingManager::getWorker()
 {
 	BWAPI::Unit worker;
 
-	for (std::set<Unit>::const_iterator i = availableWorkers.begin(); i != availableWorkers.end(); i++)
+	for (Unit i : availableWorkers)
 	{
-		if (*i != NULL)
+		if (i != NULL)
 		{
-			worker = (*i);
+			worker = i;
 			return worker;
 		}
 	}
@@ -255,17 +255,6 @@ int BuidingManager::getWorkerCount()
 	return availableWorkers.size();
 }
 
-bool BuidingManager::addWorker(BWAPI::Unit* newWorker)
-{
-	if (allWorkers.insert(newWorker).second)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
 
 
 
