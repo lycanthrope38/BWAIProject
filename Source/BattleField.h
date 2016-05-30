@@ -59,6 +59,9 @@ public:
 	//thêm unit
 	void addUnits(BWAPI::Unitset);
 
+	//kiểm tra tình hình quân số
+	void checkRequirements();
+
 	int getSelfSize();
 
 	bool isNearDefensePosition(Position);

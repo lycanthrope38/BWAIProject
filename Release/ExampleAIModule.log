@@ -1,4 +1,4 @@
-﻿Build started 5/31/2016 12:08:09 AM.
+﻿Build started 5/31/2016 1:18:27 AM.
 Environment at start of build:
 ALLUSERSPROFILE = C:\ProgramData
 ALTERAOCLSDKROOT = F:\ProgramFiles\Quartus\hld
@@ -75,8 +75,8 @@ VSLANG = 1033
 windir = C:\WINDOWS
 XTC_IDE = 15b83466333d427e9540d90e5db438ee
 
-00:08:09.566     1>Project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" on node 2 (Build target(s)).
-00:08:09.566     1>Initial Properties:
+01:18:27.123     1>Project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" on node 2 (Build target(s)).
+01:18:27.123     1>Initial Properties:
                    _AfterCompileWinFXInternalDependsOn = 
                            PrepareResourcesForSatelliteAssemblies;
                            MergeLocalizationDirectives;
@@ -1115,8 +1115,8 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                    XamlTemporaryAssemblyName = ExampleAIModule
                    YieldDuringToolExecution = true
 
-00:08:09.566     1>Building with tools version "12.0".
-00:08:09.576     1>Target "_CheckForInvalidConfigurationAndPlatform: (TargetId:2)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (entry point):
+01:18:27.123     1>Building with tools version "12.0".
+01:18:27.123     1>Target "_CheckForInvalidConfigurationAndPlatform: (TargetId:2)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (entry point):
                    Task "Error" skipped, due to false condition; ( '$(_InvalidConfigurationError)' == 'true' ) was evaluated as ( '' == 'true' ).
                    Task "Warning" skipped, due to false condition; ( '$(_InvalidConfigurationWarning)' == 'true' ) was evaluated as ( '' == 'true' ).
                    Using "Message" task from assembly "Microsoft.Build.Tasks.v12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
@@ -1133,17 +1133,17 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                    Task "Error" skipped, due to false condition; ('$(OutDir)' != '' and !HasTrailingSlash('$(OutDir)')) was evaluated as ('C:\Program Files (x86)\BWAPI\Release\' != '' and !HasTrailingSlash('C:\Program Files (x86)\BWAPI\Release\')).
                    Task "Error" skipped, due to false condition; ('$(BaseIntermediateOutputPath)' != '' and !HasTrailingSlash('$(BaseIntermediateOutputPath)')) was evaluated as ('obj\' != '' and !HasTrailingSlash('obj\')).
                    Task "Error" skipped, due to false condition; ('$(IntermediateOutputPath)' != '' and !HasTrailingSlash('$(IntermediateOutputPath)')) was evaluated as ('Release\' != '' and !HasTrailingSlash('Release\')).
-00:08:09.597     1>Done building target "_CheckForInvalidConfigurationAndPlatform" in project "ExampleAIModule.vcxproj".: (TargetId:2)
-00:08:09.598     1>Target "_PrepareForBuild: (TargetId:3)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.BuildSteps.Targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
+01:18:27.130     1>Done building target "_CheckForInvalidConfigurationAndPlatform" in project "ExampleAIModule.vcxproj".: (TargetId:2)
+01:18:27.130     1>Target "_PrepareForBuild: (TargetId:3)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.BuildSteps.Targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
                    Task "CreateItem" skipped, due to false condition; ('%(CustomBuild.IncludeFileToTool)'!='') was evaluated as (''!='').
-00:08:09.599     1>Done building target "_PrepareForBuild" in project "ExampleAIModule.vcxproj".: (TargetId:3)
-00:08:09.599     1>Target "_PrepareForReferenceResolution: (TargetId:4)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveReferences" depends on it):
+01:18:27.130     1>Done building target "_PrepareForBuild" in project "ExampleAIModule.vcxproj".: (TargetId:3)
+01:18:27.131     1>Target "_PrepareForReferenceResolution: (TargetId:4)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveReferences" depends on it):
                    Task "Message" skipped, due to false condition; ('$(_REFERENCE_DEBUG)'=='true') was evaluated as (''=='true').
-00:08:09.599     1>Done building target "_PrepareForReferenceResolution" in project "ExampleAIModule.vcxproj".: (TargetId:4)
+01:18:27.131     1>Done building target "_PrepareForReferenceResolution" in project "ExampleAIModule.vcxproj".: (TargetId:4)
                    Target "ComputeCrtSDKReference" skipped, due to false condition; ('@(ClCompile)'!='' and '$(WindowsAppContainer)'=='true' and '$(UseCrtSDKReference)' != 'false') was evaluated as ('Source\ArmyOrder.cpp;Source\BattleField.cpp;Source\BattleHorde.cpp;Source\BattleSquad.cpp;Source\BuidingManager.cpp;Source\Collections.cpp;Source\Dll.cpp;Source\ExampleAIModule.cpp;Source\InformationManager.cpp;Source\LordCommander.cpp;Source\Micro.cpp;Source\OrderQueue.cpp;Source\OrderType.cpp;Source\ScoutManager.cpp;Source\UnitNumber.cpp;Source\WorkerManager.cpp'!='' and 'false'=='true' and '' != 'false').
-00:08:09.599     1>Target "BeforeResolveReferences: (TargetId:5)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveReferences" depends on it):
-00:08:09.599     1>Done building target "BeforeResolveReferences" in project "ExampleAIModule.vcxproj".: (TargetId:5)
-00:08:09.600     1>Target "AssignProjectConfiguration: (TargetId:6)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveReferences" depends on it):
+01:18:27.131     1>Target "BeforeResolveReferences: (TargetId:5)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveReferences" depends on it):
+01:18:27.131     1>Done building target "BeforeResolveReferences" in project "ExampleAIModule.vcxproj".: (TargetId:5)
+01:18:27.131     1>Target "AssignProjectConfiguration: (TargetId:6)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveReferences" depends on it):
                    Using "AssignProjectConfiguration" task from assembly "Microsoft.Build.Tasks.v12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
                    Task "AssignProjectConfiguration" (TaskId:4)
                      Task Parameter:CurrentProject=C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj (TaskId:4)
@@ -1160,29 +1160,29 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                      Task Parameter:OnlyReferenceAndBuildProjectsEnabledInSolutionConfiguration=True (TaskId:4)
                      Task Parameter:ShouldUnsetParentConfigurationAndPlatform=True (TaskId:4)
                    Done executing task "AssignProjectConfiguration". (TaskId:4)
-00:08:09.603     1>Done building target "AssignProjectConfiguration" in project "ExampleAIModule.vcxproj".: (TargetId:6)
+01:18:27.132     1>Done building target "AssignProjectConfiguration" in project "ExampleAIModule.vcxproj".: (TargetId:6)
                    Target "AssignProjectConfiguration" skipped. Previously built successfully.
-00:08:09.603     1>Target "_SplitProjectReferencesByFileExistence: (TargetId:7)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveProjectReferences" depends on it):
+01:18:27.132     1>Target "_SplitProjectReferencesByFileExistence: (TargetId:7)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveProjectReferences" depends on it):
                    Task "ResolveNonMSBuildProjectOutput" skipped, due to false condition; ('$(BuildingInsideVisualStudio)'=='true' and '@(ProjectReferenceWithConfiguration)'!='') was evaluated as ('true'=='true' and ''!='').
-00:08:09.603     1>Done building target "_SplitProjectReferencesByFileExistence" in project "ExampleAIModule.vcxproj".: (TargetId:7)
+01:18:27.132     1>Done building target "_SplitProjectReferencesByFileExistence" in project "ExampleAIModule.vcxproj".: (TargetId:7)
                    Target "_RemoveNameMetadataFromProjectReferenceItems" skipped, due to false condition; ('@(ProjectReference)'!='') was evaluated as (''!='').
-00:08:09.603     1>Target "ResolveProjectReferences: (TargetId:8)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveReferences" depends on it):
+01:18:27.132     1>Target "ResolveProjectReferences: (TargetId:8)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveReferences" depends on it):
                    Task "MSBuild" skipped, due to false condition; ('%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and ('$(BuildingInsideVisualStudio)' == 'true' or '$(BuildProjectReferences)' != 'true') and '$(VisualStudioVersion)' != '10.0' and '@(_MSBuildProjectReferenceExistent)' != '') was evaluated as ('' == 'true' and '' != '' and ('true' == 'true' or 'true' != 'true') and '12.0' != '10.0' and '' != '').
                    Task "MSBuild" skipped, due to false condition; ('%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and ('$(BuildingInsideVisualStudio)' == 'true' or '$(BuildProjectReferences)' != 'true') and '$(VisualStudioVersion)' == '10.0' and '@(_MSBuildProjectReferenceExistent)' != '') was evaluated as ('' == 'true' and '' != '' and ('true' == 'true' or 'true' != 'true') and '12.0' == '10.0' and '' != '').
                    Task "MSBuild" skipped, due to false condition; ('%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and '$(BuildingInsideVisualStudio)' != 'true' and '$(BuildProjectReferences)' == 'true' and '@(_MSBuildProjectReferenceExistent)' != '') was evaluated as ('' == 'true' and '' != '' and 'true' != 'true' and 'true' == 'true' and '' != '').
                    Task "MSBuild" skipped, due to false condition; ('%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and '$(BuildingProject)' == 'true' and '@(_MSBuildProjectReferenceExistent)' != '') was evaluated as ('' == 'true' and '' != '' and 'true' == 'true' and '' != '').
                    Task "Warning" skipped, due to false condition; ('@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceNonexistent)' != '') was evaluated as ('' != '' and '' != '').
-00:08:09.604     1>Done building target "ResolveProjectReferences" in project "ExampleAIModule.vcxproj".: (TargetId:8)
+01:18:27.134     1>Done building target "ResolveProjectReferences" in project "ExampleAIModule.vcxproj".: (TargetId:8)
                    Target "FindInvalidProjectReferences" skipped, due to false condition; ('$(FindInvalidProjectReferences)' == 'true') was evaluated as ('' == 'true').
                    Target "ResolveNativeReferences" skipped, due to false condition; ('@(NativeReference)'!='') was evaluated as (''!='').
                    Target "_PrepareForReferenceResolution" skipped. Previously built successfully.
-00:08:09.604     1>Target "GetFrameworkPaths: (TargetId:9)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.NetFramework.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveAssemblyReferences" depends on it):
-00:08:09.605     1>Done building target "GetFrameworkPaths" in project "ExampleAIModule.vcxproj".: (TargetId:9)
+01:18:27.134     1>Target "GetFrameworkPaths: (TargetId:9)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.NetFramework.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveAssemblyReferences" depends on it):
+01:18:27.134     1>Done building target "GetFrameworkPaths" in project "ExampleAIModule.vcxproj".: (TargetId:9)
                    Target "GetWinFXPath" skipped, due to false condition; (('@(Page)' != '' or '@(ApplicationDefinition)' != '' or '@(Resource)' != '') and ('$(GetWinFXNativePath)' != '' or '$(GetWinFXWoWPath)' != '' )) was evaluated as (('' != '' or '' != '' or '' != '') and ('' != '' or '' != '' )).
-00:08:09.605     1>Target "GetReferenceAssemblyPaths: (TargetId:10)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveAssemblyReferences" depends on it):
+01:18:27.135     1>Target "GetReferenceAssemblyPaths: (TargetId:10)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveAssemblyReferences" depends on it):
                    Task "GetReferenceAssemblyPaths" skipped, due to false condition; ('$(TargetFrameworkMoniker)' != '' and ('$(_TargetFrameworkDirectories)' == '' or '$(_FullFrameworkReferenceAssemblyPaths)' == '')) was evaluated as ('' != '' and ('C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0' == '' or 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0' == '')).
-00:08:09.605     1>Done building target "GetReferenceAssemblyPaths" in project "ExampleAIModule.vcxproj".: (TargetId:10)
-00:08:09.606     1>Target "SetBuildDefaultEnvironmentVariables: (TargetId:11)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Cpp.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareForBuild" depends on it):
+01:18:27.135     1>Done building target "GetReferenceAssemblyPaths" in project "ExampleAIModule.vcxproj".: (TargetId:10)
+01:18:27.135     1>Target "SetBuildDefaultEnvironmentVariables: (TargetId:11)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Cpp.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareForBuild" depends on it):
                    Using "SetEnv" task from assembly "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Build.CppTasks.Common.dll".
                    Task "SetEnv" (TaskId:5)
                      Task Parameter:Name=PATH (TaskId:5)
@@ -1208,27 +1208,27 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                      Task Parameter:Prefix=False (TaskId:8)
                      INCLUDE=C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\atlmfc\include;C:\Program Files (x86)\Windows Kits\8.1\Include\um;C:\Program Files (x86)\Windows Kits\8.1\Include\shared;C:\Program Files (x86)\Windows Kits\8.1\Include\winrt;; (TaskId:8)
                    Done executing task "SetEnv". (TaskId:8)
-00:08:09.616     1>Done building target "SetBuildDefaultEnvironmentVariables" in project "ExampleAIModule.vcxproj".: (TargetId:11)
+01:18:27.140     1>Done building target "SetBuildDefaultEnvironmentVariables" in project "ExampleAIModule.vcxproj".: (TargetId:11)
                    Target "SetUserMacroEnvironmentVariables" skipped, due to false condition; ('@(BuildMacro)' != '') was evaluated as ('' != '').
-00:08:09.616     1>Target "GetResolvedWinMD: (TargetId:12)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareForBuild" depends on it):
-00:08:09.617     1>Done building target "GetResolvedWinMD" in project "ExampleAIModule.vcxproj".: (TargetId:12)
-00:08:09.617     1>Target "PlatformPrepareForBuild: (TargetId:13)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Cpp.Platform.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareForBuild" depends on it):
+01:18:27.140     1>Target "GetResolvedWinMD: (TargetId:12)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareForBuild" depends on it):
+01:18:27.141     1>Done building target "GetResolvedWinMD" in project "ExampleAIModule.vcxproj".: (TargetId:12)
+01:18:27.141     1>Target "PlatformPrepareForBuild: (TargetId:13)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Cpp.Platform.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareForBuild" depends on it):
                    Task "VCMessage" skipped, due to false condition; ('$(_Error64bitToolsNotInstalled)' == 'true') was evaluated as ('' == 'true').
                    Task "VCMessage" skipped, due to false condition; ('$(ConfigurationPlatformExists)' != 'true') was evaluated as ('true' != 'true').
                    Task "VCMessage" skipped, due to false condition; ('$(ToolsetTargetsFound)' != 'true') was evaluated as ('true' != 'true').
-00:08:09.617     1>Done building target "PlatformPrepareForBuild" in project "ExampleAIModule.vcxproj".: (TargetId:13)
+01:18:27.141     1>Done building target "PlatformPrepareForBuild" in project "ExampleAIModule.vcxproj".: (TargetId:13)
                    Target "GetFrameworkPaths" skipped. Previously built successfully.
                    Target "GetReferenceAssemblyPaths" skipped. Previously built successfully.
                    Target "AssignLinkMetadata" skipped, due to false condition; ( '$(SynthesizeLinkMetadata)' == 'true' ) was evaluated as ( '' == 'true' ).
-00:08:09.617     1>Target "SetCABuildNativeEnvironmentVariables: (TargetId:14)" in file "C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v12.0\CodeAnalysis\Microsoft.CodeAnalysis.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareForBuild" depends on it):
+01:18:27.141     1>Target "SetCABuildNativeEnvironmentVariables: (TargetId:14)" in file "C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v12.0\CodeAnalysis\Microsoft.CodeAnalysis.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareForBuild" depends on it):
                    Initializing task factory "CodeTaskFactory" from assembly "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Build.Tasks.v12.0.dll".
                    Using "SetEnvironmentVariable" task from the task factory "Code Task Factory".
                    Task "SetEnvironmentVariable" (TaskId:9)
                      Task Parameter:EnvValue=C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\atlmfc\include;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include;C:\Program Files (x86)\Windows Kits\8.1\Include\um;C:\Program Files (x86)\Windows Kits\8.1\Include\shared;C:\Program Files (x86)\Windows Kits\8.1\Include\winrt;; (TaskId:9)
                      Task Parameter:EnvKey=CAExcludePath (TaskId:9)
                    Done executing task "SetEnvironmentVariable". (TaskId:9)
-00:08:09.908     1>Done building target "SetCABuildNativeEnvironmentVariables" in project "ExampleAIModule.vcxproj".: (TargetId:14)
-00:08:09.908     1>Target "PrepareForBuild: (TargetId:15)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveAssemblyReferences" depends on it):
+01:18:27.149     1>Done building target "SetCABuildNativeEnvironmentVariables" in project "ExampleAIModule.vcxproj".: (TargetId:14)
+01:18:27.149     1>Target "PrepareForBuild: (TargetId:15)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveAssemblyReferences" depends on it):
                    Task "VCMessage" skipped, due to false condition; ('$(DesignTimeBuild)' != 'true' and '$(ConfigurationPlatformExists)' != 'true') was evaluated as ('' != 'true' and 'true' != 'true').
                    Using "MakeDir" task from assembly "Microsoft.Build.Tasks.v12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
                    Task "MakeDir" (TaskId:10)
@@ -1252,34 +1252,34 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                              C:\Program Files (x86)\BWAPI\Release\
                              Release\ExampleAIModule.tlog\ (TaskId:11)
                    Done executing task "MakeDir". (TaskId:11)
-00:08:09.925     1>Done building target "PrepareForBuild" in project "ExampleAIModule.vcxproj".: (TargetId:15)
+01:18:27.154     1>Done building target "PrepareForBuild" in project "ExampleAIModule.vcxproj".: (TargetId:15)
                    Target "_PrepareForReferenceResolution" skipped. Previously built successfully.
                    Target "ComputeCrtSDKReference" skipped, due to false condition; ('@(ClCompile)'!='' and '$(WindowsAppContainer)'=='true' and '$(UseCrtSDKReference)' != 'false') was evaluated as ('Source\ArmyOrder.cpp;Source\BattleField.cpp;Source\BattleHorde.cpp;Source\BattleSquad.cpp;Source\BuidingManager.cpp;Source\Collections.cpp;Source\Dll.cpp;Source\ExampleAIModule.cpp;Source\InformationManager.cpp;Source\LordCommander.cpp;Source\Micro.cpp;Source\OrderQueue.cpp;Source\OrderType.cpp;Source\ScoutManager.cpp;Source\UnitNumber.cpp;Source\WorkerManager.cpp'!='' and 'false'=='true' and '' != 'false').
-00:08:09.925     1>Target "GetInstalledSDKLocations: (TargetId:16)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveSDKReferences" depends on it):
+01:18:27.154     1>Target "GetInstalledSDKLocations: (TargetId:16)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveSDKReferences" depends on it):
                    Task "GetInstalledSDKLocations" skipped, due to false condition; ('@(SDKReference)' != '') was evaluated as ('' != '').
-00:08:09.925     1>Done building target "GetInstalledSDKLocations" in project "ExampleAIModule.vcxproj".: (TargetId:16)
-00:08:09.925     1>Target "ResolveSDKReferences: (TargetId:17)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveAssemblyReferences" depends on it):
+01:18:27.154     1>Done building target "GetInstalledSDKLocations" in project "ExampleAIModule.vcxproj".: (TargetId:16)
+01:18:27.154     1>Target "ResolveSDKReferences: (TargetId:17)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveAssemblyReferences" depends on it):
                    Task "ResolveSDKReference" skipped, due to false condition; ('@(SDKReference)'!='') was evaluated as (''!='').
-00:08:09.925     1>Done building target "ResolveSDKReferences" in project "ExampleAIModule.vcxproj".: (TargetId:17)
+01:18:27.154     1>Done building target "ResolveSDKReferences" in project "ExampleAIModule.vcxproj".: (TargetId:17)
                    Target "ResolveSDKReferences" skipped. Previously built successfully.
-00:08:09.925     1>Target "ExpandSDKReferences: (TargetId:18)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveAssemblyReferences" depends on it):
+01:18:27.154     1>Target "ExpandSDKReferences: (TargetId:18)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveAssemblyReferences" depends on it):
                    Task "GetSDKReferenceFiles" skipped, due to false condition; ('@(ResolvedSDKReference)'!='') was evaluated as (''!='').
-00:08:09.925     1>Done building target "ExpandSDKReferences" in project "ExampleAIModule.vcxproj".: (TargetId:18)
-00:08:09.925     1>Target "ResolveAssemblyReferences: (TargetId:19)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveReferences" depends on it):
+01:18:27.154     1>Done building target "ExpandSDKReferences" in project "ExampleAIModule.vcxproj".: (TargetId:18)
+01:18:27.154     1>Target "ResolveAssemblyReferences: (TargetId:19)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveReferences" depends on it):
                    Task "ResolveAssemblyReference" skipped, due to false condition; ('@(Reference)'!='' or '@(_ResolvedProjectReferencePaths)'!='' or '@(_ExplicitReference)' != '') was evaluated as (''!='' or ''!='' or '' != '').
-00:08:09.926     1>Done building target "ResolveAssemblyReferences" in project "ExampleAIModule.vcxproj".: (TargetId:19)
+01:18:27.154     1>Done building target "ResolveAssemblyReferences" in project "ExampleAIModule.vcxproj".: (TargetId:19)
                    Target "GenerateBindingRedirects" skipped, due to false condition; ('$(AutoGenerateBindingRedirects)' == 'true' and '$(GenerateBindingRedirectsOutputType)' == 'true') was evaluated as ('' == 'true' and '' == 'true').
                    Target "GenerateBindingRedirectsUpdateAppConfig" skipped, due to false condition; ('$(AutoGenerateBindingRedirects)' == 'true' and '$(GenerateBindingRedirectsOutputType)' == 'true' and Exists('$(_GenerateBindingRedirectsIntermediateAppConfig)')) was evaluated as ('' == 'true' and '' == 'true' and Exists('Release\ExampleAIModule.vcxproj.ExampleAIModule.dll.config')).
                    Target "ResolveComReferences" skipped, due to false condition; ('@(COMReference)'!='' or '@(COMFileReference)'!='') was evaluated as (''!='' or ''!='').
-00:08:09.926     1>Target "AfterResolveReferences: (TargetId:20)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveReferences" depends on it):
-00:08:09.926     1>Done building target "AfterResolveReferences" in project "ExampleAIModule.vcxproj".: (TargetId:20)
+01:18:27.155     1>Target "AfterResolveReferences: (TargetId:20)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ResolveReferences" depends on it):
+01:18:27.155     1>Done building target "AfterResolveReferences" in project "ExampleAIModule.vcxproj".: (TargetId:20)
                    Target "ImplicitlyExpandDesignTimeFacades" skipped, due to false condition; ('$(ImplicitlyExpandDesignTimeFacades)' == 'true') was evaluated as ('' == 'true').
                    Target "ResolveTestReferences" skipped, due to false condition; ('@(Shadow)'!='') was evaluated as (''!='').
-00:08:09.926     1>Target "ResolveReferences: (TargetId:21)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
-00:08:09.926     1>Done building target "ResolveReferences" in project "ExampleAIModule.vcxproj".: (TargetId:21)
+01:18:27.155     1>Target "ResolveReferences: (TargetId:21)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
+01:18:27.155     1>Done building target "ResolveReferences" in project "ExampleAIModule.vcxproj".: (TargetId:21)
                    Target "PrepareForBuild" skipped. Previously built successfully.
                    Target "PrepareForBuild" skipped. Previously built successfully.
-00:08:09.926     1>Target "InitializeBuildStatus: (TargetId:22)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
+01:18:27.155     1>Target "InitializeBuildStatus: (TargetId:22)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
                    Using "ReadLinesFromFile" task from assembly "Microsoft.Build.Tasks.v12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
                    Task "ReadLinesFromFile" (TaskId:12)
                      Task Parameter:File=Release\ExampleAIModule.tlog\ExampleAIModule.lastbuildstate (TaskId:12)
@@ -1299,64 +1299,64 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                      Task Parameter:Files=Release\ExampleAIModule.tlog\unsuccessfulbuild (TaskId:14)
                      Touching "Release\ExampleAIModule.tlog\unsuccessfulbuild". (TaskId:14)
                    Done executing task "Touch". (TaskId:14)
-00:08:09.951     1>Done building target "InitializeBuildStatus" in project "ExampleAIModule.vcxproj".: (TargetId:22)
+01:18:27.164     1>Done building target "InitializeBuildStatus" in project "ExampleAIModule.vcxproj".: (TargetId:22)
                    Target "AssignProjectConfiguration" skipped. Previously built successfully.
                    Target "_SplitProjectReferencesByFileExistence" skipped. Previously built successfully.
-00:08:09.951     1>Target "BuildGenerateSourcesTraverse: (TargetId:23)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildGenerateSources" depends on it):
+01:18:27.164     1>Target "BuildGenerateSourcesTraverse: (TargetId:23)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildGenerateSources" depends on it):
                    Task "MSBuild" skipped, due to false condition; ('$(BuildPassReferences)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceExistent)' != '' and '%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true') was evaluated as ('' == 'true' and '' != '' and '' != '' and '' == 'true').
-00:08:09.952     1>Done building target "BuildGenerateSourcesTraverse" in project "ExampleAIModule.vcxproj".: (TargetId:23)
+01:18:27.165     1>Done building target "BuildGenerateSourcesTraverse" in project "ExampleAIModule.vcxproj".: (TargetId:23)
                    Target "PrepareForBuild" skipped. Previously built successfully.
                    Target "ResolveReferences" skipped. Previously built successfully.
-00:08:09.952     1>Target "BeforeBuildGenerateSources: (TargetId:24)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.BuildSteps.Targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
-00:08:09.952     1>Done building target "BeforeBuildGenerateSources" in project "ExampleAIModule.vcxproj".: (TargetId:24)
-00:08:09.952     1>Target "PreBuildEvent: (TargetId:25)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:18:27.165     1>Target "BeforeBuildGenerateSources: (TargetId:24)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.BuildSteps.Targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:18:27.165     1>Done building target "BeforeBuildGenerateSources" in project "ExampleAIModule.vcxproj".: (TargetId:24)
+01:18:27.165     1>Target "PreBuildEvent: (TargetId:25)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
                    Task "Message" skipped, due to false condition; ('%(PreBuildEvent.Message)' != '' and '%(PreBuildEvent.Command)' != '') was evaluated as ('' != '' and '' != '').
                    Task "Exec" skipped, due to false condition; ('%(PreBuildEvent.Command)' != '') was evaluated as ('' != '').
-00:08:09.952     1>Done building target "PreBuildEvent" in project "ExampleAIModule.vcxproj".: (TargetId:25)
+01:18:27.165     1>Done building target "PreBuildEvent" in project "ExampleAIModule.vcxproj".: (TargetId:25)
                    Target "CustomBuild" skipped, due to false condition; ('@(CustomBuild)' != '') was evaluated as ('' != '').
                    Target "FxCompile" skipped, due to false condition; ('@(FxCompile)' != '') was evaluated as ('' != '').
                    Target "Xsd" skipped, due to false condition; ('@(Xsd)' != '') was evaluated as ('' != '').
-00:08:09.952     1>Target "_Xsd: (TargetId:26)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
-00:08:09.952     1>Done building target "_Xsd" in project "ExampleAIModule.vcxproj".: (TargetId:26)
-00:08:09.952     1>Target "MakeDirsForMidl: (TargetId:27)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Midl" depends on it):
+01:18:27.165     1>Target "_Xsd: (TargetId:26)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:18:27.165     1>Done building target "_Xsd" in project "ExampleAIModule.vcxproj".: (TargetId:26)
+01:18:27.165     1>Target "MakeDirsForMidl: (TargetId:27)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Midl" depends on it):
                    Task "Makedir" (TaskId:15)
                    Done executing task "Makedir". (TaskId:15)
-00:08:09.953     1>Done building target "MakeDirsForMidl" in project "ExampleAIModule.vcxproj".: (TargetId:27)
+01:18:27.165     1>Done building target "MakeDirsForMidl" in project "ExampleAIModule.vcxproj".: (TargetId:27)
                    Target "Midl" skipped, due to false condition; ('@(Midl)' != '') was evaluated as ('' != '').
                    Target "CustomBuild" skipped, due to false condition; ('@(CustomBuild)' != '') was evaluated as ('' != '').
                    Target "FxCompile" skipped, due to false condition; ('@(FxCompile)' != '') was evaluated as ('' != '').
-00:08:09.953     1>Target "ComputeMIDLGeneratedCompileInputs: (TargetId:28)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Midl" depends on it):
-00:08:09.953     1>Done building target "ComputeMIDLGeneratedCompileInputs" in project "ExampleAIModule.vcxproj".: (TargetId:28)
-00:08:09.953     1>Target "AfterMidl: (TargetId:29)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Midl" depends on it):
-00:08:09.953     1>Done building target "AfterMidl" in project "ExampleAIModule.vcxproj".: (TargetId:29)
-00:08:09.953     1>Target "_Midl: (TargetId:30)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
-00:08:09.953     1>Done building target "_Midl" in project "ExampleAIModule.vcxproj".: (TargetId:30)
-00:08:09.953     1>Target "AfterBuildGenerateSources: (TargetId:31)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.BuildSteps.Targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
-00:08:09.953     1>Done building target "AfterBuildGenerateSources" in project "ExampleAIModule.vcxproj".: (TargetId:31)
-00:08:09.953     1>Target "AfterBuildGenerateSourcesEvent: (TargetId:32)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
-00:08:09.953     1>Done building target "AfterBuildGenerateSourcesEvent" in project "ExampleAIModule.vcxproj".: (TargetId:32)
-00:08:09.953     1>Target "_BuildGenerateSourcesAction: (TargetId:33)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildGenerateSources" depends on it):
-00:08:09.953     1>Done building target "_BuildGenerateSourcesAction" in project "ExampleAIModule.vcxproj".: (TargetId:33)
-00:08:09.953     1>Target "BuildGenerateSources: (TargetId:34)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
-00:08:09.953     1>Done building target "BuildGenerateSources" in project "ExampleAIModule.vcxproj".: (TargetId:34)
+01:18:27.166     1>Target "ComputeMIDLGeneratedCompileInputs: (TargetId:28)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Midl" depends on it):
+01:18:27.166     1>Done building target "ComputeMIDLGeneratedCompileInputs" in project "ExampleAIModule.vcxproj".: (TargetId:28)
+01:18:27.166     1>Target "AfterMidl: (TargetId:29)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Midl" depends on it):
+01:18:27.166     1>Done building target "AfterMidl" in project "ExampleAIModule.vcxproj".: (TargetId:29)
+01:18:27.166     1>Target "_Midl: (TargetId:30)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:18:27.166     1>Done building target "_Midl" in project "ExampleAIModule.vcxproj".: (TargetId:30)
+01:18:27.166     1>Target "AfterBuildGenerateSources: (TargetId:31)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.BuildSteps.Targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:18:27.166     1>Done building target "AfterBuildGenerateSources" in project "ExampleAIModule.vcxproj".: (TargetId:31)
+01:18:27.166     1>Target "AfterBuildGenerateSourcesEvent: (TargetId:32)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:18:27.166     1>Done building target "AfterBuildGenerateSourcesEvent" in project "ExampleAIModule.vcxproj".: (TargetId:32)
+01:18:27.166     1>Target "_BuildGenerateSourcesAction: (TargetId:33)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildGenerateSources" depends on it):
+01:18:27.166     1>Done building target "_BuildGenerateSourcesAction" in project "ExampleAIModule.vcxproj".: (TargetId:33)
+01:18:27.166     1>Target "BuildGenerateSources: (TargetId:34)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
+01:18:27.166     1>Done building target "BuildGenerateSources" in project "ExampleAIModule.vcxproj".: (TargetId:34)
                    Target "AssignProjectConfiguration" skipped. Previously built successfully.
                    Target "_SplitProjectReferencesByFileExistence" skipped. Previously built successfully.
-00:08:09.953     1>Target "BuildCompileTraverse: (TargetId:35)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildCompile" depends on it):
+01:18:27.166     1>Target "BuildCompileTraverse: (TargetId:35)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildCompile" depends on it):
                    Task "MSBuild" skipped, due to false condition; ('$(BuildPassReferences)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceExistent)' != ''  and '%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true') was evaluated as ('' == 'true' and '' != '' and '' != ''  and '' == 'true').
-00:08:09.953     1>Done building target "BuildCompileTraverse" in project "ExampleAIModule.vcxproj".: (TargetId:35)
+01:18:27.166     1>Done building target "BuildCompileTraverse" in project "ExampleAIModule.vcxproj".: (TargetId:35)
                    Target "PrepareForBuild" skipped. Previously built successfully.
                    Target "ResolveReferences" skipped. Previously built successfully.
-00:08:09.953     1>Target "BeforeClCompile: (TargetId:36)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
-00:08:09.953     1>Done building target "BeforeClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:36)
+01:18:27.166     1>Target "BeforeClCompile: (TargetId:36)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
+01:18:27.166     1>Done building target "BeforeClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:36)
                    Target "ComputeMIDLGeneratedCompileInputs" skipped. Previously built successfully.
-00:08:09.953     1>Target "ComputeCLInputPDBName: (TargetId:37)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
-00:08:09.954     1>Done building target "ComputeCLInputPDBName" in project "ExampleAIModule.vcxproj".: (TargetId:37)
+01:18:27.166     1>Target "ComputeCLInputPDBName: (TargetId:37)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
+01:18:27.166     1>Done building target "ComputeCLInputPDBName" in project "ExampleAIModule.vcxproj".: (TargetId:37)
                    Target "ResolveReferences" skipped. Previously built successfully.
-00:08:09.954     1>Target "ComputeReferenceCLInput: (TargetId:38)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
+01:18:27.166     1>Target "ComputeReferenceCLInput: (TargetId:38)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
                    Task "WriteLinesToFile" skipped, due to false condition; (('@(_ReferenceCopyLocalPaths)'!='') and '$(DesignTimeBuild)' != 'true') was evaluated as ((''!='') and '' != 'true').
                    Task "Message" skipped, due to false condition; ('$(_REFERENCE_DEBUG)'=='true') was evaluated as (''=='true').
-00:08:09.954     1>Done building target "ComputeReferenceCLInput" in project "ExampleAIModule.vcxproj".: (TargetId:38)
-00:08:09.954     1>Target "WarnCompileDuplicatedFilename: (TargetId:39)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
+01:18:27.167     1>Done building target "ComputeReferenceCLInput" in project "ExampleAIModule.vcxproj".: (TargetId:38)
+01:18:27.167     1>Target "WarnCompileDuplicatedFilename: (TargetId:39)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
                    Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'ArmyOrder.cpp' != 'ArmyOrder.cpp' and 'Release\' == 'Release\').
                    Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'BattleField.cpp' != 'BattleField.cpp' and 'Release\' == 'Release\').
                    Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'BattleHorde.cpp' != 'BattleHorde.cpp' and 'Release\' == 'Release\').
@@ -1373,8 +1373,8 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                    Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'ScoutManager.cpp' != 'ScoutManager.cpp' and 'Release\' == 'Release\').
                    Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'UnitNumber.cpp' != 'UnitNumber.cpp' and 'Release\' == 'Release\').
                    Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'WorkerManager.cpp' != 'WorkerManager.cpp' and 'Release\' == 'Release\').
-00:08:09.969     1>Done building target "WarnCompileDuplicatedFilename" in project "ExampleAIModule.vcxproj".: (TargetId:39)
-00:08:09.969     1>Target "MakeDirsForCl: (TargetId:40)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
+01:18:27.177     1>Done building target "WarnCompileDuplicatedFilename" in project "ExampleAIModule.vcxproj".: (TargetId:39)
+01:18:27.177     1>Target "MakeDirsForCl: (TargetId:40)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
                    Task "MakeDir" (TaskId:16)
                      Task Parameter:
                          Directories=
@@ -1385,24 +1385,24 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                              C:\Program Files (x86)\BWAPI\ExampleAIModule\Release
                              C:\Program Files (x86)\BWAPI\ExampleAIModule\Release (TaskId:16)
                    Done executing task "MakeDir". (TaskId:16)
-00:08:09.971     1>Done building target "MakeDirsForCl" in project "ExampleAIModule.vcxproj".: (TargetId:40)
+01:18:27.178     1>Done building target "MakeDirsForCl" in project "ExampleAIModule.vcxproj".: (TargetId:40)
                    Target "PrepareForBuild" skipped. Previously built successfully.
                    Target "SetBuildDefaultEnvironmentVariables" skipped. Previously built successfully.
                    Target "SetUserMacroEnvironmentVariables" skipped, due to false condition; ('@(BuildMacro)' != '') was evaluated as ('' != '').
-00:08:09.971     1>Target "_SelectedFiles: (TargetId:41)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "SelectClCompile" depends on it):
-00:08:09.973     1>Done building target "_SelectedFiles" in project "ExampleAIModule.vcxproj".: (TargetId:41)
+01:18:27.178     1>Target "_SelectedFiles: (TargetId:41)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "SelectClCompile" depends on it):
+01:18:27.178     1>Done building target "_SelectedFiles" in project "ExampleAIModule.vcxproj".: (TargetId:41)
                    Target "ComputeMIDLGeneratedCompileInputs" skipped. Previously built successfully.
                    Target "ComputeCLInputPDBName" skipped. Previously built successfully.
                    Target "ComputeReferenceCLInput" skipped. Previously built successfully.
                    Target "WarnCompileDuplicatedFilename" skipped. Previously built successfully.
                    Target "_SelectedFiles" skipped. Previously built successfully.
-00:08:09.973     1>Target "SelectCustomBuild: (TargetId:42)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "SelectClCompile" depends on it):
-00:08:09.973     1>Done building target "SelectCustomBuild" in project "ExampleAIModule.vcxproj".: (TargetId:42)
-00:08:09.973     1>Target "SelectClCompile: (TargetId:43)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ClCompile" depends on it):
-00:08:09.973     1>Done building target "SelectClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:43)
+01:18:27.178     1>Target "SelectCustomBuild: (TargetId:42)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "SelectClCompile" depends on it):
+01:18:27.178     1>Done building target "SelectCustomBuild" in project "ExampleAIModule.vcxproj".: (TargetId:42)
+01:18:27.178     1>Target "SelectClCompile: (TargetId:43)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ClCompile" depends on it):
+01:18:27.178     1>Done building target "SelectClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:43)
                    Target "GenerateTargetFrameworkMonikerAttribute" skipped, due to false condition; ('$(GenerateTargetFrameworkAttribute)' == 'true') was evaluated as ('false' == 'true').
                    Target "ManagedIncrementalBuildPreProcessDependencyGraph" skipped, due to false condition; ('@(ClCompile)' != '' and '$(EnableManagedIncrementalBuild)' == 'True') was evaluated as ('Source\ArmyOrder.cpp;Source\BattleField.cpp;Source\BattleHorde.cpp;Source\BattleSquad.cpp;Source\BuidingManager.cpp;Source\Collections.cpp;Source\Dll.cpp;Source\ExampleAIModule.cpp;Source\InformationManager.cpp;Source\LordCommander.cpp;Source\Micro.cpp;Source\OrderQueue.cpp;Source\OrderType.cpp;Source\ScoutManager.cpp;Source\UnitNumber.cpp;Source\WorkerManager.cpp' != '' and 'false' == 'True').
-00:08:09.973     1>Target "ClCompile: (TargetId:44)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
+01:18:27.179     1>Target "ClCompile: (TargetId:44)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
                    Task "Delete" skipped, due to false condition; ('%(ClCompile.DebugInformationFormat)' != '' and '%(ClCompile.DebugInformationFormat)' != 'OldStyle' and '%(ClCompile.ProgramDataBaseFileName)' != '' and !Exists(%(ClCompile.ProgramDataBaseFileName))) was evaluated as ('ProgramDatabase' != '' and 'ProgramDatabase' != 'OldStyle' and 'Release\vc120.pdb' != '' and !Exists(Release\vc120.pdb)).
                    Task "CL" skipped, due to false condition; ('%(ClCompile.PrecompiledHeader)' == 'Create' and '%(ClCompile.ExcludedFromBuild)'!='true' and '%(ClCompile.CompilerIteration)' == '') was evaluated as ('' == 'Create' and ''!='true' and '' == '').
                    Using "CL" task from assembly "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Build.CppTasks.Common.dll".
@@ -2494,83 +2494,83 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                      	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\SCOUTMANAGER.OBJ (TaskId:17)
                      	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\UNITNUMBER.OBJ (TaskId:17)
                      	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\WORKERMANAGER.OBJ (TaskId:17)
-                     Source\LordCommander.cpp will be compiled as C:\Program Files (x86)\BWAPI\ExampleAIModule\Source\LordCommander.cpp was modified at 5/31/2016 12:08:05 AM. (TaskId:17)
-                     Outputs for C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\SOURCE\LORDCOMMANDER.CPP: (TaskId:17)
-                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\LORDCOMMANDER.OBJ (TaskId:17)
+                     Source\ExampleAIModule.cpp will be compiled as it was not found in the tracking log. (TaskId:17)
+                     Outputs for C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\SOURCE\EXAMPLEAIMODULE.CPP: (TaskId:17)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\EXAMPLEAIMODULE.OBJ (TaskId:17)
                      Write Tracking Logs: (TaskId:17)
                      	Release\ExampleAIModule.tlog\cl.write.1.tlog (TaskId:17)
                      Environment Variables passed to tool: (TaskId:17)
-                       VS_UNICODE_OUTPUT=1020 (TaskId:17)
-                     C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I../include /Zi /nologo /W3 /WX- /MP /O2 /Oi /Oy- /GL /D NOMINMAX /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\LordCommander.cpp (TaskId:17)
+                       VS_UNICODE_OUTPUT=1832 (TaskId:17)
+                     C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I../include /Zi /nologo /W3 /WX- /MP /O2 /Oi /Oy- /GL /D NOMINMAX /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\ExampleAIModule.cpp (TaskId:17)
                      Tracking command: (TaskId:17)
-                     C:\Program Files (x86)\MSBuild\12.0\bin\Tracker.exe /d "C:\Program Files (x86)\MSBuild\12.0\bin\FileTracker.dll" /i "C:\Program Files (x86)\BWAPI\ExampleAIModule\Release\ExampleAIModule.tlog" /r "C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\SOURCE\LORDCOMMANDER.CPP" /b MSBuildConsole_CancelEventcaab9e3643c448fc9a04784f904fcaab  /c "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe"  /c /I../include /Zi /nologo /W3 /WX- /MP /O2 /Oi /Oy- /GL /D NOMINMAX /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\LordCommander.cpp (TaskId:17)
-                     LordCommander.cpp (TaskId:17)
+                     C:\Program Files (x86)\MSBuild\12.0\bin\Tracker.exe /d "C:\Program Files (x86)\MSBuild\12.0\bin\FileTracker.dll" /i "C:\Program Files (x86)\BWAPI\ExampleAIModule\Release\ExampleAIModule.tlog" /r "C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\SOURCE\EXAMPLEAIMODULE.CPP" /b MSBuildConsole_CancelEventfb8bf4ee29c44f10b0542000e7cbb682  /c "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe"  /c /I../include /Zi /nologo /W3 /WX- /MP /O2 /Oi /Oy- /GL /D NOMINMAX /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\ExampleAIModule.cpp (TaskId:17)
+                     ExampleAIModule.cpp (TaskId:17)
                    Done executing task "CL". (TaskId:17)
-00:08:12.523     1>Done building target "ClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:44)
+01:18:29.993     1>Done building target "ClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:44)
                    Target "ManagedIncrementalBuildPostProcessDependencyGraph" skipped, due to false condition; ('@(ClCompile)' != '' and '$(EnableManagedIncrementalBuild)' == 'True') was evaluated as ('Source\ArmyOrder.cpp;Source\BattleField.cpp;Source\BattleHorde.cpp;Source\BattleSquad.cpp;Source\BuidingManager.cpp;Source\Collections.cpp;Source\Dll.cpp;Source\ExampleAIModule.cpp;Source\InformationManager.cpp;Source\LordCommander.cpp;Source\Micro.cpp;Source\OrderQueue.cpp;Source\OrderType.cpp;Source\ScoutManager.cpp;Source\UnitNumber.cpp;Source\WorkerManager.cpp' != '' and 'false' == 'True').
-00:08:12.523     1>Target "AfterClCompile: (TargetId:45)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
-00:08:12.523     1>Done building target "AfterClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:45)
-00:08:12.523     1>Target "_ClCompile: (TargetId:46)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildCompileAction" depends on it):
-00:08:12.523     1>Done building target "_ClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:46)
+01:18:29.993     1>Target "AfterClCompile: (TargetId:45)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ClCompile" depends on it):
+01:18:29.993     1>Done building target "AfterClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:45)
+01:18:29.993     1>Target "_ClCompile: (TargetId:46)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildCompileAction" depends on it):
+01:18:29.993     1>Done building target "_ClCompile" in project "ExampleAIModule.vcxproj".: (TargetId:46)
                    Target "_ResGen" skipped, due to false condition; ('@(EmbeddedResource)'!='') was evaluated as (''!='').
-00:08:12.524     1>Target "BeforeResourceCompile: (TargetId:47)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ResourceCompile" depends on it):
-00:08:12.524     1>Done building target "BeforeResourceCompile" in project "ExampleAIModule.vcxproj".: (TargetId:47)
-00:08:12.524     1>Target "MakeDirsForResourceCompile: (TargetId:48)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ResourceCompile" depends on it):
+01:18:29.993     1>Target "BeforeResourceCompile: (TargetId:47)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ResourceCompile" depends on it):
+01:18:29.993     1>Done building target "BeforeResourceCompile" in project "ExampleAIModule.vcxproj".: (TargetId:47)
+01:18:29.993     1>Target "MakeDirsForResourceCompile: (TargetId:48)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ResourceCompile" depends on it):
                    Task "MakeDir" (TaskId:18)
                    Done executing task "MakeDir". (TaskId:18)
-00:08:12.524     1>Done building target "MakeDirsForResourceCompile" in project "ExampleAIModule.vcxproj".: (TargetId:48)
+01:18:29.993     1>Done building target "MakeDirsForResourceCompile" in project "ExampleAIModule.vcxproj".: (TargetId:48)
                    Target "ResourceCompile" skipped, due to false condition; ('@(ResourceCompile)' != '') was evaluated as ('' != '').
-00:08:12.524     1>Target "AfterResourceCompile: (TargetId:49)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ResourceCompile" depends on it):
-00:08:12.524     1>Done building target "AfterResourceCompile" in project "ExampleAIModule.vcxproj".: (TargetId:49)
-00:08:12.524     1>Target "_ResourceCompile: (TargetId:50)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildCompileAction" depends on it):
-00:08:12.524     1>Done building target "_ResourceCompile" in project "ExampleAIModule.vcxproj".: (TargetId:50)
+01:18:29.993     1>Target "AfterResourceCompile: (TargetId:49)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_ResourceCompile" depends on it):
+01:18:29.993     1>Done building target "AfterResourceCompile" in project "ExampleAIModule.vcxproj".: (TargetId:49)
+01:18:29.993     1>Target "_ResourceCompile: (TargetId:50)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildCompileAction" depends on it):
+01:18:29.993     1>Done building target "_ResourceCompile" in project "ExampleAIModule.vcxproj".: (TargetId:50)
                    Target "_ImpLib" skipped, due to false condition; ('$(ImpLibCompiled)' == 'true') was evaluated as ('' == 'true').
                    Target "_Lib" skipped, due to false condition; ('$(LibCompiled)' == 'true') was evaluated as ('' == 'true').
-00:08:12.524     1>Target "AfterBuildCompileEvent: (TargetId:51)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildCompileAction" depends on it):
-00:08:12.524     1>Done building target "AfterBuildCompileEvent" in project "ExampleAIModule.vcxproj".: (TargetId:51)
-00:08:12.524     1>Target "_BuildCompileAction: (TargetId:52)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildCompile" depends on it):
-00:08:12.524     1>Done building target "_BuildCompileAction" in project "ExampleAIModule.vcxproj".: (TargetId:52)
-00:08:12.524     1>Target "BuildCompile: (TargetId:53)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
-00:08:12.524     1>Done building target "BuildCompile" in project "ExampleAIModule.vcxproj".: (TargetId:53)
+01:18:29.993     1>Target "AfterBuildCompileEvent: (TargetId:51)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildCompileAction" depends on it):
+01:18:29.993     1>Done building target "AfterBuildCompileEvent" in project "ExampleAIModule.vcxproj".: (TargetId:51)
+01:18:29.993     1>Target "_BuildCompileAction: (TargetId:52)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildCompile" depends on it):
+01:18:29.993     1>Done building target "_BuildCompileAction" in project "ExampleAIModule.vcxproj".: (TargetId:52)
+01:18:29.993     1>Target "BuildCompile: (TargetId:53)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
+01:18:29.993     1>Done building target "BuildCompile" in project "ExampleAIModule.vcxproj".: (TargetId:53)
                    Target "AssignProjectConfiguration" skipped. Previously built successfully.
                    Target "_SplitProjectReferencesByFileExistence" skipped. Previously built successfully.
-00:08:12.524     1>Target "BuildLinkTraverse: (TargetId:54)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildLink" depends on it):
+01:18:29.993     1>Target "BuildLinkTraverse: (TargetId:54)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildLink" depends on it):
                    Task "MSBuild" skipped, due to false condition; ('$(BuildPassReferences)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceExistent)' != ''  and '%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true') was evaluated as ('' == 'true' and '' != '' and '' != ''  and '' == 'true').
-00:08:12.524     1>Done building target "BuildLinkTraverse" in project "ExampleAIModule.vcxproj".: (TargetId:54)
+01:18:29.993     1>Done building target "BuildLinkTraverse" in project "ExampleAIModule.vcxproj".: (TargetId:54)
                    Target "PrepareForBuild" skipped. Previously built successfully.
                    Target "ResolveReferences" skipped. Previously built successfully.
-00:08:12.524     1>Target "ComputeLegacyManifestEmbedding: (TargetId:55)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+01:18:29.993     1>Target "ComputeLegacyManifestEmbedding: (TargetId:55)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
                    Task "VCMessage" skipped, due to false condition; ('$(RevertManifestEmbedding)' == 'true' and '$(_LegacyManifestEmbeddingDebug)' == 'true') was evaluated as ('' == 'true' and '' == 'true').
-00:08:12.525     1>Done building target "ComputeLegacyManifestEmbedding" in project "ExampleAIModule.vcxproj".: (TargetId:55)
-00:08:12.525     1>Target "BeforeLink: (TargetId:56)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
-00:08:12.525     1>Done building target "BeforeLink" in project "ExampleAIModule.vcxproj".: (TargetId:56)
-00:08:12.525     1>Target "ComputeRCOutputs: (TargetId:57)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ComputeRCGeneratedLinkInputs" depends on it):
-00:08:12.525     1>Done building target "ComputeRCOutputs" in project "ExampleAIModule.vcxproj".: (TargetId:57)
-00:08:12.525     1>Target "ComputeRCGeneratedLinkInputs: (TargetId:58)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
-00:08:12.525     1>Done building target "ComputeRCGeneratedLinkInputs" in project "ExampleAIModule.vcxproj".: (TargetId:58)
-00:08:12.525     1>Target "ComputeManifestGeneratedLinkerInputs: (TargetId:59)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
-00:08:12.525     1>Done building target "ComputeManifestGeneratedLinkerInputs" in project "ExampleAIModule.vcxproj".: (TargetId:59)
-00:08:12.525     1>Target "ComputeCustomBuildOutput: (TargetId:60)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:29.994     1>Done building target "ComputeLegacyManifestEmbedding" in project "ExampleAIModule.vcxproj".: (TargetId:55)
+01:18:29.994     1>Target "BeforeLink: (TargetId:56)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:29.994     1>Done building target "BeforeLink" in project "ExampleAIModule.vcxproj".: (TargetId:56)
+01:18:29.994     1>Target "ComputeRCOutputs: (TargetId:57)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ComputeRCGeneratedLinkInputs" depends on it):
+01:18:29.994     1>Done building target "ComputeRCOutputs" in project "ExampleAIModule.vcxproj".: (TargetId:57)
+01:18:29.994     1>Target "ComputeRCGeneratedLinkInputs: (TargetId:58)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:29.994     1>Done building target "ComputeRCGeneratedLinkInputs" in project "ExampleAIModule.vcxproj".: (TargetId:58)
+01:18:29.994     1>Target "ComputeManifestGeneratedLinkerInputs: (TargetId:59)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:29.994     1>Done building target "ComputeManifestGeneratedLinkerInputs" in project "ExampleAIModule.vcxproj".: (TargetId:59)
+01:18:29.995     1>Target "ComputeCustomBuildOutput: (TargetId:60)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
                    Task "CreateItem" skipped, due to false condition; ('%(CustomBuildDirsToMake.OutputFileToTool)'!='') was evaluated as (''!='').
                    Task "MakeDir" (TaskId:19)
                    Done executing task "MakeDir". (TaskId:19)
-00:08:12.525     1>Done building target "ComputeCustomBuildOutput" in project "ExampleAIModule.vcxproj".: (TargetId:60)
+01:18:29.995     1>Done building target "ComputeCustomBuildOutput" in project "ExampleAIModule.vcxproj".: (TargetId:60)
                    Target "ComputeMIDLGeneratedCompileInputs" skipped. Previously built successfully.
                    Target "ComputeCLInputPDBName" skipped. Previously built successfully.
                    Target "ComputeReferenceCLInput" skipped. Previously built successfully.
                    Target "WarnCompileDuplicatedFilename" skipped. Previously built successfully.
-00:08:12.526     1>Target "ComputeCLOutputs: (TargetId:61)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ComputeCLGeneratedLinkInputs" depends on it):
-00:08:12.528     1>Done building target "ComputeCLOutputs" in project "ExampleAIModule.vcxproj".: (TargetId:61)
-00:08:12.528     1>Target "ComputeCLGeneratedLinkInputs: (TargetId:62)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
-00:08:12.528     1>Done building target "ComputeCLGeneratedLinkInputs" in project "ExampleAIModule.vcxproj".: (TargetId:62)
-00:08:12.528     1>Target "ComputeLinkInputsFromProject: (TargetId:63)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
-00:08:12.529     1>Done building target "ComputeLinkInputsFromProject" in project "ExampleAIModule.vcxproj".: (TargetId:63)
+01:18:29.995     1>Target "ComputeCLOutputs: (TargetId:61)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "ComputeCLGeneratedLinkInputs" depends on it):
+01:18:29.997     1>Done building target "ComputeCLOutputs" in project "ExampleAIModule.vcxproj".: (TargetId:61)
+01:18:29.997     1>Target "ComputeCLGeneratedLinkInputs: (TargetId:62)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:29.998     1>Done building target "ComputeCLGeneratedLinkInputs" in project "ExampleAIModule.vcxproj".: (TargetId:62)
+01:18:29.998     1>Target "ComputeLinkInputsFromProject: (TargetId:63)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:29.998     1>Done building target "ComputeLinkInputsFromProject" in project "ExampleAIModule.vcxproj".: (TargetId:63)
                    Target "ComputeReferenceLinkInputs" skipped, due to false condition; (@(ProjectReference) != '') was evaluated as ( != '').
-00:08:12.529     1>Target "ComputeManifestInputsTargets: (TargetId:64)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
-00:08:12.529     1>Done building target "ComputeManifestInputsTargets" in project "ExampleAIModule.vcxproj".: (TargetId:64)
+01:18:29.998     1>Target "ComputeManifestInputsTargets: (TargetId:64)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:29.999     1>Done building target "ComputeManifestInputsTargets" in project "ExampleAIModule.vcxproj".: (TargetId:64)
                    Target "ManifestResourceCompile" skipped, due to false condition; ('$(EmbedManifestBy)' == 'LINK' and '@(Manifest)' != '') was evaluated as ('MT' == 'LINK' and '' != '').
                    Target "AssignWinFXEmbeddedResource" skipped, due to false condition; ('@(WinFXEmbeddedResource)' != '') was evaluated as ('' != '').
-00:08:12.529     1>Target "AssignTargetPaths: (TargetId:65)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareResourceNames" depends on it):
+01:18:29.999     1>Target "AssignTargetPaths: (TargetId:65)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareResourceNames" depends on it):
                    Using "AssignTargetPath" task from assembly "Microsoft.Build.Tasks.v12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
                    Task "AssignTargetPath" (TaskId:20)
                      Task Parameter:RootFolder=C:\Program Files (x86)\BWAPI\ExampleAIModule (TaskId:20)
@@ -2585,9 +2585,9 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                      Task Parameter:RootFolder=C:\Program Files (x86)\BWAPI\ExampleAIModule (TaskId:23)
                    Done executing task "AssignTargetPath". (TaskId:23)
                    Task "AssignTargetPath" skipped, due to false condition; ('@(_DeploymentBaseManifestWithTargetPath)'=='' and '%(None.Extension)'=='.manifest') was evaluated as (''=='' and ''=='.manifest').
-00:08:12.531     1>Done building target "AssignTargetPaths" in project "ExampleAIModule.vcxproj".: (TargetId:65)
+01:18:30.000     1>Done building target "AssignTargetPaths" in project "ExampleAIModule.vcxproj".: (TargetId:65)
                    Target "AssignTargetPaths" skipped. Previously built successfully.
-00:08:12.531     1>Target "SplitResourcesByCulture: (TargetId:66)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareResourceNames" depends on it):
+01:18:30.000     1>Target "SplitResourcesByCulture: (TargetId:66)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareResourceNames" depends on it):
                    Task "Warning" skipped, due to false condition; ('@(ResxWithNoCulture)'!='') was evaluated as (''!='').
                    Task "Warning" skipped, due to false condition; ('@(ResxWithCulture)'!='') was evaluated as (''!='').
                    Task "Warning" skipped, due to false condition; ('@(NonResxWithCulture)'!='') was evaluated as (''!='').
@@ -2595,13 +2595,13 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                    Using "AssignCulture" task from assembly "Microsoft.Build.Tasks.v12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
                    Task "AssignCulture" (TaskId:24)
                    Done executing task "AssignCulture". (TaskId:24)
-00:08:12.532     1>Done building target "SplitResourcesByCulture" in project "ExampleAIModule.vcxproj".: (TargetId:66)
+01:18:30.001     1>Done building target "SplitResourcesByCulture" in project "ExampleAIModule.vcxproj".: (TargetId:66)
                    Target "CreateManifestResourceNames" skipped, due to false condition; ('@(EmbeddedResource)' != '') was evaluated as ('' != '').
-00:08:12.532     1>Target "CreateCustomManifestResourceNames: (TargetId:67)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareResourceNames" depends on it):
-00:08:12.532     1>Done building target "CreateCustomManifestResourceNames" in project "ExampleAIModule.vcxproj".: (TargetId:67)
-00:08:12.532     1>Target "PrepareResourceNames: (TargetId:68)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
-00:08:12.532     1>Done building target "PrepareResourceNames" in project "ExampleAIModule.vcxproj".: (TargetId:68)
-00:08:12.532     1>Target "MakeDirsForLink: (TargetId:69)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:30.001     1>Target "CreateCustomManifestResourceNames: (TargetId:67)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareResourceNames" depends on it):
+01:18:30.001     1>Done building target "CreateCustomManifestResourceNames" in project "ExampleAIModule.vcxproj".: (TargetId:67)
+01:18:30.001     1>Target "PrepareResourceNames: (TargetId:68)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:30.001     1>Done building target "PrepareResourceNames" in project "ExampleAIModule.vcxproj".: (TargetId:68)
+01:18:30.001     1>Target "MakeDirsForLink: (TargetId:69)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
                    Task "MakeDir" (TaskId:25)
                      Task Parameter:
                          Directories=
@@ -2610,21 +2610,21 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                              C:\Program Files (x86)\BWAPI\Release
                              C:\Program Files (x86)\BWAPI\ExampleAIModule\Release\ (TaskId:25)
                    Done executing task "MakeDir". (TaskId:25)
-00:08:12.535     1>Done building target "MakeDirsForLink" in project "ExampleAIModule.vcxproj".: (TargetId:69)
-00:08:12.535     1>Target "DoLinkOutputFilesMatch: (TargetId:70)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:30.004     1>Done building target "MakeDirsForLink" in project "ExampleAIModule.vcxproj".: (TargetId:69)
+01:18:30.004     1>Target "DoLinkOutputFilesMatch: (TargetId:70)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
                    Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' == '') was evaluated as ('C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.dll' == '').
                    Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' != '' and '%(_OutputFileFromLink.FullPath)' != '$([System.IO.Path]::GetFullPath($(TargetPath)))') was evaluated as ('C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.dll' != '' and 'C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.dll' != 'C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.dll').
                    Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' != '' and '%(_OutputFileFromLink.Extension)' != '' and '%(_OutputFileFromLink.Extension)' != '$(TargetExt)') was evaluated as ('C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.dll' != '' and '.dll' != '' and '.dll' != '.dll').
                    Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' != '' and '%(_OutputFileFromLink.Filename)' != '' and '%(_OutputFileFromLink.Filename)' != '$(TargetName)') was evaluated as ('C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.dll' != '' and 'ExampleAIModule' != '' and 'ExampleAIModule' != 'ExampleAIModule').
                    Task "VCMessage" skipped, due to false condition; ('%(Link.MinimumRequiredVersion)' != '' and ('%(Link.Subsystem)' == '' or '%(Link.Subsystem)' == 'NotSet')) was evaluated as ('' != '' and ('Windows' == '' or 'Windows' == 'NotSet')).
-00:08:12.536     1>Done building target "DoLinkOutputFilesMatch" in project "ExampleAIModule.vcxproj".: (TargetId:70)
-00:08:12.537     1>Target "PreLinkEvent: (TargetId:71)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:30.005     1>Done building target "DoLinkOutputFilesMatch" in project "ExampleAIModule.vcxproj".: (TargetId:70)
+01:18:30.005     1>Target "PreLinkEvent: (TargetId:71)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
                    Task "Message" skipped, due to false condition; ('%(PreLinkEvent.Message)' != '' and '%(PreLinkEvent.Command)' != '') was evaluated as ('' != '' and '' != '').
                    Task "Exec" skipped, due to false condition; ('%(PreLinkEvent.Command)' != '') was evaluated as ('' != '').
-00:08:12.537     1>Done building target "PreLinkEvent" in project "ExampleAIModule.vcxproj".: (TargetId:71)
-00:08:12.537     1>Target "ComputeLinkSwitches: (TargetId:72)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Link" depends on it):
-00:08:12.537     1>Done building target "ComputeLinkSwitches" in project "ExampleAIModule.vcxproj".: (TargetId:72)
-00:08:12.537     1>Target "Link: (TargetId:73)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:30.005     1>Done building target "PreLinkEvent" in project "ExampleAIModule.vcxproj".: (TargetId:71)
+01:18:30.005     1>Target "ComputeLinkSwitches: (TargetId:72)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Link" depends on it):
+01:18:30.006     1>Done building target "ComputeLinkSwitches" in project "ExampleAIModule.vcxproj".: (TargetId:72)
+01:18:30.006     1>Target "Link: (TargetId:73)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
                    Using "Link" task from assembly "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Build.CppTasks.Common.dll".
                    Task "Link" (TaskId:26)
                      Task Parameter:BuildingInIde=True (TaskId:26)
@@ -3496,10 +3496,59 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                      	Release\ExampleAIModule.tlog\link.write.1.tlog (TaskId:26)
                      Read Tracking Logs: (TaskId:26)
                      	Release\ExampleAIModule.tlog\link.read.1.tlog (TaskId:26)
-                     No output for C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ARMYORDER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEFIELD.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEHORDE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLESQUAD.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BUIDINGMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\COLLECTIONS.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\DLL.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\EXAMPLEAIMODULE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\INFORMATIONMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\LORDCOMMANDER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\MICRO.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERQUEUE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERTYPE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\SCOUTMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\UNITNUMBER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\WORKERMANAGER.OBJ was found in the tracking log; source compilation required. (TaskId:26)
-                     No dependencies for output C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ARMYORDER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEFIELD.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEHORDE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLESQUAD.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BUIDINGMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\COLLECTIONS.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\DLL.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\EXAMPLEAIMODULE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\INFORMATIONMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\LORDCOMMANDER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\MICRO.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERQUEUE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERTYPE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\SCOUTMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\UNITNUMBER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\WORKERMANAGER.OBJ were found in the tracking log; source compilation required. (TaskId:26)
+                     Outputs for C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ARMYORDER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEFIELD.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEHORDE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLESQUAD.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BUIDINGMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\COLLECTIONS.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\DLL.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\EXAMPLEAIMODULE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\INFORMATIONMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\LORDCOMMANDER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\MICRO.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERQUEUE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERTYPE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\SCOUTMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\UNITNUMBER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\WORKERMANAGER.OBJ: (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\RELEASE\EXAMPLEAIMODULE.DLL (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\RELEASE\EXAMPLEAIMODULE.PDB (TaskId:26)
+                     Inputs for C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ARMYORDER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEFIELD.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEHORDE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLESQUAD.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BUIDINGMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\COLLECTIONS.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\DLL.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\EXAMPLEAIMODULE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\INFORMATIONMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\LORDCOMMANDER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\MICRO.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERQUEUE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERTYPE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\SCOUTMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\UNITNUMBER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\WORKERMANAGER.OBJ: (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\LIB\BWAPI.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\LIB\BWTA.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\LIB\LIBBOOST_THREAD-VC120-MT-1_56.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\LIB\LIBBOOST_SYSTEM-VC120-MT-1_56.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\LIB\LIBBOOST_FILESYSTEM-VC120-MT-1_56.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\LIB\LIBCGAL-VC120-MT-4.4.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\LIB\LIBGMP-10.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\LIB\LIBMPFR-4.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\LIB\WINV6.3\UM\X86\KERNEL32.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\LIB\WINV6.3\UM\X86\USER32.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\LIB\WINV6.3\UM\X86\GDI32.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\LIB\WINV6.3\UM\X86\WINSPOOL.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\LIB\WINV6.3\UM\X86\COMDLG32.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\LIB\WINV6.3\UM\X86\ADVAPI32.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\LIB\WINV6.3\UM\X86\SHELL32.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\LIB\WINV6.3\UM\X86\OLE32.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\LIB\WINV6.3\UM\X86\OLEAUT32.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\LIB\WINV6.3\UM\X86\UUID.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\LIB\WINV6.3\UM\X86\ODBC32.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\LIB\WINV6.3\UM\X86\ODBCCP32.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ARMYORDER.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEFIELD.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEHORDE.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLESQUAD.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BUIDINGMANAGER.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\COLLECTIONS.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\DLL.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\EXAMPLEAIMODULE.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\INFORMATIONMANAGER.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\LORDCOMMANDER.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\MICRO.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERQUEUE.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERTYPE.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\SCOUTMANAGER.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\UNITNUMBER.OBJ (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\WORKERMANAGER.OBJ (TaskId:26)
+                     	C:\WINDOWS\GLOBALIZATION\SORTING\SORTDEFAULT.NLS (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\VC\BIN\C2.DLL (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\VC\LIB\MSVCPRT.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\VC\LIB\MSVCRT.LIB (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\VC\LIB\OLDNAMES.LIB (TaskId:26)
+                     	C:\WINDOWS\SYSTEM32\TZRES.DLL (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\VC\BIN\1033\LINKUI.DLL (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\VC\BIN\MSPDBSRV.EXE (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\WINDOWS KITS\8.1\BIN\X86\RC.EXE (TaskId:26)
+                     	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\VC\BIN\CVTRES.EXE (TaskId:26)
+                     Source compilation required: input C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\EXAMPLEAIMODULE.OBJ is newer than output C:\PROGRAM FILES (X86)\BWAPI\RELEASE\EXAMPLEAIMODULE.DLL. (TaskId:26)
                      Environment Variables passed to tool: (TaskId:26)
-                       VS_UNICODE_OUTPUT=1020 (TaskId:26)
+                       VS_UNICODE_OUTPUT=1112 (TaskId:26)
                      C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.dll" /INCREMENTAL:NO /NOLOGO ../lib/BWAPI.lib ../lib/BWTA.lib "../lib/libboost_thread-vc120-mt-1_56.lib" "../lib/libboost_system-vc120-mt-1_56.lib" "../lib/libboost_filesystem-vc120-mt-1_56.lib" "../lib/libCGAL-vc120-mt-4.4.lib" "../lib/libgmp-10.lib" "../lib/libmpfr-4.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Release\ExampleAIModule.lib" /MACHINE:X86 /SAFESEH /DLL Release\ArmyOrder.obj
                      Release\BattleField.obj
                      Release\BattleHorde.obj
@@ -3517,7 +3566,7 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                      Release\UnitNumber.obj
                      Release\WorkerManager.obj (TaskId:26)
                      Tracking command: (TaskId:26)
-                     C:\Program Files (x86)\MSBuild\12.0\bin\Tracker.exe /a /d "C:\Program Files (x86)\MSBuild\12.0\bin\FileTracker.dll" /i "C:\Program Files (x86)\BWAPI\ExampleAIModule\Release\ExampleAIModule.tlog" /r "C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ARMYORDER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEFIELD.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEHORDE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLESQUAD.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BUIDINGMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\COLLECTIONS.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\DLL.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\EXAMPLEAIMODULE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\INFORMATIONMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\LORDCOMMANDER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\MICRO.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERQUEUE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERTYPE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\SCOUTMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\UNITNUMBER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\WORKERMANAGER.OBJ" /b MSBuildConsole_CancelEventdefbe8b94e534f969974f5bfc44a013e  /c "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe"  /ERRORREPORT:PROMPT /OUT:"C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.dll" /INCREMENTAL:NO /NOLOGO ../lib/BWAPI.lib ../lib/BWTA.lib "../lib/libboost_thread-vc120-mt-1_56.lib" "../lib/libboost_system-vc120-mt-1_56.lib" "../lib/libboost_filesystem-vc120-mt-1_56.lib" "../lib/libCGAL-vc120-mt-4.4.lib" "../lib/libgmp-10.lib" "../lib/libmpfr-4.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Release\ExampleAIModule.lib" /MACHINE:X86 /SAFESEH /DLL Release\ArmyOrder.obj
+                     C:\Program Files (x86)\MSBuild\12.0\bin\Tracker.exe /a /d "C:\Program Files (x86)\MSBuild\12.0\bin\FileTracker.dll" /i "C:\Program Files (x86)\BWAPI\ExampleAIModule\Release\ExampleAIModule.tlog" /r "C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ARMYORDER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEFIELD.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLEHORDE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BATTLESQUAD.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\BUIDINGMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\COLLECTIONS.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\DLL.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\EXAMPLEAIMODULE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\INFORMATIONMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\LORDCOMMANDER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\MICRO.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERQUEUE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\ORDERTYPE.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\SCOUTMANAGER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\UNITNUMBER.OBJ|C:\PROGRAM FILES (X86)\BWAPI\EXAMPLEAIMODULE\RELEASE\WORKERMANAGER.OBJ" /b MSBuildConsole_CancelEvent99392ce78b9a4a899703d9eccf67f41c  /c "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe"  /ERRORREPORT:PROMPT /OUT:"C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.dll" /INCREMENTAL:NO /NOLOGO ../lib/BWAPI.lib ../lib/BWTA.lib "../lib/libboost_thread-vc120-mt-1_56.lib" "../lib/libboost_system-vc120-mt-1_56.lib" "../lib/libboost_filesystem-vc120-mt-1_56.lib" "../lib/libCGAL-vc120-mt-4.4.lib" "../lib/libgmp-10.lib" "../lib/libmpfr-4.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Release\ExampleAIModule.lib" /MACHINE:X86 /SAFESEH /DLL Release\ArmyOrder.obj
                      Release\BattleField.obj
                      Release\BattleHorde.obj
                      Release\BattleSquad.obj
@@ -3542,11 +3591,11 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                      Task Parameter:Importance=High (TaskId:27)
                      ExampleAIModule.vcxproj -> C:\Program Files (x86)\BWAPI\Release\ExampleAIModule.dll (TaskId:27)
                    Done executing task "Message". (TaskId:27)
-00:08:24.751     1>Done building target "Link" in project "ExampleAIModule.vcxproj".: (TargetId:73)
+01:18:43.516     1>Done building target "Link" in project "ExampleAIModule.vcxproj".: (TargetId:73)
                    Target "MetaGenInputsOutputs" skipped, due to false condition; ('$(EnableManagedIncrementalBuild)' == 'True') was evaluated as ('false' == 'True').
                    Target "ComputeMetaGenInputs" skipped, due to false condition; ('$(CLRSupport)'!='' and '$(CLRSupport)'!='false') was evaluated as ('false'!='' and 'false'!='false').
                    Target "MetaGen" skipped, due to false condition; ('@(MetaGen)' != '') was evaluated as ('' != '').
-00:08:24.751     1>Target "ComputeLinkImportLibraryOutputsForClean: (TargetId:74)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:43.516     1>Target "ComputeLinkImportLibraryOutputsForClean: (TargetId:74)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
                    Task "WriteLinesToFile" (TaskId:28)
                      Task Parameter:File=Release\ExampleAIModule.tlog\ExampleAIModule.write.1u.tlog (TaskId:28)
                      Task Parameter:
@@ -3556,87 +3605,87 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                              C:\Program Files (x86)\BWAPI\ExampleAIModule\Release\ExampleAIModule.exp (TaskId:28)
                      Task Parameter:Encoding=Unicode (TaskId:28)
                    Done executing task "WriteLinesToFile". (TaskId:28)
-00:08:24.757     1>Done building target "ComputeLinkImportLibraryOutputsForClean" in project "ExampleAIModule.vcxproj".: (TargetId:74)
-00:08:24.757     1>Target "AfterLink: (TargetId:75)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
-00:08:24.757     1>Done building target "AfterLink" in project "ExampleAIModule.vcxproj".: (TargetId:75)
-00:08:24.757     1>Target "_Link: (TargetId:76)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
-00:08:24.757     1>Done building target "_Link" in project "ExampleAIModule.vcxproj".: (TargetId:76)
-00:08:24.757     1>Target "_ALink: (TargetId:77)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
-00:08:24.757     1>Done building target "_ALink" in project "ExampleAIModule.vcxproj".: (TargetId:77)
+01:18:43.525     1>Done building target "ComputeLinkImportLibraryOutputsForClean" in project "ExampleAIModule.vcxproj".: (TargetId:74)
+01:18:43.525     1>Target "AfterLink: (TargetId:75)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_Link" depends on it):
+01:18:43.525     1>Done building target "AfterLink" in project "ExampleAIModule.vcxproj".: (TargetId:75)
+01:18:43.525     1>Target "_Link: (TargetId:76)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+01:18:43.525     1>Done building target "_Link" in project "ExampleAIModule.vcxproj".: (TargetId:76)
+01:18:43.525     1>Target "_ALink: (TargetId:77)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+01:18:43.525     1>Done building target "_ALink" in project "ExampleAIModule.vcxproj".: (TargetId:77)
                    Target "ComputeLegacyManifestEmbedding" skipped. Previously built successfully.
-00:08:24.757     1>Target "_Manifest: (TargetId:78)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+01:18:43.525     1>Target "_Manifest: (TargetId:78)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
                    Task "CallTarget" skipped, due to false condition; ('$(LegacyManifestEmbedding)' == 'true') was evaluated as ('' == 'true').
-00:08:24.757     1>Done building target "_Manifest" in project "ExampleAIModule.vcxproj".: (TargetId:78)
-00:08:24.757     1>Target "RegisterOutput: (TargetId:79)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+01:18:43.525     1>Done building target "_Manifest" in project "ExampleAIModule.vcxproj".: (TargetId:78)
+01:18:43.525     1>Target "RegisterOutput: (TargetId:79)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
                    Task "Exec" skipped, due to false condition; ('$(ConfigurationType)'=='DynamicLibrary' and '%(Link.RegisterOutput)'=='true' and '%(Link.PerUserRedirection)'!='true') was evaluated as ('DynamicLibrary'=='DynamicLibrary' and 'false'=='true' and 'false'!='true').
                    Task "Exec" skipped, due to false condition; ('$(ConfigurationType)'=='DynamicLibrary' and '%(Link.RegisterOutput)'=='true' and '%(Link.PerUserRedirection)'=='true') was evaluated as ('DynamicLibrary'=='DynamicLibrary' and 'false'=='true' and 'false'=='true').
                    Task "Exec" skipped, due to false condition; ('$(ConfigurationType)'=='Application' and '%(Link.RegisterOutput)'=='true' and '%(Link.PerUserRedirection)'!='true') was evaluated as ('DynamicLibrary'=='Application' and 'false'=='true' and 'false'!='true').
                    Task "Exec" skipped, due to false condition; ('$(ConfigurationType)'=='Application' and '%(Link.RegisterOutput)'=='true' and '%(Link.PerUserRedirection)'=='true') was evaluated as ('DynamicLibrary'=='Application' and 'false'=='true' and 'false'=='true').
                    Task "VCMessage" skipped, due to false condition; ('$(_RegisterOutputExitCode)' != '' and '$(_RegisterOutputExitCode)' != '0') was evaluated as ('' != '' and '' != '0').
-00:08:24.758     1>Done building target "RegisterOutput" in project "ExampleAIModule.vcxproj".: (TargetId:79)
+01:18:43.527     1>Done building target "RegisterOutput" in project "ExampleAIModule.vcxproj".: (TargetId:79)
                    Target "PrepareForBuild" skipped. Previously built successfully.
                    Target "ResolveReferences" skipped. Previously built successfully.
-00:08:24.758     1>Target "ResolvedXDCMake: (TargetId:80)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_XdcMake" depends on it):
+01:18:43.527     1>Target "ResolvedXDCMake: (TargetId:80)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_XdcMake" depends on it):
                    Task "MSBuild" skipped, due to false condition; ('%(_MSBuildProjectReferenceExistent.Extension)' == '.vcxproj' and '@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceExistent)' != '' and '$(_ClCompileGenerateXMLDocumentationFiles)' == 'true') was evaluated as ('' == '.vcxproj' and '' != '' and '' != '' and '' == 'true').
-00:08:24.758     1>Done building target "ResolvedXDCMake" in project "ExampleAIModule.vcxproj".: (TargetId:80)
-00:08:24.758     1>Target "ComputeCLCompileGeneratedXDCFiles: (TargetId:81)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_XdcMake" depends on it):
-00:08:24.758     1>Done building target "ComputeCLCompileGeneratedXDCFiles" in project "ExampleAIModule.vcxproj".: (TargetId:81)
-00:08:24.758     1>Target "MakeDirsForXdcMake: (TargetId:82)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_XdcMake" depends on it):
+01:18:43.527     1>Done building target "ResolvedXDCMake" in project "ExampleAIModule.vcxproj".: (TargetId:80)
+01:18:43.527     1>Target "ComputeCLCompileGeneratedXDCFiles: (TargetId:81)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_XdcMake" depends on it):
+01:18:43.528     1>Done building target "ComputeCLCompileGeneratedXDCFiles" in project "ExampleAIModule.vcxproj".: (TargetId:81)
+01:18:43.528     1>Target "MakeDirsForXdcMake: (TargetId:82)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_XdcMake" depends on it):
                    Task "MakeDir" (TaskId:29)
                    Done executing task "MakeDir". (TaskId:29)
-00:08:24.758     1>Done building target "MakeDirsForXdcMake" in project "ExampleAIModule.vcxproj".: (TargetId:82)
+01:18:43.528     1>Done building target "MakeDirsForXdcMake" in project "ExampleAIModule.vcxproj".: (TargetId:82)
                    Target "XdcMake" skipped, due to false condition; ('@(XdcMake)' != '') was evaluated as ('' != '').
-00:08:24.758     1>Target "_XdcMake: (TargetId:83)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
-00:08:24.758     1>Done building target "_XdcMake" in project "ExampleAIModule.vcxproj".: (TargetId:83)
-00:08:24.759     1>Target "ComputeCLCompileGeneratedSbrFiles: (TargetId:84)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BscMake" depends on it):
-00:08:24.759     1>Done building target "ComputeCLCompileGeneratedSbrFiles" in project "ExampleAIModule.vcxproj".: (TargetId:84)
-00:08:24.759     1>Target "MakeDirsForBscMake: (TargetId:85)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BscMake" depends on it):
+01:18:43.528     1>Target "_XdcMake: (TargetId:83)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+01:18:43.528     1>Done building target "_XdcMake" in project "ExampleAIModule.vcxproj".: (TargetId:83)
+01:18:43.528     1>Target "ComputeCLCompileGeneratedSbrFiles: (TargetId:84)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BscMake" depends on it):
+01:18:43.528     1>Done building target "ComputeCLCompileGeneratedSbrFiles" in project "ExampleAIModule.vcxproj".: (TargetId:84)
+01:18:43.528     1>Target "MakeDirsForBscMake: (TargetId:85)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BscMake" depends on it):
                    Task "MakeDir" (TaskId:30)
                    Done executing task "MakeDir". (TaskId:30)
-00:08:24.759     1>Done building target "MakeDirsForBscMake" in project "ExampleAIModule.vcxproj".: (TargetId:85)
+01:18:43.528     1>Done building target "MakeDirsForBscMake" in project "ExampleAIModule.vcxproj".: (TargetId:85)
                    Target "BscMake" skipped, due to false condition; ('@(BscMake)' != '') was evaluated as ('' != '').
                    Target "CustomBuildStep" skipped, due to false condition; ('@(CustomBuildStep)' != '' and '$(SelectedFiles)'=='') was evaluated as ('' != '' and ''=='').
-00:08:24.759     1>Target "_BscMake: (TargetId:86)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
-00:08:24.759     1>Done building target "_BscMake" in project "ExampleAIModule.vcxproj".: (TargetId:86)
+01:18:43.528     1>Target "_BscMake: (TargetId:86)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+01:18:43.528     1>Done building target "_BscMake" in project "ExampleAIModule.vcxproj".: (TargetId:86)
                    Target "RunMergeNativeCodeAnalysis" skipped, due to false condition; ('$(Language)'=='C++' and '$(RunCodeAnalysisOnThisProject)'=='true') was evaluated as ('C++'=='C++' and ''=='true').
                    Target "RunNativeCodeAnalysis" skipped, due to false condition; ('$(Language)'=='C++' and '$(RunCodeAnalysisOnThisProject)'=='true') was evaluated as ('C++'=='C++' and ''=='true').
-00:08:24.759     1>Target "_GenerateSatelliteAssemblyInputs: (TargetId:87)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "CreateSatelliteAssemblies" depends on it):
+01:18:43.528     1>Target "_GenerateSatelliteAssemblyInputs: (TargetId:87)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "CreateSatelliteAssemblies" depends on it):
                    Task "Warning" skipped, due to false condition; ('@(ManifestResourceWithCulture)'!='' and '%(ManifestResourceWithCulture.EmittedForCompatibilityOnly)'=='') was evaluated as (''!='' and ''=='').
                    Task "Warning" skipped, due to false condition; ('@(ManifestNonResxWithCultureOnDisk)'!='' and '%(ManifestNonResxWithCultureOnDisk.EmittedForCompatibilityOnly)'=='') was evaluated as (''!='' and ''=='').
-00:08:24.759     1>Done building target "_GenerateSatelliteAssemblyInputs" in project "ExampleAIModule.vcxproj".: (TargetId:87)
+01:18:43.529     1>Done building target "_GenerateSatelliteAssemblyInputs" in project "ExampleAIModule.vcxproj".: (TargetId:87)
                    Target "ComputeIntermediateSatelliteAssemblies" skipped, due to false condition; (@(ReferenceSatellitePaths->'%(DestinationSubDirectory)') != '') was evaluated as ( != '').
                    Target "GenerateSatelliteAssemblies" skipped, due to false condition; ('@(_SatelliteAssemblyResourceInputs)' != '') was evaluated as ('' != '').
-00:08:24.759     1>Target "CreateSatelliteAssemblies: (TargetId:88)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
-00:08:24.759     1>Done building target "CreateSatelliteAssemblies" in project "ExampleAIModule.vcxproj".: (TargetId:88)
-00:08:24.759     1>Target "_Appverifier: (TargetId:89)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
-00:08:24.759     1>Done building target "_Appverifier" in project "ExampleAIModule.vcxproj".: (TargetId:89)
-00:08:24.759     1>Target "_Deploy: (TargetId:90)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
-00:08:24.759     1>Done building target "_Deploy" in project "ExampleAIModule.vcxproj".: (TargetId:90)
+01:18:43.529     1>Target "CreateSatelliteAssemblies: (TargetId:88)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+01:18:43.529     1>Done building target "CreateSatelliteAssemblies" in project "ExampleAIModule.vcxproj".: (TargetId:88)
+01:18:43.529     1>Target "_Appverifier: (TargetId:89)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+01:18:43.529     1>Done building target "_Appverifier" in project "ExampleAIModule.vcxproj".: (TargetId:89)
+01:18:43.529     1>Target "_Deploy: (TargetId:90)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+01:18:43.529     1>Done building target "_Deploy" in project "ExampleAIModule.vcxproj".: (TargetId:90)
                    Target "ComputeIntermediateSatelliteAssemblies" skipped, due to false condition; (@(ReferenceSatellitePaths->'%(DestinationSubDirectory)') != '') was evaluated as ( != '').
                    Target "_CopyFilesMarkedCopyLocal" skipped, due to false condition; ('@(ReferenceCopyLocalPaths)' != '') was evaluated as ('' != '').
                    Target "AssignTargetPaths" skipped. Previously built successfully.
                    Target "_SplitProjectReferencesByFileExistence" skipped. Previously built successfully.
-00:08:24.759     1>Target "GetCopyToOutputDirectoryXamlAppDefs: (TargetId:91)" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Xaml.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "GetCopyToOutputDirectoryItems" depends on it):
+01:18:43.529     1>Target "GetCopyToOutputDirectoryXamlAppDefs: (TargetId:91)" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Xaml.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "GetCopyToOutputDirectoryItems" depends on it):
                    Task "AssignTargetPath" (TaskId:31)
                      Task Parameter:RootFolder=C:\Program Files (x86)\BWAPI\ExampleAIModule (TaskId:31)
                    Done executing task "AssignTargetPath". (TaskId:31)
-00:08:24.760     1>Done building target "GetCopyToOutputDirectoryXamlAppDefs" in project "ExampleAIModule.vcxproj".: (TargetId:91)
-00:08:24.760     1>Target "GetCopyToOutputDirectoryItems: (TargetId:92)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_CopySourceItemsToOutputDirectory" depends on it):
+01:18:43.530     1>Done building target "GetCopyToOutputDirectoryXamlAppDefs" in project "ExampleAIModule.vcxproj".: (TargetId:91)
+01:18:43.530     1>Target "GetCopyToOutputDirectoryItems: (TargetId:92)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_CopySourceItemsToOutputDirectory" depends on it):
                    Task "MSBuild" skipped, due to false condition; ('@(_MSBuildProjectReferenceExistent)' != '' and '$(_GetChildProjectCopyToOutputDirectoryItems)' == 'true' and '%(_MSBuildProjectReferenceExistent.Private)' != 'false' and '$(UseCommonOutputDirectory)' != 'true') was evaluated as ('' != '' and 'true' == 'true' and '' != 'false' and 'false' != 'true').
                    Task "AssignTargetPath" (TaskId:32)
                      Task Parameter:RootFolder=C:\Program Files (x86)\BWAPI\ExampleAIModule (TaskId:32)
                    Done executing task "AssignTargetPath". (TaskId:32)
-00:08:24.760     1>Done building target "GetCopyToOutputDirectoryItems" in project "ExampleAIModule.vcxproj".: (TargetId:92)
+01:18:43.532     1>Done building target "GetCopyToOutputDirectoryItems" in project "ExampleAIModule.vcxproj".: (TargetId:92)
                    Target "_CopyOutOfDateSourceItemsToOutputDirectory" skipped, due to false condition; ( '@(_SourceItemsToCopyToOutputDirectory)' != '' ) was evaluated as ( '' != '' ).
                    Target "_CopyOutOfDateSourceItemsToOutputDirectoryAlways" skipped, due to false condition; ( '@(_SourceItemsToCopyToOutputDirectoryAlways)' != '' ) was evaluated as ( '' != '' ).
-00:08:24.760     1>Target "_CopySourceItemsToOutputDirectory: (TargetId:93)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "CopyFilesToOutputDirectory" depends on it):
-00:08:24.760     1>Done building target "_CopySourceItemsToOutputDirectory" in project "ExampleAIModule.vcxproj".: (TargetId:93)
+01:18:43.532     1>Target "_CopySourceItemsToOutputDirectory: (TargetId:93)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "CopyFilesToOutputDirectory" depends on it):
+01:18:43.532     1>Done building target "_CopySourceItemsToOutputDirectory" in project "ExampleAIModule.vcxproj".: (TargetId:93)
                    Target "_CopyAppConfigFile" skipped, due to false condition; ( '@(AppConfigWithTargetPath)' != '' ) was evaluated as ( '' != '' ).
                    Target "_CopyManifestFiles" skipped, due to false condition; ( '$(_DeploymentCopyApplicationManifest)'=='true' or '$(GenerateClickOnceManifests)'=='true' ) was evaluated as ( ''=='true' or ''=='true' ).
-00:08:24.760     1>Target "_CheckForCompileOutputs: (TargetId:94)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "CopyFilesToOutputDirectory" depends on it):
-00:08:24.760     1>Done building target "_CheckForCompileOutputs" in project "ExampleAIModule.vcxproj".: (TargetId:94)
+01:18:43.532     1>Target "_CheckForCompileOutputs: (TargetId:94)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "CopyFilesToOutputDirectory" depends on it):
+01:18:43.532     1>Done building target "_CheckForCompileOutputs" in project "ExampleAIModule.vcxproj".: (TargetId:94)
                    Target "_SGenCheckForOutputs" skipped, due to false condition; ('$(_SGenGenerateSerializationAssembliesConfig)' == 'On' or ('@(WebReferenceUrl)'!='' and '$(_SGenGenerateSerializationAssembliesConfig)' == 'Auto')) was evaluated as ('Auto' == 'On' or (''!='' and 'Auto' == 'Auto')).
-00:08:24.760     1>Target "CopyFilesToOutputDirectory: (TargetId:95)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareForRun" depends on it):
+01:18:43.532     1>Target "CopyFilesToOutputDirectory: (TargetId:95)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "PrepareForRun" depends on it):
                    Task "Copy" skipped, due to false condition; ('$(CopyBuildOutputToOutputDirectory)' == 'true' and '$(SkipCopyBuildProduct)' != 'true') was evaluated as ('true' == 'true' and 'true' != 'true').
                    Task "Message" skipped, due to false condition; ('$(CopyBuildOutputToOutputDirectory)' == 'true' and '$(SkipCopyBuildProduct)'!='true') was evaluated as ('true' == 'true' and 'true'!='true').
                    Task "Copy" skipped, due to false condition; ('@(AddModules)' != '') was evaluated as ('' != '').
@@ -3647,22 +3696,22 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                    Task "Copy" skipped, due to false condition; ('@(ReferenceComWrappersToCopyLocal)' != '' or '@(ResolvedIsolatedComModules)' != '' or '@(_DeploymentLooseManifestFile)' != '' or '@(NativeReferenceFile)' != '' ) was evaluated as ('' != '' or '' != '' or '' != '' or '' != '' ).
                    Task "Copy" skipped, due to false condition; ('$(SkipCopyWinMDArtifact)' != 'true' and '@(WinMDExpArtifacts)' != '') was evaluated as ('' != 'true' and '' != '').
                    Task "Message" skipped, due to false condition; ('$(SkipCopyWinMDArtifact)' != 'true' and '$(_WindowsMetadataOutputPath)' != '') was evaluated as ('' != 'true' and '' != '').
-00:08:24.761     1>Done building target "CopyFilesToOutputDirectory" in project "ExampleAIModule.vcxproj".: (TargetId:95)
-00:08:24.761     1>Target "PrepareForRun: (TargetId:96)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
-00:08:24.761     1>Done building target "PrepareForRun" in project "ExampleAIModule.vcxproj".: (TargetId:96)
+01:18:43.533     1>Done building target "CopyFilesToOutputDirectory" in project "ExampleAIModule.vcxproj".: (TargetId:95)
+01:18:43.533     1>Target "PrepareForRun: (TargetId:96)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+01:18:43.533     1>Done building target "PrepareForRun" in project "ExampleAIModule.vcxproj".: (TargetId:96)
                    Target "CustomBuildStep" skipped, due to false condition; ('@(CustomBuildStep)' != '' and '$(SelectedFiles)'=='') was evaluated as ('' != '' and ''=='').
-00:08:24.761     1>Target "PostBuildEvent: (TargetId:97)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
+01:18:43.533     1>Target "PostBuildEvent: (TargetId:97)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "_BuildLinkAction" depends on it):
                    Task "Message" skipped, due to false condition; ('%(PostBuildEvent.Message)' != '' and '%(PostBuildEvent.Command)' != '') was evaluated as ('' != '' and '' != '').
                    Task "Exec" skipped, due to false condition; ('%(PostBuildEvent.Command)' != '') was evaluated as ('' != '').
-00:08:24.761     1>Done building target "PostBuildEvent" in project "ExampleAIModule.vcxproj".: (TargetId:97)
-00:08:24.761     1>Target "_BuildLinkAction: (TargetId:98)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildLink" depends on it):
-00:08:24.761     1>Done building target "_BuildLinkAction" in project "ExampleAIModule.vcxproj".: (TargetId:98)
-00:08:24.761     1>Target "BuildLink: (TargetId:99)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
-00:08:24.761     1>Done building target "BuildLink" in project "ExampleAIModule.vcxproj".: (TargetId:99)
+01:18:43.533     1>Done building target "PostBuildEvent" in project "ExampleAIModule.vcxproj".: (TargetId:97)
+01:18:43.533     1>Target "_BuildLinkAction: (TargetId:98)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "BuildLink" depends on it):
+01:18:43.533     1>Done building target "_BuildLinkAction" in project "ExampleAIModule.vcxproj".: (TargetId:98)
+01:18:43.533     1>Target "BuildLink: (TargetId:99)" in file "C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
+01:18:43.533     1>Done building target "BuildLink" in project "ExampleAIModule.vcxproj".: (TargetId:99)
                    Target "CreateTfsBuildInfoResource" skipped, due to false condition; ( $(AddBuildInfoToAssembly)==true ) was evaluated as ( false==true ).
-00:08:24.761     1>Target "AfterBuild: (TargetId:100)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.BuildSteps.Targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
-00:08:24.761     1>Done building target "AfterBuild" in project "ExampleAIModule.vcxproj".: (TargetId:100)
-00:08:24.761     1>Target "FinalizeBuildStatus: (TargetId:101)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
+01:18:43.533     1>Target "AfterBuild: (TargetId:100)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.BuildSteps.Targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
+01:18:43.533     1>Done building target "AfterBuild" in project "ExampleAIModule.vcxproj".: (TargetId:100)
+01:18:43.533     1>Target "FinalizeBuildStatus: (TargetId:101)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (target "Build" depends on it):
                    Using "Delete" task from assembly "Microsoft.Build.Tasks.v12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
                    Task "Delete" (TaskId:33)
                      Task Parameter:Files=Release\ExampleAIModule.tlog\unsuccessfulbuild (TaskId:33)
@@ -3672,133 +3721,133 @@ XTC_IDE = 15b83466333d427e9540d90e5db438ee
                      Task Parameter:Files=Release\ExampleAIModule.tlog\ExampleAIModule.lastbuildstate (TaskId:34)
                      Touching "Release\ExampleAIModule.tlog\ExampleAIModule.lastbuildstate". (TaskId:34)
                    Done executing task "Touch". (TaskId:34)
-00:08:24.763     1>Done building target "FinalizeBuildStatus" in project "ExampleAIModule.vcxproj".: (TargetId:101)
-00:08:24.763     1>Target "Build: (TargetId:102)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.BuildSteps.Targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (entry point):
-00:08:24.763     1>Done building target "Build" in project "ExampleAIModule.vcxproj".: (TargetId:102)
-00:08:24.763     1>Done Building Project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (Build target(s)).
+01:18:43.542     1>Done building target "FinalizeBuildStatus" in project "ExampleAIModule.vcxproj".: (TargetId:101)
+01:18:43.542     1>Target "Build: (TargetId:102)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.BuildSteps.Targets" from project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (entry point):
+01:18:43.542     1>Done building target "Build" in project "ExampleAIModule.vcxproj".: (TargetId:102)
+01:18:43.542     1>Done Building Project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (Build target(s)).
 
 Project Performance Summary:
-    15197 ms  C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj   1 calls
-              15197 ms  Build                                      1 calls
+    16420 ms  C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj   1 calls
+              16420 ms  Build                                      1 calls
 
 Target Performance Summary:
         0 ms  AfterBuild                                 1 calls
-        0 ms  MakeDirsForXdcMake                         1 calls
-        0 ms  _ResourceCompile                           1 calls
-        0 ms  BuildCompileTraverse                       1 calls
-        0 ms  AfterClCompile                             1 calls
-        0 ms  BeforeBuildGenerateSources                 1 calls
-        0 ms  Build                                      1 calls
-        0 ms  _Deploy                                    1 calls
-        0 ms  PreLinkEvent                               1 calls
-        0 ms  AfterMidl                                  1 calls
-        0 ms  BeforeResourceCompile                      1 calls
-        0 ms  _BuildLinkAction                           1 calls
-        0 ms  _Link                                      1 calls
-        0 ms  AfterBuildCompileEvent                     1 calls
-        0 ms  BuildLinkTraverse                          1 calls
-        0 ms  BeforeLink                                 1 calls
-        0 ms  ComputeRCOutputs                           1 calls
-        0 ms  CreateCustomManifestResourceNames          1 calls
-        0 ms  _ClCompile                                 1 calls
-        0 ms  SelectCustomBuild                          1 calls
-        0 ms  _Midl                                      1 calls
-        0 ms  PostBuildEvent                             1 calls
-        0 ms  _XdcMake                                   1 calls
-        0 ms  CreateSatelliteAssemblies                  1 calls
-        0 ms  _Manifest                                  1 calls
         0 ms  _CheckForCompileOutputs                    1 calls
+        0 ms  _Manifest                                  1 calls
+        0 ms  _SelectedFiles                             1 calls
+        0 ms  PostBuildEvent                             1 calls
+        0 ms  _Midl                                      1 calls
+        0 ms  SelectCustomBuild                          1 calls
+        0 ms  _ClCompile                                 1 calls
         0 ms  SelectClCompile                            1 calls
+        0 ms  GetReferenceAssemblyPaths                  1 calls
+        0 ms  ResolveAssemblyReferences                  1 calls
+        0 ms  BeforeLink                                 1 calls
+        0 ms  ComputeCLInputPDBName                      1 calls
+        0 ms  AfterBuildCompileEvent                     1 calls
+        0 ms  _BuildLinkAction                           1 calls
+        0 ms  BeforeResourceCompile                      1 calls
+        0 ms  AfterMidl                                  1 calls
+        0 ms  CreateCustomManifestResourceNames          1 calls
         0 ms  ResolveReferences                          1 calls
         0 ms  ComputeManifestGeneratedLinkerInputs       1 calls
         0 ms  AfterBuildGenerateSources                  1 calls
-        0 ms  GetInstalledSDKLocations                   1 calls
-        0 ms  _BuildCompileAction                        1 calls
-        0 ms  ResolvedXDCMake                            1 calls
-        0 ms  BuildCompile                               1 calls
         0 ms  BuildGenerateSources                       1 calls
         0 ms  _CopySourceItemsToOutputDirectory          1 calls
-        0 ms  _SplitProjectReferencesByFileExistence     1 calls
-        0 ms  _ALink                                     1 calls
-        0 ms  ResolveSDKReferences                       1 calls
-        0 ms  ComputeCLCompileGeneratedSbrFiles          1 calls
-        0 ms  BuildLink                                  1 calls
-        0 ms  _BuildGenerateSourcesAction                1 calls
+        0 ms  GetFrameworkPaths                          1 calls
         0 ms  AfterResourceCompile                       1 calls
-        0 ms  _Appverifier                               1 calls
-        0 ms  MakeDirsForResourceCompile                 1 calls
         0 ms  _Xsd                                       1 calls
-        0 ms  _BscMake                                   1 calls
         0 ms  ComputeCustomBuildOutput                   1 calls
+        0 ms  MakeDirsForResourceCompile                 1 calls
+        0 ms  _ResourceCompile                           1 calls
+        0 ms  ComputeLinkInputsFromProject               1 calls
+        0 ms  Build                                      1 calls
+        0 ms  _Link                                      1 calls
+        0 ms  BuildLinkTraverse                          1 calls
+        0 ms  ComputeRCOutputs                           1 calls
+        0 ms  _XdcMake                                   1 calls
+        0 ms  CreateSatelliteAssemblies                  1 calls
         0 ms  ExpandSDKReferences                        1 calls
-        0 ms  PrepareResourceNames                       1 calls
-        0 ms  ComputeReferenceCLInput                    1 calls
-        0 ms  MakeDirsForBscMake                         1 calls
+        0 ms  BuildCompileTraverse                       1 calls
+        0 ms  PreLinkEvent                               1 calls
+        0 ms  _Deploy                                    1 calls
+        0 ms  ComputeMIDLGeneratedCompileInputs          1 calls
         0 ms  PrepareForRun                              1 calls
-        0 ms  BeforeResolveReferences                    1 calls
+        0 ms  _BscMake                                   1 calls
         0 ms  AfterResolveReferences                     1 calls
-        0 ms  ComputeRCGeneratedLinkInputs               1 calls
-        0 ms  AfterBuildGenerateSourcesEvent             1 calls
-        0 ms  AfterLink                                  1 calls
         0 ms  BeforeClCompile                            1 calls
-        0 ms  ComputeLinkSwitches                        1 calls
-        0 ms  GetResolvedWinMD                           1 calls
-        0 ms  ComputeLegacyManifestEmbedding             1 calls
-        1 ms  CopyFilesToOutputDirectory                 1 calls
+        0 ms  AfterBuildGenerateSourcesEvent             1 calls
+        0 ms  PrepareResourceNames                       1 calls
+        0 ms  AfterLink                                  1 calls
+        0 ms  _Appverifier                               1 calls
+        0 ms  ComputeRCGeneratedLinkInputs               1 calls
+        0 ms  _SplitProjectReferencesByFileExistence     1 calls
+        0 ms  BeforeResolveReferences                    1 calls
+        0 ms  _BuildGenerateSourcesAction                1 calls
+        0 ms  BuildLink                                  1 calls
+        0 ms  _BuildCompileAction                        1 calls
+        0 ms  ComputeCLCompileGeneratedSbrFiles          1 calls
+        0 ms  ResolveSDKReferences                       1 calls
+        0 ms  MakeDirsForXdcMake                         1 calls
+        0 ms  PlatformPrepareForBuild                    1 calls
+        0 ms  AfterClCompile                             1 calls
+        0 ms  BeforeBuildGenerateSources                 1 calls
+        0 ms  _ALink                                     1 calls
+        0 ms  BuildCompile                               1 calls
+        0 ms  MakeDirsForMidl                            1 calls
+        0 ms  ResolvedXDCMake                            1 calls
+        0 ms  _PrepareForBuild                           1 calls
         1 ms  BuildGenerateSourcesTraverse               1 calls
-        1 ms  GetCopyToOutputDirectoryXamlAppDefs        1 calls
-        1 ms  ComputeCLCompileGeneratedXDCFiles          1 calls
-        1 ms  _GenerateSatelliteAssemblyInputs           1 calls
-        1 ms  MakeDirsForMidl                            1 calls
-        1 ms  ComputeCLGeneratedLinkInputs               1 calls
-        1 ms  GetReferenceAssemblyPaths                  1 calls
-        1 ms  _PrepareForReferenceResolution             1 calls
-        1 ms  ResolveAssemblyReferences                  1 calls
         1 ms  ComputeManifestInputsTargets               1 calls
-        1 ms  ComputeLinkInputsFromProject               1 calls
-        1 ms  GetFrameworkPaths                          1 calls
-        1 ms  ComputeMIDLGeneratedCompileInputs          1 calls
+        1 ms  GetResolvedWinMD                           1 calls
+        1 ms  _GenerateSatelliteAssemblyInputs           1 calls
+        1 ms  _PrepareForReferenceResolution             1 calls
+        1 ms  ComputeCLCompileGeneratedXDCFiles          1 calls
         1 ms  PreBuildEvent                              1 calls
-        1 ms  GetCopyToOutputDirectoryItems              1 calls
-        1 ms  ComputeCLInputPDBName                      1 calls
-        1 ms  PlatformPrepareForBuild                    1 calls
-        1 ms  DoLinkOutputFilesMatch                     1 calls
-        1 ms  _PrepareForBuild                           1 calls
-        1 ms  ResolveProjectReferences                   1 calls
+        1 ms  ComputeCLGeneratedLinkInputs               1 calls
+        1 ms  GetInstalledSDKLocations                   1 calls
+        1 ms  MakeDirsForBscMake                         1 calls
+        1 ms  ComputeReferenceCLInput                    1 calls
+        1 ms  GetCopyToOutputDirectoryXamlAppDefs        1 calls
+        1 ms  ComputeLegacyManifestEmbedding             1 calls
         1 ms  SplitResourcesByCulture                    1 calls
-        1 ms  RegisterOutput                             1 calls
-        2 ms  AssignTargetPaths                          1 calls
-        2 ms  ComputeCLOutputs                           1 calls
+        1 ms  DoLinkOutputFilesMatch                     1 calls
+        1 ms  AssignProjectConfiguration                 1 calls
+        1 ms  ComputeLinkSwitches                        1 calls
+        1 ms  CopyFilesToOutputDirectory                 1 calls
         2 ms  MakeDirsForCl                              1 calls
-        2 ms  _SelectedFiles                             1 calls
-        2 ms  FinalizeBuildStatus                        1 calls
-        3 ms  AssignProjectConfiguration                 1 calls
+        2 ms  AssignTargetPaths                          1 calls
+        2 ms  ResolveProjectReferences                   1 calls
+        2 ms  RegisterOutput                             1 calls
+        2 ms  GetCopyToOutputDirectoryItems              1 calls
         3 ms  MakeDirsForLink                            1 calls
-        6 ms  ComputeLinkImportLibraryOutputsForClean    1 calls
-       11 ms  SetBuildDefaultEnvironmentVariables        1 calls
-       15 ms  WarnCompileDuplicatedFilename              1 calls
-       17 ms  PrepareForBuild                            1 calls
-       21 ms  _CheckForInvalidConfigurationAndPlatform   1 calls
-       25 ms  InitializeBuildStatus                      1 calls
-      291 ms  SetCABuildNativeEnvironmentVariables       1 calls
-     2550 ms  ClCompile                                  1 calls
-    12214 ms  Link                                       1 calls
+        3 ms  ComputeCLOutputs                           1 calls
+        5 ms  PrepareForBuild                            1 calls
+        5 ms  SetBuildDefaultEnvironmentVariables        1 calls
+        7 ms  _CheckForInvalidConfigurationAndPlatform   1 calls
+        8 ms  SetCABuildNativeEnvironmentVariables       1 calls
+        9 ms  FinalizeBuildStatus                        1 calls
+       10 ms  ComputeLinkImportLibraryOutputsForClean    1 calls
+       10 ms  InitializeBuildStatus                      1 calls
+       10 ms  WarnCompileDuplicatedFilename              1 calls
+     2814 ms  ClCompile                                  1 calls
+    13510 ms  Link                                       1 calls
 
 Task Performance Summary:
+        0 ms  Message                                    3 calls
         1 ms  AssignCulture                              1 calls
-        1 ms  Delete                                     1 calls
+        1 ms  AssignTargetPath                           6 calls
         1 ms  ReadLinesFromFile                          1 calls
-        2 ms  AssignTargetPath                           6 calls
-        2 ms  SetEnvironmentVariable                     1 calls
-        2 ms  Message                                    3 calls
-        3 ms  AssignProjectConfiguration                 1 calls
-        3 ms  SetEnv                                     4 calls
-        4 ms  MakeDir                                    9 calls
-       10 ms  Touch                                      2 calls
-       18 ms  WriteLinesToFile                           2 calls
-     2540 ms  CL                                         1 calls
-    12204 ms  Link                                       1 calls
+        1 ms  SetEnvironmentVariable                     1 calls
+        1 ms  AssignProjectConfiguration                 1 calls
+        2 ms  MakeDir                                    9 calls
+        4 ms  Delete                                     1 calls
+        5 ms  Touch                                      2 calls
+        5 ms  SetEnv                                     4 calls
+       16 ms  WriteLinesToFile                           2 calls
+     2790 ms  CL                                         1 calls
+    13503 ms  Link                                       1 calls
 
 Build succeeded.
 
-Time Elapsed 00:00:15.20
+Time Elapsed 00:00:16.42

@@ -13,10 +13,29 @@
 class OrderQueue : public ArmyOrder
 {
 private:
+
+	static OrderQueue* instance;
+	static bool initedInstance;
+
 	//hàng đợi thực thi các lệnh như xây nhà và mua lính
 	std::vector<OrderType> queue;
 	BuidingManager manager;
+	//Constructor. Singleton Pattern nên constructor private
+	OrderQueue();
 public:
+
+	static OrderQueue* getInstance(){
+		if (!initedInstance)
+		{
+			instance = new OrderQueue();
+			initedInstance = true;
+			return instance;
+		}
+		else
+		{
+			return instance;
+		}
+	}
 
 	//high thì order sẽ được chèn vào đầu hàng đợi
 	static const int PRIORITY_HIGH = 0;
@@ -24,7 +43,6 @@ public:
 	static const int PRIORITY_NORMAL = 1;
 
 	bool isAssimilatorBuilt;
-	OrderQueue();
 	//hàm thực thi order
 	bool execute();
 	//hàm đẩy order nhà vào hàng đợi. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên

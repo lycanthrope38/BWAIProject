@@ -18,7 +18,6 @@ class ExampleAIModule : public BWAPI::AIModule
 	bool pool;
 	BWAPI::Unit supplyBuilderTemp;
 	ArmyOrder* armyOrder;
-	OrderQueue mainOrderQueue;
 	ScoutManager scoutManager;
 	BuidingManager buildingManager;
 	WorkerManager workerManager;
@@ -26,6 +25,7 @@ class ExampleAIModule : public BWAPI::AIModule
 	
 	int pylonLastFrameBuild;
 	int lastChecked;
+	OrderQueue* mainOrderQueue;
 
 public:
 	static int supplyAvailabeThreshold;

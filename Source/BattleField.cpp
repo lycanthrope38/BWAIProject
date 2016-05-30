@@ -64,6 +64,10 @@ bool BattleField::isNearDefensePosition(Position p){
 	}
 }
 
+void BattleField::checkRequirements(){
+	
+}
+
 int BattleField::getSelfSize(){
 	return this->selfForces.size();
 }

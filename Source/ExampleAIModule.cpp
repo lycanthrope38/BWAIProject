@@ -9,6 +9,7 @@ bool analyzed;
 bool analysis_just_finished;
 BWTA::Region* home;
 
+
 bool stopTraining;
 
 int ExampleAIModule::supplyAvailabeThreshold = 5;
@@ -138,14 +139,14 @@ void ExampleAIModule::onStart()
 
 	armyOrder = new ArmyOrder(Broodwar->self());
 
-	mainOrderQueue = OrderQueue();
+	mainOrderQueue = OrderQueue::getInstance();
 	//test đẩy 20 Zealot vào hàng đợi
 
 	buildingManager = BuidingManager();
 
 	workerManager = WorkerManager();
 
-	mainOrderQueue.isAssimilatorBuilt = false;
+	mainOrderQueue->isAssimilatorBuilt = false;
 
 	stopTraining = false;
 
@@ -158,10 +159,10 @@ void ExampleAIModule::onStart()
 
 	}
 
-	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
-	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
-	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
-	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
+	mainOrderQueue->push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
+	mainOrderQueue->push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
+	mainOrderQueue->push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
+	mainOrderQueue->push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
 
 	//mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
 	//mainOrderQueue.push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH, 12);
@@ -173,7 +174,7 @@ void ExampleAIModule::onStart()
 	//mainOrderQueue.push(UnitTypes::Protoss_Templar_Archives, OrderQueue::PRIORITY_NORMAL);
 	//mainOrderQueue.push(UnitTypes::Protoss_Robotics_Facility, OrderQueue::PRIORITY_NORMAL);
 
-	mainOrderQueue.push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 100, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue->push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 100, OrderQueue::PRIORITY_NORMAL);
 	pylonLastFrameBuild = 0;
 }
 
@@ -215,7 +216,6 @@ void ExampleAIModule::onFrame()
 	//lord commander
 	//jonSnow.onFrame();
 
-
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
 		return;
 
@@ -239,7 +239,7 @@ void ExampleAIModule::onFrame()
 		stopTraining = true;
 	}
 
-	if (mainOrderQueue.isAssimilatorBuilt)
+	if (mainOrderQueue->isAssimilatorBuilt)
 	{
 		stopTraining = false;
 		if (workerManager.getNumMineralWorkers() <= 20)
@@ -259,7 +259,7 @@ void ExampleAIModule::onFrame()
 
 	if (Broodwar->getFrameCount() % 13 == 0)
 	{
-		mainOrderQueue.execute();
+		mainOrderQueue->execute();
 	}
 
 
@@ -505,7 +505,7 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 	if (unit->getType().isBuilding())
 	{
 		Unit worker = buildingManager.getWorker();
-		mainOrderQueue.build(unit->getType());
+		mainOrderQueue->build(unit->getType());
 	}
 
 }
