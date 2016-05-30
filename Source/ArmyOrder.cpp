@@ -41,6 +41,7 @@ bool ArmyOrder::trainZealot(){
 }
 
 bool ArmyOrder::train(OrderType& orderType){
+
 	int successed = 0, minUnit = -1;// Number of successed training / unit not training now
 	std::vector<Unit> parentList = Collections::getUnitList(Broodwar->self(), orderType.parent);
 	Unit tmpUnit;
@@ -57,8 +58,8 @@ bool ArmyOrder::train(OrderType& orderType){
 	if (minUnit != -1){
 		tmpUnit = parentList.at(minUnit);
 		for (int i = 0; i < orderType.volume; i++)
-			if (orderType.volume - successed>0){
-				if ((tmpUnit->train(orderType.getUnit()))){
+			if ((orderType.volume - successed>0) && ((successed + 1)*(orderType.getUnitType().mineralPrice()<Broodwar->self()->minerals()))){
+				if ((tmpUnit->train(orderType.getUnitType()))){
 					successed++;
 					BWAPI::Broodwar->sendText("train successed %d ",successed);
 				}
@@ -71,9 +72,9 @@ bool ArmyOrder::train(OrderType& orderType){
 	for (int i = 0; i < parentList.size(); i++){
 		if (orderType.volume > 0)
 			for (int j = 0; j < orderType.volume; j++)
-				if (orderType.volume - successed>0){
+				if (orderType.volume - successed>0 && ((successed + 1)*(orderType.getUnitType().mineralPrice()<Broodwar->self()->minerals()))){
 					tmpUnit = parentList.at(i);
-					if ((tmpUnit->train(orderType.getUnit()))){
+					if ((tmpUnit->train(orderType.getUnitType()))){
 						successed++;
 					}
 				}

@@ -1,14 +1,13 @@
 #pragma once
 #include <BWAPI.h>
 #include <BWTA.h>
-
-
+#include <set>
 class BuidingManager
 {
 public:
 	BWAPI::TilePosition centre;
 	std::set<BWAPI::Unit> availableWorkers;
-	std::set<BWAPI::Unit> allWorkers;
+	std::set<BWAPI::Unit*> allWorkers;
 public:
 	BuidingManager::BuidingManager();
 	bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition approxLocation);
@@ -25,10 +24,7 @@ public:
 	BWAPI::Unit getWorker();
 	int getNumMineralWorkers();
 	int getNumGasWorkers();
-	bool addWorker(BWAPI::Unit newWorker);
+	bool addWorker(BWAPI::Unit* newWorker);
 
-	void transferWorkers();
-	
 	~BuidingManager();
 };
-

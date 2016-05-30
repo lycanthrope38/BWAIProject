@@ -43,13 +43,13 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 			//check the location of the closest minerals - continue to increment position without /
 			//attempting to construct until the minerals are no longer too close
 			//This is to avoid constructing structures in mineral lines
-			BWAPI::Unit closestMineral = nullptr;
+			BWAPI::Unit closestMineral = NULL;
 			for (Unit m : Broodwar->getMinerals())
 			{
-				if (closestMineral == nullptr || buildPosition.getDistance((m)->getTilePosition()) < buildPosition.getDistance(closestMineral->getTilePosition()))
+				if (closestMineral == NULL || buildPosition.getDistance((m)->getTilePosition()) < buildPosition.getDistance(closestMineral->getTilePosition()))
 					closestMineral = m;
 			}
-			if (closestMineral != nullptr)
+			if (closestMineral != NULL)
 			{
 				if (buildPosition.getDistance(closestMineral->getTilePosition()) < MINERALDIST)
 				{
@@ -62,13 +62,13 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 			}
 
 			//check we aren't blocking gas too
-			Unit closestGas = nullptr;
+			Unit closestGas = NULL;
 			for (Unit g : Broodwar->getGeysers())
 			{
-				if (closestGas == nullptr || buildPosition.getDistance((g)->getTilePosition()) < buildPosition.getDistance(closestGas->getTilePosition()))
+				if (closestGas == NULL || buildPosition.getDistance((g)->getTilePosition()) < buildPosition.getDistance(closestGas->getTilePosition()))
 					closestGas = g;
 			}
-			if (closestGas != nullptr)
+			if (closestGas != NULL)
 			{
 				if (buildPosition.getDistance(closestMineral->getTilePosition()) < MINERALDIST)
 				{
@@ -124,7 +124,6 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 			}
 		} while (closeToMinerals || closeToGas);
 	}
-
 	return true;
 }
 
@@ -155,7 +154,6 @@ bool BuidingManager::createBuilding(BWAPI::Unit builder, BWAPI::UnitType buildin
 
 	if (placeBuilding(builder, building, buildPosition))
 	{
-		Broodwar->sendText("createBuilding");
 		return true;
 	}
 
@@ -176,8 +174,10 @@ bool BuidingManager::placeExpansion(BWAPI::Unit builder, BWAPI::UnitType buildin
 	{
 		return true;
 	}
-
-	return false;
+	else
+	{
+		return false;
+	}
 }
 
 // đẩy dịch chuyển các vị trí xây nhà 
@@ -185,6 +185,8 @@ BWAPI::TilePosition BuidingManager::getNextBase(BWAPI::TilePosition basePosition
 {
 	return basePosition;
 }
+
+
 
 BWAPI::Unit BuidingManager::getBuilding(BWAPI::UnitType buildingType)
 {
@@ -196,8 +198,7 @@ BWAPI::Unit BuidingManager::getBuilding(BWAPI::UnitType buildingType)
 				return i;
 			}
 	}
-
-	return nullptr;
+	return NULL;
 }
 
 void BuidingManager::startUpgrade(UnitType element, UpgradeType upgrade)
@@ -205,7 +206,7 @@ void BuidingManager::startUpgrade(UnitType element, UpgradeType upgrade)
 	BWAPI::Unit structure;
 
 	structure = getBuilding(element);
-	if (structure != nullptr && structure->isCompleted())
+	if (structure != NULL && structure->isCompleted())
 	{
 		structure->upgrade(upgrade);
 	}
@@ -224,23 +225,29 @@ TilePosition BuidingManager::moveWorker(Unit unit, Position position)
 
 bool BuidingManager::makeAvailable(BWAPI::Unit worker)
 {
-	return availableWorkers.insert(worker).second;
+	if (availableWorkers.insert(worker).second)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 BWAPI::Unit BuidingManager::getWorker()
 {
 	BWAPI::Unit worker;
 
-	for (std::set<Unit>::const_iterator i = availableWorkers.begin(); i != availableWorkers.end(); i++)
+	for (Unit i : availableWorkers)
 	{
-		if (*i != nullptr)
+		if (i != NULL)
 		{
-			worker = (*i);
+			worker = i;
 			return worker;
 		}
 	}
-
-	return nullptr;
+	return NULL;
 }
 
 int BuidingManager::getWorkerCount()
@@ -248,38 +255,8 @@ int BuidingManager::getWorkerCount()
 	return availableWorkers.size();
 }
 
-bool BuidingManager::addWorker(BWAPI::Unit newWorker)
-{
-	return allWorkers.insert(newWorker).second;
-}
 
-int BuidingManager::getNumMineralWorkers()
-{
-	int count = 0;
 
-	for (Unit i : BWAPI::Broodwar->self()->getUnits())
-	{
-		if ((i)->isGatheringMinerals())
-		{
-			count++;
-		}
-	}
-
-	return count;
-}
-
-int BuidingManager::getNumGasWorkers()
-{
-	int count = 0;
-	for (Unit i : BWAPI::Broodwar->self()->getUnits())
-	{
-		if ((i)->isGatheringGas())
-		{
-			count++;
-		}
-	}
-	return count;
-}
 
 BuidingManager::BuidingManager()
 {

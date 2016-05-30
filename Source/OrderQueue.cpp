@@ -10,6 +10,8 @@
 #include <BWAPI.h>
 #include <queue>
 
+#define FAILURE_LIMIT 0
+
 using namespace BWAPI;
 
 OrderQueue::OrderQueue() :ArmyOrder(BWAPI::Broodwar->self()){
@@ -30,7 +32,7 @@ bool OrderQueue::execute(){
 			if (queue.at(0).supplyRequire != -1){
 				if (BWAPI::Broodwar->self()->supplyTotal() / 2 >= queue.at(0).supplyRequire){
 					//truyền vào this->queue.at(0) sai
-					BWAPI::UnitType unitType = this->queue.at(0).getUnit();
+					BWAPI::UnitType unitType = this->queue.at(0).getUnitType();
 					return resultAnalyze(build(unitType));
 
 				}
@@ -41,7 +43,7 @@ bool OrderQueue::execute(){
 			}
 			//nếu không yêu cầu số dân thì xây luôn
 			else{
-				BWAPI::UnitType unitType = this->queue.at(0).getUnit();
+				BWAPI::UnitType unitType = this->queue.at(0).getUnitType();
 				return resultAnalyze(build(unitType));
 			}
 		}
@@ -61,7 +63,7 @@ bool OrderQueue::resultAnalyze(bool result){
 	else{
 		queue.at(0).failed++;
 		BWAPI::Broodwar->sendText("Training failed %d", queue.at(0).failed);
-		if (queue.at(0).failed > 2){
+		if (queue.at(0).failed > FAILURE_LIMIT){
 			queue.at(0).failed = 0;
 			OrderType tmp = OrderType(queue.at(0));
 			queue.erase(queue.begin());
@@ -150,8 +152,14 @@ int OrderQueue::getSize(){
 
 //xử lý các yêu cầu xây dựng
 
+
 //xử lý các yêu cầu xây dựng
 bool OrderQueue::build(BWAPI::UnitType buildingType){
+
+
+	//BuidingManager manager = BuidingManager();
+	//BWAPI::Unit worker = manager.getWorker();
+
 	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
 		if (u->getType().isWorker()){
 			//BWAPI::UnitType buildingType = BWAPI::UnitTypes::Protoss_Gateway;
@@ -163,13 +171,16 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 				// Order the builder to construct the supply structure
 				if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
 					static int lastChecked = 0;
+					BWAPI::Broodwar->printf("abcccccccccccccccccccccccccccccccccccccccccc");
 
-
-					if (lastChecked + 400 < BWAPI::Broodwar->getFrameCount())
+					if (lastChecked + 500 < BWAPI::Broodwar->getFrameCount())
 					{
 
+						BWAPI::Broodwar->printf("ab2222222222222222222222222222222222222222222222222");
 						if (u->build(buildingType, targetBuildLocation))
 						{
+
+							BWAPI::Broodwar->printf("ab2233333333333333333333333333333333333333333333333");
 							lastChecked = BWAPI::Broodwar->getFrameCount();
 
 							// Register an event that draws the target build location
@@ -182,7 +193,10 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 								nullptr,  // condition
 								buildingType.buildTime() + 100);  // frames to run
 
-
+							if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
+							{
+								isAssimilatorBuilt = true;
+							}
 							return true;
 
 						}
@@ -193,8 +207,38 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 		}
 	}
 	return false;
-}
 
+	//BuidingManager manager = BuidingManager();
+	//BWAPI::Unit worker = manager.getWorker();
+
+	//BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, worker->getTilePosition());
+	//		if (targetBuildLocation)
+	//		{
+	//			// Order the builder to construct the supply structure
+	//			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
+	//				if (worker->build(buildingType, targetBuildLocation))
+	//				{
+	//					// Register an event that draws the target build location
+	//					BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+	//					{
+	//						BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
+	//							BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
+	//							BWAPI::Colors::Red);
+	//					},
+	//						nullptr,  // condition
+	//						buildingType.buildTime() + 100);  // frames to run
+
+	//					return true;
+	//				}
+	//				
+	//			}
+	//		}
+
+	//
+	//			
+	//return false;
+
+}
 //xử lí các yêu cầu mua quân lính
 bool OrderQueue::training(){
 	////nếu train được thì return true và xóa phần tử đầu tiên trong hàng đợi

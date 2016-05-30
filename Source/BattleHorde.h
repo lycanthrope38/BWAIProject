@@ -34,6 +34,14 @@ public:
 	//thêm mục tiêu
 	void addTarget(BWAPI::Unit);
 	//
+	int getSelfSize(){
+		return selfTroops.size();
+	}
+
+	friend bool operator < (const BattleHorde &left, const BattleHorde &right)
+	{
+		return !((left.target == right.target) && (left.selfTroops == right.selfTroops));
+	}
 	~BattleHorde();
 };
 

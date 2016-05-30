@@ -21,7 +21,7 @@ public:
 	OrderType(BWAPI::UnitType unitType, BWAPI::UnitType parentUnit, int vol);
 	//order upgrades
 	OrderType(BWAPI::UpgradeType upgradeType);
-	BWAPI::UnitType getUnit(){
+	BWAPI::UnitType getUnitType(){
 		return unit;
 	};
 	BWAPI::UpgradeType getUpgrade(){ return upgrade; };

@@ -2,16 +2,33 @@
 #include <vector>
 #include <BWAPI.h>
 #include "BattleSquad.h"
+#include "UnitNumber.h"
+
 //xử lý một trận chiến trên bản đồ
+using namespace BWAPI;
 class BattleField
 {
 private:
-	std::vector<BattleSquad> selfForces;
-	std::vector<BattleSquad> enemyForces;
 
+
+	int currentPositionState;
+	int lastCheckedFrame;
+
+	std::set<UnitNumber> requiredUnit;
+
+	Unitset selfUnit;
+
+	std::set<BattleSquad> selfForces;
+	std::set<BattleSquad> enemyForces;
+	//địa điểm chính để phòng thủ
+	BWAPI::Position defendRoot;
+	
 public:
+	const static float  xDefensePosition[];
+	const static float  yDefensePosition[];
 	BattleField();
-
+	BattleField(BWAPI::Unitset uset, BWAPI::Position defendRoot);
+	bool isDefend;
 	//phân tích và phân loại quân ta trong một trận chiến
 	void analyzeSelfForces(BWAPI::Unitset selfUnitSet);
 
@@ -31,14 +48,25 @@ public:
 	void performActions();
 
 	//chỉ huy các đơn vị đi tấn công
-	void attack();
+	void onAttack();
 
 	//chỉ huy các đơn vị phòng thủ
-	void defend();
+	void onDefend();
 
 	//tổng tấn công
 	void allAttack();
 
+	//thêm unit
+	void addUnits(BWAPI::Unitset);
+
+	int getSelfSize();
+
+	bool isNearDefensePosition(Position);
+
+	friend bool operator < (const BattleField &left, const BattleField &right)
+	{
+		return ((left.selfForces < right.selfForces) && (left.enemyForces < right.enemyForces));
+	}
 	~BattleField();
 };
 
