@@ -53,6 +53,7 @@ void StaticOrder::protoss_twoGateways(){
 
 void StaticOrder::protoss_aftertwoGateways(){
 
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Assimilator));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 3));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Cybernetics_Core));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));

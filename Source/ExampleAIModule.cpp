@@ -136,8 +136,20 @@ void ExampleAIModule::onStart()
 	mainOrderQueue = OrderQueue::getInstance();
 	//test đẩy 20 Zealot vào hàng đợi
 
+
 	buildingManager = BuidingManager();
 
+	workerManager = WorkerManager();
+
+
+	for (Unit i : Broodwar->self()->getUnits())
+	{
+		if (i->getType().isWorker())
+		{
+			workerManager.makeAvailable(i);
+		}
+
+	}
 	/*mainOrderQueue->push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
 	mainOrderQueue->push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
 	mainOrderQueue->push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
@@ -231,6 +243,18 @@ void ExampleAIModule::onFrame()
 		}
 	}
 
+	if (workerManager.getNumMineralWorkers() <= 10)
+	{
+		workerManager.gatherMineral();
+	}
+	if (workerManager.getNumMineralWorkers() <= 14)
+	{
+		workerManager.gatherMineral();
+	}
+	else
+	{
+		workerManager.gatherGas();
+	}
 	// Prevent spamming by only running our onFrame once every number of latency frames.
 	// Latency frames are the number of frames before commands are processed.
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
@@ -327,14 +351,14 @@ void ExampleAIModule::onFrame()
 				} // closure: if idle
 
 			}
-			//else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
-			//{
-			//	if (u->isIdle() && !u->train(u->getType().getRace().getWorker()))
-			//	{
+			else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
+			{
+				if (u->isIdle() /*&& !u->train(u->getType().getRace().getWorker())*/)
+				{
 			//		// If that fails, draw the error at the location so that you can visibly see what went wrong!
 			//		// However, drawing the error once will only appear for a single frame
 			//		// so create an event that keeps it on the screen for some frames
-			//		Position pos = u->getPosition();
+					Position pos = u->getPosition();
 			//		Error lastErr = Broodwar->getLastError();
 			//		Broodwar->registerEvent([pos, lastErr](Game*){ Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
 			//			nullptr,    // condition
@@ -370,8 +394,8 @@ void ExampleAIModule::onFrame()
 			//				}
 			//			} // closure: supplyBuilder is valid
 			//		} // closure: insufficient supply
-			//	} // closure: failed to train idle unit
-			//}
+				} // closure: failed to train idle unit
+			}
 		} // closure: unit iterator
 	}
 }
@@ -448,9 +472,22 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 				unit->getPlayer()->getName().c_str(), unit->getType().c_str());
 		}
 	}
-	if (!(unit->getType().isBuilding()) && !(unit->getType().isWorker()) && !(unit->getType().isNeutral())){
-		LordCommander::getInstance()->addUnit(unit);
+
+	if (unit->getPlayer() == Broodwar->self())
+		{
+
+		if (unit->getType().isWorker())
+		{
+			workerManager.makeAvailable(unit);
+		}
+
+		//thêm các unit lính
+		if (!(unit->getType().isBuilding()) && !(unit->getType().isWorker()) && !(unit->getType().isNeutral())){
+			LordCommander::getInstance()->addUnit(unit);
+		}
 	}
+	
+
 }
 
 void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
