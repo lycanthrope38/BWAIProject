@@ -4,6 +4,8 @@
 #include "BattleSquad.h"
 #include "UnitNumber.h"
 
+//Class này sẽ quản lý nhiều UnitType khác nhau. Thường sẽ bao gồm 3 BattleSquad - khoảng 27 -> 36 Unit
+
 //xử lý một trận chiến trên bản đồ
 using namespace BWAPI;
 class BattleField
@@ -13,21 +15,23 @@ private:
 
 	int currentPositionState;
 	int lastCheckedFrame;
-
-	std::set<UnitNumber> requiredUnit;
+	
+	int ordered;
 
 	Unitset selfUnit;
 
-	std::set<BattleSquad> selfForces;
-	std::set<BattleSquad> enemyForces;
+	std::map<UnitType, int> requiredUnitNumber;
+
+	std::set<BattleSquad*> selfForces;
+	std::set<BattleSquad*> enemyForces;
 	//địa điểm chính để phòng thủ
 	BWAPI::Position defendRoot;
 	
 public:
 	const static float  xDefensePosition[];
 	const static float  yDefensePosition[];
-	BattleField();
-	BattleField(BWAPI::Unitset uset, BWAPI::Position defendRoot);
+	BattleField(std::map<UnitType, int> requiredUnitNum);
+	BattleField(BWAPI::Unitset uset, BWAPI::Position defendRoot, std::map<UnitType, int> requiredUnitNum);
 	bool isDefend;
 	//phân tích và phân loại quân ta trong một trận chiến
 	void analyzeSelfForces(BWAPI::Unitset selfUnitSet);
@@ -61,6 +65,8 @@ public:
 
 	//kiểm tra tình hình quân số
 	void checkRequirements();
+	//clear dead unit
+	void clearDeadUnit(BWAPI::Unit);
 
 	int getSelfSize();
 

@@ -89,9 +89,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\ArmyOrder.cpp" />
-    <ClCompile Include="Source\BattleField.cpp" />
     <ClCompile Include="Source\BattleHorde.cpp" />
-    <ClCompile Include="Source\BattleSquad.cpp" />
     <ClCompile Include="Source\BuidingManager.cpp" />
     <ClCompile Include="Source\Collections.cpp" />
     <ClCompile Include="Source\Dll.cpp" />
@@ -102,14 +100,13 @@
     <ClCompile Include="Source\OrderQueue.cpp" />
     <ClCompile Include="Source\OrderType.cpp" />
     <ClCompile Include="Source\ScoutManager.cpp" />
-    <ClCompile Include="Source\UnitNumber.cpp" />
+    <ClCompile Include="Source\StaticOrder.cpp" />
+    <ClCompile Include="Source\TargetManager.cpp" />
     <ClCompile Include="Source\WorkerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ArmyOrder.h" />
-    <ClInclude Include="Source\BattleField.h" />
     <ClInclude Include="Source\BattleHorde.h" />
-    <ClInclude Include="Source\BattleSquad.h" />
     <ClInclude Include="Source\BuidingManager.h" />
     <ClInclude Include="Source\Collections.h" />
     <ClInclude Include="Source\ExampleAIModule.h" />
@@ -119,7 +116,8 @@
     <ClInclude Include="Source\OrderQueue.h" />
     <ClInclude Include="Source\OrderType.h" />
     <ClInclude Include="Source\ScoutManager.h" />
-    <ClInclude Include="Source\UnitNumber.h" />
+    <ClInclude Include="Source\StaticOrder.h" />
+    <ClInclude Include="Source\TargetManager.h" />
     <ClInclude Include="Source\WorkerManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

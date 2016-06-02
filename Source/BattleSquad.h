@@ -1,8 +1,16 @@
-﻿#pragma once
+﻿#ifndef BattleSquad_h
+#define BattleSquad_h
+#pragma once
 #include "BattleHorde.h"
+#include "BattleSquad.h"
 #include "BuidingManager.h"
-//xử lí một nhóm quân trong một trận chiến
 #include <BWAPI.h>
+
+class BattleHorde;
+class BattleField;
+//Class này là một nhóm quân cùng UnitType thường sẽ có 9-12 unit
+
+//xử lí một nhóm quân trong một trận chiến
 /*Xử lí một nhóm quân trong một trận chiến
  *Việc chia mục tiêu sẽ chi tiết đến từng quân lính một
  *Áp dụng tư tưởng chia để trị.
@@ -17,21 +25,23 @@ private:
 	//những đơn vị rảnh rỗi
 	BWAPI::Unitset freeSquad;
 	//những squad nhỏ hơn sau khi chia nhỏ để trị các mục tiêu riêng lẻ
-	std::set<BattleHorde> hordes;
+	std::set<BattleHorde*> hordes;
 	/*số unit trong mỗi nhóm nhỏ sẽ được chia nhỏ(nếu có) trong giao tranh
 	 *mục đích của việc chia nhỏ theo một tỉ lệ là dùng lợi thế về số lượng để diệt một unit nguy hiểm của đối phương
 	 *nhanh nhất có thế, tỉ lệ này sẽ được tính dựa trên độ nguy hiểm, số lượng máu và một số thuộc tính khác của đối phương
 	 */
-	int devider;
+	int devider, counter;
 	//mục tiêu của đơn vị trong giao tranh
 	BWAPI::Unitset targets;
 	//các mục tiên đã được phát lệnh tấn công
 	BWAPI::Unitset targetsOnRisk;
 	//có đang làm nhiệu vụ hay ko
 	bool isOnDuty;
+	BWAPI::UnitType squadUnitType;
+	//owner
+	BattleField* owner;
 
 public:
-	BattleSquad();
 	BattleSquad(BWAPI::Unitset selfUnitSet);
 	BattleSquad(BWAPI::Unitset selfUnitSet, BWAPI::Unitset enemyUnitSet);
 	//xử lý mỗi frame
@@ -62,6 +72,14 @@ public:
 	std::vector<BWAPI::Unit> getCurrentSelfList();
 	//Lấy danh sách quân địch hiện tại
 	std::vector<BWAPI::Unit> getCurrentEnemyList();
+	//clear dead unit
+	void clearDeadUnit(BattleHorde*,BWAPI::Unit);
+	BWAPI::UnitType getSelfType(){
+		for (BWAPI::Unit u:squad)
+		{
+			return u->getType();
+		}
+	}
 
 	int getSelfSize(){
 		return squad.size();
@@ -74,3 +92,4 @@ public:
 	~BattleSquad();
 };
 
+#endif

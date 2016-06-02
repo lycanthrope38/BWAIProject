@@ -10,6 +10,8 @@
 
 #include "BuidingManager.h"
 
+using namespace BWAPI;
+
 class OrderQueue : public ArmyOrder
 {
 private:
@@ -45,6 +47,8 @@ public:
 	bool isAssimilatorBuilt;
 	//hàm thực thi order
 	bool execute();
+	//hàm thực thi order
+	bool execute(OrderType*);
 	//hàm đẩy order nhà vào hàng đợi. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
 	bool push(BWAPI::UnitType unitType, int priority);
 	//hàm đẩy order nhà vào hàng đợi có kèm ràng buộc số dân. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
@@ -61,8 +65,12 @@ public:
 	bool build(BWAPI::UnitType buildingType);
 	//xử lí các yêu cầu mua quân lính
 	bool training();
+	//xử lí các yêu cầu mua quân lính
+	bool training(OrderType* orderType);
 	//xử lý các yêu cầu nâng cấp
 	bool upgrade(BWAPI::UpgradeType upgradeType);
+	//xem một unit đã được đẩy vô hàng đợi hay chưa
+	bool checkExistInQueue(UnitType);
 
 	//xử lý kết quả khi execute
 	bool resultAnalyze(bool result);

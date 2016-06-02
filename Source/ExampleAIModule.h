@@ -8,6 +8,7 @@
 #include "BuidingManager.h"
 #include "WorkerManager.h"
 #include "LordCommander.h"
+#include "StaticOrder.h"
 
 // Remember not to use "Broodwar" in any global class constructor!
 
@@ -15,7 +16,7 @@ DWORD WINAPI AnalyzeThread();
 
 class ExampleAIModule : public BWAPI::AIModule
 {
-	bool pool;
+	bool pool, isInitPostion;
 	BWAPI::Unit supplyBuilderTemp;
 	ArmyOrder* armyOrder;
 	ScoutManager scoutManager;
@@ -26,8 +27,10 @@ class ExampleAIModule : public BWAPI::AIModule
 	int pylonLastFrameBuild;
 	int lastChecked;
 	OrderQueue* mainOrderQueue;
+	StaticOrder* staticOrderQueue;
 
 public:
+	static Position basePostion;
 	static int supplyAvailabeThreshold;
 	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;
 	// Virtual functions for callbacks, leave these as they are.

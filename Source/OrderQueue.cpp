@@ -60,6 +60,41 @@ bool OrderQueue::execute(){
 	return ins->resultAnalyze(ins->upgrade(ins->queue.at(0).getUpgrade()));
 }
 
+bool OrderQueue::execute(OrderType* orderType){
+	//bool result;
+
+	OrderQueue* ins = getInstance();
+
+	//kiểm tra xem có phải là nhà hoặc quân lính hay không
+	if (orderType->isUnit()){
+		//nếu là nhà thì xây
+		if (orderType->isBuilding()){
+
+			//nếu nhà có yêu cầu số dân thì kiểm tra xem số dân đã đủ hay chưa
+			if (orderType->supplyRequire != -1){
+				if (BWAPI::Broodwar->self()->supplyTotal() / 2 >= orderType->supplyRequire){
+					//truyền vào this->queue.at(0) sai
+					BWAPI::UnitType unitType = orderType->getUnitType();
+					return build(unitType);
+				}
+				else{
+					BWAPI::Broodwar->sendText("SupplyTotal %d is not enough to build! Required %d", (BWAPI::Broodwar->self()->supplyTotal() / 2), queue.at(0).supplyRequire);
+					return false;
+				}
+			}
+			//nếu không yêu cầu số dân thì xây luôn
+			else{
+				BWAPI::UnitType unitType = orderType->getUnitType();
+				return build(unitType);
+			}
+		}
+		//nếu là lính thì train
+		else
+			return training(orderType);
+	}
+	//nếu là upgrade thì upgrade
+	return ins->upgrade(orderType->getUpgrade());
+}
 bool OrderQueue::resultAnalyze(bool result){
 	OrderQueue* ins = getInstance();
 	if (result){
@@ -167,6 +202,8 @@ int OrderQueue::getSize(){
 //xử lý các yêu cầu xây dựng
 bool OrderQueue::build(BWAPI::UnitType buildingType){
 
+	Broodwar->sendText("ID   %d", buildingType.getID());
+
 	OrderQueue* ins = getInstance();
 
 	//BuidingManager manager = BuidingManager();
@@ -266,7 +303,15 @@ bool OrderQueue::training(){
 	}
 	return false;
 }
+//xử lí các yêu cầu mua quân lính
+bool OrderQueue::training(OrderType* orderType){
+	OrderQueue* ins = getInstance();
 
+	if (ins->train(orderType)){
+		return true;
+	}
+	return false;
+}
 //xử lý các yêu cầu nâng cấp
 bool OrderQueue::upgrade(BWAPI::UpgradeType upgradeType){
 	//nếu upgrade được thì return true và xóa phần tử đầu tiên trong hàng đợi
@@ -277,16 +322,35 @@ bool OrderQueue::upgrade(BWAPI::UpgradeType upgradeType){
 }
 
 void OrderQueue::buildRequiredFor(BWAPI::UnitType u){
-	UnitType requiredUnit = (u.whatBuilds()).first;
+	map<UnitType, int> requireds = u.requiredUnits();
+
+	//UnitType requiredUnit = (u.whatBuilds()).first;
 
 	//check if a unittype is exist
-	if (getInstance()->checkExist(requiredUnit)){
+	/*if (getInstance()->checkExist(requiredUnit)){
 		return;
 	}
 	else{
 		getInstance()->buildRequiredFor(requiredUnit);
 		getInstance()->push(requiredUnit, PRIORITY_HIGH);
-	}	
+	}	*/
+
+	for (pair<UnitType, int> typePair : requireds){
+		if ((getInstance()->checkExist(typePair.first))||(getInstance()->checkExistInQueue(typePair.first)))
+			break;
+		else{
+			getInstance()->push(typePair.first, PRIORITY_HIGH);
+			getInstance()->buildRequiredFor(typePair.first);
+		}
+	}
+}
+
+bool OrderQueue::checkExistInQueue(UnitType type){
+	for (OrderType qType : getInstance()->queue){
+		if (qType.getUnitType() == type)
+			return true;
+	}
+	return false;
 }
 
 bool OrderQueue::checkExist(BWAPI::UnitType unitType){

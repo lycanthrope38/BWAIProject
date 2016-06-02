@@ -93,6 +93,58 @@ bool ArmyOrder::train(OrderType& orderType){
 	return false;
 }
 
+bool ArmyOrder::train(OrderType* orderType){
+
+	int successed = 0, minUnit = -1;// Number of successed training / unit not training now
+	std::vector<Unit> parentList = Collections::getUnitList(Broodwar->self(), orderType->parent);
+	Unit tmpUnit;
+	BWAPI::Broodwar->sendText("Training successed %d / %d _minUnit_ %d", successed, orderType->volume, minUnit);
+	//định tìm nhà có số lính đang train nhỏ nhất nhưng không thấy hàm đó nên tìm nhà chưa train lính để order lính trước
+	for (int i = 0; i < parentList.size(); i++){
+		if (!parentList.at(i)->isTraining()){
+			minUnit = i;
+			break;
+		}
+	}
+
+	//BWAPI::Broodwar->sendText("Training successed %d / %d _minUnit_ %d", successed, orderType.volume, minUnit);
+	if (minUnit != -1){
+		tmpUnit = parentList.at(minUnit);
+		for (int i = 0; i < orderType->volume; i++)
+			if ((orderType->volume - successed>0) && ((successed + 1)*(orderType->getUnitType().mineralPrice() < Broodwar->self()->minerals()))){
+				if ((tmpUnit->train(orderType->getUnitType()))){
+					successed++;
+					BWAPI::Broodwar->sendText("train successed %d ", successed);
+				}
+				else
+					break;
+			}
+	}
+
+	//BWAPI::Broodwar->sendText("Training successed %d / %d _minUnit_ %d", successed, orderType.volume, minUnit);
+	for (int i = 0; i < parentList.size(); i++){
+		if (orderType->volume > 0)
+			for (int j = 0; j < orderType->volume; j++)
+				if (orderType->volume - successed>0 && ((successed + 1)*(orderType->getUnitType().mineralPrice() < Broodwar->self()->minerals()))){
+					tmpUnit = parentList.at(i);
+					if ((tmpUnit->train(orderType->getUnitType()))){
+						successed++;
+					}
+				}
+				else
+					break;
+		else
+			break;
+	}
+
+	//BWAPI::Broodwar->sendText("Training successed %d / %d _minUnit_ %d", successed, orderType.volume, minUnit);
+
+	orderType->volume -= successed;
+	//BWAPI::Broodwar->sendText("Training successed %d / %d _minUnit_ %d", successed, orderType.volume, minUnit);
+	if (orderType->volume == 0)
+		return true;
+	return false;
+}
 //bool train(BWAPI::Unit parentUnit, BWAPI::UnitType typeOfUnit){
 //	return parentUnit->train(typeOfUnit);
 //}

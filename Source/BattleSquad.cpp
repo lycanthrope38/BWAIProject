@@ -1,14 +1,11 @@
 ﻿#include "BattleSquad.h"
-
-
-
-BattleSquad::BattleSquad(){
-}
+#include "BattleHorde.h"
 
 BattleSquad::BattleSquad(BWAPI::Unitset selfUnitSet){
 	isOnDuty = true;
 	this->squad = selfUnitSet;
 	freeSquad = selfUnitSet;
+	counter = 0;
 
 }
 
@@ -18,6 +15,7 @@ BattleSquad::BattleSquad(BWAPI::Unitset selfUnitSet, BWAPI::Unitset enemyUnitSet
 	squad = selfUnitSet;
 	targets = enemyUnitSet;
 	freeSquad = squad;
+	counter = 0;
 }
 
 
@@ -38,8 +36,8 @@ bool BattleSquad::matching(){
 }
 
 void BattleSquad::callBelowOnFrames(){
-	for (BattleHorde b : this->hordes)
-		b.onFrame();
+	for (BattleHorde* b : this->hordes)
+		b->onFrame();
 }
 
 void BattleSquad::addUnit(BWAPI::Unit u){
@@ -58,7 +56,7 @@ void BattleSquad::addSquad(BWAPI::Unitset unitSet){
 	}
 }
 bool BattleSquad::isCompleted(){
-	if (isWiped()||!isOnDuty)
+	if (isWiped() || !isOnDuty)
 		return true;
 	return false;
 }
@@ -71,6 +69,10 @@ bool BattleSquad::isWiped(){
 	if (squad.size() == 0)
 		return true;
 	return false;
+}
+
+void BattleSquad::clearDeadUnit(BattleHorde*, BWAPI::Unit){
+	
 }
 
 BattleSquad::~BattleSquad()

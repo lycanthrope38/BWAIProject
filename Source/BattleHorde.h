@@ -1,6 +1,12 @@
-﻿#pragma once
+﻿#ifndef BattleHorde_h
+#define BattleHorde_h
+#pragma once
 #include <set>
 #include <BWAPI.h>
+
+using namespace BWAPI;
+
+
 class BattleHorde
 {
 
@@ -11,32 +17,50 @@ private:
 	BWAPI::Unitset selfTroops;
 	//kiểu lính của quân ta
 	BWAPI::UnitType selfType;
-	//vị trí cũ của selfTroops - phục vụ cho hit and run
-	BWAPI::Position troopsStartMovingPos;
 	//xem selfTroops có đang di chuyển hay k
 	bool isMoving;
+	//xem đã Order lượng lính thiếu hay chưa
+	bool isOrdered;
+	//số lượng unit tối đa trong Horde
+	int maxUnit;
+	//xem có phải Unit này đang giữ vị trí/thủ hay không
+	bool isHoldPosition;
+	//thời gian tồn tại tối đa của Horde
+	int startFrame, endFrame;
+	//vị trí phòng thủ
+	Position defensePosition;
+	static int maxDefenseRange;
+	int calculateMaxUnit(UnitType);
 public:
-
+	int lastOrderFrame;
+	static const int INFINITY_LIFE_TIME;
 	//xử lý mỗi frame
 	bool onFrame();
-	//nạp nhóm quân và mục tiêu để tiến hành tấn công
-	BattleHorde(BWAPI::Unitset, BWAPI::Unit);
-	//kiểm tra xem mục tiêu đã chết hoặc quân ta đã chết hết hay chưa
-	bool isCompleted();
+	//nạp nhóm quân và mục tiêu để tiến hành tấn công, startFrame là thời gian bắt đầu việc Order lính, endFrame là thời gian kết thúc OrderLính 
+	BattleHorde(UnitType type, int startFrame, int endFrame);
 	//thêm quân
 	void addUnit(BWAPI::Unit);
 	//lấy số quân
 	int getTroopSize();
 	//lấy danh sách quân
-	std::set<BWAPI::Unit> getCurrentList();
-	//thêm một nhóm quân
-	void addUnits(BWAPI::Unitset);
+	Unitset getCurrentList();
 	//thêm mục tiêu
 	void addTarget(BWAPI::Unit);
-	//
+	//clear dead unit
+	void clearDeadUnit(Unit u);
 	int getSelfSize(){
 		return selfTroops.size();
 	}
+
+	UnitType getUnitType(){
+		return selfType;
+	}
+
+	bool isFullUnit(){
+		return (selfTroops.size() >= (size_t)maxUnit);
+	}
+
+	void move(Position p);
 
 	friend bool operator < (const BattleHorde &left, const BattleHorde &right)
 	{
@@ -44,4 +68,4 @@ public:
 	}
 	~BattleHorde();
 };
-
+#endif

@@ -33,5 +33,10 @@ public:
 			return true;
 		return false;
 	}
+	
+	OrderType* getInstance(){
+		return this;
+	}
+
 	~OrderType();
 };

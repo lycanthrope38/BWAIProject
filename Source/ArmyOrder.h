@@ -16,6 +16,8 @@ public:
 	std::vector<BWAPI::Unit> getGatewayList();
 	//train unit
 	bool train(OrderType& orderType);
+	//train unit
+	bool train(OrderType* orderType);
 	//train unit by a parent unit
 	//bool train(BWAPI::Unit parentUnit, BWAPI::UnitType typeOfUnit);
 	////train units by a single parent unit

@@ -1,5 +1,6 @@
 ﻿#include "BattleField.h"
 #include "Collections.h"
+#include "OrderQueue.h"
 
 #define DEFEND_RADIUS 60
 #define MOVE_TIME_LIMIT 60
@@ -10,13 +11,17 @@ using namespace BWAPI;
 const float BattleField::xDefensePosition[] = { -1, 0, 1, 0 };
 const float BattleField::yDefensePosition[] = { 0, -1, 0, 1 };
 
-BattleField::BattleField()
+BattleField::BattleField(std::map<UnitType, int> requiredUnitNum)
 {
 	isDefend = false;
+	ordered = 0;
+	this->requiredUnitNumber = requiredUnitNum;
 }
 
-BattleField::BattleField(BWAPI::Unitset selfUnitset, BWAPI::Position defendRootP){
-	BattleSquad tmpSquad = BattleSquad(selfUnitset);
+
+//constructor for defending purpose
+BattleField::BattleField(BWAPI::Unitset selfUnitset, BWAPI::Position defendRootP, std::map<UnitType, int> requiredUnitNum){
+	BattleSquad* tmpSquad = new BattleSquad(selfUnitset);
 	selfForces.insert(tmpSquad);
 	isDefend = true;
 
@@ -24,11 +29,17 @@ BattleField::BattleField(BWAPI::Unitset selfUnitset, BWAPI::Position defendRootP
 
 	currentPositionState = 0;
 
+	ordered = 0;
+
+	this->requiredUnitNumber = requiredUnitNum;
 
 	this->defendRoot = defendRootP;
 }
 
 void BattleField::onDefend(){
+
+
+
 	//test defend code
 	//Broodwar->printf("onDefend BattleField called! ");
 	//Unitset enemyInRadius = Broodwar->getUnitsInRadius(defendRoot, DEFEND_RADIUS, Filter::IsEnemy);
@@ -59,13 +70,28 @@ void BattleField::addUnits(BWAPI::Unitset uset){
 }
 
 bool BattleField::isNearDefensePosition(Position p){
-	if (Collections::distance(p, defendRoot) < 32){
+	if (Collections::distance(p, defendRoot) < 10){
 		return true;
 	}
 }
 
 void BattleField::checkRequirements(){
-	
+	UnitType tmpType;
+	int vol;
+	std::map<UnitType, int>::iterator it;
+
+	for (BattleSquad* squad : selfForces){
+		tmpType = squad->getSelfType();
+		vol = squad->getSelfSize();
+		it = requiredUnitNumber.find(tmpType);
+		if (it!=requiredUnitNumber.end())
+		{
+			if (it->second < vol){
+				OrderQueue::getInstance()->push(tmpType, tmpType.whatBuilds().first, (vol - it->second), OrderQueue::PRIORITY_HIGH);
+				ordered += vol - it->second;
+			}
+		}
+	}
 }
 
 int BattleField::getSelfSize(){
