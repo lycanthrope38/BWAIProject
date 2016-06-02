@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "deque"
 #include "OrderType.h"
 #include <BWAPI.h>
@@ -14,7 +14,8 @@ private:
 	static deque<OrderType*>  orderQueue;
 	StaticOrder();
 	static bool isInited;
-	static int gerseysTime;
+	//dùng để tránh việc xây nhà nhưng bị lính chen ngang làm hỏng
+	static bool isBuildingBefore;
 	void initProtoss();
 	void initZerg();
 	void initTerran();

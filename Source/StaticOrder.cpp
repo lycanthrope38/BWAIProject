@@ -4,10 +4,12 @@
 bool StaticOrder::isInited = false;
 StaticOrder* StaticOrder::instance = nullptr;
 deque<OrderType*>  StaticOrder::orderQueue = deque<OrderType*>();
+bool StaticOrder::isBuildingBefore = false;
 
 StaticOrder::StaticOrder()
 {
 	Race r = Broodwar->self()->getRace();
+	
 	if (r == Races::Protoss){
 		isInited = true;
 		initProtoss();
@@ -26,8 +28,17 @@ StaticOrder::StaticOrder()
 }
 
 bool StaticOrder::execute(){
-	if (OrderQueue::getInstance()->execute(getInstance()->orderQueue.front())){
-		getInstance()->orderQueue.pop_front();
+	StaticOrder* ins = getInstance();
+	if (isBuildingBefore){
+		Broodwar->sendText("Building before! Skip this execute");
+		isBuildingBefore = false;
+		return false;
+	}
+
+	if (OrderQueue::getInstance()->execute(ins->orderQueue.front())){
+		if (ins->orderQueue.front()->isBuilding())
+			isBuildingBefore = true;
+		ins->orderQueue.pop_front();
 		return true;
 	}
 	return false;
