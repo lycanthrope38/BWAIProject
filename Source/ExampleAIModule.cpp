@@ -157,6 +157,20 @@ void ExampleAIModule::onStart()
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
 
 	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
+
 	mainOrderQueue.push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH,12);
 	mainOrderQueue.push(UnitTypes::Protoss_Forge, OrderQueue::PRIORITY_HIGH);
 	
@@ -196,7 +210,7 @@ void ExampleAIModule::onFrame()
 	{
 		Broodwar << "Finished analyzing map." << std::endl;;
 		analysis_just_finished = false;
-		if ((Broodwar->self()->getRace() != BWAPI::Races::Zerg) && (Broodwar->mapFileName() != "(4)Andromeda.scx"))
+		if ((Broodwar->self()->getRace() != BWAPI::Races::Zerg) )
 		{
 			buildingManager.setCentre(TilePosition(home->getCenter()));
 		}
@@ -213,11 +227,7 @@ void ExampleAIModule::onFrame()
 	
 	supplyAvailable = Broodwar->self()->supplyTotal() - Broodwar->self()->supplyUsed();
 
-
-//	Broodwar->printf("stopTraining,isAssimilatorBuilt: '%d' '%d' ", stopTraining ? 1 : 0, mainOrderQueue.isAssimilatorBuilt ? 1 : 0);
-//	Broodwar->printf("'%d' '%d' '%d' '%d' ", workerManager.getNumMineralWorkers(), workerManager.getNumGasWorkers(), workerManager.getWorkerCount(), workerManager.getIdleCount());
-
-	if (workerManager.getNumMineralWorkers() <= 10)
+	if (workerManager.getNumMineralWorkers() <= (workerManager.limitWorker-2))
 	{
 		workerManager.gatherMineral();
 	}
@@ -229,7 +239,7 @@ void ExampleAIModule::onFrame()
 	if (mainOrderQueue.isAssimilatorBuilt)
 	{
 		stopTraining = false;
-		if (workerManager.getNumMineralWorkers() <= 14)
+		if (workerManager.getNumMineralWorkers() <= workerManager.limitWorker)
 		{
 			workerManager.gatherMineral();
 		}
@@ -299,45 +309,16 @@ void ExampleAIModule::onFrame()
 					{
 						u->returnCargo();
 					}
-				//	else if (!u->getPowerUp())  // The worker cannot harvest anything if it
-				//	{                             // is carrying a powerup such as a flag
-				//		// Harvest from the nearest mineral patch or gas refinery
-				//		//if (!u->gather(u->getClosestUnit(IsMineralField || IsRefinery)))
-				//		//{
-				//		//	// If the call fails, then print the last error message
-				//		//	Broodwar << Broodwar->getLastError() << std::endl;
-				//		//}
-				
-				//		if (workerManager.getNumMineralWorkers() <= 10)
-				//		{
-				//		
-				//			workerManager.returnToMineral(u);
-				//			if (workerManager.getNumMineralWorkers() == 10)
-				//			{
-				//				stopTraining = true;
-				//			}
-				//			
-				//		}
-				//		else
-				//		{
-				//			if (mainOrderQueue.isAssimilatorBuilt)
-				//			{
-				//				stopTraining = false;
-				//				if (!stopTraining)
-				//				{
-				//					workerManager.returnToGas(u);
-				//					
-				//					if (workerManager.getNumGasWorkers() == 3)
-				//					{
-				//						stopTraining = true;
-				//					}
-				//				}
-				//				
-				//			}
-				//			
-				//		}
-				//		
-				//	} // closure: has no powerup
+					else if (!u->getPowerUp())  // The worker cannot harvest anything if it
+					{                             // is carrying a powerup such as a flag
+						// Harvest from the nearest mineral patch or gas refinery
+						if (!u->gather(u->getClosestUnit(IsMineralField)))
+						{
+							// If the call fails, then print the last error message
+							Broodwar << Broodwar->getLastError() << std::endl;
+						}
+					}
+			
 				} // closure: if idle
 
 			
@@ -366,21 +347,28 @@ void ExampleAIModule::onFrame()
 							Unit worker = buildingManager.getWorker();
 							if (worker)
 							{
+								/*Position position = buildingManager.getNextClosestPlaceBuidling();
+								buildingManager.moveWorker(worker, position);
+*/
+								BWTA::BaseLocation* home = BWTA::getStartLocation(BWAPI::Broodwar->self());
 
-								if (supplyProviderType.isBuilding())
+								Broodwar->printf("Position Worker: '%d' '%d' '%d'", worker->getPosition(), u->getPosition(), home->getPosition());
+								/*if (supplyProviderType.isBuilding())
 								{
 									buildingManager.createBuilding(worker, supplyProviderType);
 								}
 								else
 								{
 									worker->train(supplyProviderType);
-								}
+								}*/
 							} 
 						} 
 					} 
 				}
 				else
 				{
+
+				
 
 					if (supplyCounter == supplyTotalCounter)
 					{

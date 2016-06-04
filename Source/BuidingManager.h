@@ -25,6 +25,7 @@ public:
 	int getNumMineralWorkers();
 	int getNumGasWorkers();
 	bool addWorker(BWAPI::Unit* newWorker);
+	BWAPI::Position getNextClosestPlaceBuidling();
 	
 	~BuidingManager();
 };

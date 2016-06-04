@@ -2,7 +2,7 @@
 
 using namespace BWAPI;
 
-#define SPIRALLIMIT 200
+#define SPIRALLIMIT 400
 #define MINERALDIST 7
 
 
@@ -219,7 +219,11 @@ void BuidingManager::startUpgrade(UnitType element, UpgradeType upgrade)
 //move woker to specific place 
 TilePosition BuidingManager::moveWorker(Unit unit, Position position)
 {
-	unit->move(position, true);
+	/*while (unit->getPosition()!=position)
+	{*/
+		unit->move(position, false);
+	//}
+	
 	return unit->getTilePosition();
 }
 
@@ -254,6 +258,32 @@ int BuidingManager::getWorkerCount()
 {
 	return availableWorkers.size();
 }
+
+BWAPI::Position BuidingManager::getNextClosestPlaceBuidling()
+{
+	auto s = BWTA::getStartLocations().begin();
+	BWTA::BaseLocation* home = BWTA::getStartLocation(BWAPI::Broodwar->self());
+	BWTA::BaseLocation* temp;
+
+	int count = 0;
+
+	while (s != BWTA::getStartLocations().end())
+	{
+		if ((*s)->getRegion() != BWTA::getStartLocation(BWAPI::Broodwar->self())->getRegion())
+		{
+			
+			if (count==0||(*s)->getPosition().getDistance(home->getPosition())<temp->getPosition().getDistance(home->getPosition()))
+			{
+				temp = (*s);
+				count = 1;
+			}
+		}
+		s++;
+	}
+	return temp->getPosition();
+
+}
+
 
 
 

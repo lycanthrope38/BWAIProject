@@ -8,6 +8,7 @@ class WorkerManager
 public:
 	std::set<std::pair<BWAPI::Unit, std::set<BWAPI::Unit>>> gases;
 	std::set<BWAPI::Unit> availableWorkers;
+	int limitWorker = 12;
 public:
 	int WorkerManager::getWorkerCount();
 	int WorkerManager::getNumMineralWorkers();

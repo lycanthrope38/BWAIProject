@@ -58,13 +58,13 @@ bool OrderQueue::resultAnalyze(bool result){
 	}
 	else{
 		queue.at(0).failed++;
-		BWAPI::Broodwar->sendText("Training failed %d", queue.at(0).failed);
+		
 		if (queue.at(0).failed > 2){
 			queue.at(0).failed = 0;
 			OrderType tmp = OrderType(queue.at(0));
 			queue.erase(queue.begin());
 			queue.push_back(tmp);
-			BWAPI::Broodwar->sendText("Moved to the end of queue!");
+			
 		}
 		return false;
 	}
