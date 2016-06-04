@@ -268,7 +268,7 @@ BWAPI::Position BuidingManager::getNextClosestPlaceBuidling()
 	int count = 0;
 
 	while (s != BWTA::getStartLocations().end())
-	{
+	{	
 		if ((*s)->getRegion() != BWTA::getStartLocation(BWAPI::Broodwar->self())->getRegion())
 		{
 			
@@ -282,6 +282,87 @@ BWAPI::Position BuidingManager::getNextClosestPlaceBuidling()
 	}
 	return temp->getPosition();
 
+}
+/*
+find the closest available base location to the given unit
+*/
+BWAPI::TilePosition BuidingManager::getClosestBase(BWAPI::Unit unit)
+{
+	BWAPI::TilePosition buildPosition = TilePosition(0, 0);
+	double minDist = 0;
+	bool taken;
+
+	for (std::set<BWTA::BaseLocation*>::const_iterator i = BWTA::getBaseLocations().begin(); i != BWTA::getBaseLocations().end(); i++)
+	{
+		taken = false;
+		for (BWAPI::Unit j : expansions)
+		{
+			if ((j)->getTilePosition() == (*i)->getTilePosition())
+			{
+				taken = true;
+			}
+		}
+		if (!taken)
+		{
+			if ((minDist == 0) || (unit->getPosition().getDistance((*i)->getPosition()) < minDist))
+			{
+				minDist = unit->getPosition().getDistance((*i)->getPosition());
+				buildPosition = (*i)->getTilePosition();
+			}
+		}
+	}
+	if (buildPosition == TilePosition(0, 0))	
+	{
+		Broodwar->printf("cant find new expansion location");
+	}
+	return buildPosition;
+}
+
+/*
+returns the second closest base, if the closest is unavailable for some reason
+*/
+BWAPI::TilePosition BuidingManager::getNextClosestBase(BWAPI::Unit unit)
+{
+	BWAPI::TilePosition buildPosition = TilePosition(0, 0);
+	double minDist = 0;
+	bool taken;
+
+	for (std::set<BWTA::BaseLocation*>::const_iterator i = BWTA::getBaseLocations().begin(); i != BWTA::getBaseLocations().end(); i++)
+	{
+		taken = false;
+		for (Unit j : expansions)
+		{
+			if ((j)->getTilePosition() == (*i)->getTilePosition())
+			{
+				taken = true;
+			}
+		}
+		if (!taken)
+		{
+			if ((minDist == 0) || (unit->getPosition().getDistance((*i)->getPosition()) < minDist) &&
+				(unit->getTilePosition().getDistance((*i)->getTilePosition()) != unit->getTilePosition().getDistance((getClosestBase(unit)))))
+			{
+				minDist = unit->getPosition().getDistance((*i)->getPosition());
+				buildPosition = (*i)->getTilePosition();
+			}
+		}
+	}
+	if (buildPosition == TilePosition(0, 0))
+	{
+		Broodwar->printf("cant find new expansion location");
+	}
+	return buildPosition;
+}
+
+void BuidingManager::addExpansion(BWAPI::Unit expansion)
+{
+	expansions.insert(expansion);
+}
+
+
+void BuidingManager::removeExpansion(BWAPI::Unit expansion)
+{
+	expansions.erase(expansion);
 }
 
 

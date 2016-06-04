@@ -197,6 +197,25 @@ int WorkerManager::getAvailableCount()
 	return availableWorkers.size();
 }
  
+void WorkerManager::addExpansion(BWAPI::Unit expansion)
+{
+	std::set<BWAPI::Unit> workers;
+
+	bases.insert(std::make_pair(expansion, workers));
+}
+
+BWAPI::Unit WorkerManager::getExpansionBuilder()
+{
+	return expansionBuilder;
+}
+
+/*
+assign a worker the task of constructing an expansion
+*/
+void WorkerManager::setExpansionBuilder()
+{
+	expansionBuilder = buidingManager.getWorker();
+}
 
 
 

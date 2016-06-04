@@ -350,9 +350,9 @@ void ExampleAIModule::onFrame()
 								/*Position position = buildingManager.getNextClosestPlaceBuidling();
 								buildingManager.moveWorker(worker, position);
 */
-								BWTA::BaseLocation* home = BWTA::getStartLocation(BWAPI::Broodwar->self());
-
-								Broodwar->printf("Position Worker: '%d' '%d' '%d'", worker->getPosition(), u->getPosition(), home->getPosition());
+								BWTA::BaseLocation* home = BWTA::getNearestBaseLocation(u->getPosition());
+								buildingManager.moveWorker(worker, home->getPosition());
+								//Broodwar->printf("Position Worker: '%d' '%d' '%d'", worker->getPosition(), u->getPosition(), home->getPosition());
 								/*if (supplyProviderType.isBuilding())
 								{
 									buildingManager.createBuilding(worker, supplyProviderType);

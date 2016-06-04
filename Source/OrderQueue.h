@@ -7,7 +7,7 @@
 #include <BWAPI.h>
 #include "OrderType.h"
 #include "ArmyOrder.h"
-
+#include "WorkerManager.h"
 #include "BuidingManager.h"
 
 class OrderQueue : public ArmyOrder
@@ -15,7 +15,10 @@ class OrderQueue : public ArmyOrder
 private:
 	//hàng đợi thực thi các lệnh như xây nhà và mua lính
 	std::vector<OrderType> queue;
-	BuidingManager manager;
+	BuidingManager buildingManager;
+	WorkerManager workerManager;
+	bool expanding;
+	BWAPI::TilePosition	nextExpansionLocation;
 	
 public:
 	bool isAssimilatorBuilt;

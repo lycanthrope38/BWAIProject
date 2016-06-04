@@ -147,50 +147,98 @@ int OrderQueue::getSize(){
 }
 
 //xử lý các yêu cầu xây dựng
-
-//xử lý các yêu cầu xây dựng
 bool OrderQueue::build(BWAPI::UnitType buildingType){
 	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
 		if (u->getType().isWorker()){
-			//BWAPI::UnitType buildingType = BWAPI::UnitTypes::Protoss_Gateway;
+			
 
-
-			BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
-			if (targetBuildLocation)
+			if (buildingType.isResourceDepot())
 			{
-				// Order the builder to construct the supply structure
-				if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
-					static int lastChecked = 0;
-
-
-					if (lastChecked + 500 < BWAPI::Broodwar->getFrameCount())
+				if (workerManager.getExpansionBuilder() == NULL)
+				{
+					workerManager.setExpansionBuilder();
+					nextExpansionLocation = buildingManager.getClosestBase(workerManager.getExpansionBuilder());
+					if (nextExpansionLocation == BWAPI::TilePosition(0, 0))
 					{
 
-						if (u->build(buildingType, targetBuildLocation))
+						return false;
+					}
+					//if we can't reach the closest base (e.g. its on an island)
+					else if (!workerManager.getExpansionBuilder()->hasPath(BWAPI::Position(nextExpansionLocation)))
+					{
+						//get the next closest
+						nextExpansionLocation = buildingManager.getNextClosestBase(workerManager.getExpansionBuilder());
+						//if the next closest is non-existent or also unreachable then give up and move on to the next build order item
+						if ((nextExpansionLocation == BWAPI::TilePosition(0, 0)) || !workerManager.getExpansionBuilder()->hasPath(BWAPI::Position(nextExpansionLocation)))
 						{
-							lastChecked = BWAPI::Broodwar->getFrameCount();
+							
+							return false;
+						}
+					}
+					expanding = true;
+				}
+				if (workerManager.getExpansionBuilder() != NULL)
+				{
+					if (expanding && nextExpansionLocation != BWAPI::TilePosition(0, 0))
+					{
+						workerManager.getExpansionBuilder()->move(BWAPI::Position(nextExpansionLocation), false);
+						expanding = false;
+					}
+					if (workerManager.getExpansionBuilder()->isIdle())
+					{
+						buildingManager.placeExpansion(workerManager.getExpansionBuilder(), buildingType, nextExpansionLocation);
+						return true;
+					}
 
-							// Register an event that draws the target build location
-							BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
-							{
-								BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
-									BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
-									BWAPI::Colors::Red);
-							},
-								nullptr,  // condition
-								buildingType.buildTime() + 100);  // frames to run
+				}
+				else
+				{
+					BWAPI::Broodwar->printf("Error: no available to workers to build expansion");
+					return false;
+				}
+			}
+			else
+			{
+				BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
+				if (targetBuildLocation)
+				{
+					// Order the builder to construct the supply structure
+					if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
+						static int lastChecked = 0;
 
-							if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
+
+						if (lastChecked + 500 < BWAPI::Broodwar->getFrameCount())
+						{
+
+							if (u->build(buildingType, targetBuildLocation))
 							{
-								isAssimilatorBuilt = true;
+								lastChecked = BWAPI::Broodwar->getFrameCount();
+
+								// Register an event that draws the target build location
+								BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+								{
+									BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
+										BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
+										BWAPI::Colors::Red);
+								},
+									nullptr,  // condition
+									buildingType.buildTime() + 100);  // frames to run
+
+								if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
+								{
+									isAssimilatorBuilt = true;
+								}
+								return true;
+
 							}
-							return true;
 
 						}
-
 					}
 				}
 			}
+
+
+		
 		}
 	}
 	return false;
