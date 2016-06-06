@@ -5,6 +5,7 @@ bool StaticOrder::isInited = false;
 StaticOrder* StaticOrder::instance = nullptr;
 deque<OrderType*>  StaticOrder::orderQueue = deque<OrderType*>();
 bool StaticOrder::isBuildingBefore = false;
+const int StaticOrder::INFINITY_LIFE_TIME = 999999999;
 
 StaticOrder::StaticOrder()
 {
@@ -46,7 +47,7 @@ bool StaticOrder::execute(){
 
 void StaticOrder::initProtoss(){
 	protoss_twoGateways();
-	protoss_aftertwoGateways();
+	//protoss_aftertwoGateways();
 }
 
 void StaticOrder::protoss_twoGateways(){
@@ -59,11 +60,33 @@ void StaticOrder::protoss_twoGateways(){
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Zealot.whatBuilds().first, 5));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Zealot.whatBuilds().first, 4));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Zealot.whatBuilds().first, 2));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 4));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Zealot.whatBuilds().first, 4));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Zealot.whatBuilds().first, 2));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 4));
+
+	/*origin
+	 orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 2));
+	 orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	 orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
+	 orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
+	 orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	 orderQueue.push_back(new OrderType(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Zealot.whatBuilds().first, 5));
+	 orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	 orderQueue.push_back(new OrderType(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Zealot.whatBuilds().first, 4));
+	 
+	 **/
 
 }
 
 void StaticOrder::protoss_aftertwoGateways(){
 
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 2));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Assimilator));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 3));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Cybernetics_Core));
@@ -73,6 +96,7 @@ void StaticOrder::protoss_aftertwoGateways(){
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Dragoon, UnitTypes::Protoss_Dragoon.whatBuilds().first, 3));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Dragoon, UnitTypes::Protoss_Dragoon.whatBuilds().first, 3));
+
 }
 
 void StaticOrder::initTerran(){

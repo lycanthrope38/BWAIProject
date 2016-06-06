@@ -22,7 +22,7 @@ class ExampleAIModule : public BWAPI::AIModule
 	ScoutManager scoutManager;
 	BuidingManager buildingManager;
 	WorkerManager workerManager;
-	//LordCommander jonSnow;
+	LordCommander* jonSnow;
 	
 	int pylonLastFrameBuild;
 	int lastChecked;

@@ -7,37 +7,64 @@ using namespace BWAPI;
 const int BattleHorde::INFINITY_LIFE_TIME = 999999999;
 int BattleHorde::maxDefenseRange = 400;
 
-BattleHorde::BattleHorde(UnitType type, int startFrame, int endFrame)
+BattleHorde::BattleHorde(UnitType type, int endFrame)
 {
 	isMoving = false;
 	isOrdered = false;
 	isHoldPosition = true;
 	defensePosition = Positions::None;
 	selfType = type;
-	this->startFrame = startFrame;
 	this->endFrame = endFrame;
 	maxUnit = calculateMaxUnit(type);
+	targetManager = TargetManager();
+	target = nullptr;
 }
 
 //xử lý mỗi frame
 bool BattleHorde::onFrame(){
 	//kiểm tra nếu bên ta có loại đánh xa thì áp dụng hit and run
 
-	if (isHoldPosition){
-		if (defensePosition == Positions::None){
-			for (Unit u : Broodwar->self()->getUnits()){
-				if (u->getType().isBuilding())
-				{
-					defensePosition = u->getPosition();
+	//if (isHoldPosition){
+	//	if (defensePosition == Positions::None){
+	//		for (Unit u : Broodwar->self()->getUnits()){
+	//			if (u->getType().isBuilding())
+	//			{
+	//				defensePosition = u->getPosition();
+	//				break;
+	//			}
+	//		}
+	//	}
+	//	else{
+	//	//nhảy cha cha cha
+	//		if (!target->exists()){
+	//			for (Unit u : selfTroops){
+	//				if (u->exists()){
+	//					target = targetManager.getTarget(u);
+	//					selfTroops.attack(target);
+	//					Broodwar->printf("Enemy detected at %d  %d", target->getPosition().x, target->getPosition().y);
+	//					break;
+	//				}
+	//			}
+	//		}
+	//		else{
+	//			selfTroops.attack(target);
+	//			Broodwar->printf("Enemy detected at %d  %d", target->getPosition().x, target->getPosition().y);
+	//		}
+
+	//	}
+	//}
+		for (Unit u : selfTroops){
+			if (u->exists()){
+				target = targetManager.getTarget(u);
+				if (target == nullptr){
+					//Broodwar->sendText("Target == nullptr");
 					break;
 				}
+				selfTroops.attack(target);
+				Broodwar->sendText("Enemy detected at %d  %d", target->getPosition().x, target->getPosition().y);
+				break;
 			}
 		}
-		else{
-		//nhảy cha cha cha
-		}
-	}
-	
 	return true;
 }
 
@@ -77,12 +104,13 @@ int BattleHorde::calculateMaxUnit(UnitType type){
 			return 3;
 	}
 
-	if (groundWeapon != WeaponTypes::None&&airWeapon != WeaponTypes::Unknown){
+	if (groundWeapon != WeaponTypes::None&&groundWeapon != WeaponTypes::Unknown){
 		if (groundWeapon.maxRange()<=35)
 			return 3;
 		else 
 			return 5;
 	}
+	return 3;
 }
 
 BattleHorde::~BattleHorde()

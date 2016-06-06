@@ -2,6 +2,7 @@
 #include "map"
 #include <BWAPI.h>
 #include "OrderQueue.h"
+#include "UnitTimeManager.h"
 
 using namespace BWAPI;
 using namespace std;
@@ -16,6 +17,7 @@ LordCommander::LordCommander()
 {
 	onFrameCounter = 0;
 	initArmy();
+	hordeManager = vector<BattleHorde*>();
 	//defenders.insert(initMainBaseDefense());
 }
 
@@ -52,15 +54,24 @@ void LordCommander::onDefend(){
 void LordCommander::onAttack(){
 }
 
-void LordCommander::addUnit(Unit u){
+bool LordCommander::addUnit(Unit u){
 	UnitType tmpType = u->getType();
 	for (BattleHorde* horde : hordeManager){
 		if (horde->getUnitType() == tmpType)
 			if (!(horde->isFullUnit())){
 				horde->addUnit(u);
 				getInstance()->unitManager.insert(make_pair(u, horde));
+				Broodwar->sendText("Added to a Horde");
+				return true;
 			}
 	}
+	addHorde(u);
+	return addUnit(u);
+}
+
+void LordCommander::addHorde(Unit u){
+	getInstance()->hordeManager.push_back(new BattleHorde(u->getType(), UnitTimeManager::getEndFrame(u->getType())));
+	Broodwar->sendText("Horde size: %d ", getInstance()->hordeManager.size());
 }
 
 LordCommander::~LordCommander()

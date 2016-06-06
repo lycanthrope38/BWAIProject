@@ -198,6 +198,7 @@ void ExampleAIModule::onStart()
 	//mainOrderQueue->push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 50, OrderQueue::PRIORITY_HIGH);
 	isInitPostion = false;
 	staticOrderQueue = StaticOrder::getInstance();
+	jonSnow = LordCommander::getInstance();
 }
 
 void ExampleAIModule::onEnd(bool isWinner)
@@ -242,6 +243,8 @@ void ExampleAIModule::onFrame()
 			buildingManager.setCentre(TilePosition(home->getCenter()));
 		}
 	}
+
+	jonSnow->onFrame();
 
 	if (workerManager.getNumMineralWorkers() <= 10)
 	{

@@ -23,6 +23,7 @@ private:
 	void protoss_aftertwoGateways();
 
 public:
+	static const int INFINITY_LIFE_TIME;
 	static StaticOrder* getInstance(){
 		if (isInited)
 			return instance;

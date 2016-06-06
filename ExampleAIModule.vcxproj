@@ -102,6 +102,7 @@
     <ClCompile Include="Source\ScoutManager.cpp" />
     <ClCompile Include="Source\StaticOrder.cpp" />
     <ClCompile Include="Source\TargetManager.cpp" />
+    <ClCompile Include="Source\UnitTimeManager.cpp" />
     <ClCompile Include="Source\WorkerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +119,7 @@
     <ClInclude Include="Source\ScoutManager.h" />
     <ClInclude Include="Source\StaticOrder.h" />
     <ClInclude Include="Source\TargetManager.h" />
+    <ClInclude Include="Source\UnitTimeManager.h" />
     <ClInclude Include="Source\WorkerManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

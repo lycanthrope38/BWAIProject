@@ -3,6 +3,7 @@
 #pragma once
 #include <set>
 #include <BWAPI.h>
+#include "TargetManager.h"
 
 using namespace BWAPI;
 
@@ -26,9 +27,12 @@ private:
 	//xem có phải Unit này đang giữ vị trí/thủ hay không
 	bool isHoldPosition;
 	//thời gian tồn tại tối đa của Horde
-	int startFrame, endFrame;
+	int endFrame;
 	//vị trí phòng thủ
 	Position defensePosition;
+
+	TargetManager targetManager;
+
 	static int maxDefenseRange;
 	int calculateMaxUnit(UnitType);
 public:
@@ -37,7 +41,7 @@ public:
 	//xử lý mỗi frame
 	bool onFrame();
 	//nạp nhóm quân và mục tiêu để tiến hành tấn công, startFrame là thời gian bắt đầu việc Order lính, endFrame là thời gian kết thúc OrderLính 
-	BattleHorde(UnitType type, int startFrame, int endFrame);
+	BattleHorde(UnitType type, int endFrame);
 	//thêm quân
 	void addUnit(BWAPI::Unit);
 	//lấy số quân
@@ -51,7 +55,7 @@ public:
 	int getSelfSize(){
 		return selfTroops.size();
 	}
-
+	
 	UnitType getUnitType(){
 		return selfType;
 	}

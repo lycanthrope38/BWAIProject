@@ -197,12 +197,9 @@ int OrderQueue::getSize(){
 }
 
 //xử lý các yêu cầu xây dựng
-
-
-//xử lý các yêu cầu xây dựng
 bool OrderQueue::build(BWAPI::UnitType buildingType){
 
-	Broodwar->sendText("ID   %d", buildingType.getID());
+	//Broodwar->sendText("ID   %d", buildingType.getID());
 
 	OrderQueue* ins = getInstance();
 

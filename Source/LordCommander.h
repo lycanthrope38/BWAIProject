@@ -45,7 +45,8 @@ public:
 	void onFrame();
 	void onDefend();
 	void onAttack();
-	void addUnit(BWAPI::Unit u);
+	bool addUnit(BWAPI::Unit u);
+	void addHorde(BWAPI::Unit u);
 	void removeDeadUnit(Unit u);
 	void requireUnit(BattleHorde*, UnitType, int);
 	void initArmy();
