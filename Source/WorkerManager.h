@@ -32,10 +32,9 @@ public:
 	bool makeUnavailable(BWAPI::Unit worker);
 	BWAPI::Unit getExpansionBuilder();
 	void setExpansionBuilder();
-	void addExpansion(BWAPI::Unit expansion);
 	void gatherMineral();
 	void gatherGas();
-
+	BWAPI::Unit getWorker();
 	WorkerManager();
 	~WorkerManager();
 };

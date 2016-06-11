@@ -197,12 +197,6 @@ int WorkerManager::getAvailableCount()
 	return availableWorkers.size();
 }
  
-void WorkerManager::addExpansion(BWAPI::Unit expansion)
-{
-	std::set<BWAPI::Unit> workers;
-
-	bases.insert(std::make_pair(expansion, workers));
-}
 
 BWAPI::Unit WorkerManager::getExpansionBuilder()
 {
@@ -214,7 +208,28 @@ assign a worker the task of constructing an expansion
 */
 void WorkerManager::setExpansionBuilder()
 {
-	expansionBuilder = buidingManager.getWorker();
+	expansionBuilder = getWorker();
+}
+
+/*
+Returns a worker that is available for having commands issued to it
+*/
+BWAPI::Unit WorkerManager::getWorker()
+{
+	BWAPI::Unit worker;
+
+	for (BWAPI::Unit i : BWAPI::Broodwar->self()->getUnits())
+	{
+		if ((i)->getType().isWorker() && !(i)->isConstructing() && !(i)->isGatheringGas())
+		{
+			worker = i;
+			
+				return worker;
+			
+		}
+	}
+	BWAPI::Broodwar->printf("WorkerManager Error: No available workers");
+	return NULL;
 }
 
 

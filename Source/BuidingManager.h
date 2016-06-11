@@ -14,6 +14,7 @@ public:
 	std::set<BWAPI::Unit*> allWorkers;
 	std::set<BWAPI::Unit> expansions;
 	BWAPI::TilePosition	nextExpansionLocation;
+	bool expanding;
 public:
 	BuidingManager::BuidingManager();
 	bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition approxLocation);
@@ -35,7 +36,8 @@ public:
 	void addExpansion(BWAPI::Unit expansion);
 	void removeExpansion(BWAPI::Unit expansion);
 	BWAPI::TilePosition getNextClosestBase(BWAPI::Unit unit);
-	
+	bool buildingExpand();
+	int getSizeExpansion();
 	~BuidingManager();
 };
 

@@ -23,6 +23,8 @@ class ExampleAIModule : public BWAPI::AIModule
 	ScoutManager scoutManager;
 	BuidingManager buildingManager;
 	WorkerManager workerManager;
+	BWAPI::TilePosition	nextExpansionLocation;
+	bool expanding;
 	
 	
 
@@ -46,7 +48,9 @@ public:
 	virtual void onUnitRenegade(BWAPI::Unit unit);
 	virtual void onSaveGame(std::string gameName);
 	virtual void onUnitComplete(BWAPI::Unit unit);
+
 	// Everything below this line is safe to modify.
 
 	void drawTerrainData();
+	bool createNexus();
 };

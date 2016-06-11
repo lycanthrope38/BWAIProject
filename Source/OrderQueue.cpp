@@ -23,12 +23,15 @@ bool OrderQueue::execute(){
 	if (this->queue.at(0).isUnit()){
 		//nếu là nhà thì xây
 		if (this->queue.at(0).isBuilding()){
-
+			BWAPI::UnitType unitType = this->queue.at(0).getUnit();
+			BWAPI::Broodwar->printf("Unit Typeeeeeee : '%s'", unitType.getName());
+			
 			//nếu nhà có yêu cầu số dân thì kiểm tra xem số dân đã đủ hay chưa
 			if (queue.at(0).supplyRequire != -1){
 				if (BWAPI::Broodwar->self()->supplyTotal() / 2 >= queue.at(0).supplyRequire){
 					//truyền vào this->queue.at(0) sai
 					BWAPI::UnitType unitType = this->queue.at(0).getUnit();
+					
 					return resultAnalyze(build(unitType));
 
 				}
@@ -150,97 +153,50 @@ int OrderQueue::getSize(){
 bool OrderQueue::build(BWAPI::UnitType buildingType){
 	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
 		if (u->getType().isWorker()){
-			
-
-			if (buildingType.isResourceDepot())
+			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice())
 			{
-				if (workerManager.getExpansionBuilder() == NULL)
-				{
-					workerManager.setExpansionBuilder();
-					nextExpansionLocation = buildingManager.getClosestBase(workerManager.getExpansionBuilder());
-					if (nextExpansionLocation == BWAPI::TilePosition(0, 0))
+					BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
+					if (targetBuildLocation)
 					{
-
-						return false;
-					}
-					//if we can't reach the closest base (e.g. its on an island)
-					else if (!workerManager.getExpansionBuilder()->hasPath(BWAPI::Position(nextExpansionLocation)))
-					{
-						//get the next closest
-						nextExpansionLocation = buildingManager.getNextClosestBase(workerManager.getExpansionBuilder());
-						//if the next closest is non-existent or also unreachable then give up and move on to the next build order item
-						if ((nextExpansionLocation == BWAPI::TilePosition(0, 0)) || !workerManager.getExpansionBuilder()->hasPath(BWAPI::Position(nextExpansionLocation)))
-						{
-							
-							return false;
-						}
-					}
-					expanding = true;
-				}
-				if (workerManager.getExpansionBuilder() != NULL)
-				{
-					if (expanding && nextExpansionLocation != BWAPI::TilePosition(0, 0))
-					{
-						workerManager.getExpansionBuilder()->move(BWAPI::Position(nextExpansionLocation), false);
-						expanding = false;
-					}
-					if (workerManager.getExpansionBuilder()->isIdle())
-					{
-						buildingManager.placeExpansion(workerManager.getExpansionBuilder(), buildingType, nextExpansionLocation);
-						return true;
-					}
-
-				}
-				else
-				{
-					BWAPI::Broodwar->printf("Error: no available to workers to build expansion");
-					return false;
-				}
-			}
-			else
-			{
-				BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
-				if (targetBuildLocation)
-				{
-					// Order the builder to construct the supply structure
-					if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
-						static int lastChecked = 0;
+						// Order the builder to construct the supply structure
+					
+							static int lastChecked = 0;
 
 
-						if (lastChecked + 500 < BWAPI::Broodwar->getFrameCount())
-						{
-
-							if (u->build(buildingType, targetBuildLocation))
+							if (lastChecked + 500 < BWAPI::Broodwar->getFrameCount())
 							{
-								lastChecked = BWAPI::Broodwar->getFrameCount();
 
-								// Register an event that draws the target build location
-								BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+								if (u->build(buildingType, targetBuildLocation))
 								{
-									BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
-										BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
-										BWAPI::Colors::Red);
-								},
-									nullptr,  // condition
-									buildingType.buildTime() + 100);  // frames to run
+									lastChecked = BWAPI::Broodwar->getFrameCount();
 
-								if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
-								{
-									isAssimilatorBuilt = true;
+									// Register an event that draws the target build location
+									BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+									{
+										BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
+											BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
+											BWAPI::Colors::Red);
+									},
+										nullptr,  // condition
+										buildingType.buildTime() + 100);  // frames to run
+
+									if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
+									{
+										isAssimilatorBuilt = true;
+									}
+									return true;
+
 								}
-								return true;
 
 							}
-
-						}
+						
 					}
 				}
+
 			}
-
-
-		
+			
 		}
-	}
+
 	return false;
 }
 

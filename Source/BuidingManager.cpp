@@ -2,8 +2,8 @@
 
 using namespace BWAPI;
 
-#define SPIRALLIMIT 400
-#define MINERALDIST 7
+#define SPIRALLIMIT 200
+#define MINERALDIST 20
 
 
 bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition approxLocation)
@@ -15,8 +15,8 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 	bool isX = true;
 	bool isBuiding = false;
 	BWAPI::TilePosition buildPosition;
-	BWAPI::TilePosition shiftPositionX(5, 0);
-	BWAPI::TilePosition shiftPositionY(0, 5);
+	BWAPI::TilePosition shiftPositionX(1, 0);
+	BWAPI::TilePosition shiftPositionY(0, 1);
 	//lam error
 	//check parameters are acceptable
 	if (builder->getType() != BWAPI::Broodwar->self()->getRace().getWorker())
@@ -292,11 +292,15 @@ BWAPI::TilePosition BuidingManager::getClosestBase(BWAPI::Unit unit)
 	double minDist = 0;
 	bool taken;
 
+	//Broodwar->printf("getClosestBase,getClosestBase,getClosestBase '%d'",expansions.size());
+
 	for (std::set<BWTA::BaseLocation*>::const_iterator i = BWTA::getBaseLocations().begin(); i != BWTA::getBaseLocations().end(); i++)
 	{
 		taken = false;
 		for (BWAPI::Unit j : expansions)
 		{
+			//Broodwar->printf("j : '%d %d' vs i '%d %d'", j->getPosition().x, j->getPosition().y, (*i)->getPosition().x, (*i)->getPosition().y);
+
 			if ((j)->getTilePosition() == (*i)->getTilePosition())
 			{
 				taken = true;
@@ -354,10 +358,75 @@ BWAPI::TilePosition BuidingManager::getNextClosestBase(BWAPI::Unit unit)
 	return buildPosition;
 }
 
+bool BuidingManager::buildingExpand()
+{
+	UnitType buildingType = UnitTypes::Protoss_Nexus;
+	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
+		if (u->getType().isWorker()&&u->isIdle()){
+			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice())
+			{
+				if (buildingType.isResourceDepot())
+				{
+					
+					nextExpansionLocation = getClosestBase(u);
+					//	BWAPI::Broodwar->printf("nextExpansionLocationAfter : '%d' '%d'", nextExpansionLocation.x, nextExpansionLocation.y);
+					if (nextExpansionLocation == BWAPI::TilePosition(0, 0))
+					{
+						return false;
+					}
+					//if we can't reach the closest base (e.g. its on an island)
+					else if (!u->hasPath(BWAPI::Position(nextExpansionLocation)))
+					{
+						//get the next closest
+						nextExpansionLocation = getNextClosestBase(u);
+						//if the next closest is non-existent or also unreachable then give up and move on to the next build order item
+						if ((nextExpansionLocation == BWAPI::TilePosition(0, 0)) || !u->hasPath(BWAPI::Position(nextExpansionLocation)))
+						{
+							return false;
+						}
+						
+					}
+					expanding = true;
+
+					if (u)
+					{
+						if (expanding && nextExpansionLocation != BWAPI::TilePosition(0, 0))
+						{
+							//BWAPI::Broodwar->printf("MOVE nextExpansionLocation : '%d' '%d'", nextExpansionLocation.x, nextExpansionLocation.y);
+
+							u->move(BWAPI::Position(nextExpansionLocation), false);
+
+
+							expanding = false;
+							if (placeExpansion(u, buildingType, nextExpansionLocation))
+							{
+								return true;
+							}
+						}
+
+					}
+
+					return false;
+
+
+				}
+			}
+		}
+	}
+}
+
 void BuidingManager::addExpansion(BWAPI::Unit expansion)
 {
+	
 	expansions.insert(expansion);
+
 }
+
+int BuidingManager::getSizeExpansion()
+{
+	return expansions.size();
+}
+
 
 
 void BuidingManager::removeExpansion(BWAPI::Unit expansion)

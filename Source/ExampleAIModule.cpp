@@ -10,12 +10,14 @@ bool analysis_just_finished;
 BWTA::Region* home;
 
 bool stopTraining ;
+bool isHavingExpand;
+
 
 DWORD WINAPI AnalyzeThread()
 {
 	BWTA::analyze();
 
-	if (BWTA::getStartLocation(BWAPI::Broodwar->self()) != NULL)
+	if (BWTA::getStartLocation(BWAPI::Broodwar->self()) != NULL)	
 	{
 		home = BWTA::getStartLocation(BWAPI::Broodwar->self())->getRegion();
 	}
@@ -81,41 +83,33 @@ void ExampleAIModule::drawTerrainData()
 
 void ExampleAIModule::onStart()
 {
-	// Print the map name.
-	// BWAPI returns std::string when retrieving a string, don't forget to add .c_str() when printing!
+	
 	Broodwar << "The map is " << Broodwar->mapName().c_str() << "!" << std::endl;
 
-	// Enable the UserInput flag, which allows us to control the bot and type messages.
 	Broodwar->enableFlag(Flag::UserInput);
 
-	// Uncomment the following line and the bot will know about everything through the fog of war (cheat).
-	//Broodwar->enableFlag(Flag::CompleteMapInformation);
-
-	// Set the command optimization level so that common commands can be grouped
-	// and reduce the bot's APM (Actions Per Minute).
 	Broodwar->setCommandOptimizationLevel(2);
 
-	// Check if this is a replay
+	
 	if (Broodwar->isReplay())
 	{
-		// Announce the players in the replay
+	
 		Broodwar << "The following players are in this replay:" << std::endl;
 
-		// Iterate all the players in the game using a std:: iterator
+		
 		Playerset players = Broodwar->getPlayers();
 		for (auto p : players)
 		{
-			// Only print the player if they are not an observer
+		
 			if (!p->isObserver())
 				Broodwar << p->getName().c_str() << ", playing as " << p->getRace().c_str() << std::endl;
 		}
 
 	}
-	else // if this is not a replay
+	else 
 	{
-		// Retrieve you and your enemy's races. enemy() will just return the first enemy.
-		// If you wish to deal with multiple enemies then you must use enemies().
-		if (Broodwar->enemy()) // First make sure there is an enemy
+	
+		if (Broodwar->enemy()) 
 			Broodwar << "The matchup is " << Broodwar->self()->getRace().c_str() << " vs "
 			<< Broodwar->enemy()->getRace().c_str() << std::endl;
 	}
@@ -143,6 +137,7 @@ void ExampleAIModule::onStart()
 	mainOrderQueue.isAssimilatorBuilt = false;
 
 	stopTraining = false;
+	isHavingExpand = false;
 
 	for (Unit i : Broodwar->self()->getUnits())
 	{
@@ -150,12 +145,17 @@ void ExampleAIModule::onStart()
 		{
 			workerManager.makeAvailable(i);
 		}
+		else if (i->getType() == UnitTypes::Protoss_Nexus)
+		{
+			buildingManager.addExpansion(i);
+		}
 			
 	}
 
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
 	mainOrderQueue.push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_HIGH);
 
+	/*mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
@@ -169,17 +169,19 @@ void ExampleAIModule::onStart()
 	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue.push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-
-	mainOrderQueue.push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH,12);
+*/
+	/*mainOrderQueue.push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH,12);
 	mainOrderQueue.push(UnitTypes::Protoss_Forge, OrderQueue::PRIORITY_HIGH);
-	
+*/
+	//mainOrderQueue.push(UnitTypes::Protoss_Nexus, OrderQueue::PRIORITY_HIGH);
 
-	mainOrderQueue.push(UnitTypes::Protoss_Cybernetics_Core, OrderQueue::PRIORITY_NORMAL);
+
+	/*mainOrderQueue.push(UnitTypes::Protoss_Cybernetics_Core, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Citadel_of_Adun, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Templar_Archives, OrderQueue::PRIORITY_NORMAL);
 	mainOrderQueue.push(UnitTypes::Protoss_Robotics_Facility, OrderQueue::PRIORITY_NORMAL);
-	
+	*/
+	mainOrderQueue.push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH);
 	mainOrderQueue.push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 100, OrderQueue::PRIORITY_NORMAL);
 }
 
@@ -194,9 +196,7 @@ void ExampleAIModule::onEnd(bool isWinner)
 
 void ExampleAIModule::onFrame()
 {
-	// Called once every game frame
-
-	// Return if the game is a replay or is paused. Viết code ở bên dưới dòng này!
+	
 	if (Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self())
 		return;
 
@@ -245,14 +245,31 @@ void ExampleAIModule::onFrame()
 		}
 		else
 		{
-			workerManager.gatherGas();
-			if (workerManager.getNumGasWorkers() >= 3)
+			if (!stopTraining)
 			{
-				stopTraining = true;
+				workerManager.gatherGas();
+				if (workerManager.getNumGasWorkers() >= 3)
+				{
+					stopTraining = true;
+				}
 			}
+			
 		}
 	}
+	
+	if (buildingManager.getSizeExpansion()<2)
+	{
+		
 
+		/*if (createNexus())
+		{
+			Broodwar->printf("createNexus createNexus createNexus '%d'",isHavingExpand?1:0);
+			isHavingExpand = true;
+		}*/
+		createNexus();
+		
+	}
+	
 
 	if (Broodwar->getFrameCount() % 17 == 0)
 	{
@@ -300,30 +317,27 @@ void ExampleAIModule::onFrame()
 				
 
 				if (u->isIdle())
-				//{
-				//	// Broodwar->sendText("isIdle" + u->isIdle());
-
-				//	// Order workers carrying a resource to return them to the center,
-				//	// otherwise find a mineral patch to harvest.
+				
 					if (u->isCarryingGas() || u->isCarryingMinerals())
 					{
 						u->returnCargo();
 					}
-					else if (!u->getPowerUp())  // The worker cannot harvest anything if it
-					{                             // is carrying a powerup such as a flag
-						// Harvest from the nearest mineral patch or gas refinery
+					else if (!u->getPowerUp()&&u!=workerManager.getWorker())  
+					{                             
+						
 						if (!u->gather(u->getClosestUnit(IsMineralField)))
 						{
-							// If the call fails, then print the last error message
+							
 							Broodwar << Broodwar->getLastError() << std::endl;
 						}
 					}
 			
-				} // closure: if idle
+				} 
 
 			
-			else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
+			else if (u->getType().isResourceDepot()) 
 			{
+				
 				if (!stopTraining)
 				{
 					if (u->isIdle() && !u->train(u->getType().getRace().getWorker()))
@@ -343,33 +357,26 @@ void ExampleAIModule::onFrame()
 							Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
 						{
 							lastChecked = Broodwar->getFrameCount();
-
+							
 							Unit worker = buildingManager.getWorker();
 							if (worker)
 							{
-								/*Position position = buildingManager.getNextClosestPlaceBuidling();
-								buildingManager.moveWorker(worker, position);
-*/
-								BWTA::BaseLocation* home = BWTA::getNearestBaseLocation(u->getPosition());
-								buildingManager.moveWorker(worker, home->getPosition());
-								//Broodwar->printf("Position Worker: '%d' '%d' '%d'", worker->getPosition(), u->getPosition(), home->getPosition());
-								/*if (supplyProviderType.isBuilding())
+								
+								if (supplyProviderType.isBuilding())
 								{
+									
 									buildingManager.createBuilding(worker, supplyProviderType);
 								}
 								else
 								{
 									worker->train(supplyProviderType);
-								}*/
+								}
 							} 
 						} 
 					} 
 				}
 				else
 				{
-
-				
-
 					if (supplyCounter == supplyTotalCounter)
 					{
 
@@ -402,6 +409,62 @@ void ExampleAIModule::onFrame()
 			}
 		} // closure: unit iterator
 	}
+}
+
+
+bool ExampleAIModule::createNexus()
+{
+	UnitType buildingType = UnitTypes::Protoss_Nexus;
+
+			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice())
+			{
+				if (buildingType.isResourceDepot())
+				{
+
+					nextExpansionLocation = buildingManager.getClosestBase(buildingManager.getWorker());
+					BWAPI::Broodwar->printf("nextExpansionLocationAfter : '%d' '%d'", nextExpansionLocation.x, nextExpansionLocation.y);
+					if (nextExpansionLocation == BWAPI::TilePosition(0, 0))
+					{
+						return false;
+					}
+					//if we can't reach the closest base (e.g. its on an island)
+					else if (!buildingManager.getWorker()->hasPath(BWAPI::Position(nextExpansionLocation)))
+					{
+						//get the next closest
+						nextExpansionLocation = buildingManager.getNextClosestBase(buildingManager.getWorker());
+						//if the next closest is non-existent or also unreachable then give up and move on to the next build order item
+						if ((nextExpansionLocation == BWAPI::TilePosition(0, 0)) || !buildingManager.getWorker()->hasPath(BWAPI::Position(nextExpansionLocation)))
+						{
+							return false;
+						}
+
+					}
+					expanding = true;
+
+					if (buildingManager.getWorker())
+					{
+						if (expanding && nextExpansionLocation != BWAPI::TilePosition(0, 0))
+						{
+							BWAPI::Broodwar->printf("MOVE nextExpansionLocation : '%d' '%d'", nextExpansionLocation.x, nextExpansionLocation.y);
+
+							buildingManager.getWorker()->move(BWAPI::Position(nextExpansionLocation), false);
+
+
+							expanding = false;
+							if (buildingManager.placeExpansion(buildingManager.getWorker(), buildingType, nextExpansionLocation))
+							{
+								return true;
+							}
+						}
+
+					}
+
+					return false;
+
+
+				}
+			}
+		
 }
 
 
@@ -464,6 +527,7 @@ void ExampleAIModule::onUnitHide(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 {
+		
 	if ( Broodwar->getFrameCount() > 1)
 	{
 		if (unit->getPlayer() == Broodwar->self())
@@ -472,6 +536,10 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 			if (unit->getType().isWorker())
 			{
 				workerManager.makeAvailable(unit);
+			}
+			else if (unit->getType()==UnitTypes::Protoss_Nexus)
+			{
+				buildingManager.addExpansion(unit);
 			}
 		}
 	}
@@ -484,6 +552,12 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 	{
 		Unit worker = buildingManager.getWorker();
 		mainOrderQueue.build(unit->getType());
+	
+	}
+	if (unit->getType().isResourceDepot())
+	{
+		buildingManager.removeExpansion(unit);
+		createNexus();
 	}
 	
 }
@@ -513,6 +587,10 @@ void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 		if (unit->getType().isWorker() )
 		{
 			workerManager.makeAvailable(unit);
+		}
+		else if (unit->getType()==UnitTypes::Protoss_Nexus)
+		{
+			buildingManager.addExpansion(unit);
 		}
 		
 	}
