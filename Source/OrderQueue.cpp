@@ -311,10 +311,16 @@ bool OrderQueue::training(OrderType* orderType){
 }
 //xử lý các yêu cầu nâng cấp
 bool OrderQueue::upgrade(BWAPI::UpgradeType upgradeType){
-	//nếu upgrade được thì return true và xóa phần tử đầu tiên trong hàng đợi
-	//this->queue.erase(queue.begin());
-	//nếu upgrade không được thì tăng số lần failed lên và kiểm tra số lần failed. 
-	// nếu failed 3 lần thì đẩy phần tử này xuống cuối hàng đợi
+	OrderQueue* ins = getInstance();
+
+	int successed = 0, minUnit = -1;// Number of successed training / unit not training now
+	std::vector<Unit> parentList = Collections::getUnitList(Broodwar->self(), upgradeType.whatUpgrades());
+	//định tìm nhà có số lính đang train nhỏ nhất nhưng không thấy hàm đó nên tìm nhà chưa train lính để order lính trước
+	for (int i = 0; i < parentList.size(); i++){
+		if ((parentList.at(i))->upgrade(upgradeType)){
+			return true;
+		}
+	}
 	return false;
 }
 

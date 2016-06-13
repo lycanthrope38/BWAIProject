@@ -5,7 +5,8 @@ map<UnitType, int> UnitTimeManager::endFrame = map<UnitType, int>();
 bool UnitTimeManager::isInited = false;
 
 UnitTimeManager::UnitTimeManager(){
-	endFrame.insert(make_pair(UnitTypes::Protoss_Zealot, 0));
+	//Protoss ton tai 10p dau game
+	endFrame.insert(make_pair(UnitTypes::Protoss_Zealot, 12000));
 }
 
 int UnitTimeManager::getEndFrame(UnitType u){

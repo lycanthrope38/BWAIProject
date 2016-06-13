@@ -16,6 +16,8 @@ private:
 	static bool isInited;
 	//dùng để tránh việc xây nhà nhưng bị lính chen ngang làm hỏng
 	static bool isBuildingBefore;
+	static int skipBefore;
+	static OrderType* lastOrder;
 	void initProtoss();
 	void initZerg();
 	void initTerran();
@@ -23,6 +25,8 @@ private:
 	void protoss_aftertwoGateways();
 
 public:
+	static bool isBuildedGas;
+	static int buildedGasFrame;
 	static const int INFINITY_LIFE_TIME;
 	static StaticOrder* getInstance(){
 		if (isInited)

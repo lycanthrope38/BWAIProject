@@ -1,8 +1,6 @@
 ﻿#pragma once
 #include <BWAPI.h>
 #include "BattleHorde.h"
-//Class này sẽ quản lý tất cả các Unit trên bản đồ. Thường sẽ chia ra gồm 1-3 BattleField
-//1 BattleField phụ trách thường trực ở nhà. 2 phụ trách việc tấn công
 
 using namespace std;
 using namespace BWAPI;
@@ -12,30 +10,30 @@ class LordCommander
 {
 
 private:
-	static bool initedInstance;
+	static bool isInitedInstance;
 	static LordCommander* instance;
 
-	//BattleField testDefender;
-	bool isInited;
-	int onFrameCounter;
-	
-	map<Unit, BattleHorde*> unitManager;
+	map<BWAPI::Unit, set<BattleHorde*>> enemyAttackedBy;
 
-	vector<BattleHorde*> hordeManager;
+	int onFrameCounter;
+	//which Horde an Unit are located
+	map<BWAPI::Unit, BattleHorde*> unitManager;
+	
+	set<BattleHorde*> hordeManager;
 
 	//Constructor. Vì dùng Singleton Pattern nên constructor private
 	LordCommander();
 
 public:
 	static LordCommander* getInstance(){
-		if (!initedInstance)
+		if (isInitedInstance)
 		{
-			instance = new LordCommander();
-			initedInstance = true;
 			return instance;
 		}
 		else
 		{
+			instance = new LordCommander();
+			isInitedInstance = true;
 			return instance;
 		}
 	}
@@ -50,6 +48,21 @@ public:
 	void removeDeadUnit(Unit u);
 	void requireUnit(BattleHorde*, UnitType, int);
 	void initArmy();
+
+	// khi giao tranh ta thấy có các trường hợp như:
+	// lính mục tiêu có lượng máu và giáp ít. ta cần số ít quân để tiêu diệt mục tiêu này.
+	// đối với các mục tiêu có sức chịu đựng lớn, ta sẽ dồn nhiều quân để tiêu diệt nó. 
+	// hàm này dùng để check xem có nên dồn quân tiếp vào unit địch không
+	bool shouldAttackThis(BattleHorde* selfHorde, Unit enemy);
+
+	//tính toán giá trị lược lượng của ta đã dồn vào mục tiêu
+	int getSelfScoreOnTarget(Unit enemy);
+
+	void regTarget(BWAPI::Unit enemy, BattleHorde* selfHorde);
+	void removeTarget(BWAPI::Unit enemy, BattleHorde* selfHorde);
+	void reforce(BattleHorde* b);
+	//check xem có thể reforce được hay không
+	bool isReforcable(BattleHorde*b);
 	//thêm các đơn vị quân lính chưa có trong danh sách
 	//void addFreeUnit();
 	//khởi tạo cho lực lượng 

@@ -1,11 +1,16 @@
 ﻿#include "BattleHorde.h"
 #include "LordCommander.h"
 #include <BWAPI.h>
+#include <random>
+#include "Collections.h"
 
 using namespace BWAPI;
 
+vector<Color> BattleHorde::squadColorList = vector<Color>();
+bool BattleHorde::isInited = false;
+
 const int BattleHorde::INFINITY_LIFE_TIME = 999999999;
-int BattleHorde::maxDefenseRange = 400;
+int BattleHorde::maxDefenseRange = 1000;
 
 BattleHorde::BattleHorde(UnitType type, int endFrame)
 {
@@ -18,63 +23,81 @@ BattleHorde::BattleHorde(UnitType type, int endFrame)
 	maxUnit = calculateMaxUnit(type);
 	targetManager = TargetManager();
 	target = nullptr;
+	isAttacked = false;
+
+
+	
+	this->squadColor = Color(rand() % 256, rand() % 256, rand() % 256);
 }
 
 //xử lý mỗi frame
 bool BattleHorde::onFrame(){
 	//kiểm tra nếu bên ta có loại đánh xa thì áp dụng hit and run
 
-	//if (isHoldPosition){
-	//	if (defensePosition == Positions::None){
-	//		for (Unit u : Broodwar->self()->getUnits()){
-	//			if (u->getType().isBuilding())
-	//			{
-	//				defensePosition = u->getPosition();
-	//				break;
-	//			}
-	//		}
-	//	}
-	//	else{
-	//	//nhảy cha cha cha
-	//		if (!target->exists()){
-	//			for (Unit u : selfTroops){
-	//				if (u->exists()){
-	//					target = targetManager.getTarget(u);
-	//					selfTroops.attack(target);
-	//					Broodwar->printf("Enemy detected at %d  %d", target->getPosition().x, target->getPosition().y);
-	//					break;
-	//				}
-	//			}
-	//		}
-	//		else{
-	//			selfTroops.attack(target);
-	//			Broodwar->printf("Enemy detected at %d  %d", target->getPosition().x, target->getPosition().y);
-	//		}
+	if (selfType == UnitTypes::Protoss_Carrier)
+		buyInterceptor();
 
-	//	}
-	//}
-		for (Unit u : selfTroops){
-			if (u->exists()){
-				target = targetManager.getTarget(u);
-				if (target == nullptr){
-					//Broodwar->sendText("Target == nullptr");
-					break;
-				}
-				selfTroops.attack(target);
-				Broodwar->sendText("Enemy detected at %d  %d", target->getPosition().x, target->getPosition().y);
+	Unit oldTarget = target;
+
+	drawSquad();
+	if (target!=nullptr)
+		if (target->exists())
+		{
+			drawPosition(target->getPosition());
+			return true;
+		}
+
+	for (Unit u : selfTroops){
+		if (u->exists()){
+			target = targetManager.getTarget(u);
+			if (target == nullptr){
+				//Broodwar->sendText("Target == nullptr");
 				break;
 			}
+
+			if (target == oldTarget){
+				if (isHoldPosition)
+					if (Collections::distance(target->getPosition(), defensePosition) > maxDefenseRange)
+						selfTroops.move(defensePosition);
+				attack(target);
+				drawPosition(target->getPosition());
+				//Broodwar->sendText("Old target. Skipped");
+				break;
+			}
+			if (isHoldPosition)
+				if (Collections::distance(target->getPosition(), defensePosition) > maxDefenseRange){
+					selfTroops.move(defensePosition);
+					break;
+				}
+
+			LordCommander::getInstance()->removeTarget(oldTarget, this);
+			LordCommander::getInstance()->regTarget(target, this);
+			attack(target);
+			drawPosition(target->getPosition());
+			isAttacked = true;
+			//Broodwar->sendText("Enemy detected at %d  %d", target->getPosition().x, target->getPosition().y);
+			break;
 		}
+	}
 	return true;
+}
+
+void BattleHorde::runBack(){
+
+	Unitset uset;
+	for (Unit u : selfTroops){
+		if (u->exists()){
+			//uset = u->getUnitsInWeaponRange()
+		}
+	}
 }
 
 //thêm quân
 void BattleHorde::addUnit(BWAPI::Unit u){
 	selfTroops.insert(u);
+	if (defensePosition == Positions::None || Positions::Unknown)
+		defensePosition = u->getPosition();
 }
-
-//lấy số quân
-int BattleHorde::getTroopSize(){}
 
 //lấy danh sách quân
 Unitset BattleHorde::getCurrentList(){
@@ -97,7 +120,7 @@ void BattleHorde::clearDeadUnit(Unit u){
 int BattleHorde::calculateMaxUnit(UnitType type){
 	WeaponType groundWeapon = type.groundWeapon();
 	WeaponType airWeapon = type.airWeapon();
-	if (airWeapon != WeaponTypes::None&&airWeapon != WeaponTypes::Unknown){
+	/*if (airWeapon != WeaponTypes::None&&airWeapon != WeaponTypes::Unknown){
 		if (type.destroyScore() < 900)
 			return 5;
 		else
@@ -105,15 +128,36 @@ int BattleHorde::calculateMaxUnit(UnitType type){
 	}
 
 	if (groundWeapon != WeaponTypes::None&&groundWeapon != WeaponTypes::Unknown){
-		if (groundWeapon.maxRange()<=35)
-			return 3;
-		else 
+		if (groundWeapon.maxRange() <= 35)
+			return 2;
+		else
 			return 5;
+	}*/
+	return 2;
+}
+
+void BattleHorde::attack(Unit u){
+	if (selfTroops.attack(u))
+		selfTroops.attack(u->getPosition());
+}
+
+void BattleHorde::drawPosition(Position p){
+	Broodwar->drawBoxMap(Position(p.x-10,p.y-10), Position(p.x + 10, p.y + 10), this->squadColor);
+}
+
+void BattleHorde::drawSquad(){
+	for (Unit u : selfTroops){
+		drawPosition(u->getPosition());
 	}
-	return 3;
+}
+
+void BattleHorde::buyInterceptor(){
+	for (Unit u : selfTroops)
+		if (!(u->train(UnitTypes::Protoss_Interceptor)))
+			continue;
 }
 
 BattleHorde::~BattleHorde()
 {
-
+	(LordCommander::getInstance())->removeTarget(target, this);
 }

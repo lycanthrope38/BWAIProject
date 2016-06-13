@@ -250,14 +250,16 @@ void ExampleAIModule::onFrame()
 	{
 		workerManager.gatherMineral();
 	}
-	if (workerManager.getNumMineralWorkers() <= 14)
-	{
+
+	
+	//if (workerManager.getNumMineralWorkers() <= 14)
+	//{
 		workerManager.gatherMineral();
-	}
-	else
-	{
-		workerManager.gatherGas();
-	}
+	//}
+	//else
+	//{
+	//	workerManager.gatherGas();
+	//}
 	// Prevent spamming by only running our onFrame once every number of latency frames.
 	// Latency frames are the number of frames before commands are processed.
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
@@ -286,11 +288,11 @@ void ExampleAIModule::onFrame()
 			staticOrderQueue->execute();
 	}
 
-	if (ScoutManager::getInstance().getScout() != nullptr)
-	{
-		ScoutManager::getInstance().sendScout();
+	/*if (ScoutManager::getInstance().getScout() != nullptr)
+	{*/
+		//ScoutManager::getInstance().sendScout();
 		//ScoutManager::getInstance().scoutExpos();
-	}
+	//}
 
 	//cứ 7 frame sẽ xét việc xây nhà một lần để tránh lag
 	if (Broodwar->getFrameCount() % 7 == 0)
@@ -321,14 +323,19 @@ void ExampleAIModule::onFrame()
 			if (u->getType().isWorker())
 			{
 
-				if (supplyCounter == 8)
+
+				if (StaticOrder::isBuildedGas)
+					if (workerManager.getNumGasWorkers() < 3)
+						if ((Broodwar->getFrameCount() - StaticOrder::buildedGasFrame) > (Broodwar->self()->getRace().getRefinery().buildTime()+5))						
+							workerManager.gatherGas(u, u->getClosestUnit(BWAPI::Filter::IsRefinery));
+
+				/*if (supplyCounter == 8)
 				{
-					ScoutManager::getInstance().setScout(u);
-				}
+				ScoutManager::getInstance().setScout(u);
+				}*/
 
 				if (buildingManager.getWorkerCount() <= 2)
 				{
-
 					buildingManager.makeAvailable(u);
 				}
 
@@ -476,19 +483,7 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 		}
 	}
 
-	if (unit->getPlayer() == Broodwar->self())
-		{
-
-		if (unit->getType().isWorker())
-		{
-			workerManager.makeAvailable(unit);
-		}
-
-		//thêm các unit lính
-		if (!(unit->getType().isBuilding()) && !(unit->getType().isWorker()) && !(unit->getType().isNeutral())){
-			LordCommander::getInstance()->addUnit(unit);
-		}
-	}
+	
 	
 
 }
@@ -530,4 +525,17 @@ void ExampleAIModule::onSaveGame(std::string gameName)
 
 void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 {
+	if (unit->getPlayer() == Broodwar->self())
+	{
+
+		if (unit->getType().isWorker())
+		{
+			workerManager.makeAvailable(unit);
+		}
+
+		//thêm các unit lính
+		if (!(unit->getType().isBuilding()) && !(unit->getType().isWorker()) && !(unit->getType().isNeutral())){
+			LordCommander::getInstance()->addUnit(unit);
+		}
+	}
 }

@@ -107,13 +107,13 @@ Issues a command to a worker to mine the nearest mineral patch
 */
 bool WorkerManager::returnToGas(BWAPI::Unit worker)
 {
-	BWAPI::Unit closestGeyser = NULL;
+	BWAPI::Unit closestGeyser = nullptr;
 	for (BWAPI::Unit m : BWAPI::Broodwar->getGeysers())
 	{
-		if (closestGeyser == NULL || worker->getDistance(m) < worker->getDistance(closestGeyser))
+		if (closestGeyser == nullptr || worker->getDistance(m) < worker->getDistance(closestGeyser))
 			closestGeyser = m;
 	}
-	if (closestGeyser != NULL)
+	if (closestGeyser != nullptr)
 	{
 		if (worker->rightClick(closestGeyser))
 		{
@@ -210,7 +210,11 @@ int WorkerManager::getAvailableCount()
 //	workerMinerals.insert(unit).second;
 //}
 
+//by anh
 
+bool WorkerManager::gatherGas(BWAPI::Unit worker, BWAPI::Unit refinery){
+	return worker->gather(refinery);
+}
 
 WorkerManager::WorkerManager()
 {

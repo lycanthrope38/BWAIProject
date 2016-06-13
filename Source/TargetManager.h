@@ -12,7 +12,7 @@ private:
 	int lastGetEnemyFrame;
 public:
 	TargetManager();
-	//lấy mục tiêu tốt nhất mà một unit nên tấn công
+	//lấy mục tiêu tốt nhất mà một unit nên tấn công. selfScore = selfSize * selfDestroyScore
 	Unit getTarget(Unit);
 	~TargetManager();
 };

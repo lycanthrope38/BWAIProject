@@ -23,6 +23,9 @@ public:
 	void gatherMineral();
 	void gatherGas();
 
+	//by anh
+	bool gatherGas(BWAPI::Unit worker, BWAPI::Unit refinery);
+
 	WorkerManager();
 	~WorkerManager();
 };

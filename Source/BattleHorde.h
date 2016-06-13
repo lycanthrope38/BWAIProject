@@ -12,6 +12,12 @@ class BattleHorde
 {
 
 private:
+
+	static vector<Color> squadColorList;
+	static bool isInited;
+
+	Color squadColor;
+
 	//mục tiêu
 	BWAPI::Unit target;
 	//danh sách quân ta trong toán quân
@@ -36,6 +42,7 @@ private:
 	static int maxDefenseRange;
 	int calculateMaxUnit(UnitType);
 public:
+	bool isAttacked;
 	int lastOrderFrame;
 	static const int INFINITY_LIFE_TIME;
 	//xử lý mỗi frame
@@ -44,14 +51,17 @@ public:
 	BattleHorde(UnitType type, int endFrame);
 	//thêm quân
 	void addUnit(BWAPI::Unit);
-	//lấy số quân
-	int getTroopSize();
 	//lấy danh sách quân
 	Unitset getCurrentList();
 	//thêm mục tiêu
 	void addTarget(BWAPI::Unit);
 	//clear dead unit
 	void clearDeadUnit(Unit u);
+
+	int getMaxUnit(){
+		return maxUnit;
+	}
+
 	int getSelfSize(){
 		return selfTroops.size();
 	}
@@ -65,6 +75,16 @@ public:
 	}
 
 	void move(Position p);
+
+	void drawPosition(Position p);
+
+	void drawSquad();
+
+	void attack(Unit u);
+
+	void buyInterceptor();
+
+	void runBack();
 
 	friend bool operator < (const BattleHorde &left, const BattleHorde &right)
 	{
