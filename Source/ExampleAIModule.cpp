@@ -1,8 +1,10 @@
 ﻿#include "ExampleAIModule.h"
 #include "Collections.h"
-
+#define TOTAL_ATTACK_SCORE 7000
 using namespace BWAPI;
 using namespace Filter;
+
+
 
 bool analyzed;
 bool analysis_just_finished;
@@ -148,6 +150,10 @@ void ExampleAIModule::onStart()
 		{
 			workerManager.makeAvailable(i);
 		}
+		else if (i->getType() == UnitTypes::Protoss_Nexus)
+		{
+			buildingManager.addExpansion(i);
+		}
 
 	}
 	/*mainOrderQueue->push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
@@ -232,6 +238,8 @@ void ExampleAIModule::onFrame()
 	if (analyzed)
 	{
 		drawTerrainData();
+		if (jonSnow->getSelfScore() > TOTAL_ATTACK_SCORE)
+			jonSnow->totalAttack(ScoutManager::getInstance().getEnemyBase());
 	}
 
 	if (analysis_just_finished)
@@ -490,15 +498,21 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 {
-	Unit worker = buildingManager.getWorker();
-	UnitType uType = unit->getType();
-	if (worker)
+	if (unit->getType().isBuilding())
 	{
-		if (unit->getType().isBuilding())
-		{
-			buildingManager.createBuilding(worker, unit->getType());
-		}
+		Unit worker = buildingManager.getWorker();
+		mainOrderQueue->build(unit->getType());
+
 	}
+	if (unit->getType().isResourceDepot())
+	{
+		buildingManager.removeExpansion(unit);
+		createNexus();
+	}
+
+	UnitType uType = unit->getType();
+
+	
 	if (!(uType.isBuilding())&&!(uType.isWorker()&&!(uType.isNeutral())))
 	{
 		LordCommander::getInstance()->removeDeadUnit(unit);
@@ -525,6 +539,8 @@ void ExampleAIModule::onSaveGame(std::string gameName)
 
 void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 {
+
+
 	if (unit->getPlayer() == Broodwar->self())
 	{
 
@@ -532,10 +548,70 @@ void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 		{
 			workerManager.makeAvailable(unit);
 		}
-
+		else if (unit->getType() == UnitTypes::Protoss_Nexus)
+		{
+			buildingManager.addExpansion(unit);
+		}
 		//thêm các unit lính
 		if (!(unit->getType().isBuilding()) && !(unit->getType().isWorker()) && !(unit->getType().isNeutral())){
 			LordCommander::getInstance()->addUnit(unit);
 		}
 	}
+
+	
+}
+
+bool ExampleAIModule::createNexus()
+{
+	UnitType buildingType = UnitTypes::Protoss_Nexus;
+
+	if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice())
+	{
+		if (buildingType.isResourceDepot())
+		{
+
+			nextExpansionLocation = buildingManager.getClosestBase(buildingManager.getWorker());
+			BWAPI::Broodwar->printf("nextExpansionLocationAfter : '%d' '%d'", nextExpansionLocation.x, nextExpansionLocation.y);
+			if (nextExpansionLocation == BWAPI::TilePosition(0, 0))
+			{
+				return false;
+			}
+			//if we can't reach the closest base (e.g. its on an island)
+			else if (!buildingManager.getWorker()->hasPath(BWAPI::Position(nextExpansionLocation)))
+			{
+				//get the next closest
+				nextExpansionLocation = buildingManager.getNextClosestBase(buildingManager.getWorker());
+				//if the next closest is non-existent or also unreachable then give up and move on to the next build order item
+				if ((nextExpansionLocation == BWAPI::TilePosition(0, 0)) || !buildingManager.getWorker()->hasPath(BWAPI::Position(nextExpansionLocation)))
+				{
+					return false;
+				}
+
+			}
+			expanding = true;
+
+			if (buildingManager.getWorker())
+			{
+				if (expanding && nextExpansionLocation != BWAPI::TilePosition(0, 0))
+				{
+					BWAPI::Broodwar->printf("MOVE nextExpansionLocation : '%d' '%d'", nextExpansionLocation.x, nextExpansionLocation.y);
+
+					buildingManager.getWorker()->move(BWAPI::Position(nextExpansionLocation), false);
+
+
+					expanding = false;
+					if (buildingManager.placeExpansion(buildingManager.getWorker(), buildingType, nextExpansionLocation))
+					{
+						return true;
+					}
+				}
+
+			}
+
+			return false;
+
+
+		}
+	}
+
 }

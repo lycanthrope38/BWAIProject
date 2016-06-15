@@ -17,6 +17,7 @@ std::map<BWAPI::Unit, bool> LordCommander::isUsedUnit;
 
 LordCommander::LordCommander()
 {
+	selfFighterScore = 0;
 	onFrameCounter = 0;
 	initArmy();
 	hordeManager = set<BattleHorde*>();
@@ -32,6 +33,8 @@ void LordCommander::onFrame(){
 	for (BattleHorde* horde : instance->hordeManager)
 		horde->onFrame();
 
+
+
 	/*set<BattleHorde*> hordeCopy = hordeManager;
 
 	for (BattleHorde* horde : hordeCopy)
@@ -39,6 +42,21 @@ void LordCommander::onFrame(){
 			if (isReforcable(horde))
 				reforce(horde);*/
 
+}
+
+void LordCommander::totalAttack(Position p){
+
+	Broodwar->sendText("Total war!");
+
+	for (BattleHorde* horde: hordeManager)
+	{
+		for (Unit u : horde->getCurrentList()){
+			if (Collections::distance(u->getPosition(), p) > 1000){
+				horde->isHoldPosition = false;
+				horde->move(p);
+			}
+		}
+	}
 }
 
 void LordCommander::requireUnit(BattleHorde* childHorde, UnitType type, int soluong){
@@ -73,6 +91,7 @@ bool LordCommander::addUnit(Unit u){
 				horde->addUnit(u);
 				getInstance()->unitManager.insert(make_pair(u, horde));
 				Broodwar->sendText("Added to a Horde");
+				selfFighterScore += u->getType().destroyScore();
 				return true;
 			}
 	}

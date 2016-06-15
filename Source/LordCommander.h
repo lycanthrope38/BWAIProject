@@ -14,6 +14,8 @@ private:
 	static LordCommander* instance;
 
 	map<BWAPI::Unit, set<BattleHorde*>> enemyAttackedBy;
+	//tổng destroy score của lính bên ta
+	int selfFighterScore;
 
 	int onFrameCounter;
 	//which Horde an Unit are located
@@ -58,9 +60,14 @@ public:
 	//tính toán giá trị lược lượng của ta đã dồn vào mục tiêu
 	int getSelfScoreOnTarget(Unit enemy);
 
+	int getSelfScore(){
+		return selfFighterScore;
+	}
+
 	void regTarget(BWAPI::Unit enemy, BattleHorde* selfHorde);
 	void removeTarget(BWAPI::Unit enemy, BattleHorde* selfHorde);
 	void reforce(BattleHorde* b);
+	void totalAttack(Position p);
 	//check xem có thể reforce được hay không
 	bool isReforcable(BattleHorde*b);
 	//thêm các đơn vị quân lính chưa có trong danh sách

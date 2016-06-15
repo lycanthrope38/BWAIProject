@@ -16,6 +16,8 @@ private:
 	static vector<Color> squadColorList;
 	static bool isInited;
 
+	bool isAirAttackable;
+
 	Color squadColor;
 
 	//mục tiêu
@@ -30,8 +32,6 @@ private:
 	bool isOrdered;
 	//số lượng unit tối đa trong Horde
 	int maxUnit;
-	//xem có phải Unit này đang giữ vị trí/thủ hay không
-	bool isHoldPosition;
 	//thời gian tồn tại tối đa của Horde
 	int endFrame;
 	//vị trí phòng thủ
@@ -42,6 +42,8 @@ private:
 	static int maxDefenseRange;
 	int calculateMaxUnit(UnitType);
 public:
+	//xem có phải Unit này đang giữ vị trí/thủ hay không
+	bool isHoldPosition;
 	bool isAttacked;
 	int lastOrderFrame;
 	static const int INFINITY_LIFE_TIME;

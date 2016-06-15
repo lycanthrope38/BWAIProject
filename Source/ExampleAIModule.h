@@ -23,6 +23,8 @@ class ExampleAIModule : public BWAPI::AIModule
 	BuidingManager buildingManager;
 	WorkerManager workerManager;
 	LordCommander* jonSnow;
+	BWAPI::TilePosition	nextExpansionLocation;
+	bool expanding;
 	
 	int pylonLastFrameBuild;
 	int lastChecked;
@@ -55,4 +57,5 @@ public:
 
 	void drawTerrainData();
 	void pushQueueProtoss();
+	bool createNexus();
 };

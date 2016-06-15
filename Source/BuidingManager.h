@@ -1,13 +1,20 @@
+#ifndef BuidingManager_h
+#define BuidingManager_h
+
 #pragma once
 #include <BWAPI.h>
 #include <BWTA.h>
 #include <set>
+
 class BuidingManager
 {
 public:
 	BWAPI::TilePosition centre;
 	std::set<BWAPI::Unit> availableWorkers;
 	std::set<BWAPI::Unit*> allWorkers;
+	std::set<BWAPI::Unit> expansions;
+	BWAPI::TilePosition	nextExpansionLocation;
+	bool expanding;
 public:
 	BuidingManager::BuidingManager();
 	bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition approxLocation);
@@ -25,6 +32,13 @@ public:
 	int getNumMineralWorkers();
 	int getNumGasWorkers();
 	bool addWorker(BWAPI::Unit* newWorker);
-
+	BWAPI::Position getNextClosestPlaceBuidling();
+	void addExpansion(BWAPI::Unit expansion);
+	void removeExpansion(BWAPI::Unit expansion);
+	BWAPI::TilePosition getNextClosestBase(BWAPI::Unit unit);
+	bool buildingExpand();
+	int getSizeExpansion();
 	~BuidingManager();
 };
+
+#endif
