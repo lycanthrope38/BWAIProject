@@ -259,10 +259,10 @@ void ExampleAIModule::onFrame()
 		workerManager.gatherMineral();
 	}
 
-	
+
 	//if (workerManager.getNumMineralWorkers() <= 14)
 	//{
-		workerManager.gatherMineral();
+	workerManager.gatherMineral();
 	//}
 	//else
 	//{
@@ -296,11 +296,11 @@ void ExampleAIModule::onFrame()
 			staticOrderQueue->execute();
 	}
 
-	/*if (ScoutManager::getInstance().getScout() != nullptr)
-	{*/
-		//ScoutManager::getInstance().sendScout();
-		//ScoutManager::getInstance().scoutExpos();
-	//}
+	if (ScoutManager::getInstance().getScout() != nullptr)
+	{
+		ScoutManager::getInstance().sendScout();
+		ScoutManager::getInstance().scoutExpos();
+	}
 
 	//cứ 7 frame sẽ xét việc xây nhà một lần để tránh lag
 	if (Broodwar->getFrameCount() % 7 == 0)
@@ -334,13 +334,14 @@ void ExampleAIModule::onFrame()
 
 				if (StaticOrder::isBuildedGas)
 					if (workerManager.getNumGasWorkers() < 3)
-						if ((Broodwar->getFrameCount() - StaticOrder::buildedGasFrame) > (Broodwar->self()->getRace().getRefinery().buildTime()+5))						
+						if ((Broodwar->getFrameCount() - StaticOrder::buildedGasFrame) > (Broodwar->self()->getRace().getRefinery().buildTime() + 5))
 							workerManager.gatherGas(u, u->getClosestUnit(BWAPI::Filter::IsRefinery));
 
-				/*if (supplyCounter == 8)
+				if (supplyCounter == 8)
 				{
-				ScoutManager::getInstance().setScout(u);
-				}*/
+					if (ScoutManager::getInstance().getScout() == nullptr)
+						ScoutManager::getInstance().setScout(u);
+				}
 
 				if (buildingManager.getWorkerCount() <= 2)
 				{
@@ -373,45 +374,45 @@ void ExampleAIModule::onFrame()
 			{
 				if (u->isIdle() /*&& !u->train(u->getType().getRace().getWorker())*/)
 				{
-			//		// If that fails, draw the error at the location so that you can visibly see what went wrong!
-			//		// However, drawing the error once will only appear for a single frame
-			//		// so create an event that keeps it on the screen for some frames
+					//		// If that fails, draw the error at the location so that you can visibly see what went wrong!
+					//		// However, drawing the error once will only appear for a single frame
+					//		// so create an event that keeps it on the screen for some frames
 					Position pos = u->getPosition();
-			//		Error lastErr = Broodwar->getLastError();
-			//		Broodwar->registerEvent([pos, lastErr](Game*){ Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
-			//			nullptr,    // condition
-			//			Broodwar->getLatencyFrames());  // frames to run
+					//		Error lastErr = Broodwar->getLastError();
+					//		Broodwar->registerEvent([pos, lastErr](Game*){ Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
+					//			nullptr,    // condition
+					//			Broodwar->getLatencyFrames());  // frames to run
 
-			//		// Retrieve the supply provider type in the case that we have run out of supplies
-			//		UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
-			//		static int lastChecked = 0;
+					//		// Retrieve the supply provider type in the case that we have run out of supplies
+					//		UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
+					//		static int lastChecked = 0;
 
-			//		// If we are supply blocked and haven't tried constructing more recently
-			//		if (lastErr == Errors::Insufficient_Supply &&
-			//			lastChecked + 400 < Broodwar->getFrameCount() &&
-			//			Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
-			//		{
-			//			lastChecked = Broodwar->getFrameCount();
+					//		// If we are supply blocked and haven't tried constructing more recently
+					//		if (lastErr == Errors::Insufficient_Supply &&
+					//			lastChecked + 400 < Broodwar->getFrameCount() &&
+					//			Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
+					//		{
+					//			lastChecked = Broodwar->getFrameCount();
 
-			//			Unit worker = buildingManager.getWorker();
-			//			if (worker)
-			//			{
+					//			Unit worker = buildingManager.getWorker();
+					//			if (worker)
+					//			{
 
-			//				if (supplyProviderType.isBuilding())
-			//				{
-			//					buildingManager.createBuilding(worker, supplyProviderType);
-			//					buildingManager.createBuilding(worker, supplyProviderType);
-			//					buildingManager.createBuilding(worker, supplyProviderType);
-			//					buildingManager.createBuilding(worker, supplyProviderType);
-			//					buildingManager.createBuilding(worker, supplyProviderType);
-			//				}
-			//				else
-			//				{
-			//					// Train the supply provider (Overlord) if the provider is not a structure
-			//					worker->train(supplyProviderType);
-			//				}
-			//			} // closure: supplyBuilder is valid
-			//		} // closure: insufficient supply
+					//				if (supplyProviderType.isBuilding())
+					//				{
+					//					buildingManager.createBuilding(worker, supplyProviderType);
+					//					buildingManager.createBuilding(worker, supplyProviderType);
+					//					buildingManager.createBuilding(worker, supplyProviderType);
+					//					buildingManager.createBuilding(worker, supplyProviderType);
+					//					buildingManager.createBuilding(worker, supplyProviderType);
+					//				}
+					//				else
+					//				{
+					//					// Train the supply provider (Overlord) if the provider is not a structure
+					//					worker->train(supplyProviderType);
+					//				}
+					//			} // closure: supplyBuilder is valid
+					//		} // closure: insufficient supply
 				} // closure: failed to train idle unit
 			}
 		} // closure: unit iterator
@@ -491,8 +492,8 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 		}
 	}
 
-	
-	
+
+
 
 }
 
@@ -512,8 +513,8 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 
 	UnitType uType = unit->getType();
 
-	
-	if (!(uType.isBuilding())&&!(uType.isWorker()&&!(uType.isNeutral())))
+
+	if (!(uType.isBuilding()) && !(uType.isWorker() && !(uType.isNeutral())))
 	{
 		LordCommander::getInstance()->removeDeadUnit(unit);
 	}
@@ -558,7 +559,7 @@ void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 		}
 	}
 
-	
+
 }
 
 bool ExampleAIModule::createNexus()

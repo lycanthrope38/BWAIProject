@@ -29,7 +29,7 @@ sends the scout to the possible enemy base locations
 */
 void ScoutManager::sendScout()
 {
-	if (!scout || !scout->exists() || !(scout->getHitPoints() > 0))
+	if (!scout)
 	{
 		return;
 	}
@@ -40,14 +40,14 @@ void ScoutManager::sendScout()
 
 		if ((*s)->getRegion() != BWTA::getStartLocation(BWAPI::Broodwar->self())->getRegion())
 		{
-			//scout->move((*s)->getPosition(), false);
-			Micro::move(scout, (*s)->getPosition());
+			scout->move((*s)->getPosition());
+			//Micro::move(scout, (*s)->getPosition());
 		}
 		else
 		{
 			s++;
-			//scout->move((*s)->getPosition(), false);
-			Micro::move(scout, (*s)->getPosition());
+			scout->move((*s)->getPosition());
+			//Micro::move(scout, (*s)->getPosition());
 		}
 
 		while (s != BWTA::getStartLocations().end())
@@ -55,7 +55,6 @@ void ScoutManager::sendScout()
 			if ((*s)->getRegion() != BWTA::getStartLocation(BWAPI::Broodwar->self())->getRegion())
 			{
 				scout->move((*s)->getPosition(), true);
-				//Micro::move(scout, (*s)->getPosition());
 			}
 			s++;
 		}
@@ -65,7 +64,6 @@ void ScoutManager::sendScout()
 			if (u->getType().isResourceDepot())
 			{
 				scout->move(u->getPosition(), true);
-				//Micro::move(scout, (*s)->getPosition());
 				break;
 			}
 		}
@@ -73,10 +71,6 @@ void ScoutManager::sendScout()
 		if (enemyWorkerInRadius())
 		{
 			scoutExpos();
-		}
-
-		if (immediateThreat())
-		{
 			scout = nullptr;
 		}
 	}
@@ -93,8 +87,8 @@ void ScoutManager::scoutExpos()
 	{
 		auto base = BWTA::getBaseLocations().begin();
 
-		//scout->move((*base)->getPosition());
-		Micro::move(scout, (*base)->getPosition());
+		scout->move((*base)->getPosition());
+		//Micro::move(scout, (*base)->getPosition());
 		base++;
 
 		while (base != BWTA::getBaseLocations().end())
