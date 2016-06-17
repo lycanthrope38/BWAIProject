@@ -1,0 +1,141 @@
+﻿Build started 6/18/2016 1:06:17 AM.
+     1>Project "E:\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\BWAPI\Debug\ExampleAIModule.dll" /INCREMENTAL:NO /NOLOGO ../lib/BWAPI.lib ../lib/BWTA.lib "../lib/libboost_thread-vc120-mt-1_56.lib" "../lib/libboost_system-vc120-mt-1_56.lib" "../lib/libboost_filesystem-vc120-mt-1_56.lib" "../lib/libCGAL-vc120-mt-4.4.lib" "../lib/libgmp-10.lib" "../lib/libmpfr-4.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\BWAPI\Debug\ExampleAIModule.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Debug\ExampleAIModule.lib" /MACHINE:X86 /SAFESEH /DLL Debug\ArmyOrder.obj
+         Debug\BattleHorde.obj
+         Debug\BuidingManager.obj
+         Debug\Collections.obj
+         Debug\Dll.obj
+         Debug\ExampleAIModule.obj
+         Debug\InformationManager.obj
+         Debug\LordCommander.obj
+         Debug\Micro.obj
+         Debug\OrderQueue.obj
+         Debug\OrderType.obj
+         Debug\ScoutManager.obj
+         Debug\StaticOrder.obj
+         Debug\TargetManager.obj
+         Debug\UnitTimeManager.obj
+         Debug\WorkerManager.obj
+         BWAPI.lib(UnitType.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+     1>BWAPI.lib(UnitType.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(UnitType.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(Unit.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(Unit.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(Game.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(Game.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(Position.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(Position.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(PositionUnit.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(PositionUnit.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(WeaponType.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(WeaponType.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(Color.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(Color.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(Unitset.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(Unitset.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(Filters.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(Filters.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(Race.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(Race.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(AIModule.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(AIModule.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(Error.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(Error.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(Playerset.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(Playerset.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(UnitCommand.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(UnitCommand.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(UnitCommandType.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(UnitCommandType.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(UpgradeType.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(UpgradeType.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(TechType.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(TechType.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(UnitSizeType.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(UnitSizeType.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(Player.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(Player.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(Order.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(Order.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(DamageType.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(DamageType.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWAPI.lib(ExplosionType.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWAPI.lib(ExplosionType.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(BWTA.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(BWTA.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(Polygon.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(Polygon.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(terrain_analysis.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(terrain_analysis.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(stdafx.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(stdafx.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(util.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(util.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(pathfinding.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(pathfinding.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(BWTA_Result.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(BWTA_Result.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(MapData.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(MapData.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(VertexData.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(VertexData.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(get_voronoi_edges.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(get_voronoi_edges.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(load_data.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(load_data.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(calculate_connectivity.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(calculate_connectivity.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(Graph.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(Graph.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(Node.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(Node.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(RegionImpl.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(RegionImpl.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(ChokepointImpl.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(ChokepointImpl.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(find_base_locations.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(find_base_locations.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(extract_polygons.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(extract_polygons.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(BaseLocationImpl.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(BaseLocationImpl.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>BWTA.lib(ConnectedComponent.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>BWTA.lib(ConnectedComponent.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>libboost_thread-vc120-mt-1_56.lib(thread.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>libboost_thread-vc120-mt-1_56.lib(thread.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>libboost_thread-vc120-mt-1_56.lib(tss_pe.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>libboost_thread-vc120-mt-1_56.lib(tss_pe.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>libboost_system-vc120-mt-1_56.lib(error_code.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>libboost_system-vc120-mt-1_56.lib(error_code.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>libboost_filesystem-vc120-mt-1_56.lib(path_traits.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>libboost_filesystem-vc120-mt-1_56.lib(path_traits.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>libboost_filesystem-vc120-mt-1_56.lib(path.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>libboost_filesystem-vc120-mt-1_56.lib(path.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>libboost_filesystem-vc120-mt-1_56.lib(operations.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>libboost_filesystem-vc120-mt-1_56.lib(operations.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>libboost_filesystem-vc120-mt-1_56.lib(codecvt_error_category.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>libboost_filesystem-vc120-mt-1_56.lib(codecvt_error_category.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>libboost_filesystem-vc120-mt-1_56.lib(windows_file_codecvt.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>libboost_filesystem-vc120-mt-1_56.lib(windows_file_codecvt.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+     1>libCGAL-vc120-mt-4.4.lib(all_files.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in ArmyOrder.obj
+     1>libCGAL-vc120-mt-4.4.lib(all_files.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in ArmyOrder.obj
+            Creating library Debug\ExampleAIModule.lib and object Debug\ExampleAIModule.exp
+     1>StaticOrder.obj : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>TargetManager.obj : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>UnitTimeManager.obj : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>WorkerManager.obj : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>InformationManager.obj : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>LordCommander.obj : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>OrderQueue.obj : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>ScoutManager.obj : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>ArmyOrder.obj : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>BattleHorde.obj : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>BuidingManager.obj : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>ExampleAIModule.obj : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>E:\BWAPI\Debug\ExampleAIModule.dll : fatal error LNK1120: 1 unresolved externals
+     1>Done Building Project "E:\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.16
