@@ -20,7 +20,7 @@ class ExampleAIModule : public BWAPI::AIModule
 	BWAPI::Unit supplyBuilderTemp;
 	ArmyOrder* armyOrder;
 	ScoutManager scoutManager;
-	BuidingManager buildingManager;
+	BuidingManager* buildingManager;
 	WorkerManager workerManager;
 	LordCommander* jonSnow;
 	BWAPI::TilePosition	nextExpansionLocation;

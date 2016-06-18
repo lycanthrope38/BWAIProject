@@ -10,6 +10,10 @@ bool analyzed;
 bool analysis_just_finished;
 BWTA::Region* home;
 
+bool stopTraining;
+bool isHavingExpand;
+
+
 Position ExampleAIModule::basePostion = Positions::None;
 
 DWORD WINAPI AnalyzeThread()
@@ -139,7 +143,7 @@ void ExampleAIModule::onStart()
 	//test đẩy 20 Zealot vào hàng đợi
 
 
-	buildingManager = BuidingManager();
+	buildingManager = BuidingManager::newInstance();
 
 	workerManager = WorkerManager();
 
@@ -152,56 +156,11 @@ void ExampleAIModule::onStart()
 		}
 		else if (i->getType() == UnitTypes::Protoss_Nexus)
 		{
-			buildingManager.addExpansion(i);
+			buildingManager->addExpansion(i);
 		}
 
 	}
-	/*mainOrderQueue->push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
-	mainOrderQueue->push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
-	mainOrderQueue->push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 5);
-	mainOrderQueue->push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 9);*/
-	//mainOrderQueue->push(UnitTypes::Protoss_Pylon, OrderQueue::PRIORITY_HIGH, 15);
-
-	//mainOrderQueue->push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_NORMAL);
-	//mainOrderQueue->push(UnitTypes::Protoss_Gateway, OrderQueue::PRIORITY_NORMAL);
-	//mainOrderQueue->push(UnitTypes::Protoss_Cybernetics_Core, OrderQueue::PRIORITY_HIGH);
-	//mainOrderQueue->push(UnitTypes::Protoss_Forge, OrderQueue::PRIORITY_HIGH);
-	////mainOrderQueue->push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 5, OrderQueue::PRIORITY_HIGH);
-	//mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	//mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	//mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	//
-
-	//mainOrderQueue->push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH);
-	//mainOrderQueue->push(UnitTypes::Protoss_Assimilator, OrderQueue::PRIORITY_HIGH);
-	//mainOrderQueue->buildRequiredFor(UnitTypes::Protoss_Stargate);
-	//mainOrderQueue->push(UnitTypes::Protoss_Stargate, OrderQueue::PRIORITY_HIGH);
-
-
-
-	/*mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);
-	mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, OrderQueue::PRIORITY_NORMAL);*/
-	//mainOrderQueue->push(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Gateway, 50, OrderQueue::PRIORITY_HIGH);
+	
 	isInitPostion = false;
 	staticOrderQueue = StaticOrder::getInstance();
 	jonSnow = LordCommander::getInstance();
@@ -248,26 +207,13 @@ void ExampleAIModule::onFrame()
 		analysis_just_finished = false;
 		if ((Broodwar->self()->getRace() != BWAPI::Races::Zerg) && (Broodwar->mapFileName() != "(4)Andromeda.scx"))
 		{
-			buildingManager.setCentre(TilePosition(home->getCenter()));
+			buildingManager->setCentre(TilePosition(home->getCenter()));
 		}
 	}
 
 	jonSnow->onFrame();
 
-	if (workerManager.getNumMineralWorkers() <= 10)
-	{
-		workerManager.gatherMineral();
-	}
-
-
-	//if (workerManager.getNumMineralWorkers() <= 14)
-	//{
-	workerManager.gatherMineral();
-	//}
-	//else
-	//{
-	//	workerManager.gatherGas();
-	//}
+	
 	// Prevent spamming by only running our onFrame once every number of latency frames.
 	// Latency frames are the number of frames before commands are processed.
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
@@ -285,7 +231,41 @@ void ExampleAIModule::onFrame()
 	//so supply con lai
 	supplyAvailable = Broodwar->self()->supplyTotal() - Broodwar->self()->supplyUsed();
 
+	if (workerManager.getNumMineralWorkers() <= (workerManager.limitWorker - 2))
+	{
+		workerManager.gatherMineral();
+	}
+	else
+	{
+		stopTraining = true;
+	}
 
+	if (mainOrderQueue->isAssimilatorBuilt)
+	{
+		stopTraining = false;
+		if (workerManager.getNumMineralWorkers() <= workerManager.limitWorker)
+		{
+			workerManager.gatherMineral();
+		}
+		else
+		{
+			if (!stopTraining)
+			{
+				workerManager.gatherGas();
+				if (workerManager.getNumGasWorkers() >= 3)
+				{
+					stopTraining = true;
+				}
+			}
+
+		}
+	}
+	if (buildingManager->getSizeExpansion()<2)
+	{
+
+		buildingManager->buildingExpand();
+
+	}
 	//cứ 13 frame sẽ xét hàm mua lính một lần để tránh lag
 	if (Broodwar->getFrameCount() % 17 == 0)
 	{
@@ -299,8 +279,8 @@ void ExampleAIModule::onFrame()
 	if (ScoutManager::getInstance().getScout() != nullptr)
 	{
 		ScoutManager::getInstance().sendScout();
-		ScoutManager::getInstance().scoutExpos();
-	}
+		//ScoutManager::getInstance().scoutExpos();
+	}	
 
 	//cứ 7 frame sẽ xét việc xây nhà một lần để tránh lag
 	if (Broodwar->getFrameCount() % 7 == 0)
@@ -332,88 +312,111 @@ void ExampleAIModule::onFrame()
 			{
 
 
-				if (StaticOrder::isBuildedGas)
+			/*	if (StaticOrder::isBuildedGas)
 					if (workerManager.getNumGasWorkers() < 3)
 						if ((Broodwar->getFrameCount() - StaticOrder::buildedGasFrame) > (Broodwar->self()->getRace().getRefinery().buildTime() + 5))
 							workerManager.gatherGas(u, u->getClosestUnit(BWAPI::Filter::IsRefinery));
-
+*/
 				if (supplyCounter == 8)
 				{
-					if (ScoutManager::getInstance().getScout() == nullptr)
+					if (ScoutManager::getInstance().getScout() == nullptr&&u!=buildingManager->getWorker())
+					
 						ScoutManager::getInstance().setScout(u);
 				}
 
-				if (buildingManager.getWorkerCount() <= 2)
+				if (buildingManager->getWorkerCount() <= 2)
 				{
-					buildingManager.makeAvailable(u);
+					buildingManager->makeAvailable(u);
 				}
 
 				if (u->isIdle())
 				{
-					// Broodwar->sendText("isIdle" + u->isIdle());
-
-					// Order workers carrying a resource to return them to the center,
-					// otherwise find a mineral patch to harvest.
 					if (u->isCarryingGas() || u->isCarryingMinerals())
 					{
 						u->returnCargo();
 					}
-					else if (!u->getPowerUp())  // The worker cannot harvest anything if it
-					{                             // is carrying a powerup such as a flag
-						// Harvest from the nearest mineral patch or gas refinery
-						if (!u->gather(u->getClosestUnit(IsMineralField || IsRefinery)))
+					else if (!u->getPowerUp() && u != buildingManager->getWorker())
+					{
+
+						if (!u->gather(u->getClosestUnit(IsMineralField)))
 						{
-							// If the call fails, then print the last error message
+
 							Broodwar << Broodwar->getLastError() << std::endl;
 						}
-					} // closure: has no powerup
+					}
 				} // closure: if idle
 
 			}
 			else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
 			{
-				if (u->isIdle() /*&& !u->train(u->getType().getRace().getWorker())*/)
+				if (!stopTraining)
 				{
-					//		// If that fails, draw the error at the location so that you can visibly see what went wrong!
-					//		// However, drawing the error once will only appear for a single frame
-					//		// so create an event that keeps it on the screen for some frames
-					Position pos = u->getPosition();
-					//		Error lastErr = Broodwar->getLastError();
-					//		Broodwar->registerEvent([pos, lastErr](Game*){ Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
-					//			nullptr,    // condition
-					//			Broodwar->getLatencyFrames());  // frames to run
+					if (u->isIdle() && !u->train(u->getType().getRace().getWorker()))
+					{
 
-					//		// Retrieve the supply provider type in the case that we have run out of supplies
-					//		UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
-					//		static int lastChecked = 0;
+						Position pos = u->getPosition();
+						Error lastErr = Broodwar->getLastError();
+						Broodwar->registerEvent([pos, lastErr](Game*){ Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
+							nullptr,
+							Broodwar->getLatencyFrames());
 
-					//		// If we are supply blocked and haven't tried constructing more recently
-					//		if (lastErr == Errors::Insufficient_Supply &&
-					//			lastChecked + 400 < Broodwar->getFrameCount() &&
-					//			Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
-					//		{
-					//			lastChecked = Broodwar->getFrameCount();
+						UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
+						static int lastChecked = 0;
 
-					//			Unit worker = buildingManager.getWorker();
-					//			if (worker)
-					//			{
+						if (lastErr == Errors::Insufficient_Supply &&
+							lastChecked + 400 < Broodwar->getFrameCount() &&
+							Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
+						{
+							lastChecked = Broodwar->getFrameCount();
 
-					//				if (supplyProviderType.isBuilding())
-					//				{
-					//					buildingManager.createBuilding(worker, supplyProviderType);
-					//					buildingManager.createBuilding(worker, supplyProviderType);
-					//					buildingManager.createBuilding(worker, supplyProviderType);
-					//					buildingManager.createBuilding(worker, supplyProviderType);
-					//					buildingManager.createBuilding(worker, supplyProviderType);
-					//				}
-					//				else
-					//				{
-					//					// Train the supply provider (Overlord) if the provider is not a structure
-					//					worker->train(supplyProviderType);
-					//				}
-					//			} // closure: supplyBuilder is valid
-					//		} // closure: insufficient supply
-				} // closure: failed to train idle unit
+							Unit worker = buildingManager->getWorker();
+							if (worker)
+							{
+
+								if (supplyProviderType.isBuilding())
+								{
+
+									buildingManager->createBuilding(worker, supplyProviderType);
+								}
+								else
+								{
+									worker->train(supplyProviderType);
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					if (supplyCounter == supplyTotalCounter)
+					{
+
+						Error lastErr = Broodwar->getLastError();
+
+
+						UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
+						static int lastChecked = 0;
+
+						if (lastErr == Errors::Insufficient_Supply &&
+							lastChecked + 400 < Broodwar->getFrameCount() &&
+							Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
+						{
+							lastChecked = Broodwar->getFrameCount();
+
+							Unit worker = buildingManager->getWorker();
+							if (worker)
+							{
+
+								if (supplyProviderType.isBuilding())
+								{
+									buildingManager->createBuilding(worker, supplyProviderType);
+								}
+
+							}
+						}
+
+					}
+				}
 			}
 		} // closure: unit iterator
 	}
@@ -501,13 +504,13 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 {
 	if (unit->getType().isBuilding())
 	{
-		Unit worker = buildingManager.getWorker();
+		Unit worker = buildingManager->getWorker();
 		mainOrderQueue->build(unit->getType());
 
 	}
 	if (unit->getType().isResourceDepot())
 	{
-		buildingManager.removeExpansion(unit);
+		buildingManager->removeExpansion(unit);
 		createNexus();
 	}
 
@@ -551,7 +554,7 @@ void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 		}
 		else if (unit->getType() == UnitTypes::Protoss_Nexus)
 		{
-			buildingManager.addExpansion(unit);
+			buildingManager->addExpansion(unit);
 		}
 		//thêm các unit lính
 		if (!(unit->getType().isBuilding()) && !(unit->getType().isWorker()) && !(unit->getType().isNeutral())){
@@ -565,53 +568,58 @@ void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 bool ExampleAIModule::createNexus()
 {
 	UnitType buildingType = UnitTypes::Protoss_Nexus;
-
-	if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice())
-	{
-		if (buildingType.isResourceDepot())
-		{
-
-			nextExpansionLocation = buildingManager.getClosestBase(buildingManager.getWorker());
-			BWAPI::Broodwar->printf("nextExpansionLocationAfter : '%d' '%d'", nextExpansionLocation.x, nextExpansionLocation.y);
-			if (nextExpansionLocation == BWAPI::TilePosition(0, 0))
+	TilePosition tilePositionFirst;
+	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
+		if (u->getType().isWorker() && u->isIdle()){
+			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice())
 			{
-				return false;
-			}
-			//if we can't reach the closest base (e.g. its on an island)
-			else if (!buildingManager.getWorker()->hasPath(BWAPI::Position(nextExpansionLocation)))
-			{
-				//get the next closest
-				nextExpansionLocation = buildingManager.getNextClosestBase(buildingManager.getWorker());
-				//if the next closest is non-existent or also unreachable then give up and move on to the next build order item
-				if ((nextExpansionLocation == BWAPI::TilePosition(0, 0)) || !buildingManager.getWorker()->hasPath(BWAPI::Position(nextExpansionLocation)))
+				if (buildingType.isResourceDepot())
 				{
-					return false;
-				}
 
-			}
-			expanding = true;
-
-			if (buildingManager.getWorker())
-			{
-				if (expanding && nextExpansionLocation != BWAPI::TilePosition(0, 0))
-				{
-					BWAPI::Broodwar->printf("MOVE nextExpansionLocation : '%d' '%d'", nextExpansionLocation.x, nextExpansionLocation.y);
-
-					buildingManager.getWorker()->move(BWAPI::Position(nextExpansionLocation), false);
-
-
-					expanding = false;
-					if (buildingManager.placeExpansion(buildingManager.getWorker(), buildingType, nextExpansionLocation))
+					nextExpansionLocation = buildingManager->getClosestBase(u);
+					tilePositionFirst = nextExpansionLocation;
+					//	BWAPI::Broodwar->printf("nextExpansionLocationAfter : '%d' '%d'", nextExpansionLocation.x, nextExpansionLocation.y);
+					if (nextExpansionLocation == BWAPI::TilePosition(0, 0))
 					{
-						return true;
+						return false;
 					}
+					//if we can't reach the closest base (e.g. its on an island)
+					else if (!u->hasPath(BWAPI::Position(nextExpansionLocation)))
+					{
+						//get the next closest
+						nextExpansionLocation = buildingManager->getNextClosestBase(u, tilePositionFirst);
+						//if the next closest is non-existent or also unreachable then give up and move on to the next build order item
+						if ((nextExpansionLocation == BWAPI::TilePosition(0, 0)) || !u->hasPath(BWAPI::Position(nextExpansionLocation)))
+						{
+							return false;
+						}
+
+					}
+					expanding = true;
+
+					if (u)
+					{
+						if (expanding && nextExpansionLocation != BWAPI::TilePosition(0, 0))
+						{
+							//BWAPI::Broodwar->printf("MOVE nextExpansionLocation : '%d' '%d'", nextExpansionLocation.x, nextExpansionLocation.y);
+
+							u->move(BWAPI::Position(nextExpansionLocation), false);
+
+
+							expanding = false;
+							if (buildingManager->placeExpansion(u, buildingType, nextExpansionLocation))
+							{
+								return true;
+							}
+						}
+
+					}
+
+					return false;
+
+
 				}
-
 			}
-
-			return false;
-
-
 		}
 	}
 
