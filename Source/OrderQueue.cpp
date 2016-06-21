@@ -211,9 +211,9 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 	if (u!=nullptr)
 	{
 
-		BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
-		if (targetBuildLocation)
-		{
+	//	BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
+	//	if (targetBuildLocation)
+	//	{
 			// Order the builder to construct the supply structure
 			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
 				static int lastChecked = 0;
@@ -222,33 +222,50 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 				if (lastChecked + 500 < BWAPI::Broodwar->getFrameCount())
 				{
 
-					if (u->build(buildingType, targetBuildLocation))
+				//	if (u->build(buildingType, targetBuildLocation))
+					//{
+
+					if (buildingType==UnitTypes::Protoss_Pylon)
 					{
-
-
-						lastChecked = BWAPI::Broodwar->getFrameCount();
-
-						// Register an event that draws the target build location
-						BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+						if (manager->createBuilding(u, buildingType))
 						{
-							BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
-								BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
-								BWAPI::Colors::Red);
-						},
-							nullptr,  // condition
-							buildingType.buildTime() + 100);  // frames to run
-
-						if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
-						{
-							isAssimilatorBuilt = true;
+							lastChecked = BWAPI::Broodwar->getFrameCount();
+							return true;
 						}
-						return true;
-
 					}
+					else
+					{
+						BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
+						if (u->build(buildingType, targetBuildLocation))
+						{
+							lastChecked = BWAPI::Broodwar->getFrameCount();
+							if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
+							{
+								isAssimilatorBuilt = true;
+							}
+							return true;
+						}
+						
+					}
+						
+
+						//// Register an event that draws the target build location
+						//BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
+						//{
+						//	BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
+						//		BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
+						//		BWAPI::Colors::Red);
+						//},
+						//	nullptr,  // condition
+						//	buildingType.buildTime() + 100);  // frames to run
+
+					
+
+					//}
 
 				}
 			}
-		}
+		//}
 
 	}
 

@@ -10,7 +10,7 @@ bool BuidingManager::isInstanced = false;
 
 bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition approxLocation)
 {
-	bool closeToMinerals = false;
+	bool isCloseToCentre = false;
 	bool closeToGas = false;
 	int count = 0;
 	int spiralCount = 1;
@@ -19,8 +19,7 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 	BWAPI::TilePosition buildPosition;
 	BWAPI::TilePosition shiftPositionX(1, 0);
 	BWAPI::TilePosition shiftPositionY(0, 1);
-	//lam error
-	//check parameters are acceptable
+
 	if (builder->getType() != BWAPI::Broodwar->self()->getRace().getWorker())
 	{
 		BWAPI::Broodwar->printf("Building Placement Error: unit type '%s' unit cannot create structures", builder->getType().getName().c_str());
@@ -36,8 +35,6 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 		approxLocation = approxLocation.makeValid();
 	}
 
-	//begin search for valid structure placement at approxLocation and then spiral outwards until /
-	//acceptable location is found
 	buildPosition = approxLocation;
 	while (!builder->build(building, buildPosition))
 	{
@@ -45,42 +42,18 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 			//check the location of the closest minerals - continue to increment position without /
 			//attempting to construct until the minerals are no longer too close
 			//This is to avoid constructing structures in mineral lines
-			BWAPI::Unit closestMineral = NULL;
-			for (Unit m : Broodwar->getMinerals())
-			{
-				if (closestMineral == NULL || buildPosition.getDistance((m)->getTilePosition()) < buildPosition.getDistance(closestMineral->getTilePosition()))
-					closestMineral = m;
-			}
-			if (closestMineral != NULL)
-			{
-				if (buildPosition.getDistance(closestMineral->getTilePosition()) < MINERALDIST)
-				{
-					closeToMinerals = true;
-				}
-				else
-				{
-					closeToMinerals = false;
-				}
-			}
+			BWAPI::Unit closestCentre = NULL;
 
-			//check we aren't blocking gas too
-			Unit closestGas = NULL;
-			for (Unit g : Broodwar->getGeysers())
-			{
-				if (closestGas == NULL || buildPosition.getDistance((g)->getTilePosition()) < buildPosition.getDistance(closestGas->getTilePosition()))
-					closestGas = g;
-			}
-			if (closestGas != NULL)
-			{
-				if (buildPosition.getDistance(closestMineral->getTilePosition()) < MINERALDIST)
+				if (buildPosition.getDistance(approxLocation) < MINERALDIST)
 				{
-					closeToGas = true;
+					isCloseToCentre = true;
 				}
 				else
 				{
-					closeToGas = false;
+					isCloseToCentre = false;
 				}
-			}
+			
+
 
 			if (count % spiralCount == 0)
 			{
@@ -126,7 +99,7 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 				//	Broodwar->printf("Building Placement Error: no acceptable build location found for %s", building.getName().c_str());
 				return false;
 			}
-		} while (closeToMinerals || closeToGas);
+		} while (isCloseToCentre);
 	}
 	return true;
 }
@@ -231,9 +204,9 @@ TilePosition BuidingManager::moveWorker(Unit unit, Position position)
 	return unit->getTilePosition();
 }
 
-bool BuidingManager::makeAvailable(BWAPI::Unit worker)
+bool BuidingManager::makeAvailableBuildingWorker(BWAPI::Unit worker)
 {
-	if (availableWorkers.insert(worker).second)
+	if (availableBuildingWorkers.insert(worker).second)
 	{
 		return true;
 	}
@@ -243,11 +216,11 @@ bool BuidingManager::makeAvailable(BWAPI::Unit worker)
 	}
 }
 
-BWAPI::Unit BuidingManager::getWorker()
+BWAPI::Unit BuidingManager::getBuildingWorker()
 {
 	BWAPI::Unit worker;
 
-	for (Unit i : availableWorkers)
+	for (Unit i : availableBuildingWorkers)
 	{
 		if (i != NULL)
 		{
@@ -258,9 +231,32 @@ BWAPI::Unit BuidingManager::getWorker()
 	return NULL;
 }
 
+void BuidingManager::removeBuildingWorker(Unit u)
+{
+	availableBuildingWorkers.erase(u);
+	if (availableBuildingWorkers.size()==0)
+	{
+		int count = 0;
+		for (Unit i : Broodwar->self()->getUnits())
+		{
+			if (i->getType().isWorker())
+			{
+				makeAvailableBuildingWorker(i);
+				count += 1;
+				if (count==3)
+				{
+					return;
+				}
+			}
+			
+		}
+	}
+}
+
+
 int BuidingManager::getWorkerCount()
 {
-	return availableWorkers.size();
+	return availableBuildingWorkers.size();
 }
 
 /*

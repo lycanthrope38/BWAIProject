@@ -57,5 +57,5 @@ public:
 
 	void drawTerrainData();
 	void pushQueueProtoss();
-	bool createNexus();
+
 };

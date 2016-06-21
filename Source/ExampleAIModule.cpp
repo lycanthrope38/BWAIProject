@@ -135,6 +135,9 @@ void ExampleAIModule::onStart()
 
 	pool = false;
 
+
+	stopTraining = false;
+
 	supplyBuilderTemp = nullptr;
 
 	armyOrder = new ArmyOrder(Broodwar->self());
@@ -511,7 +514,7 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 	if (unit->getType().isResourceDepot())
 	{
 		buildingManager->removeExpansion(unit);
-		createNexus();
+		buildingManager->buildingExpand();
 	}
 
 	UnitType uType = unit->getType();
@@ -565,62 +568,3 @@ void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 
 }
 
-bool ExampleAIModule::createNexus()
-{
-	UnitType buildingType = UnitTypes::Protoss_Nexus;
-	TilePosition tilePositionFirst;
-	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
-		if (u->getType().isWorker() && u->isIdle()){
-			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice())
-			{
-				if (buildingType.isResourceDepot())
-				{
-
-					nextExpansionLocation = buildingManager->getClosestBase(u);
-					tilePositionFirst = nextExpansionLocation;
-					//	BWAPI::Broodwar->printf("nextExpansionLocationAfter : '%d' '%d'", nextExpansionLocation.x, nextExpansionLocation.y);
-					if (nextExpansionLocation == BWAPI::TilePosition(0, 0))
-					{
-						return false;
-					}
-					//if we can't reach the closest base (e.g. its on an island)
-					else if (!u->hasPath(BWAPI::Position(nextExpansionLocation)))
-					{
-						//get the next closest
-						nextExpansionLocation = buildingManager->getNextClosestBase(u, tilePositionFirst);
-						//if the next closest is non-existent or also unreachable then give up and move on to the next build order item
-						if ((nextExpansionLocation == BWAPI::TilePosition(0, 0)) || !u->hasPath(BWAPI::Position(nextExpansionLocation)))
-						{
-							return false;
-						}
-
-					}
-					expanding = true;
-
-					if (u)
-					{
-						if (expanding && nextExpansionLocation != BWAPI::TilePosition(0, 0))
-						{
-							//BWAPI::Broodwar->printf("MOVE nextExpansionLocation : '%d' '%d'", nextExpansionLocation.x, nextExpansionLocation.y);
-
-							u->move(BWAPI::Position(nextExpansionLocation), false);
-
-
-							expanding = false;
-							if (buildingManager->placeExpansion(u, buildingType, nextExpansionLocation))
-							{
-								return true;
-							}
-						}
-
-					}
-
-					return false;
-
-
-				}
-			}
-		}
-	}
-
-}
