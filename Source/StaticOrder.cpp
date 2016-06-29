@@ -74,7 +74,7 @@ bool StaticOrder::execute(){
 
 void StaticOrder::initProtoss(){
 	protoss_twoGateways();
-	//protoss_aftertwoGateways();
+	protoss_aftertwoGateways();
 }
 
 void StaticOrder::protoss_twoGateways(){
@@ -238,7 +238,7 @@ void StaticOrder::protoss_twoGateways(){
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Zealot.whatBuilds().first, 4));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Zealot.whatBuilds().first, 4));
-*/
+	*/
 }
 
 void StaticOrder::protoss_aftertwoGateways(){
@@ -276,7 +276,7 @@ void StaticOrder::protoss_aftertwoGateways(){
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Dragoon, UnitTypes::Protoss_Dragoon.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Dragoon, UnitTypes::Protoss_Dragoon.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	
+
 	//air
 
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Stargate));

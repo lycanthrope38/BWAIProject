@@ -44,7 +44,7 @@ public:
 	//normal thì order sẽ được chèn vào cuối hàng đợi
 	static const int PRIORITY_NORMAL = 1;
 
-	bool isAssimilatorBuilt;
+	bool isAssimilatorBuilt=false;
 	//hàm thực thi order
 	bool execute();
 	//hàm thực thi order

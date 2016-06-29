@@ -3,7 +3,7 @@
 using namespace BWAPI;
 
 #define SPIRALLIMIT 200
-#define MINERALDIST 20
+#define MINERALDIST 7
 
 BuidingManager* BuidingManager::buidingManager = nullptr;
 bool BuidingManager::isInstanced = false;
@@ -39,11 +39,18 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 	while (!builder->build(building, buildPosition))
 	{
 		do{
-			//check the location of the closest minerals - continue to increment position without /
-			//attempting to construct until the minerals are no longer too close
+			//check the location of the closest mineralsPrepare - continue to increment position without /
+			//attempting to construct until the mineralsPrepare are no longer too close
 			//This is to avoid constructing structures in mineral lines
 			BWAPI::Unit closestCentre = NULL;
 
+			for (Unit m : Broodwar->getMinerals())
+			{
+				if (closestCentre == NULL || buildPosition.getDistance((m)->getTilePosition()) < buildPosition.getDistance(closestCentre->getTilePosition()))
+					closestCentre = m;
+			}
+			if (closestCentre!=NULL)
+			{
 				if (buildPosition.getDistance(approxLocation) < MINERALDIST)
 				{
 					isCloseToCentre = true;
@@ -52,7 +59,10 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 				{
 					isCloseToCentre = false;
 				}
-			
+
+			}
+
+				
 
 
 			if (count % spiralCount == 0)
@@ -402,6 +412,15 @@ void BuidingManager::addExpansion(BWAPI::Unit expansion)
 	expansions.insert(expansion);
 
 }
+
+BWAPI::Unit BuidingManager::getExpansion()
+{
+	for (Unit u : expansions)
+	{
+		return u;
+	}
+}
+
 
 int BuidingManager::getSizeExpansion()
 {

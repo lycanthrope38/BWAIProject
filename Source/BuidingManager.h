@@ -21,9 +21,6 @@ public:
 	std::set<BWAPI::Unit*> allWorkers;
 	std::set<BWAPI::Unit> expansions;
 
-	
-
-	
 public:
 	BuidingManager::BuidingManager();
 
@@ -52,6 +49,8 @@ public:
 	int getNumMineralWorkers();
 	int getNumGasWorkers();
 	int getSizeExpansion();
+
+	BWAPI::Unit getExpansion();
 
 	
 	static BuidingManager* newInstance()

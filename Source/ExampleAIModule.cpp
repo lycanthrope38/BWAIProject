@@ -148,20 +148,21 @@ void ExampleAIModule::onStart()
 
 	buildingManager = BuidingManager::newInstance();
 
-	workerManager = WorkerManager();
+	workerManager = WorkerManager::newInstance();
 
 
 	for (Unit i : Broodwar->self()->getUnits())
 	{
 		if (i->getType().isWorker())
 		{
-			workerManager.makeAvailable(i);
+			//workerManager->makeAvailable(i);
+			workerManager->addWorkerMinerals(i);
 		}
 		else if (i->getType() == UnitTypes::Protoss_Nexus)
 		{
 			buildingManager->addExpansion(i);
 		}
-
+		
 	}
 	
 	isInitPostion = false;
@@ -180,9 +181,7 @@ void ExampleAIModule::onEnd(bool isWinner)
 
 void ExampleAIModule::onFrame()
 {
-	// Called once every game frame
-
-	// Return if the game is a replay or is paused. Viết code ở bên dưới dòng này!
+	
 	if (Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self())
 		return;
 
@@ -196,7 +195,7 @@ void ExampleAIModule::onFrame()
 		}
 	}
 
-	//BWTA draw
+
 	if (analyzed)
 	{
 		drawTerrainData();
@@ -216,29 +215,23 @@ void ExampleAIModule::onFrame()
 
 	jonSnow->onFrame();
 
-	
-	// Prevent spamming by only running our onFrame once every number of latency frames.
-	// Latency frames are the number of frames before commands are processed.
+
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
 		return;
 
-	// Display the game frame rate as text in the upper left area of the screen
-	Broodwar->drawTextScreen(200, 0, "FPS: %d", Broodwar->getFPS());
-	//Broodwar->drawTextScreen(200, 20, "Counter : %d %d", supplyCounter, supplyTotalCounter);
-	Broodwar->drawTextScreen(200, 20, "FPS Counter : %d", Broodwar->getFrameCount());
 
-	//số woker
 	supplyCounter = Broodwar->self()->supplyUsed() / 2;
-	// tổng unit
+
 	supplyTotalCounter = Broodwar->self()->supplyTotal() / 2;
-	//so supply con lai
+
 	supplyAvailable = Broodwar->self()->supplyTotal() - Broodwar->self()->supplyUsed();
 
-	if (workerManager.getNumMineralWorkers() <= (workerManager.limitWorker - 2))
-	{
-		workerManager.gatherMineral();
-	}
-	else
+	workerManager->tranferWorker();
+	
+
+	
+
+	if (workerManager->getNumGasWorkers() >= 3)
 	{
 		stopTraining = true;
 	}
@@ -246,33 +239,37 @@ void ExampleAIModule::onFrame()
 	if (mainOrderQueue->isAssimilatorBuilt)
 	{
 		stopTraining = false;
-		if (workerManager.getNumMineralWorkers() <= workerManager.limitWorker)
+		//workerManager->gatherGas();
+		/*if (workerManager->getNumMineralWorkers() <= workerManager->limitWorker)
 		{
-			workerManager.gatherMineral();
+			workerManager->gatherMineral();
 		}
 		else
 		{
 			if (!stopTraining)
 			{
-				workerManager.gatherGas();
-				if (workerManager.getNumGasWorkers() >= 3)
+				
+				if (workerManager->getNumGasWorkers() >= 3)
 				{
 					stopTraining = true;
 				}
 			}
 
-		}
+		}*/
 	}
-	if (buildingManager->getSizeExpansion()<2)
+
+	if (Broodwar->getFrameCount()>10000 && (workerManager->getWorkerCount() - workerManager->getIdleCount()>5))
 	{
-
+		//buildingManager->getBuildingWorker()
 		buildingManager->buildingExpand();
-
 	}
-	//cứ 13 frame sẽ xét hàm mua lính một lần để tránh lag
+
+
+	
+
 	if (Broodwar->getFrameCount() % 17 == 0)
 	{
-		//nếu các order lúc đầu game chưa thực hiện xong thì sẽ ưu tiên thực hiện chúng trước
+		
 		if (staticOrderQueue->isEmpty())
 			mainOrderQueue->execute();
 		else
@@ -282,54 +279,62 @@ void ExampleAIModule::onFrame()
 	if (ScoutManager::getInstance().getScout() != nullptr)
 	{
 		ScoutManager::getInstance().sendScout();
-		//ScoutManager::getInstance().scoutExpos();
-	}	
+	
+	}
 
-	//cứ 7 frame sẽ xét việc xây nhà một lần để tránh lag
+	if (Broodwar->getFrameCount()>=3000)
+	{
+		workerManager->handlerNumberWorker();
+	}
+
+
 	if (Broodwar->getFrameCount() % 7 == 0)
 	{
-		// Iterate through all the units that we own
+		
+		if (workerManager->limitWorker - workerManager->getNumMineralWorkers() == 2)
+		{
+			stopTraining = true;
+		}
+		else
+		{
+			//workerManager->gatherMineral();
+			//workerManager->tranferWorker();
+		}
+
+		
 		for (auto &u : Broodwar->self()->getUnits())
 		{
-			// Ignore the unit if it no longer exists
-			// Make sure to include this block when handling any Unit pointer!
+			
 			if (!u->exists())
 				continue;
 
-			// Ignore the unit if it has one of the following status ailments
+		
 			if (u->isLockedDown() || u->isMaelstrommed() || u->isStasised())
 				continue;
 
-			// Ignore the unit if it is in one of the following states
+		
 			if (u->isLoaded() || !u->isPowered() || u->isStuck())
 				continue;
 
-			// Ignore the unit if it is incomplete or busy constructing
+		
 			if (!u->isCompleted() || u->isConstructing())
 				continue;
 
-			// Finally make the unit do some stuff!
-
-			// If the unit is a worker unit
+		
 			if (u->getType().isWorker())
 			{
 
 
-			/*	if (StaticOrder::isBuildedGas)
-					if (workerManager.getNumGasWorkers() < 3)
-						if ((Broodwar->getFrameCount() - StaticOrder::buildedGasFrame) > (Broodwar->self()->getRace().getRefinery().buildTime() + 5))
-							workerManager.gatherGas(u, u->getClosestUnit(BWAPI::Filter::IsRefinery));
-*/
 				if (supplyCounter == 8)
 				{
-					if (ScoutManager::getInstance().getScout() == nullptr&&u!=buildingManager->getWorker())
+					if (ScoutManager::getInstance().getScout() == nullptr&&u!=buildingManager->getBuildingWorker())
 					
 						ScoutManager::getInstance().setScout(u);
 				}
 
 				if (buildingManager->getWorkerCount() <= 2)
 				{
-					buildingManager->makeAvailable(u);
+					buildingManager->makeAvailableBuildingWorker(u);
 				}
 
 				if (u->isIdle())
@@ -338,56 +343,56 @@ void ExampleAIModule::onFrame()
 					{
 						u->returnCargo();
 					}
-					else if (!u->getPowerUp() && u != buildingManager->getWorker())
+					else if (!u->getPowerUp() && u != buildingManager->getBuildingWorker())
 					{
+						////workerManager->tranferWorker();
+						//if (!u->gather(u->getClosestUnit(IsMineralField)))
+						//{
 
-						if (!u->gather(u->getClosestUnit(IsMineralField)))
-						{
-
-							Broodwar << Broodwar->getLastError() << std::endl;
-						}
+						//	Broodwar << Broodwar->getLastError() << std::endl;
+						//}
 					}
-				} // closure: if idle
+				}
 
 			}
-			else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
+			else if (u->getType().isResourceDepot())
 			{
 				if (!stopTraining)
 				{
-					if (u->isIdle() && !u->train(u->getType().getRace().getWorker()))
-					{
+					//if (u->isIdle() && !u->train(u->getType().getRace().getWorker()))
+					//{
 
-						Position pos = u->getPosition();
-						Error lastErr = Broodwar->getLastError();
-						Broodwar->registerEvent([pos, lastErr](Game*){ Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
-							nullptr,
-							Broodwar->getLatencyFrames());
+					//	Position pos = u->getPosition();
+					//	Error lastErr = Broodwar->getLastError();
+					//	Broodwar->registerEvent([pos, lastErr](Game*){ Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
+					//		nullptr,
+					//		Broodwar->getLatencyFrames());
 
-						UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
-						static int lastChecked = 0;
+					//	UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
+					//	static int lastChecked = 0;
 
-						if (lastErr == Errors::Insufficient_Supply &&
-							lastChecked + 400 < Broodwar->getFrameCount() &&
-							Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
-						{
-							lastChecked = Broodwar->getFrameCount();
+					//	if (lastErr == Errors::Insufficient_Supply &&
+					//		lastChecked + 400 < Broodwar->getFrameCount() &&
+					//		Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
+					//	{
+					//		lastChecked = Broodwar->getFrameCount();
 
-							Unit worker = buildingManager->getWorker();
-							if (worker)
-							{
+					//		Unit worker = buildingManager->getBuildingWorker();
+					//		if (worker)
+					//		{
 
-								if (supplyProviderType.isBuilding())
-								{
+					//			if (supplyProviderType.isBuilding())
+					//			{
 
-									buildingManager->createBuilding(worker, supplyProviderType);
-								}
-								else
-								{
-									worker->train(supplyProviderType);
-								}
-							}
-						}
-					}
+					//				buildingManager->createBuilding(worker, supplyProviderType);
+					//			}
+					//			else
+					//			{
+					//				worker->train(supplyProviderType);
+					//			}
+					//		}
+					//	}
+					//}
 				}
 				else
 				{
@@ -406,7 +411,7 @@ void ExampleAIModule::onFrame()
 						{
 							lastChecked = Broodwar->getFrameCount();
 
-							Unit worker = buildingManager->getWorker();
+							Unit worker = buildingManager->getBuildingWorker();
 							if (worker)
 							{
 
@@ -421,42 +426,41 @@ void ExampleAIModule::onFrame()
 					}
 				}
 			}
-		} // closure: unit iterator
+		} 
 	}
 }
 
 
 void ExampleAIModule::onSendText(std::string text)
 {
-	// Send the text to the game if it is not being processed.
+	
 	Broodwar->sendText("%s", text.c_str());
 }
 
 void ExampleAIModule::onReceiveText(BWAPI::Player player, std::string text)
 {
-	// Parse the received text
+
 	Broodwar << player->getName().c_str() << " said \"" << text.c_str() << "\"" << std::endl;
 }
 
 void ExampleAIModule::onPlayerLeft(BWAPI::Player player)
 {
-	// Interact verbally with the other players in the game by
-	// announcing that the other player has left.
+
 	Broodwar->sendText("Goodbye %s!", player->getName().c_str());
 }
 
 void ExampleAIModule::onNukeDetect(BWAPI::Position target)
 {
 
-	// Check if the target is a valid position
+	
 	if (target)
 	{
-		// if so, print the location of the nuclear strike target
+	
 		Broodwar << "Nuclear Launch Detected at " << target << std::endl;
 	}
 	else
 	{
-		// Otherwise, ask other players where the nuke is!
+		
 		Broodwar->sendText("Where's the nuke?");
 	}
 
@@ -485,16 +489,34 @@ void ExampleAIModule::onUnitHide(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 {
-	if (Broodwar->isReplay())
+	
+	Broodwar->printf("isAssimilatorBuilt '%d' '%d'", mainOrderQueue->isAssimilatorBuilt?0:1,stopTraining?0:1);
+	if (unit->getPlayer() == Broodwar->self())
 	{
-		// if we are in a replay, then we will print out the build order of the structures
-		if (unit->getType().isBuilding() && !unit->getPlayer()->isNeutral())
+
+		if (unit->getType().isWorker())
 		{
-			int seconds = Broodwar->getFrameCount() / 24;
-			int minutes = seconds / 60;
-			seconds %= 60;
-			Broodwar->sendText("%.2d:%.2d: %s creates a %s", minutes, seconds,
-				unit->getPlayer()->getName().c_str(), unit->getType().c_str());
+			
+			workerManager->handlerAddWorker(unit);
+			/*if (mainOrderQueue->isAssimilatorBuilt)
+			{
+				Broodwar->printf("onUnitCreate");
+				workerManager->addWorkerGas(unit);
+				return;
+			}
+
+				workerManager->addWorkerMinerals(unit);
+*/
+
+			
+		
+		//	workerManager->addWorkerMinerals(unit);
+			
+			//workerManager->makeAvailable(unit);
+		}
+		else if (unit->getType() == UnitTypes::Protoss_Nexus)
+		{
+			buildingManager->addExpansion(unit);
 		}
 	}
 
@@ -507,7 +529,7 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 {
 	if (unit->getType().isBuilding())
 	{
-		Unit worker = buildingManager->getWorker();
+		Unit worker = buildingManager->getBuildingWorker();
 		mainOrderQueue->build(unit->getType());
 
 	}
@@ -517,8 +539,14 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 		buildingManager->buildingExpand();
 	}
 
+	buildingManager->removeBuildingWorker(unit);
+
 	UnitType uType = unit->getType();
 
+	if (unit->getType().isWorker())
+	{
+		workerManager->removeWorker(unit);
+	}
 
 	if (!(uType.isBuilding()) && !(uType.isWorker() && !(uType.isNeutral())))
 	{
@@ -547,13 +575,23 @@ void ExampleAIModule::onSaveGame(std::string gameName)
 void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 {
 
-
+	//Broodwar->printf("onUnitComplete");
 	if (unit->getPlayer() == Broodwar->self())
 	{
 
 		if (unit->getType().isWorker())
 		{
-			workerManager.makeAvailable(unit);
+			workerManager->handlerAddWorker(unit);
+			/*if (mainOrderQueue->isAssimilatorBuilt)
+			{
+
+				workerManager->addWorkerGas(unit);
+				return;
+			}
+
+			workerManager->addWorkerMinerals(unit);
+*/
+			//workerManager->makeAvailable(unit);
 		}
 		else if (unit->getType() == UnitTypes::Protoss_Nexus)
 		{

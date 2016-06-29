@@ -21,7 +21,7 @@ class ExampleAIModule : public BWAPI::AIModule
 	ArmyOrder* armyOrder;
 	ScoutManager scoutManager;
 	BuidingManager* buildingManager;
-	WorkerManager workerManager;
+	WorkerManager* workerManager;
 	LordCommander* jonSnow;
 	BWAPI::TilePosition	nextExpansionLocation;
 	bool expanding;

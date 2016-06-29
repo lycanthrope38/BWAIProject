@@ -204,9 +204,9 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 	OrderQueue* ins = getInstance();
 
 	BuidingManager* manager = BuidingManager::newInstance();
-	//BWAPI::Unit worker = manager.getWorker();
+	//BWAPI::Unit worker = manager.getBuildingWorker();
 
-	Unit u = manager->getWorker();
+	Unit u = manager->getBuildingWorker();
 
 	if (u!=nullptr)
 	{
@@ -272,13 +272,13 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 	return false;
 
 	//BuidingManager manager = BuidingManager();
-	//BWAPI::Unit worker = manager.getWorker();
+	//BWAPI::Unit worker = manager.getBuildingWorker();
 
 	//BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, worker->getTilePosition());
 	//		if (targetBuildLocation)
 	//		{
 	//			// Order the builder to construct the supply structure
-	//			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
+	//			if (BWAPI::Broodwar->self()->mineralsPrepare() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
 	//				if (worker->build(buildingType, targetBuildLocation))
 	//				{
 	//					// Register an event that draws the target build location
