@@ -21,7 +21,7 @@ private:
 
 	//hàng đợi thực thi các lệnh như xây nhà và mua lính
 	std::vector<OrderType> queue;
-	BuidingManager manager;
+	BuidingManager* manager;
 	//Constructor. Singleton Pattern nên constructor private
 	OrderQueue();
 public:

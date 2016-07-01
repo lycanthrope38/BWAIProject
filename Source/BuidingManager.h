@@ -6,11 +6,14 @@
 #include <BWTA.h>
 #include <set>
 
+
 class BuidingManager
 {
 private:
 	static BuidingManager* buidingManager;
 	static bool isInstanced;
+
+//	OrderQueue* orderQueue;
 public:
 	bool expanding;
 	
@@ -21,7 +24,7 @@ public:
 	std::set<BWAPI::Unit*> allWorkers;
 	std::set<BWAPI::Unit> expansions;
 
-public:
+public:	
 	BuidingManager::BuidingManager();
 
 	bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition approxLocation);
@@ -52,6 +55,8 @@ public:
 	int getSizeExpansion();
 
 	BWAPI::Unit getExpansion();
+
+	BWAPI::TilePosition getExpansionLocation();
 
 	
 	static BuidingManager* newInstance()

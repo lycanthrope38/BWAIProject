@@ -236,17 +236,6 @@ void ExampleAIModule::onFrame()
 	workerManager->tranferWorker();
 	
 
-	
-
-	/*if (workerManager->getNumGasWorkers() >= 3)
-	{
-		stopTraining = true;
-	}
-
-	if (mainOrderQueue->isAssimilatorBuilt)
-	{
-		stopTraining = false;
-	}*/
 
 	
 
@@ -254,14 +243,21 @@ void ExampleAIModule::onFrame()
 		{
 			
 
-			if (Broodwar->getFrameCount() > 15000 && staticOrderQueue->isEmpty() && buildingManager->getSizeExpansion() < 2)
+			if (Broodwar->getFrameCount() > 10000 && staticOrderQueue->isEmpty() && buildingManager->getSizeExpansion() < 2)
 			{
 				lastCheckedExpand = Broodwar->getFrameCount();
 
 				Broodwar->printf("buildingExpand buildingExpand buildingExpand");
 				//buildingManager->getBuildingWorker()
-				buildingManager->buildingExpand();
-				mainOrderQueue->build(UnitTypes::Protoss_Assimilator);
+				if (buildingManager->buildingExpand())
+				{
+					mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon,mainOrderQueue->PRIORITY_HIGH);
+					mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_HIGH);
+					mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_HIGH);
+					mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_HIGH);
+					mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_HIGH);
+				}
+				
 			}
 		}
 
@@ -292,16 +288,6 @@ void ExampleAIModule::onFrame()
 	if (Broodwar->getFrameCount() % 7 == 0)
 	{
 		
-		//if (workerManager->limitWorker - workerManager->getNumMineralWorkers() == 2)
-		//{
-		//	stopTraining = true;
-		//}
-		//else
-		//{
-		//	//workerManager->gatherMineral();
-		//	//workerManager->tranferWorker();
-		//}
-
 		
 		for (auto &u : Broodwar->self()->getUnits())
 		{
@@ -347,57 +333,14 @@ void ExampleAIModule::onFrame()
 					}
 					else if (!u->getPowerUp() && u != buildingManager->getBuildingWorker())
 					{
-						////workerManager->tranferWorker();
-						//if (!u->gather(u->getClosestUnit(IsMineralField)))
-						//{
-
-						//	Broodwar << Broodwar->getLastError() << std::endl;
-						//}
+		
 					}
 				}
 
 			}
 			else if (u->getType().isResourceDepot())
 			{
-				/*if (!stopTraining)
-				{*/
-					//if (u->isIdle() && !u->train(u->getType().getRace().getWorker()))
-					//{
-
-					//	Position pos = u->getPosition();
-					//	Error lastErr = Broodwar->getLastError();
-					//	Broodwar->registerEvent([pos, lastErr](Game*){ Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
-					//		nullptr,
-					//		Broodwar->getLatencyFrames());
-
-					//	UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
-					//	static int lastChecked = 0;
-
-					//	if (lastErr == Errors::Insufficient_Supply &&
-					//		lastChecked + 400 < Broodwar->getFrameCount() &&
-					//		Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
-					//	{
-					//		lastChecked = Broodwar->getFrameCount();
-
-					//		Unit worker = buildingManager->getBuildingWorker();
-					//		if (worker)
-					//		{
-
-					//			if (supplyProviderType.isBuilding())
-					//			{
-
-					//				buildingManager->createBuilding(worker, supplyProviderType);
-					//			}
-					//			else
-					//			{
-					//				worker->train(supplyProviderType);
-					//			}
-					//		}
-					//	}
-					//}
-				/*}
-				else
-				{*/
+				
 					if ((supplyCounter == supplyTotalCounter)&&staticOrderQueue->isEmpty())
 					{
 
@@ -426,7 +369,6 @@ void ExampleAIModule::onFrame()
 						}
 
 					}
-				//}
 			}
 		} 
 	}

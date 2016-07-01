@@ -126,6 +126,7 @@ void StaticOrder::protoss_twoGateways(){
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Forge));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
@@ -138,14 +139,15 @@ void StaticOrder::protoss_twoGateways(){
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+
+	/*orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));*/
 	/*orderQueue.push_back(new OrderType(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Zealot.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Zealot.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Zealot, UnitTypes::Protoss_Zealot.whatBuilds().first, 1));
