@@ -2,6 +2,7 @@
 #include "deque"
 #include "OrderType.h"
 #include <BWAPI.h>
+#include "BuidingManager.h"
 
 using namespace std;
 using namespace BWAPI;
@@ -23,6 +24,8 @@ private:
 	void initTerran();
 	void protoss_twoGateways();
 	void protoss_aftertwoGateways();
+
+	BuidingManager* buildingManager;
 
 public:
 	static bool isBuildedGas;

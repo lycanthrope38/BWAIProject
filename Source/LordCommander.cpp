@@ -46,7 +46,7 @@ void LordCommander::onFrame(){
 
 void LordCommander::totalAttack(Position p){
 
-	Broodwar->sendText("Total war!");
+	//Broodwar->sendText("Total war!");
 
 	for (BattleHorde* horde: hordeManager)
 	{
@@ -66,7 +66,7 @@ void LordCommander::requireUnit(BattleHorde* childHorde, UnitType type, int solu
 void LordCommander::removeDeadUnit(Unit u){
 	map<Unit, BattleHorde*>::iterator it = getInstance()->unitManager.find(u);
 	if (it == getInstance()->unitManager.end()){
-		Broodwar->sendText("Unit not exist!");
+		//Broodwar->sendText("Unit not exist!");
 	}
 	else{
 		it->second->clearDeadUnit(u);
@@ -90,7 +90,7 @@ bool LordCommander::addUnit(Unit u){
 			if (!(horde->isFullUnit())){
 				horde->addUnit(u);
 				getInstance()->unitManager.insert(make_pair(u, horde));
-				Broodwar->sendText("Added to a Horde");
+			//	Broodwar->sendText("Added to a Horde");
 				selfFighterScore += u->getType().destroyScore();
 				return true;
 			}
@@ -101,12 +101,12 @@ bool LordCommander::addUnit(Unit u){
 
 void LordCommander::addHorde(Unit u){
 	getInstance()->hordeManager.insert(new BattleHorde(u->getType(), UnitTimeManager::getEndFrame(u->getType())));
-	Broodwar->sendText("Horde size: %d ", getInstance()->hordeManager.size());
+	//Broodwar->sendText("Horde size: %d ", getInstance()->hordeManager.size());
 }
 
 void LordCommander::reforce(BattleHorde* b){
 	LordCommander* ins = getInstance();
-	Broodwar->sendText("Reforced");
+	//Broodwar->sendText("Reforced");
 	Unitset battleCurrentList = b->getCurrentList();
 	for (Unit u : battleCurrentList)
 		ins->removeDeadUnit(u);
@@ -130,7 +130,7 @@ bool LordCommander::isReforcable(BattleHorde* horde){
 
 void LordCommander::regTarget(Unit target, BattleHorde* selfHorde){
 
-	Broodwar->sendText("Target registered ");
+	//Broodwar->sendText("Target registered ");
 
 	if (selfHorde->getUnitType() == UnitTypes::Protoss_Carrier)
 		return;
@@ -150,7 +150,7 @@ void LordCommander::regTarget(Unit target, BattleHorde* selfHorde){
 
 void LordCommander::removeTarget(Unit u, BattleHorde* horde){
 
-	Broodwar->sendText("Target removed ");
+	//Broodwar->sendText("Target removed ");
 
 	LordCommander* ins = getInstance();
 	map<Unit, set<BattleHorde*>>::iterator it = ins->enemyAttackedBy.find(u);
@@ -186,7 +186,7 @@ int LordCommander::getSelfScoreOnTarget(Unit enemy){
 			selfScore += (b->getSelfSize())*(b->getUnitType().destroyScore());
 	}
 
-	Broodwar->sendText("Score %d", selfScore);
+	//Broodwar->sendText("Score %d", selfScore);
 
 	return selfScore;
 }

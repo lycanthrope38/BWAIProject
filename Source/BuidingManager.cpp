@@ -10,6 +10,8 @@ bool BuidingManager::isInstanced = false;
 
 bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition approxLocation)
 {
+	
+
 	bool isCloseToCentre = false;
 	bool closeToGas = false;
 	int count = 0;
@@ -17,8 +19,8 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 	bool isX = true;
 	bool isBuiding = false;
 	BWAPI::TilePosition buildPosition;
-	BWAPI::TilePosition shiftPositionX(1, 0);
-	BWAPI::TilePosition shiftPositionY(0, 1);
+	BWAPI::TilePosition shiftPositionX(2, 0);
+	BWAPI::TilePosition shiftPositionY(0, 2);
 
 	if (builder->getType() != BWAPI::Broodwar->self()->getRace().getWorker())
 	{
@@ -36,35 +38,41 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 	}
 
 	buildPosition = approxLocation;
+
+	
 	while (!builder->build(building, buildPosition))
 	{
+		
 		do{
-			//check the location of the closest mineralsPrepare - continue to increment position without /
-			//attempting to construct until the mineralsPrepare are no longer too close
+			//check the location of the closest minerals - continue to increment position without /
+			//attempting to construct until the minerals are no longer too close
 			//This is to avoid constructing structures in mineral lines
 			BWAPI::Unit closestCentre = NULL;
 
-			for (Unit m : Broodwar->getMinerals())
-			{
-				if (closestCentre == NULL || buildPosition.getDistance((m)->getTilePosition()) < buildPosition.getDistance(closestCentre->getTilePosition()))
-					closestCentre = m;
-			}
-			if (closestCentre!=NULL)
-			{
-				if (buildPosition.getDistance(approxLocation) < MINERALDIST)
+		
+				for (Unit m : Broodwar->getMinerals())
 				{
-					isCloseToCentre = true;
+					if (closestCentre == NULL || buildPosition.getDistance((m)->getTilePosition()) < buildPosition.getDistance(closestCentre->getTilePosition()))
+						closestCentre = m;
 				}
-				else
+				if (closestCentre != NULL)
 				{
-					isCloseToCentre = false;
+					//	BWAPI::Broodwar->printf("isCloseToCentre isCloseToCentre ");
+
+					if ((3 < buildPosition.getDistance(approxLocation)) && (buildPosition.getDistance(approxLocation)<MINERALDIST))
+					{
+						isCloseToCentre = true;
+					}
+					else
+					{
+						isCloseToCentre = false;
+					}
+
 				}
+			
 
-			}
-
-				
-
-
+			
+		
 			if (count % spiralCount == 0)
 			{
 				if (isX)
@@ -102,13 +110,116 @@ bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building
 				}
 			}
 
-			BWAPI::Broodwar->printf("spiralCount spiralCount spiralCount '%d'", spiralCount);
+		
 			//search is cut off at SPIRALLIMIT to prevent it from taking too long or placing building to far from approxLocation
 			if (spiralCount == SPIRALLIMIT)
 			{
 				//	Broodwar->printf("Building Placement Error: no acceptable build location found for %s", building.getName().c_str());
 				return false;
 			}
+		} while (isCloseToCentre);
+	}
+	return true;
+}
+
+bool BuidingManager::aroundBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition aroundLocation)
+{
+
+	bool isCloseToCentre = false;
+	bool closeToGas = false;
+	int count = 0;
+	int spiralCount = 1;
+	bool isX = true;
+	bool isBuiding = false;
+	BWAPI::TilePosition buildPosition;
+	BWAPI::TilePosition shiftPositionX(1, 0);
+	BWAPI::TilePosition shiftPositionY(0, 1);
+
+	if (builder->getType() != BWAPI::Broodwar->self()->getRace().getWorker())
+	{
+		BWAPI::Broodwar->printf("Building Placement Error: unit type '%s' unit cannot create structures", builder->getType().getName().c_str());
+		return false;
+	}
+	else if (!building.isBuilding())
+	{
+		BWAPI::Broodwar->printf("Building Placement Error: type: '%s' is not a valid structure", building.getName().c_str());
+		return false;
+	}
+	else if (!aroundLocation.isValid())
+	{
+		aroundLocation = aroundLocation.makeValid();
+	}
+
+	buildPosition = aroundLocation;
+
+
+	while (!builder->build(building, buildPosition))
+	{
+	
+		do{
+			//check the location of the closest minerals - continue to increment position without /
+			//attempting to construct until the minerals are no longer too close
+			//This is to avoid constructing structures in mineral lines
+			BWAPI::Unit closestCentre = NULL;
+
+			if (aroundLocation.x!=0&&aroundLocation.y!=0)
+			{
+			if ((4 < buildPosition.getDistance(aroundLocation)) && (buildPosition.getDistance(aroundLocation)<MINERALDIST))
+			{
+			isCloseToCentre = true;
+			}
+			else
+			{
+			isCloseToCentre = false;
+			}
+			}
+
+
+	
+	if (count % spiralCount == 0)
+	{
+		if (isX)
+		{
+			isX = false;
+			count = 0;
+		}
+		else {
+			spiralCount++;
+			count = 0;
+			isX = true;
+		}
+	}
+	count++;
+	if (spiralCount % 2 == 0)
+	{
+		if (isX)
+		{
+			buildPosition -= shiftPositionX;
+		}
+		else
+		{
+			buildPosition -= shiftPositionY;
+		}
+	}
+	else
+	{
+		if (isX)
+		{
+			buildPosition += shiftPositionX;
+		}
+		else
+		{
+			buildPosition += shiftPositionY;
+		}
+	}
+
+	
+	//search is cut off at SPIRALLIMIT to prevent it from taking too long or placing building to far from approxLocation
+	if (spiralCount == SPIRALLIMIT)
+	{
+		//	Broodwar->printf("Building Placement Error: no acceptable build location found for %s", building.getName().c_str());
+		return false;
+	}
 		} while (isCloseToCentre);
 	}
 	return true;
@@ -136,6 +247,8 @@ bool BuidingManager::createBuilding(BWAPI::Unit builder, BWAPI::UnitType buildin
 		}
 	}
 
+	//buildPosition = builder->getTilePosition();
+
 	//buildPosition = moveWorker(builder, builder->getPosition() + shiftPositionX);
 
 
@@ -155,7 +268,7 @@ void BuidingManager::setCentre(BWAPI::TilePosition tilePosition)
 }
 
 // xây dựng các công trình tại vị trí hiện tại của builder để tránh việc mở rộng và xây dựng không đúng chỗ
-bool BuidingManager::placeExpansion(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition location)
+bool BuidingManager::placeSpecific(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition location)
 {
 	if (builder->build(building, TilePosition(builder->getPosition())))
 	{
@@ -351,8 +464,8 @@ bool BuidingManager::buildingExpand()
 {
 	UnitType buildingType = UnitTypes::Protoss_Nexus;
 	TilePosition tilePositionFirst;
-	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
-		if (u->getType().isWorker() && u->isIdle()){
+	Unit u = getBuildingWorker();
+	
 			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice())
 			{
 				if (buildingType.isResourceDepot())
@@ -389,7 +502,7 @@ bool BuidingManager::buildingExpand()
 
 
 							expanding = false;
-							if (placeExpansion(u, buildingType, nextExpansionLocation))
+							if (placeSpecific(u, buildingType, nextExpansionLocation))
 							{
 								return true;
 							}
@@ -402,8 +515,7 @@ bool BuidingManager::buildingExpand()
 
 				}
 			}
-		}
-	}
+
 }
 
 void BuidingManager::addExpansion(BWAPI::Unit expansion)

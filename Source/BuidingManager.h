@@ -25,7 +25,8 @@ public:
 	BuidingManager::BuidingManager();
 
 	bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition approxLocation);
-	bool placeExpansion(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition location);
+	bool BuidingManager::aroundBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition aroundLocation);
+	bool placeSpecific(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition location);
 	bool BuidingManager::createBuilding(BWAPI::Unit builder, BWAPI::UnitType building);
 	bool buildingExpand();
 

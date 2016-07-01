@@ -24,7 +24,7 @@ bool ArmyOrder::trainZealot(){
 	std::vector<Unit> gatewayList = getGatewayList();
 	if (gatewayList.size() == 0)
 		return false;
-	Broodwar->sendText(std::to_string(gatewayList.size()).c_str());
+	//Broodwar->sendText(std::to_string(gatewayList.size()).c_str());
 	//trường hợp lúc đầu ít tiền thì chọn cái nào đang rảnh rỗi để train lính
 	for (Unit u:gatewayList){
 		if (!(u->isTraining()))
@@ -45,7 +45,7 @@ bool ArmyOrder::train(OrderType& orderType){
 	int successed = 0, minUnit = -1;// Number of successed training / unit not training now
 	std::vector<Unit> parentList = Collections::getUnitList(Broodwar->self(), orderType.parent);
 	Unit tmpUnit;
-	BWAPI::Broodwar->sendText("Training successed %d / %d _minUnit_ %d", successed, orderType.volume, minUnit);
+	//BWAPI::Broodwar->sendText("Training successed %d / %d _minUnit_ %d", successed, orderType.volume, minUnit);
 	//định tìm nhà có số lính đang train nhỏ nhất nhưng không thấy hàm đó nên tìm nhà chưa train lính để order lính trước
 	for (int i = 0; i < parentList.size(); i++){
 		if (!parentList.at(i)->isTraining()){
@@ -61,7 +61,7 @@ bool ArmyOrder::train(OrderType& orderType){
 			if ((orderType.volume - successed>0) && ((successed + 1)*(orderType.getUnitType().mineralPrice()<Broodwar->self()->minerals()))){
 				if ((tmpUnit->train(orderType.getUnitType()))){
 					successed++;
-					BWAPI::Broodwar->sendText("train successed %d ",successed);
+					//BWAPI::Broodwar->sendText("train successed %d ",successed);
 				}
 				else
 					break;
@@ -98,7 +98,7 @@ bool ArmyOrder::train(OrderType* orderType){
 	int successed = 0, minUnit = -1;// Number of successed training / unit not training now
 	std::vector<Unit> parentList = Collections::getUnitList(Broodwar->self(), orderType->parent);
 	Unit tmpUnit;
-	BWAPI::Broodwar->sendText("Training successed %d / %d _minUnit_ %d", successed, orderType->volume, minUnit);
+	//BWAPI::Broodwar->sendText("Training successed %d / %d _minUnit_ %d", successed, orderType->volume, minUnit);
 	//định tìm nhà có số lính đang train nhỏ nhất nhưng không thấy hàm đó nên tìm nhà chưa train lính để order lính trước
 	for (int i = 0; i < parentList.size(); i++){
 		if (!parentList.at(i)->isTraining()){
@@ -114,7 +114,7 @@ bool ArmyOrder::train(OrderType* orderType){
 			if ((orderType->volume - successed>0) && ((successed + 1)*(orderType->getUnitType().mineralPrice() < Broodwar->self()->minerals()))){
 				if ((tmpUnit->train(orderType->getUnitType()))){
 					successed++;
-					BWAPI::Broodwar->sendText("train successed %d ", successed);
+				//	BWAPI::Broodwar->sendText("train successed %d ", successed);
 				}
 				else
 					break;

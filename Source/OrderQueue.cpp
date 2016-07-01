@@ -25,7 +25,7 @@ bool OrderQueue::execute(){
 
 	OrderQueue* ins = getInstance();
 
-	BWAPI::Broodwar->sendText("Executed. Queue size %d", queue.size());
+	//BWAPI::Broodwar->sendText("Executed. Queue size %d", queue.size());
 	if ((ins->queue.size()) == 0)
 		return false;
 	//kiểm tra xem có phải là nhà hoặc quân lính hay không
@@ -42,7 +42,7 @@ bool OrderQueue::execute(){
 
 				}
 				else{
-					BWAPI::Broodwar->sendText("SupplyTotal %d is not enough to build! Required %d", (BWAPI::Broodwar->self()->supplyTotal() / 2), queue.at(0).supplyRequire);
+					//BWAPI::Broodwar->sendText("SupplyTotal %d is not enough to build! Required %d", (BWAPI::Broodwar->self()->supplyTotal() / 2), queue.at(0).supplyRequire);
 					return ins->resultAnalyze(false);
 				}
 			}
@@ -78,7 +78,7 @@ bool OrderQueue::execute(OrderType* orderType){
 					return build(unitType);
 				}
 				else{
-					BWAPI::Broodwar->sendText("SupplyTotal %d is not enough to build! Required %d", (BWAPI::Broodwar->self()->supplyTotal() / 2), queue.at(0).supplyRequire);
+					//BWAPI::Broodwar->sendText("SupplyTotal %d is not enough to build! Required %d", (BWAPI::Broodwar->self()->supplyTotal() / 2), queue.at(0).supplyRequire);
 					return false;
 				}
 			}
@@ -103,13 +103,13 @@ bool OrderQueue::resultAnalyze(bool result){
 	}
 	else{
 		ins->queue.at(0).failed++;
-		BWAPI::Broodwar->sendText("Training failed %d", queue.at(0).failed);
+	//	BWAPI::Broodwar->sendText("Training failed %d", queue.at(0).failed);
 		if (ins->queue.at(0).failed > FAILURE_LIMIT){
 			ins->queue.at(0).failed = 0;
 			OrderType tmp = OrderType(ins->queue.at(0));
 			ins->queue.erase(queue.begin());
 			ins->queue.push_back(tmp);
-			BWAPI::Broodwar->sendText("Moved to the end of queue!");
+			//BWAPI::Broodwar->sendText("Moved to the end of queue!");
 		}
 		return false;
 	}
@@ -118,7 +118,7 @@ bool OrderQueue::resultAnalyze(bool result){
 //hàm đẩy order nhà vào hàng đợi. sử dụng các biến static PRIORITY_VERY_HIGH, PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
 bool OrderQueue::push(BWAPI::UnitType unitType, int priority){
 	OrderQueue* ins = getInstance();
-	BWAPI::Broodwar->sendText("PUSED %d", unitType.getName());
+	//BWAPI::Broodwar->sendText("PUSED %d", unitType.getName());
 	switch (priority)
 	{
 	case 0:
@@ -134,7 +134,7 @@ bool OrderQueue::push(BWAPI::UnitType unitType, int priority){
 
 //hàm đẩy order nhà vào hàng đợi có ràng buộc số dân. sử dụng các biến static PRIORITY_VERY_HIGH, PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
 bool OrderQueue::push(BWAPI::UnitType unitType, int priority, int supplyRequired){
-	BWAPI::Broodwar->sendText("PUSED %d", unitType.getName());
+	//BWAPI::Broodwar->sendText("PUSED %d", unitType.getName());
 	OrderQueue* ins = getInstance();
 	switch (priority)
 	{
@@ -150,7 +150,7 @@ bool OrderQueue::push(BWAPI::UnitType unitType, int priority, int supplyRequired
 }
 //hàm đẩy order lính vào hàng đợi. sử dụng các biến static PRIORITY_VERY_HIGH, PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
 bool OrderQueue::push(BWAPI::UnitType unitType, BWAPI::UnitType parentUnit, int vol, int priority){
-	BWAPI::Broodwar->sendText("PUSED %d", unitType.getName());
+	//BWAPI::Broodwar->sendText("PUSED %d", unitType.getName());
 	OrderQueue* ins = getInstance();
 	switch (priority)
 	{
@@ -233,6 +233,12 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 							return true;
 						}
 					}
+					else if (buildingType == UnitTypes::Protoss_Nexus)
+					{
+						manager->buildingExpand();
+						return true;
+						
+					}
 					else
 					{
 						BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
@@ -278,7 +284,7 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 	//		if (targetBuildLocation)
 	//		{
 	//			// Order the builder to construct the supply structure
-	//			if (BWAPI::Broodwar->self()->mineralsPrepare() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
+	//			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
 	//				if (worker->build(buildingType, targetBuildLocation))
 	//				{
 	//					// Register an event that draws the target build location

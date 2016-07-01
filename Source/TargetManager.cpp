@@ -50,7 +50,7 @@ Unit TargetManager::getTarget(Unit myunit){
 					//trường hợp không phải lính đánh gần thì áp dụng SELF_ENEMY_TROOP_RATIO
 					if (!isNearRange){
 						if (LordCommander::getInstance()->getSelfScoreOnTarget(u) > u->getType().destroyScore() * SELF_ENEMY_TROOP_RATIO){
-							Broodwar->sendText("Too much force on this target");
+							//Broodwar->sendText("Too much force on this target");
 							continue;
 						}
 					}

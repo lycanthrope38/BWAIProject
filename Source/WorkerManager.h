@@ -4,6 +4,7 @@
 #include <set>
 #include "BuidingManager.h"
 #include "OrderQueue.h"
+#include "StaticOrder.h"
 
 class WorkerManager
 {
@@ -13,11 +14,10 @@ private:
 
 	BuidingManager* buildingManager;
 	OrderQueue* orderQueue;
+	StaticOrder* staticOrderQueue;
 public:
-	std::set<BWAPI::Unit> gasesPrepare;
-	std::set<BWAPI::Unit> mineralsPrepare;
-	std::set<BWAPI::Unit> gasesReal;
-	std::set<BWAPI::Unit> mineralsReal;
+	std::set<BWAPI::Unit> gases;
+	std::set<BWAPI::Unit> minerals;
 	std::set<BWAPI::Unit> availableWorkers;
 	int limitWorker = 14;
 public:
@@ -46,9 +46,7 @@ public:
 
 	void gatherMineral();
 	void gatherGas();
-	//by anh
-	bool gatherGas(BWAPI::Unit worker, BWAPI::Unit refinery);
-
+	
 	static WorkerManager* newInstance()
 	{
 		if (!isInstanced)
