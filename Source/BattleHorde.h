@@ -37,6 +37,8 @@ private:
 	//vị trí phòng thủ
 	Position defensePosition;
 
+	int lastAttackCall;
+
 	TargetManager targetManager;
 
 	static int maxDefenseRange;

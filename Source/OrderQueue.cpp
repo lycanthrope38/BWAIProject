@@ -99,6 +99,8 @@ bool OrderQueue::resultAnalyze(bool result){
 	OrderQueue* ins = getInstance();
 	if (result){
 		ins->queue.erase(queue.begin());
+		if (ins->queue.at(0).isBuilding())
+			Collections::lastBuildCall = Broodwar->getFrameCount();
 		return true;
 	}
 	else{
@@ -203,86 +205,76 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 
 	OrderQueue* ins = getInstance();
 
-	//BuidingManager manager = BuidingManager();
-	//BWAPI::Unit worker = manager.getWorker();
+	BuidingManager* manager = BuidingManager::newInstance();
+	//BWAPI::Unit worker = manager.getBuildingWorker();
 
-	for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
-		if (u->getType().isWorker()){
-			//BWAPI::UnitType buildingType = BWAPI::UnitTypes::Protoss_Gateway;
+	Unit u = manager->getBuildingWorker();
+
+	if (u != nullptr)
+	{
 
 
-			BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
-			if (targetBuildLocation)
+		// Order the builder to construct the supply structure
+		if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
+			static int lastChecked = 0;
+
+
+			if (lastChecked + 500 < BWAPI::Broodwar->getFrameCount())
 			{
-				// Order the builder to construct the supply structure
-				if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
-					static int lastChecked = 0;
-					//BWAPI::Broodwar->printf("abcccccccccccccccccccccccccccccccccccccccccc");
 
-					if (lastChecked + 500 < BWAPI::Broodwar->getFrameCount())
+				//	if (u->build(buildingType, targetBuildLocation))
+				//{
+
+				if (buildingType == UnitTypes::Protoss_Pylon)
+				{
+					if (manager->createBuilding(u, buildingType))
 					{
-
-						//BWAPI::Broodwar->printf("ab2222222222222222222222222222222222222222222222222");
-						if (u->build(buildingType, targetBuildLocation))
-						{
-
-							//BWAPI::Broodwar->printf("ab2233333333333333333333333333333333333333333333333");
-							lastChecked = BWAPI::Broodwar->getFrameCount();
-
-							// Register an event that draws the target build location
-							BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
-							{
-								BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
-									BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
-									BWAPI::Colors::Red);
-							},
-								nullptr,  // condition
-								buildingType.buildTime() + 100);  // frames to run
-
-							if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
-							{
-								isAssimilatorBuilt = true;
-							}
-							return true;
-
-						}
-
+						lastChecked = BWAPI::Broodwar->getFrameCount();
+						return true;
 					}
 				}
+				else if (buildingType == UnitTypes::Protoss_Nexus)
+				{
+					lastChecked = BWAPI::Broodwar->getFrameCount();
+					manager->buildingExpand();
+					return true;
+
+				}
+				/*else if (buildingType == UnitTypes::Protoss_Photon_Cannon)
+				{
+					lastChecked = BWAPI::Broodwar->getFrameCount();
+					Broodwar->printf("Protoss_Photon_Cannon Protoss_Photon_Cannon Protoss_Photon_Cannon");
+					if (manager->aroundBuilding(u, buildingType, manager->getExpansionLocation()))
+					{
+						return true;
+					}
+
+
+
+				}*/
+				else
+				{
+					BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
+					if (u->build(buildingType, targetBuildLocation))
+					{
+						lastChecked = BWAPI::Broodwar->getFrameCount();
+						if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
+						{
+							isAssimilatorBuilt = true;
+						}
+						return true;
+					}
+
+				}
+
 			}
 		}
+
+
 	}
+
 	return false;
 
-	//BuidingManager manager = BuidingManager();
-	//BWAPI::Unit worker = manager.getWorker();
-
-	//BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, worker->getTilePosition());
-	//		if (targetBuildLocation)
-	//		{
-	//			// Order the builder to construct the supply structure
-	//			if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
-	//				if (worker->build(buildingType, targetBuildLocation))
-	//				{
-	//					// Register an event that draws the target build location
-	//					BWAPI::Broodwar->registerEvent([targetBuildLocation, buildingType](BWAPI::Game*)
-	//					{
-	//						BWAPI::Broodwar->drawBoxMap(BWAPI::Position(targetBuildLocation),
-	//							BWAPI::Position(targetBuildLocation + buildingType.tileSize()),
-	//							BWAPI::Colors::Red);
-	//					},
-	//						nullptr,  // condition
-	//						buildingType.buildTime() + 100);  // frames to run
-
-	//					return true;
-	//				}
-	//				
-	//			}
-	//		}
-
-	//
-	//			
-	//return false;
 
 }
 //xử lí các yêu cầu mua quân lính
@@ -331,15 +323,15 @@ void OrderQueue::buildRequiredFor(BWAPI::UnitType u){
 
 	//check if a unittype is exist
 	/*if (getInstance()->checkExist(requiredUnit)){
-		return;
+	return;
 	}
 	else{
-		getInstance()->buildRequiredFor(requiredUnit);
-		getInstance()->push(requiredUnit, PRIORITY_HIGH);
+	getInstance()->buildRequiredFor(requiredUnit);
+	getInstance()->push(requiredUnit, PRIORITY_HIGH);
 	}	*/
 
 	for (pair<UnitType, int> typePair : requireds){
-		if ((getInstance()->checkExist(typePair.first))||(getInstance()->checkExistInQueue(typePair.first)))
+		if ((getInstance()->checkExist(typePair.first)) || (getInstance()->checkExistInQueue(typePair.first)))
 			break;
 		else{
 			getInstance()->push(typePair.first, PRIORITY_HIGH);

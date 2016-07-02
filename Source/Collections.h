@@ -5,6 +5,8 @@ class Collections
 private:
 	BWAPI::Player self;
 public:
+	static int lastBuildCall;
+	static int lastBuildSuccess;
 	Collections();
 	//Return list of specific unit. Parameters is (Broodwar->self(), UnitTypes::Protoss_"unitName")
 	static std::vector<BWAPI::Unit> getUnitList(BWAPI::Player self, BWAPI::UnitType unitName){

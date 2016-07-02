@@ -1,6 +1,9 @@
 #include "WorkerManager.h"
 #include <BWAPI.h>
 
+WorkerManager* WorkerManager::workerManager = nullptr;
+bool WorkerManager::isInstanced = false;
+
 int WorkerManager::getNumMineralWorkers()
 {
 	int count = 0;
@@ -64,16 +67,19 @@ int WorkerManager::getIdleCount()
 
 
 
-void WorkerManager::addWorkerGas(BWAPI::Unit gas)
-{
-	std::set<BWAPI::Unit> workers;
 
-	//limiting the number of geysers we will mine from to 2
-	if (!(gases.size() > 2))
-	{
-		gases.insert(std::make_pair(gas, workers));
-	}
-}
+
+
+//void WorkerManager::addWorkerGas(BWAPI::Unit gas)
+//{
+//	std::set<BWAPI::Unit> workers;
+//
+//	//limiting the number of geysers we will mine from to 2
+//	if (!(gases.size() > 2))
+//	{
+//		gases.insert(std::make_pair(gas, workers));
+//	}
+//}
 
 /*
 Issues a command to a worker to mine the nearest mineral patch
@@ -115,7 +121,7 @@ bool WorkerManager::returnToGas(BWAPI::Unit worker)
 	}
 	if (closestGeyser != nullptr)
 	{
-		if (worker->rightClick(closestGeyser))
+		if (worker->gather(closestGeyser))
 		{
 			return true;
 		}
@@ -129,67 +135,49 @@ bool WorkerManager::returnToGas(BWAPI::Unit worker)
 	return false;
 }
 
+void WorkerManager::tranferWorker()
+{
+
+	gatherMineral();
+
+	gatherGas();
+}
+
 void WorkerManager::gatherMineral()
 {
-	for (BWAPI::Unit u : availableWorkers)
-	{
 
-		if (returnToMineral(u))
+	for (BWAPI::Unit u : minerals)
+	{
+		if (u->isIdle() && u != buildingManager->getBuildingWorker())
 		{
-			makeUnavailable(u);
+			if (u->gather(u->getClosestUnit(BWAPI::Filter::IsMineralField)))
+			{
+
+			}
 		}
+
+
 
 	}
 }
 
 void WorkerManager::gatherGas()
 {
-	/*for (BWAPI::Unit u : BWAPI::Broodwar->self()->getUnits()){
-	{
-	if (u->getType().isWorker() && u->isIdle() && !u->isCarryingMinerals())
-	{
-	if (returnToGas(u))
-	{
-	makeUnavailable(u);
-	}
-	}
-	}
-	}*/
 
-
-	for (BWAPI::Unit u : availableWorkers)
+	for (BWAPI::Unit u : gases)
 	{
-		if (u->gather(u->getClosestUnit(BWAPI::Filter::IsRefinery)))
+		if (u->isIdle() && u != buildingManager->getBuildingWorker())
 		{
-			makeUnavailable(u);
+			if (u->gather(u->getClosestUnit(BWAPI::Filter::IsRefinery)))
+			{
+
+			}
 		}
 
 	}
 }
 
-bool WorkerManager::makeAvailable(BWAPI::Unit worker)
-{
-	if (availableWorkers.insert(worker).second)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
 
-bool WorkerManager::makeUnavailable(BWAPI::Unit worker)
-{
-	if (availableWorkers.erase(worker))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
 
 
 int WorkerManager::getAvailableCount()
@@ -197,27 +185,91 @@ int WorkerManager::getAvailableCount()
 	return availableWorkers.size();
 }
 
-
-
-
-//void WorkerManager::addWorkerGas(BWAPI::Unit unit)
-//{
-//	workerGas.insert(unit).second;
-//}
-//
-//void WorkerManager::addWorkerMinerals(BWAPI::Unit unit)
-//{
-//	workerMinerals.insert(unit).second;
-//}
-
-//by anh
-
-bool WorkerManager::gatherGas(BWAPI::Unit worker, BWAPI::Unit refinery){
-	return worker->gather(refinery);
+void WorkerManager::handlerResourceWorker()
+{
+	if (getNumMineralWorkers() < 15)
+	{
+		//orderQueue.push(new OrderType(UnitTypes::Protoss_Probe,orderQueue->PRIORITY_HIGH));
+	}
 }
+
+void WorkerManager::handlerNumberWorker()
+{
+
+	if ((getNumMineralWorkers() < 15 || getNumGasWorkers() < 3) && staticOrderQueue->isEmpty())
+	{
+		Unit resourceDepot = buildingManager->getExpansion();
+		if (buildingManager->getSizeExpansion() > 0 && resourceDepot->isIdle() && !resourceDepot->train(resourceDepot->getType().getRace().getWorker()))
+		{
+
+		}
+
+	}
+
+
+}
+
+void WorkerManager::handlerAddWorker(Unit worker)
+{
+
+	if ((getNumMineralWorkers() < 15 && Collections::getUnitVolume(Broodwar->self(), Broodwar->self()->getRace().getRefinery()) == 0) 
+		|| getNumGasWorkers() > 3)
+	{
+		addWorkerMinerals(worker);
+		return;
+	}
+	if (getNumGasWorkers() <= 3)
+	{
+		addWorkerGas(worker);
+	}
+	else
+		addWorkerMinerals(worker);
+
+}
+
+
+
+void WorkerManager::removeWorker(BWAPI::Unit unit)
+{
+	gases.erase(unit);
+	minerals.erase(unit);
+	availableWorkers.erase(unit);
+}
+
+
+bool WorkerManager::addWorkerGas(BWAPI::Unit unit)
+{
+	BWAPI::Broodwar->printf("addWorkerGas '%d'", unit->getID());
+	if (gases.insert(unit).second)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool WorkerManager::addWorkerMinerals(BWAPI::Unit unit)
+{
+	//BWAPI::Broodwar->printf("addWorkerMinerals '%d'" ,unit->getID());
+	if (minerals.insert(unit).second)
+
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 
 WorkerManager::WorkerManager()
 {
+	orderQueue = OrderQueue::getInstance();
+	buildingManager = BuidingManager::newInstance();
+	staticOrderQueue = StaticOrder::getInstance();
 }
 
 

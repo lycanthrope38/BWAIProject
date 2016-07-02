@@ -26,8 +26,10 @@ BattleHorde::BattleHorde(UnitType type, int endFrame)
 	isAttacked = false;
 
 	isAirAttackable = false;
-	
+
 	this->squadColor = Color(rand() % 256, rand() % 256, rand() % 256);
+
+	lastAttackCall = 0;
 }
 
 //xử lý mỗi frame
@@ -47,48 +49,51 @@ bool BattleHorde::onFrame(){
 		return true;
 		}*/
 
+
 	for (Unit u : selfTroops){
+
 		if (u->exists()){
-			if (isAirAttackable){
+			/*if (isAirAttackable){
 				if (u->getAirWeaponCooldown() > 0){
-					runBack();
-					return true;
+				runBack();
+				return true;
 				}
-			}
-			else
+				}
+				else
 				if (u->getGroundWeaponCooldown() > 0){
-					runBack();
-					return true;
-				}
+				runBack();
+				return true;
+				}*/
 
 			target = targetManager.getTarget(u);
 			if (target == nullptr){
 				//Broodwar->sendText("Target == nullptr");
 				break;
 			}
-
-			if (target == oldTarget){
-				if (isHoldPosition)
-					if (Collections::distance(target->getPosition(), defensePosition) > maxDefenseRange)
-						selfTroops.move(defensePosition);
+			if (oldTarget)
+				if (oldTarget->exists()){
+					if (Collections::distance(oldTarget->getPosition(), u->getPosition()) <= u->getType().seekRange()){
+						attack(oldTarget);
+						return true;
+					}
+				}
+			//if (target == oldTarget){
+			if (isHoldPosition)
+				if (Collections::distance(target->getPosition(), defensePosition) > maxDefenseRange)
+					selfTroops.move(defensePosition);
+			//	attack(target);
+			//	drawPosition(target->getPosition());
+			//	//Broodwar->sendText("Old target. Skipped");
+			//	break;
+			//}
+			if (target != oldTarget){
+				LordCommander::getInstance()->removeTarget(oldTarget, this);
+				LordCommander::getInstance()->regTarget(target, this);
 				attack(target);
 				drawPosition(target->getPosition());
-				//Broodwar->sendText("Old target. Skipped");
+				//Broodwar->sendText("Enemy detected at %d  %d", target->getPosition().x, target->getPosition().y);
 				break;
 			}
-			if (isHoldPosition)
-				if (Collections::distance(target->getPosition(), defensePosition) > maxDefenseRange){
-					selfTroops.move(defensePosition);
-					break;
-				}
-
-			LordCommander::getInstance()->removeTarget(oldTarget, this);
-			LordCommander::getInstance()->regTarget(target, this);
-			attack(target);
-			drawPosition(target->getPosition());
-			isAttacked = true;
-			//Broodwar->sendText("Enemy detected at %d  %d", target->getPosition().x, target->getPosition().y);
-			break;
 		}
 	}
 	return true;
@@ -101,7 +106,7 @@ void BattleHorde::runBack(){
 	Unit selfUnit;
 	int cooldown;
 
-	Position runBackVector = Position(0,0);
+	Position runBackVector = Position(0, 0);
 
 	for (Unit u : selfTroops){
 		if (u->exists()){
@@ -158,21 +163,24 @@ int BattleHorde::calculateMaxUnit(UnitType type){
 	WeaponType airWeapon = type.airWeapon();
 	/*if (airWeapon != WeaponTypes::None&&airWeapon != WeaponTypes::Unknown){
 		if (type.destroyScore() < 900)
-			return 5;
+		return 5;
 		else
-			return 3;
-	}
+		return 3;
+		}
 
-	if (groundWeapon != WeaponTypes::None&&groundWeapon != WeaponTypes::Unknown){
+		if (groundWeapon != WeaponTypes::None&&groundWeapon != WeaponTypes::Unknown){
 		if (groundWeapon.maxRange() <= 35)
-			return 2;
+		return 2;
 		else
-			return 5;
-	}*/
+		return 5;
+		}*/
 	return 1;
 }
 
 void BattleHorde::attack(Unit u){
+	if (Broodwar->getFrameCount() - lastAttackCall < u->getAirWeaponCooldown() + 3 ||
+		Broodwar->getFrameCount() - lastAttackCall < u->getGroundWeaponCooldown() + 3)
+		lastAttackCall = Broodwar->getFrameCount();
 	if (selfTroops.attack(u))
 		selfTroops.attack(u->getPosition());
 }
@@ -182,7 +190,7 @@ void BattleHorde::move(Position p){
 }
 
 void BattleHorde::drawPosition(Position p){
-	Broodwar->drawBoxMap(Position(p.x-10,p.y-10), Position(p.x + 10, p.y + 10), this->squadColor);
+	Broodwar->drawBoxMap(Position(p.x - 10, p.y - 10), Position(p.x + 10, p.y + 10), this->squadColor);
 }
 
 void BattleHorde::drawSquad(){

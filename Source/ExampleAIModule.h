@@ -20,18 +20,19 @@ class ExampleAIModule : public BWAPI::AIModule
 	BWAPI::Unit supplyBuilderTemp;
 	ArmyOrder* armyOrder;
 	ScoutManager scoutManager;
-	BuidingManager buildingManager;
-	WorkerManager workerManager;
+	BuidingManager* buildingManager;
+	WorkerManager* workerManager;
 	LordCommander* jonSnow;
 	BWAPI::TilePosition	nextExpansionLocation;
 	bool expanding;
-	
+
 	int pylonLastFrameBuild;
 	int lastChecked;
 	OrderQueue* mainOrderQueue;
 	StaticOrder* staticOrderQueue;
 
 public:
+	static int lastBuildTime;
 	static Position basePostion;
 	static int supplyAvailabeThreshold;
 	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;
@@ -57,5 +58,5 @@ public:
 
 	void drawTerrainData();
 	void pushQueueProtoss();
-	bool createNexus();
+
 };

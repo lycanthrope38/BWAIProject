@@ -21,11 +21,11 @@ private:
 
 	//hàng đợi thực thi các lệnh như xây nhà và mua lính
 	std::vector<OrderType> queue;
+	std::vector<OrderType> deathBuildingQueue;
 	BuidingManager manager;
 	//Constructor. Singleton Pattern nên constructor private
 	OrderQueue();
 public:
-
 	static OrderQueue* getInstance(){
 		if (!initedInstance)
 		{
@@ -44,7 +44,7 @@ public:
 	//normal thì order sẽ được chèn vào cuối hàng đợi
 	static const int PRIORITY_NORMAL = 1;
 
-	bool isAssimilatorBuilt;
+	bool isAssimilatorBuilt = false;
 	//hàm thực thi order
 	bool execute();
 	//hàm thực thi order

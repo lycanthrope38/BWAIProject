@@ -64,6 +64,7 @@ void LordCommander::requireUnit(BattleHorde* childHorde, UnitType type, int solu
 }
 
 void LordCommander::removeDeadUnit(Unit u){
+	selfFighterScore -= u->getType().destroyScore();
 	map<Unit, BattleHorde*>::iterator it = getInstance()->unitManager.find(u);
 	if (it == getInstance()->unitManager.end()){
 		Broodwar->sendText("Unit not exist!");

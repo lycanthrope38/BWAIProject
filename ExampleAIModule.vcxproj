@@ -96,7 +96,6 @@
     <ClCompile Include="Source\Collections.cpp" />
     <ClCompile Include="Source\Dll.cpp" />
     <ClCompile Include="Source\ExampleAIModule.cpp" />
-    <ClCompile Include="Source\InformationManager.cpp" />
     <ClCompile Include="Source\LordCommander.cpp" />
     <ClCompile Include="Source\Micro.cpp" />
     <ClCompile Include="Source\OrderQueue.cpp" />
@@ -113,7 +112,6 @@
     <ClInclude Include="Source\BuidingManager.h" />
     <ClInclude Include="Source\Collections.h" />
     <ClInclude Include="Source\ExampleAIModule.h" />
-    <ClInclude Include="Source\InformationManager.h" />
     <ClInclude Include="Source\LordCommander.h" />
     <ClInclude Include="Source\Micro.h" />
     <ClInclude Include="Source\OrderQueue.h" />

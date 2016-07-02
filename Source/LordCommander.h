@@ -26,6 +26,7 @@ private:
 	//Constructor. Vì dùng Singleton Pattern nên constructor private
 	LordCommander();
 
+
 public:
 	static LordCommander* getInstance(){
 		if (isInitedInstance)

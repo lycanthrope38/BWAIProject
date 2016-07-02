@@ -4,11 +4,13 @@
 #include "Collections.h"
 
 using namespace std;
+using namespace BWAPI;
 class ArmyOrder
 {
 
 private:
 	BWAPI::Player self;
+	set<pair<UnitType, int>> troopRequired;
 public:
 
 	//by anh
@@ -18,6 +20,11 @@ public:
 	bool train(OrderType& orderType);
 	//train unit
 	bool train(OrderType* orderType);
+	void checkAndTrain();
+	void initZerg();
+	void initProtoss();
+	void initTerran();
+
 	//train unit by a parent unit
 	//bool train(BWAPI::Unit parentUnit, BWAPI::UnitType typeOfUnit);
 	////train units by a single parent unit

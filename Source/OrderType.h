@@ -7,9 +7,9 @@ private:
 	//true nếu là unit. false nếu là upgrade
 	bool isUnitType;
 	int frame;
-	BWAPI::UnitType unit;
 	BWAPI::UpgradeType upgrade;
 public:
+	BWAPI::UnitType unit;
 	int supplyRequire;
 	int  volume/*number of unit to order*/, failed/*số lần execute thất bại*/;
 	BWAPI::UnitType parent;
