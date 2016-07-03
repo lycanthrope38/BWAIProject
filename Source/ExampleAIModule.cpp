@@ -259,6 +259,7 @@ void ExampleAIModule::onFrame()
 
 	if (isHavingExpand&&lastCheckedExpand + 1000 < Broodwar->getFrameCount())
 	{
+		buildingManager->createBuilding(buildingManager->getBuildingExpandWorker(), UnitTypes::Protoss_Pylon);
 		mainOrderQueue->push(UnitTypes::Protoss_Pylon, mainOrderQueue->PRIORITY_HIGH);
 		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
 		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);

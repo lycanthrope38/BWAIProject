@@ -44,6 +44,7 @@ public:
 	BWAPI::TilePosition moveWorker(BWAPI::Unit unit, BWAPI::Position position);
 	bool makeAvailableBuildingWorker(BWAPI::Unit worker);
 	BWAPI::Unit getBuildingWorker();
+	BWAPI::Unit getBuildingExpandWorker();
 	bool addWorker(BWAPI::Unit* newWorker);
 	void addExpansion(BWAPI::Unit expansion);
 	void removeExpansion(BWAPI::Unit expansion);

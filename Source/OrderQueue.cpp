@@ -245,7 +245,7 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 					
 						lastChecked = BWAPI::Broodwar->getFrameCount();
 						Broodwar->printf("Protoss_Photon_Cannon Protoss_Photon_Cannon Protoss_Photon_Cannon");
-						if (manager->aroundBuilding(u, buildingType, u->getTilePosition()))
+						if (manager->aroundBuilding(manager->getBuildingExpandWorker(), buildingType, manager->getExpansionLocation()))
 						{
 							return true;
 						}
