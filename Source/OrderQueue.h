@@ -10,6 +10,7 @@
 
 #include "BuidingManager.h"
 
+class StaticOrder;
 using namespace BWAPI;
 
 class OrderQueue : public ArmyOrder
@@ -22,6 +23,7 @@ private:
 	//hàng đợi thực thi các lệnh như xây nhà và mua lính
 	std::vector<OrderType> queue;
 	BuidingManager* manager;
+	StaticOrder* staticOrder;
 	//Constructor. Singleton Pattern nên constructor private
 	OrderQueue();
 public:

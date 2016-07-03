@@ -1,28 +1,28 @@
-c:\program files (x86)\bwapi\exampleaimodule\release\exampleaimodule.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\battlehorde.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\dll.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\unittimemanager.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\staticorder.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\workermanager.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\lordcommander.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\targetmanager.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\orderqueue.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\collections.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\ordertype.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\buidingmanager.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\informationmanager.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\micro.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\armyorder.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\scoutmanager.obj
-c:\program files (x86)\bwapi\exampleaimodule\release\vc120.pdb
-c:\program files (x86)\bwapi\exampleaimodule\release\exampleaimodule.lib
-c:\program files (x86)\bwapi\exampleaimodule\release\exampleaimodule.exp
-c:\program files (x86)\bwapi\release\exampleaimodule.dll
-c:\program files (x86)\bwapi\release\exampleaimodule.pdb
-c:\program files (x86)\bwapi\exampleaimodule\release\exampleaimodule.tlog\cl.command.1.tlog
-c:\program files (x86)\bwapi\exampleaimodule\release\exampleaimodule.tlog\cl.read.1.tlog
-c:\program files (x86)\bwapi\exampleaimodule\release\exampleaimodule.tlog\cl.write.1.tlog
-c:\program files (x86)\bwapi\exampleaimodule\release\exampleaimodule.tlog\exampleaimodule.write.1u.tlog
-c:\program files (x86)\bwapi\exampleaimodule\release\exampleaimodule.tlog\link.command.1.tlog
-c:\program files (x86)\bwapi\exampleaimodule\release\exampleaimodule.tlog\link.read.1.tlog
-c:\program files (x86)\bwapi\exampleaimodule\release\exampleaimodule.tlog\link.write.1.tlog
+e:\bwapi\exampleaimodule\release\battlehorde.obj
+e:\bwapi\exampleaimodule\release\lordcommander.obj
+e:\bwapi\exampleaimodule\release\orderqueue.obj
+e:\bwapi\exampleaimodule\release\unittimemanager.obj
+e:\bwapi\exampleaimodule\release\buidingmanager.obj
+e:\bwapi\exampleaimodule\release\informationmanager.obj
+e:\bwapi\exampleaimodule\release\micro.obj
+e:\bwapi\exampleaimodule\release\staticorder.obj
+e:\bwapi\exampleaimodule\release\collections.obj
+e:\bwapi\exampleaimodule\release\exampleaimodule.obj
+e:\bwapi\exampleaimodule\release\scoutmanager.obj
+e:\bwapi\exampleaimodule\release\workermanager.obj
+e:\bwapi\exampleaimodule\release\armyorder.obj
+e:\bwapi\exampleaimodule\release\dll.obj
+e:\bwapi\exampleaimodule\release\ordertype.obj
+e:\bwapi\exampleaimodule\release\targetmanager.obj
+e:\bwapi\exampleaimodule\release\vc120.pdb
+e:\bwapi\exampleaimodule\release\exampleaimodule.lib
+e:\bwapi\exampleaimodule\release\exampleaimodule.exp
+e:\bwapi\release\exampleaimodule.dll
+e:\bwapi\release\exampleaimodule.pdb
+e:\bwapi\exampleaimodule\release\exampleaimodule.tlog\cl.command.1.tlog
+e:\bwapi\exampleaimodule\release\exampleaimodule.tlog\cl.read.1.tlog
+e:\bwapi\exampleaimodule\release\exampleaimodule.tlog\cl.write.1.tlog
+e:\bwapi\exampleaimodule\release\exampleaimodule.tlog\exampleaimodule.write.1u.tlog
+e:\bwapi\exampleaimodule\release\exampleaimodule.tlog\link.command.1.tlog
+e:\bwapi\exampleaimodule\release\exampleaimodule.tlog\link.read.1.tlog
+e:\bwapi\exampleaimodule\release\exampleaimodule.tlog\link.write.1.tlog

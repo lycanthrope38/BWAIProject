@@ -11,7 +11,7 @@ bool analysis_just_finished;
 BWTA::Region* home;
 
 bool stopTraining;
-bool isHavingExpand;
+bool isHavingExpand=false;
 
 static int lastCheckedExpand = 0;
 
@@ -159,19 +159,19 @@ void ExampleAIModule::onStart()
 		{
 			//workerManager->makeAvailable(i);
 			workerManager->addWorkerMinerals(i);
-			
-			
+
+
 		}
 		else if (i->getType() == UnitTypes::Protoss_Nexus)
 		{
 			buildingManager->addExpansion(i);
 		}
-		
+
 
 	}
 
 
-	
+
 	isInitPostion = false;
 	staticOrderQueue = StaticOrder::getInstance();
 	jonSnow = LordCommander::getInstance();
@@ -188,7 +188,7 @@ void ExampleAIModule::onEnd(bool isWinner)
 
 void ExampleAIModule::onFrame()
 {
-	
+
 	if (Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self())
 		return;
 
@@ -234,40 +234,49 @@ void ExampleAIModule::onFrame()
 	supplyAvailable = Broodwar->self()->supplyTotal() - Broodwar->self()->supplyUsed();
 
 	workerManager->tranferWorker();
-	
 
 
-	
 
-		if (lastCheckedExpand + 500 < Broodwar->getFrameCount())
+	if (lastCheckedExpand + 1000 < Broodwar->getFrameCount())
+	{
+
+
+		if (Broodwar->getFrameCount() > 7000 && staticOrderQueue->isEmpty() && buildingManager->getSizeExpansion() < 2)
 		{
-			
+			lastCheckedExpand = Broodwar->getFrameCount();
 
-			if (Broodwar->getFrameCount() > 10000 && staticOrderQueue->isEmpty() && buildingManager->getSizeExpansion() < 2)
+			Broodwar->printf("buildingExpand buildingExpand buildingExpand");
+			//buildingManager->getBuildingWorker()
+			if (buildingManager->buildingExpand())
 			{
-				lastCheckedExpand = Broodwar->getFrameCount();
+				isHavingExpand = true;
+				//int checkFrame = Broodwar->getFrameCount();
 
-				Broodwar->printf("buildingExpand buildingExpand buildingExpand");
-				//buildingManager->getBuildingWorker()
-				if (buildingManager->buildingExpand())
-				{
-					mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon,mainOrderQueue->PRIORITY_HIGH);
-					mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_HIGH);
-					mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_HIGH);
-					mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_HIGH);
-					mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_HIGH);
-				}
-				
 			}
+
 		}
+	}
+
+	if (isHavingExpand&&lastCheckedExpand + 1000 < Broodwar->getFrameCount())
+	{
+		mainOrderQueue->push(UnitTypes::Protoss_Pylon, mainOrderQueue->PRIORITY_HIGH);
+		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
+		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
+		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
+		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
+		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
+		isHavingExpand = false;
+	}
 
 
-	
+
+
+
 
 	if (Broodwar->getFrameCount() % 17 == 0)
 	{
-		
-		if (staticOrderQueue->isEmpty())	
+
+		if (staticOrderQueue->isEmpty())
 			mainOrderQueue->execute();
 		else
 			staticOrderQueue->execute();
@@ -276,10 +285,10 @@ void ExampleAIModule::onFrame()
 	if (ScoutManager::getInstance().getScout() != nullptr)
 	{
 		ScoutManager::getInstance().sendScout();
-	
+
 	}
 
-	if (Broodwar->getFrameCount()>=3000)
+	if (Broodwar->getFrameCount() >= 3000)
 	{
 		workerManager->handlerNumberWorker();
 	}
@@ -287,35 +296,35 @@ void ExampleAIModule::onFrame()
 
 	if (Broodwar->getFrameCount() % 7 == 0)
 	{
-		
-		
+
+
 		for (auto &u : Broodwar->self()->getUnits())
 		{
-			
+
 			if (!u->exists())
 				continue;
 
-		
+
 			if (u->isLockedDown() || u->isMaelstrommed() || u->isStasised())
 				continue;
 
-		
+
 			if (u->isLoaded() || !u->isPowered() || u->isStuck())
 				continue;
 
-		
+
 			if (!u->isCompleted() || u->isConstructing())
 				continue;
 
-		
+
 			if (u->getType().isWorker())
 			{
 
 
 				if (supplyCounter == 8)
 				{
-					if (ScoutManager::getInstance().getScout() == nullptr&&u!=buildingManager->getBuildingWorker())
-					
+					if (ScoutManager::getInstance().getScout() == nullptr&&u != buildingManager->getBuildingWorker())
+
 						ScoutManager::getInstance().setScout(u);
 				}
 
@@ -323,7 +332,7 @@ void ExampleAIModule::onFrame()
 				{
 					buildingManager->makeAvailableBuildingWorker(u);
 				}
-				
+
 
 				if (u->isIdle())
 				{
@@ -333,51 +342,51 @@ void ExampleAIModule::onFrame()
 					}
 					else if (!u->getPowerUp() && u != buildingManager->getBuildingWorker())
 					{
-		
+
 					}
 				}
 
 			}
 			else if (u->getType().isResourceDepot())
 			{
-				
-					if ((supplyCounter == supplyTotalCounter)&&staticOrderQueue->isEmpty())
+
+				if ((supplyCounter == supplyTotalCounter) && staticOrderQueue->isEmpty())
+				{
+
+					Error lastErr = Broodwar->getLastError();
+
+
+					UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
+					static int lastChecked = 0;
+
+					if (lastErr == Errors::Insufficient_Supply &&
+						lastChecked + 400 < Broodwar->getFrameCount() &&
+						Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
 					{
+						lastChecked = Broodwar->getFrameCount();
 
-						Error lastErr = Broodwar->getLastError();
-
-
-						UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
-						static int lastChecked = 0;
-
-						if (lastErr == Errors::Insufficient_Supply &&
-							lastChecked + 400 < Broodwar->getFrameCount() &&
-							Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
+						Unit worker = buildingManager->getBuildingWorker();
+						if (worker)
 						{
-							lastChecked = Broodwar->getFrameCount();
 
-							Unit worker = buildingManager->getBuildingWorker();
-							if (worker)
+							if (supplyProviderType.isBuilding())
 							{
-
-								if (supplyProviderType.isBuilding())
-								{
-									buildingManager->createBuilding(worker, supplyProviderType);
-								}
-
+								buildingManager->createBuilding(worker, supplyProviderType);
 							}
-						}
 
+						}
 					}
+
+				}
 			}
-		} 
+		}
 	}
 }
 
 
 void ExampleAIModule::onSendText(std::string text)
 {
-	
+
 	Broodwar->sendText("%s", text.c_str());
 }
 
@@ -396,15 +405,15 @@ void ExampleAIModule::onPlayerLeft(BWAPI::Player player)
 void ExampleAIModule::onNukeDetect(BWAPI::Position target)
 {
 
-	
+
 	if (target)
 	{
-	
+
 		Broodwar << "Nuclear Launch Detected at " << target << std::endl;
 	}
 	else
 	{
-		
+
 		Broodwar->sendText("Where's the nuke?");
 	}
 
@@ -433,29 +442,29 @@ void ExampleAIModule::onUnitHide(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 {
-	
-	Broodwar->printf("isAssimilatorBuilt '%d' '%d'", mainOrderQueue->isAssimilatorBuilt?0:1,stopTraining?0:1);
+
+	Broodwar->printf("isAssimilatorBuilt '%d' '%d'", mainOrderQueue->isAssimilatorBuilt ? 0 : 1, stopTraining ? 0 : 1);
 	if (unit->getPlayer() == Broodwar->self())
 	{
 
 		if (unit->getType().isWorker())
 		{
-			
+
 			workerManager->handlerAddWorker(unit);
 			/*if (mainOrderQueue->isAssimilatorBuilt)
 			{
-				Broodwar->printf("onUnitCreate");
-				workerManager->addWorkerGas(unit);
-				return;
+			Broodwar->printf("onUnitCreate");
+			workerManager->addWorkerGas(unit);
+			return;
 			}
 
-				workerManager->addWorkerMinerals(unit);
-*/
+			workerManager->addWorkerMinerals(unit);
+			*/
 
-			
-		
-		//	workerManager->addWorkerMinerals(unit);
-			
+
+
+			//	workerManager->addWorkerMinerals(unit);
+
 			//workerManager->makeAvailable(unit);
 		}
 		else if (unit->getType() == UnitTypes::Protoss_Nexus)
@@ -529,12 +538,12 @@ void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 			/*if (mainOrderQueue->isAssimilatorBuilt)
 			{
 
-				workerManager->addWorkerGas(unit);
-				return;
+			workerManager->addWorkerGas(unit);
+			return;
 			}
 
 			workerManager->addWorkerMinerals(unit);
-*/
+			*/
 			//workerManager->makeAvailable(unit);
 		}
 		else if (unit->getType() == UnitTypes::Protoss_Nexus)

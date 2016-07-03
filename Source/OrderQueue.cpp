@@ -202,6 +202,7 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 	//Broodwar->sendText("ID   %d", buildingType.getID());
 
 	OrderQueue* ins = getInstance();
+	//staticOrder = StaticOrder::getInstance();
 
 	BuidingManager* manager = BuidingManager::newInstance();
 	//BWAPI::Unit worker = manager.getBuildingWorker();
@@ -238,17 +239,17 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 					return true;
 
 				}
-				else if (buildingType == UnitTypes::Protoss_Photon_Cannon)
+			
+				else if (manager->getExpansionLocation() != TilePosition(0, 0) && buildingType == UnitTypes::Protoss_Photon_Cannon)
 				{
-					lastChecked = BWAPI::Broodwar->getFrameCount();
-					Broodwar->printf("Protoss_Photon_Cannon Protoss_Photon_Cannon Protoss_Photon_Cannon");
-					if (manager->aroundBuilding(u, buildingType, manager->getExpansionLocation()))
-					{
-						return true;
-					}
 					
-					
-
+						lastChecked = BWAPI::Broodwar->getFrameCount();
+						Broodwar->printf("Protoss_Photon_Cannon Protoss_Photon_Cannon Protoss_Photon_Cannon");
+						if (manager->aroundBuilding(u, buildingType, u->getTilePosition()))
+						{
+							return true;
+						}
+						
 				}
 				else
 				{
