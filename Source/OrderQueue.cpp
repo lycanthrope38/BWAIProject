@@ -158,6 +158,23 @@ bool OrderQueue::push(BWAPI::UnitType unitType, int priority){
 	}
 }
 
+//hàm đẩy order nhà vào hàng đợi. sử dụng các biến static PRIORITY_VERY_HIGH, PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
+bool OrderQueue::push(BWAPI::UnitType unitType, Position position, int priority){
+	OrderQueue* ins = getInstance();
+	BWAPI::Broodwar->sendText("PUSED building %d", unitType.getName());
+	switch (priority)
+	{
+	case 0:
+		ins->queue.insert(ins->queue.begin(), OrderType(unitType, position));
+		return true;
+	case 1:
+		ins->queue.push_back(OrderType(unitType, position));
+		return true;
+	default:
+		return false;
+	}
+}
+
 //hàm đẩy order nhà vào hàng đợi có ràng buộc số dân. sử dụng các biến static PRIORITY_VERY_HIGH, PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
 bool OrderQueue::push(BWAPI::UnitType unitType, int priority, int supplyRequired){
 	BWAPI::Broodwar->sendText("PUSED %d", unitType.getName());
@@ -275,20 +292,20 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 
 			}
 
-			else if (manager->getExpansionLocation() != TilePosition(0, 0) && buildingType == UnitTypes::Protoss_Photon_Cannon)
-			{
-				//Broodwar->printf("Protoss_Photon_Cannon Protoss_Photon_Cannon Protoss_Photon_Cannon");
-				if (manager->aroundBuilding(manager->getBuildingExpandWorker(), buildingType, manager->getExpansionLocation()))
-				{
-					Collections::lastBuildCall = Broodwar->getFrameCount();
-					Collections::trainInRow = 0;
-					Collections::buildInRow++;
-					return true;
-				}
-				else
-					Broodwar->printf("cannot build 3");
+			//else if (manager->getExpansionLocation() != TilePosition(0, 0) && buildingType == UnitTypes::Protoss_Photon_Cannon)
+			//{
+			//	//Broodwar->printf("Protoss_Photon_Cannon Protoss_Photon_Cannon Protoss_Photon_Cannon");
+			//	if (manager->aroundBuilding(manager->getBuildingExpandWorker(), buildingType, manager->getExpansionLocation()))
+			//	{
+			//		Collections::lastBuildCall = Broodwar->getFrameCount();
+			//		Collections::trainInRow = 0;
+			//		Collections::buildInRow++;
+			//		return true;
+			//	}
+			//	else
+			//		Broodwar->printf("cannot build 3");
 
-			}
+			//}
 			else
 			{
 				/*BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, TilePosition(u->getPosition()), 1000, true);

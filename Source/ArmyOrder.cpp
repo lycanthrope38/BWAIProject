@@ -42,10 +42,10 @@ void ArmyOrder::initZerg(){
 }
 
 void ArmyOrder::initProtoss(){
-	troopRequired.insert(make_pair(UnitTypes::Protoss_Zealot, 15));
-	troopRequired.insert(make_pair(UnitTypes::Protoss_Dragoon, 15));
-	troopRequired.insert(make_pair(UnitTypes::Protoss_Observer, 1));
-	troopRequired.insert(make_pair(UnitTypes::Protoss_Carrier, 3));
+	troopRequired.insert(make_pair(UnitTypes::Protoss_Zealot, 20));
+	troopRequired.insert(make_pair(UnitTypes::Protoss_Dragoon, 30));
+	troopRequired.insert(make_pair(UnitTypes::Protoss_Observer, 2));
+	troopRequired.insert(make_pair(UnitTypes::Protoss_Carrier, 10));
 }
 
 void ArmyOrder::initTerran(){
@@ -65,6 +65,7 @@ bool ArmyOrder::train(OrderType& orderType){
 		}*/
 	//Broodwar->sendText("CurrentTroopCycle %d CurrentLimit %d ", Collections::currentTroopCycle, Collections::limitTroopFor700Frame);
 
+	Broodwar->sendText("1 CurrentTroopCycle %d CurrentLimit %d ", Collections::currentTroopCycle, Collections::limitTroopFor700Frame);
 	int supplyAvailable = Broodwar->self()->supplyTotal() - Broodwar->self()->supplyUsed();
 	if (supplyAvailable < (2 * (orderType.unit.supplyRequired()))){
 		//Broodwar->sendText("Prepare to build pylon");
@@ -129,10 +130,11 @@ bool ArmyOrder::train(OrderType& orderType){
 bool ArmyOrder::train(OrderType* orderType){
 
 
-	if (!(Collections::lastBuildSuccess >= Collections::lastBuildCall && Broodwar->getFrameCount() > Collections::lastBuildSuccess + 13)){
+	if (!(Collections::lastBuildSuccess >= Collections::lastBuildCall && Broodwar->getFrameCount() > Collections::lastBuildSuccess + 7)){
 		Broodwar->sendText("Can't train because other are training!");
 		return false;
 	}
+	Broodwar->sendText("1 CurrentTroopCycle %d CurrentLimit %d ", Collections::currentTroopCycle, Collections::limitTroopFor700Frame);
 
 	/*if (orderType->getUnitType() != Broodwar->self()->getRace().getWorker())
 		if (Collections::currentTroopCycle >= Collections::limitTroopFor700Frame){

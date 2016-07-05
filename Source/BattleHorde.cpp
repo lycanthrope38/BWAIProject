@@ -11,16 +11,15 @@ vector<Color> BattleHorde::squadColorList = vector<Color>();
 bool BattleHorde::isInited = false;
 
 const int BattleHorde::INFINITY_LIFE_TIME = 999999999;
-int BattleHorde::maxDefenseRange = 1000;
+int BattleHorde::maxDefenseRange = 400;
 
-BattleHorde::BattleHorde(UnitType type, int endFrame)
+BattleHorde::BattleHorde(UnitType type)
 {
 	isMoving = false;
 	isOrdered = false;
 	isHoldPosition = true;
 	defensePosition = Positions::None;
 	selfType = type;
-	this->endFrame = endFrame;
 	maxUnit = calculateMaxUnit(type);
 	targetManager = TargetManager();
 	target = map<Unit, Unit>();
@@ -40,8 +39,6 @@ bool BattleHorde::onFrame(){
 	if (selfType == UnitTypes::Protoss_Carrier)
 		buyInterceptor();
 
-	//Unit oldTarget = target;
-
 	drawSquad();
 	checkTarget();
 	return true;
@@ -55,7 +52,7 @@ void BattleHorde::checkTarget(){
 	for (Unit u : selfTroops){
 
 		selfSet = u->getUnitsInRadius((u->getType().seekRange() / 2), Filter::IsOwned);
-		enemySet = u->getUnitsInRadius((u->getType().seekRange() / 2),Filter::IsEnemy);
+		enemySet = u->getUnitsInRadius((u->getType().seekRange() / 2), Filter::IsEnemy);
 
 		if (enemySet.size() > 0){
 			for (Unit u : selfSet)
@@ -70,16 +67,44 @@ void BattleHorde::checkTarget(){
 		}
 
 		if (target[u]){
-			if ((target[u])->exists() && !((target[u])->isBurrowed() || target[u]->isInvincible() || target[u]->isCloaked()))
-				attack(u, target[u]);
+			if ((target[u])->exists() && !((target[u])->isBurrowed() || target[u]->isInvincible() || target[u]->isCloaked())){
+				if (runBackToDefense()){
+					//if (Collections::getMaxAttackRange(target[u]) < Collections::getMaxAttackRange(bestDefenseNeared) - 20)
+					if (Collections::distance(bestDefenseNeared->getPosition(), target[u]->getPosition()) < Collections::getMaxAttackRange(bestDefenseNeared) - 20)
+						attack(u, target[u]);
+					else
+						move(bestDefenseNeared->getPosition());
+				}
+				else
+					attack(u, target[u]);
+			}
 			else{
 				target[u] = targetManager.getTarget(u);
-				attack(u, target[u]);
+				//if ()
+				if (runBackToDefense()){
+					//if (Collections::getMaxAttackRange(target[u]) < Collections::getMaxAttackRange(bestDefenseNeared) - 20)
+					if (Collections::distance(bestDefenseNeared->getPosition(), target[u]->getPosition()) < Collections::getMaxAttackRange(bestDefenseNeared) - 20)
+						attack(u, target[u]);
+					else
+						move(bestDefenseNeared->getPosition());
+				}
+				else
+					attack(u, target[u]);
 			}
 		}
 		else{
 			target[u] = targetManager.getTarget(u);
-			attack(u, target[u]);
+			if (runBackToDefense()){
+				//if (Collections::getMaxAttackRange(target[u]) < Collections::getMaxAttackRange(bestDefenseNeared) - 20)
+				if (Collections::distance(bestDefenseNeared->getPosition(), target[u]->getPosition()) < Collections::getMaxAttackRange(bestDefenseNeared) - 20)
+					attack(u, target[u]);
+				else
+					move(bestDefenseNeared->getPosition());
+			}
+			else
+				attack(u, target[u]);
+			/*target[u] = targetManager.getTarget(u);
+			attack(u, target[u]);*/
 		}
 	}
 }
@@ -122,6 +147,10 @@ void BattleHorde::addUnit(BWAPI::Unit u){
 		isAirAttackable = true;
 	target.insert(make_pair(u, nullptr));
 
+	if (selfType == UnitTypes::Protoss_Carrier){
+		lastAttackCommand.insert(make_pair(u, 0));
+	}
+
 }
 
 //lấy danh sách quân
@@ -137,9 +166,9 @@ void BattleHorde::addTarget(Unit selfUnit, BWAPI::Unit targetInp){
 void BattleHorde::clearDeadUnit(Unit u){
 	//hàm này sẽ được gọi từ LordCommander
 	selfTroops.erase(u);
-	if (endFrame > Broodwar->getFrameCount()){
+	/*if (endFrame > Broodwar->getFrameCount()){
 		LordCommander::getInstance()->requireUnit(this, selfType, 1);
-	}
+		}*/
 }
 
 int BattleHorde::calculateMaxUnit(UnitType type){
@@ -164,7 +193,17 @@ int BattleHorde::calculateMaxUnit(UnitType type){
 void BattleHorde::attack(Unit selfUnit, Unit enemyUnit){
 	if (selfUnit->isFlying()){
 		if (selfUnit->getAirWeaponCooldown() == 0){
-			selfUnit->attack(enemyUnit);
+			if (selfType == UnitTypes::Protoss_Carrier){
+				if (Broodwar->getFrameCount() - lastAttackCommand[selfUnit] > 5){
+					carrierAttack(selfUnit, enemyUnit);
+					checkAndEvade(selfUnit, enemyUnit);
+				}
+			}
+			else
+				selfUnit->attack(enemyUnit);
+		}
+		else{
+			checkAndEvade(selfUnit, enemyUnit);
 		}
 		return;
 	}
@@ -172,7 +211,27 @@ void BattleHorde::attack(Unit selfUnit, Unit enemyUnit){
 		if (selfUnit->getGroundWeaponCooldown() == 0){
 			selfUnit->attack(enemyUnit);
 		}
+		else
+			checkAndEvade(selfUnit, enemyUnit);
 	}
+}
+
+void BattleHorde::checkAndEvade(Unit selfUnit, Unit target){
+	if (!(selfUnit && target))
+		return;
+	if (!(selfUnit->exists() && target->exists()))
+		return;
+	if (Collections::distance(selfUnit->getPosition(), target->getPosition()) < Collections::getMaxAttackRange(target)){
+		Position backVector = Position(target->getPosition().x - selfUnit->getPosition().x, target->getPosition().y - selfUnit->getPosition().y);
+		selfUnit->move(Position(selfUnit->getPosition().x - backVector.x, selfUnit->getPosition().y - backVector.y));
+	}
+}
+
+void BattleHorde::carrierAttack(Unit selfCarrier, Unit target){
+	Unitset interceptors = selfCarrier->getInterceptors();
+	for (Unit u : interceptors)
+		if (u->getAirWeaponCooldown() == 0)
+			u->attack(target);
 }
 
 void BattleHorde::move(Position p){
@@ -205,6 +264,51 @@ void BattleHorde::buyInterceptor(){
 	for (Unit u : selfTroops)
 		if (!(u->train(UnitTypes::Protoss_Interceptor)))
 			continue;
+}
+
+bool BattleHorde::runBackToDefense(){
+	if (Broodwar->getFrameCount() > 7000)
+		return false;
+	UnitType defense = Collections::getStaticDefenseStructure(Broodwar->self()->getRace());
+	if (defense == UnitTypes::None)
+		return false;
+	Unitset enemy;
+	Unitset selfBuildings;
+	Unit bestDefense;
+	int mostEnemyNeared = 0;
+	for (Unit u : selfTroops)
+		if (u->exists()){
+			enemy = u->getUnitsInRadius(300, Filter::IsEnemy);
+			selfBuildings = u->getUnitsInRadius(300, Filter::IsBuilding);
+			for (Unit building : selfBuildings)
+				if (Broodwar->self()->isEnemy(building->getPlayer()))
+					selfBuildings.erase(building);
+		}
+	if (enemy.size() <= 0)
+		return false;
+
+	for (Unit u : selfBuildings)
+		if (u->getType() == defense){
+			if (u->getUnitsInRadius(300, Filter::IsEnemy).size() > mostEnemyNeared){
+				mostEnemyNeared = u->getUnitsInRadius(300, Filter::IsEnemy).size();
+				bestDefense = u;
+			}
+		}
+	if (mostEnemyNeared > 0){
+		if (enemy.size() > selfTroops.size()){
+			if (bestDefense->getType().groundWeapon() != WeaponTypes::None && bestDefense->getType().airWeapon() != WeaponTypes::None){
+				int maxDefenseBuildingRange = bestDefense->getType().groundWeapon().maxRange();
+				if (maxDefenseBuildingRange < bestDefense->getType().airWeapon().maxRange())
+					maxDefenseBuildingRange = bestDefense->getType().airWeapon().maxRange();
+				if (maxDefenseBuildingRange >= 150)
+					if (Collections::distance(bestDefense->getPosition(), getApproxPosition()) >= 10){
+						this->bestDefenseNeared = bestDefense;
+						return true;
+					}
+			}
+		}
+	}
+	return false;
 }
 
 BattleHorde::~BattleHorde()

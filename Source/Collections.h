@@ -16,6 +16,7 @@ public:
 	static bool isBuildingOther;
 	static int buildInRow;
 	static int trainInRow;
+	static int lastBuildPylonRequest;
 	Collections();
 	//Return list of specific unit. Parameters is (Broodwar->self(), UnitTypes::Protoss_"unitName")
 	static std::vector<BWAPI::Unit> getUnitList(BWAPI::Player self, BWAPI::UnitType unitName){
@@ -40,10 +41,27 @@ public:
 		return sqrt((p2.x - p1.x)*(p2.x - p1.x) + (p2.y - p1.y)*(p2.y - p1.y));
 	}
 
+	static int getMaxAttackRange(BWAPI::Unit u){
+		int maxWeaponRange = u->getType().groundWeapon().maxRange();
+		if (maxWeaponRange < u->getType().airWeapon().maxRange())
+			maxWeaponRange = u->getType().airWeapon().maxRange();
+		return maxWeaponRange;
+	}
+
 	static BWAPI::UnitType getStaticDefenseStructure(BWAPI::Race);
 
 	static bool shouldTrainNow();
 	static bool shouldBuildNow();
+
+	static bool isNearRangeAttacker(BWAPI::Unit u){
+		if (u->getType().groundWeapon() != BWAPI::WeaponTypes::None)
+			if (u->getType().groundWeapon().maxRange() < 35)
+				return true;
+		if (u->getType().airWeapon() != BWAPI::WeaponTypes::None)
+			if (u->getType().airWeapon().maxRange() < 35)
+				return true;
+		return false;
+	}
 
 	////Check if a unittype is exist 
 	//static bool isExist(BWAPI::UnitType u){

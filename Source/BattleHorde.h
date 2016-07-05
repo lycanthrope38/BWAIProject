@@ -33,13 +33,20 @@ private:
 	//số lượng unit tối đa trong Horde
 	int maxUnit;
 	//thời gian tồn tại tối đa của Horde
-	int endFrame;
+	//int endFrame;
 	//vị trí phòng thủ
 	Position defensePosition;
 	
+	Unit bestDefenseNeared;
+
 	int lastAttackCall;
 
+	int inDefenseRangeTaticTime;
+	int inDefenseRangeTaticAttackTime;
+
 	map<Unit, Unit> target;
+
+	map<Unit, int> lastAttackCommand;
 
 	TargetManager targetManager;
 
@@ -53,8 +60,8 @@ public:
 	static const int INFINITY_LIFE_TIME;
 	//xử lý mỗi frame
 	bool onFrame();
-	//nạp nhóm quân và mục tiêu để tiến hành tấn công, startFrame là thời gian bắt đầu việc Order lính, endFrame là thời gian kết thúc OrderLính 
-	BattleHorde(UnitType type, int endFrame);
+	//nạp nhóm quân và mục tiêu để tiến hành tấn công, startFrame là thời gian bắt đầu việc Order lính
+	BattleHorde(UnitType type);
 	//thêm quân
 	void addUnit(BWAPI::Unit);
 	//lấy danh sách quân
@@ -101,6 +108,8 @@ public:
 		return false;
 	}
 
+	bool runBackToDefense();
+
 	bool isGroundFarAttack(){
 		if (!(selfType.isFlyer()))
 			if (selfType.groundWeapon().maxRange() > 35)
@@ -134,6 +143,10 @@ public:
 		return result;
 	}
 
+	void carrierAttack(Unit, Unit);
+
+	void checkAndEvade(Unit selfUnit, Unit enemy);
+	
 	bool isAttacking(){
 		for (Unit u : selfTroops){
 			if (target[u] != nullptr)

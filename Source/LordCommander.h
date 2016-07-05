@@ -15,6 +15,7 @@ private:
 
 	//lưu danh sách quân lính đang tấn công lên từng quân lính địch trong trận
 	map<BWAPI::Unit, set<Unit>> enemyAttackedBy;
+	map<BWAPI::Unit, int> meleeAttackersOnTarget;
 	//tổng destroy score của lính bên ta
 	/*int selfFighterScore;*/
 
@@ -74,6 +75,7 @@ public:
 		return selfFighterScore;
 	}*/
 
+	int getMeleeAttackersOnTarget(BWAPI::Unit);
 	void regTarget(BWAPI::Unit enemy, Unit selfUnit);
 	void removeTarget(BWAPI::Unit enemy, Unit selfUnit);
 	void reforce(BattleHorde* b);

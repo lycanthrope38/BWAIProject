@@ -224,13 +224,13 @@ void ExampleAIModule::onFrame()
 	{
 		drawTerrainData();
 		if (Broodwar->getFrameCount() % 1001 == 0){
-			
+			jonSnow->checkAttack();
 		}
 	}
 
 	if (analysis_just_finished)
 	{
-		Broodwar << "Finished analyzing map." << std::endl;;
+		Broodwar << "Finished analyzing map." << std::endl;
 		analysis_just_finished = false;
 		if ((Broodwar->self()->getRace() != BWAPI::Races::Zerg) && (Broodwar->mapFileName() != "(4)Andromeda.scx"))
 		{
@@ -239,7 +239,11 @@ void ExampleAIModule::onFrame()
 	}
 
 	jonSnow->onFrame();
-	
+
+	if (Broodwar->getFrameCount() > 15000)
+		if (Broodwar->self()->minerals() > 2000)
+			staticOrderQueue->spamStaticDefenseMode();
+
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
 		return;
 
@@ -251,10 +255,8 @@ void ExampleAIModule::onFrame()
 
 	workerManager->tranferWorker();
 
-	if (lastCheckedExpand + 1000 < Broodwar->getFrameCount())
+	if (lastCheckedExpand + 300 < Broodwar->getFrameCount())
 	{
-
-
 		if (Broodwar->getFrameCount() > 1200 && shouldExpandNow())
 			if (Collections::lastExpansion + 10000 < Broodwar->getFrameCount())
 			{
@@ -271,28 +273,28 @@ void ExampleAIModule::onFrame()
 			}
 	}
 
-	if (isHavingExpand && lastCheckedExpand + 1000 < Broodwar->getFrameCount())
+	if (isHavingExpand && lastCheckedExpand < Broodwar->getFrameCount())
 	{
 		buildingManager->createBuilding(buildingManager->getBuildingExpandWorker(), UnitTypes::Protoss_Pylon);
-		mainOrderQueue->push(UnitTypes::Protoss_Pylon, mainOrderQueue->PRIORITY_HIGH);
-		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
-		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
-		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
-		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
-		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
+		mainOrderQueue->push(Broodwar->self()->getRace().getSupplyProvider(), Position(buildingManager->getExpansionLocation()), mainOrderQueue->PRIORITY_HIGH);
+		mainOrderQueue->push(Broodwar->self()->getRace().getRefinery(), Position(buildingManager->getExpansionLocation()), mainOrderQueue->PRIORITY_HIGH);
+		if (Collections::getStaticDefenseStructure(Broodwar->self()->getRace()) != UnitTypes::None){
+			mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, Position(buildingManager->getExpansionLocation()), mainOrderQueue->PRIORITY_NORMAL);
+			mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, Position(buildingManager->getExpansionLocation()), mainOrderQueue->PRIORITY_NORMAL);
+			mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, Position(buildingManager->getExpansionLocation()), mainOrderQueue->PRIORITY_NORMAL);
+			mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, Position(buildingManager->getExpansionLocation()), mainOrderQueue->PRIORITY_NORMAL);
+			mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, Position(buildingManager->getExpansionLocation()), mainOrderQueue->PRIORITY_NORMAL);
+		}
 		isHavingExpand = false;
 	}
 
-
-
-
-
+	//Broodwar->sendText("Build in row %d train in row %d ", Collections::buildInRow, Collections::trainInRow);
 	if (Broodwar->getFrameCount() % 7 == 0)
 	{
 
 		mainOrderQueue->executeDeath();
 		if (!staticOrderQueue->isEmpty()){
-			if (Collections::buildInRow == 4 || (Collections::buildInRow == 0 && Collections::trainInRow<3 && Collections::trainInRow != 0))
+			if (Collections::buildInRow >= 4 || (Collections::buildInRow == 0 && Collections::trainInRow < 3 && Collections::trainInRow != 0))
 				armyOrder->checkAndTrain();
 			else
 				staticOrderQueue->execute();
@@ -306,7 +308,7 @@ void ExampleAIModule::onFrame()
 				staticOrderQueue->execute();
 		}
 	}
-	
+
 	if (Broodwar->getFrameCount() % 700 == 0){
 		increaseTroop += 0.25;
 		Collections::currentTroopCycle = 0;
@@ -332,9 +334,22 @@ void ExampleAIModule::onFrame()
 		workerManager->handlerNumberWorker();
 	}
 
+	if (buildingManager->getBuildingWorker() != nullptr)
+		Broodwar->drawBoxMap(Position(buildingManager->getBuildingWorker()->getPosition().x - 10, buildingManager->getBuildingWorker()->getPosition().y - 10),
+		Position(buildingManager->getBuildingWorker()->getPosition().x + 10, buildingManager->getBuildingWorker()->getPosition().y + 10), Colors::Orange);
+
+	if (buildingManager->getBuildingExpandWorker() != nullptr)
+		Broodwar->drawBoxMap(Position(buildingManager->getBuildingExpandWorker()->getPosition().x - 10, buildingManager->getBuildingExpandWorker()->getPosition().y - 10),
+		Position(buildingManager->getBuildingExpandWorker()->getPosition().x + 10, buildingManager->getBuildingExpandWorker()->getPosition().y + 10), Colors::Orange);
+
 	if (Broodwar->getFrameCount() % 7 == 0)
 	{
 
+		if (Broodwar->getFrameCount() > 15000)
+			if (supplyTotalCounter - supplyCounter < 6)
+				if (Broodwar->getFrameCount() - Collections::lastBuildPylonRequest > 200){
+					buildingManager->createBuilding(buildingManager->getBuildingWorker(), Broodwar->self()->getRace().getSupplyProvider());
+				}
 
 		for (auto &u : Broodwar->self()->getUnits())
 		{
@@ -538,7 +553,7 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 			Collections::lastBuildSuccess = Broodwar->getFrameCount();
 			Broodwar->sendText("building done");
 		}
-		
+
 	}
 
 
@@ -555,8 +570,8 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 	}
 	/*if (unit->getType().isResourceDepot())
 	{
-		buildingManager->removeExpansion(unit);
-		buildingManager->buildingExpand();
+	buildingManager->removeExpansion(unit);
+	buildingManager->buildingExpand();
 	}*/
 
 	buildingManager->removeBuildingWorker(unit);
@@ -639,25 +654,17 @@ void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 }
 
 void ExampleAIModule::changeDefensePoint(){
-	Position result = Position(0, 0);
-	int buildingCounter = 0;
 	Unitset uset = BWAPI::Broodwar->self()->getUnits();
 	UnitType resourceDepot;
 	resourceDepot = BWAPI::Broodwar->self()->getRace().getWorker().whatBuilds().first;
-	for (Unit u : uset){
+	for (Unit u : uset)
 		if (u->getType() == resourceDepot){
-			result.x += 3 * u->getPosition().x;
-			result.y += 3 * u->getPosition().y;
-			buildingCounter++;
+			if (u->getUnitsInRadius(200, Filter::IsWorker).size() > 5){
+				if (u->getPosition().x < Broodwar->mapWidth() - u->getPosition().x)
+					Collections::defensePosition = Position(u->getPosition().x - 30, Collections::defensePosition.y);
+				else
+					Collections::defensePosition = Position(u->getPosition().x + 30, Collections::defensePosition.y);
+			}
 		}
-		else{
-			result.x += u->getPosition().x;
-			result.y += u->getPosition().y;
-			buildingCounter++;
-		}
-	}
-	result.x /= buildingCounter;
-	result.y /= buildingCounter;
-	jonSnow->reform();
-	Collections::defensePosition = result;
+	LordCommander::getInstance()->reform();
 }

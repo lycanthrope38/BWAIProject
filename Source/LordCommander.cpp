@@ -60,7 +60,7 @@ void LordCommander::onFrame(){
 
 void LordCommander::totalAttack(){
 
-	//Broodwar->sendText("Total war!");
+	Broodwar->sendText("Total war!");
 
 	/*for (BattleHorde* horde : hordeManager)
 	{
@@ -112,8 +112,18 @@ bool LordCommander::addUnit(Unit u){
 	return addUnit(u);
 }
 
+int LordCommander::getMeleeAttackersOnTarget(Unit target){
+
+	LordCommander *ins = getInstance();
+	if (ins->meleeAttackersOnTarget.find(target) != meleeAttackersOnTarget.end()){
+		return ins->meleeAttackersOnTarget[target];
+	}
+	return 0;
+}
+
 void LordCommander::addHorde(Unit u){
-	BattleHorde* tmpHorde = new BattleHorde(u->getType(), UnitTimeManager::getEndFrame(u->getType()));
+	//BattleHorde* tmpHorde = new BattleHorde(u->getType(), UnitTimeManager::getEndFrame(u->getType()));
+	BattleHorde* tmpHorde = new BattleHorde(u->getType());
 	if (tmpHorde->isMelee()){
 		Broodwar->sendText("Added to melee attacker");
 		getInstance()->groundMeleeSet.insert(tmpHorde);
@@ -160,12 +170,12 @@ bool LordCommander::isReforcable(BattleHorde* horde){
 
 void LordCommander::regTarget(Unit target, Unit selfUnit){
 
-	Broodwar->sendText("Target registered ");
+	//Broodwar->sendText("Target registered ");
 
 	LordCommander* ins = getInstance();
 	set<Unit> tmpSet = set<Unit>();
-	map<Unit, set<Unit>>::iterator it = enemyAttackedBy.find(target);
-	if (it == enemyAttackedBy.end()){
+	map<Unit, set<Unit>>::iterator it = ins->enemyAttackedBy.find(target);
+	if (it == ins->enemyAttackedBy.end()){
 		//add new target
 		tmpSet.insert(selfUnit);
 		ins->enemyAttackedBy.insert(make_pair(target, tmpSet));
@@ -173,7 +183,13 @@ void LordCommander::regTarget(Unit target, Unit selfUnit){
 	else{
 		it->second.insert(selfUnit);
 	}
-
+	//tăng số lượng lelee target lên 1 unit lên đối với các unit đánh gần
+	if (target->getType().groundWeapon() != WeaponTypes::None)
+		if (target->getType().groundWeapon().maxRange() < 35)
+			if (ins->meleeAttackersOnTarget.find(target) != ins->meleeAttackersOnTarget.end())
+				ins->meleeAttackersOnTarget[target]++;
+			else
+				ins->meleeAttackersOnTarget.insert(make_pair(target, 1));
 
 	//if (selfHorde->getUnitType() == UnitTypes::Protoss_Carrier)
 	//	return;
@@ -195,6 +211,14 @@ void LordCommander::removeTarget(Unit u, Unit selfUnit){
 
 	Broodwar->sendText("Target removed ");
 	LordCommander* ins = getInstance();
+
+	//giảm số lượng lelee target xuống 1 unit lên đối với các unit đánh gần
+	if (u->getType().groundWeapon() != WeaponTypes::None)
+		if (u->getType().groundWeapon().maxRange() < 35)
+			if (ins->meleeAttackersOnTarget.find(u) != ins->meleeAttackersOnTarget.end())
+				ins->meleeAttackersOnTarget[u]--;
+
+
 	map<Unit, set<Unit>>::iterator it = ins->enemyAttackedBy.find(u);
 	if (it != ins->enemyAttackedBy.end())
 		(it->second).erase(selfUnit);
@@ -243,10 +267,12 @@ int LordCommander::getSelfScoreOnTarget(Unit enemy){
 
 void LordCommander::reform(){
 	Broodwar->sendText("reformed");
+	if (isStartAttack)
+		return;
 	for (BattleHorde *horde : getInstance()->hordeManager)
 		if (!(horde->isAttacking()))
 		{
-			if (Collections::distance(horde->getApproxPosition(), Collections::defensePosition) > 100)
+			if (Collections::distance(horde->getApproxPosition(), Collections::defensePosition) > 150)
 				horde->move(Collections::defensePosition);
 		}
 }
