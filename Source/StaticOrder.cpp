@@ -1,6 +1,8 @@
 #include "StaticOrder.h"
 #include "OrderQueue.h"
 
+#define MIN_MINERAL_TO_START_SPAM_DEFENSE 1500
+
 bool StaticOrder::isInited = false;
 StaticOrder* StaticOrder::instance = nullptr;
 deque<OrderType*>  StaticOrder::orderQueue = deque<OrderType*>();
@@ -44,16 +46,16 @@ bool StaticOrder::execute(){
 	ins->orderQueue.push_front(ins->lastOrder);
 	}*/
 
-	if (skipBefore > 0){
-		if (!ins->orderQueue.front()->isBuilding())
-		{
-			Broodwar->sendText("Building before! Skip this execute");
-			skipBefore--;
-			return false;
-		}
-		else
-			skipBefore = 0;
-	}
+	//if (skipBefore > 0){
+	//	if (!ins->orderQueue.front()->isBuilding())
+	//	{
+	//		Broodwar->sendText("Building before! Skip this execute");
+	//		skipBefore--;
+	//		return false;
+	//	}
+	//	else
+	//		skipBefore = 0;
+	//}
 
 	if (ins->orderQueue.size() != 0)
 		if (OrderQueue::getInstance()->execute(ins->orderQueue.front())){
@@ -121,72 +123,124 @@ void StaticOrder::protoss_twoGateways(){
 
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon, Collections::rootBuildPosition));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Forge));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon, Collections::rootBuildPosition));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon, Collections::rootBuildPosition));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Assimilator));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon, Collections::rootBuildPosition));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UpgradeTypes::Protoss_Ground_Weapons));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Cybernetics_Core));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UpgradeTypes::Singularity_Charge));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UpgradeTypes::Protoss_Ground_Armor));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	
+	//archived
+	/*orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon, Collections::rootBuildPosition));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Forge));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon, Collections::rootBuildPosition));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Assimilator));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UpgradeTypes::Protoss_Ground_Weapons));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Cybernetics_Core));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Cybernetics_Core));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
 	orderQueue.push_back(new OrderType(UpgradeTypes::Singularity_Charge));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UpgradeTypes::Protoss_Ground_Armor));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Probe, UnitTypes::Protoss_Probe.whatBuilds().first, 1));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));*/
 
 	//Zealot rush
 
 
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Photon_Cannon));
 
 
 
@@ -217,12 +271,11 @@ void StaticOrder::protoss_aftertwoGateways(){
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Fleet_Beacon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Stargate));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Stargate));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
 	orderQueue.push_back(new OrderType(UpgradeTypes::Carrier_Capacity));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
-	orderQueue.push_back(new OrderType(UpgradeTypes::Protoss_Air_Weapons));
-	orderQueue.push_back(new OrderType(UpgradeTypes::Protoss_Air_Weapons));
-	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Pylon));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Gateway));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Robotics_Facility));
+	orderQueue.push_back(new OrderType(UnitTypes::Protoss_Observatory));
 
 
 }
@@ -231,6 +284,15 @@ void StaticOrder::initTerran(){
 }
 
 void StaticOrder::initZerg(){
+}
+
+void StaticOrder::spamStaticDefenseMode(){
+	if (Broodwar->self()->getRace() != Races::Protoss)
+		return;
+	if (Broodwar->self()->minerals()>=MIN_MINERAL_TO_START_SPAM_DEFENSE){
+		if (Collections::isBuildingOther = true)
+			OrderQueue::getInstance()->build(UnitTypes::Protoss_Photon_Cannon);
+	}
 }
 
 StaticOrder::~StaticOrder()

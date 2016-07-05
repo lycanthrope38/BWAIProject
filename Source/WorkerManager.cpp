@@ -1,5 +1,6 @@
 #include "WorkerManager.h"
 #include <BWAPI.h>
+#include "ArmyOrder.h"
 
 WorkerManager* WorkerManager::workerManager = nullptr;
 bool WorkerManager::isInstanced = false;
@@ -69,18 +70,6 @@ int WorkerManager::getIdleCount()
 
 
 
-
-//void WorkerManager::addWorkerGas(BWAPI::Unit gas)
-//{
-//	std::set<BWAPI::Unit> workers;
-//
-//	//limiting the number of geysers we will mine from to 2
-//	if (!(gases.size() > 2))
-//	{
-//		gases.insert(std::make_pair(gas, workers));
-//	}
-//}
-
 /*
 Issues a command to a worker to mine the nearest mineral patch
 */
@@ -145,10 +134,13 @@ void WorkerManager::tranferWorker()
 
 void WorkerManager::gatherMineral()
 {
-
+	if (Broodwar->getFrameCount() > 3000)
+	{
+		minerals.erase(buildingManager->getBuildingExpandWorker());
+	}
 	for (BWAPI::Unit u : minerals)
 	{
-		if (u->isIdle() && u != buildingManager->getBuildingWorker())
+		if (u->isIdle() && u != buildingManager->getBuildingWorker() && u != buildingManager->getBuildingExpandWorker())
 		{
 			if (u->gather(u->getClosestUnit(BWAPI::Filter::IsMineralField)))
 			{
@@ -199,7 +191,7 @@ void WorkerManager::handlerNumberWorker()
 	if ((getNumMineralWorkers() < 15 || getNumGasWorkers() < 3) && staticOrderQueue->isEmpty())
 	{
 		Unit resourceDepot = buildingManager->getExpansion();
-		if (buildingManager->getSizeExpansion() > 0 && resourceDepot->isIdle() && !resourceDepot->train(resourceDepot->getType().getRace().getWorker()))
+		if (buildingManager->getSizeExpansion() > 0 && resourceDepot->isIdle() && !armyOrder->train((new OrderType(Broodwar->self()->getRace().getWorker(), resourceDepot->getType(), 1))))
 		{
 
 		}
@@ -211,8 +203,7 @@ void WorkerManager::handlerNumberWorker()
 
 void WorkerManager::handlerAddWorker(Unit worker)
 {
-
-	if ((getNumMineralWorkers() < 15 && Collections::getUnitVolume(Broodwar->self(), Broodwar->self()->getRace().getRefinery()) == 0) 
+	if ((getNumMineralWorkers() < 15 && Collections::getUnitVolume(Broodwar->self(), Broodwar->self()->getRace().getRefinery()) == 0)
 		|| getNumGasWorkers() > 3)
 	{
 		addWorkerMinerals(worker);
@@ -224,7 +215,6 @@ void WorkerManager::handlerAddWorker(Unit worker)
 	}
 	else
 		addWorkerMinerals(worker);
-
 }
 
 
@@ -270,6 +260,7 @@ WorkerManager::WorkerManager()
 	orderQueue = OrderQueue::getInstance();
 	buildingManager = BuidingManager::newInstance();
 	staticOrderQueue = StaticOrder::getInstance();
+	armyOrder = new ArmyOrder(Broodwar->self());
 }
 
 

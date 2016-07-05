@@ -19,6 +19,8 @@ private:
 	static OrderQueue* instance;
 	static bool initedInstance;
 
+	static bool isBuilding;
+
 	//hàng đợi thực thi các lệnh như xây nhà và mua lính
 	std::vector<OrderType> queue;
 	std::vector<OrderType> deathBuildingQueue;
@@ -47,6 +49,8 @@ public:
 	bool isAssimilatorBuilt = false;
 	//hàm thực thi order
 	bool execute();
+	//hàm xây lại các nhà đã bị sập
+	bool executeDeath();
 	//hàm thực thi order
 	bool execute(OrderType*);
 	//hàm đẩy order nhà vào hàng đợi. sử dụng các PRIORITY_HIGH và PRIORITY_NORMAL để đánh giá độ ưu tiên
@@ -63,6 +67,10 @@ public:
 	int getSize();
 	//xử lý các yêu cầu xây dựng
 	bool build(BWAPI::UnitType buildingType);
+	//xử lý các yêu cầu xây dựng kèm vị trí xấp xỉ
+	bool build(BWAPI::UnitType buildingType, BWAPI::Position p);
+
+
 	//xử lí các yêu cầu mua quân lính
 	bool training();
 	//xử lí các yêu cầu mua quân lính
@@ -78,5 +86,7 @@ public:
 	void buildRequiredFor(BWAPI::UnitType u);
 	//kiểm tra một unittype đã tồn tại hay chưa
 	bool checkExist(BWAPI::UnitType type);
+
+	bool pushDeath(UnitType, Position);
 	~OrderQueue();
 };

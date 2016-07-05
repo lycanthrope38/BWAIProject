@@ -5,6 +5,7 @@
 #include "BuidingManager.h"
 #include "OrderQueue.h"
 #include "StaticOrder.h"
+#include "ArmyOrder.h"
 
 class WorkerManager
 {
@@ -15,6 +16,7 @@ private:
 	BuidingManager* buildingManager;
 	OrderQueue* orderQueue;
 	StaticOrder* staticOrderQueue;
+	ArmyOrder* armyOrder;
 public:
 	std::set<BWAPI::Unit> gases;
 	std::set<BWAPI::Unit> minerals;

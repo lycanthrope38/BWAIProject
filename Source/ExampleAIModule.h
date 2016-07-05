@@ -26,6 +26,8 @@ class ExampleAIModule : public BWAPI::AIModule
 	BWAPI::TilePosition	nextExpansionLocation;
 	bool expanding;
 
+	float increaseTroop;
+
 	int pylonLastFrameBuild;
 	int lastChecked;
 	OrderQueue* mainOrderQueue;
@@ -33,7 +35,6 @@ class ExampleAIModule : public BWAPI::AIModule
 
 public:
 	static int lastBuildTime;
-	static Position basePostion;
 	static int supplyAvailabeThreshold;
 	int supplyCounter, supplyTotalCounter, counterGateway, supplyAvailable;
 	// Virtual functions for callbacks, leave these as they are.
@@ -58,5 +59,7 @@ public:
 
 	void drawTerrainData();
 	void pushQueueProtoss();
-
+	void onInit();
+	bool shouldExpandNow();
+	void changeDefensePoint();
 };

@@ -5,8 +5,17 @@ class Collections
 private:
 	BWAPI::Player self;
 public:
+	static int limitTroopFor700Frame;
+	static int currentTroopCycle;
+	static int lastExpansion;
+	static BWAPI::Position basePosition;
+	static BWAPI::Position rootBuildPosition;
+	static BWAPI::Position defensePosition;
 	static int lastBuildCall;
 	static int lastBuildSuccess;
+	static bool isBuildingOther;
+	static int buildInRow;
+	static int trainInRow;
 	Collections();
 	//Return list of specific unit. Parameters is (Broodwar->self(), UnitTypes::Protoss_"unitName")
 	static std::vector<BWAPI::Unit> getUnitList(BWAPI::Player self, BWAPI::UnitType unitName){
@@ -30,6 +39,11 @@ public:
 	static double distance(BWAPI::Position p1, BWAPI::Position p2){
 		return sqrt((p2.x - p1.x)*(p2.x - p1.x) + (p2.y - p1.y)*(p2.y - p1.y));
 	}
+
+	static BWAPI::UnitType getStaticDefenseStructure(BWAPI::Race);
+
+	static bool shouldTrainNow();
+	static bool shouldBuildNow();
 
 	////Check if a unittype is exist 
 	//static bool isExist(BWAPI::UnitType u){

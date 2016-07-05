@@ -10,6 +10,14 @@ OrderType::OrderType(BWAPI::UnitType unitType){
 	this->isUnitType = true;
 	this->failed = 0;
 	this->supplyRequire = -1;
+	this->approxPos = Positions::None;
+};//dành cho việc order nhà
+OrderType::OrderType(BWAPI::UnitType unitType, Position approxPosition){
+	this->unit = unitType;
+	this->isUnitType = true;
+	this->failed = 0;
+	this->supplyRequire = -1;
+	this->approxPos = approxPosition;
 };
 //dành cho việc order nhà kèm ràng buộc supply
 OrderType::OrderType(BWAPI::UnitType unitType, int supplyRequired){
@@ -17,6 +25,7 @@ OrderType::OrderType(BWAPI::UnitType unitType, int supplyRequired){
 	this->isUnitType = true;
 	this->failed = 0;
 	this->supplyRequire = supplyRequired;
+	this->approxPos = Positions::None;
 };
 //dành cho việc order lính
 OrderType::OrderType(BWAPI::UnitType unitType, BWAPI::UnitType parentUnit, int vol){
@@ -26,6 +35,7 @@ OrderType::OrderType(BWAPI::UnitType unitType, BWAPI::UnitType parentUnit, int v
 	this->volume = vol;
 	this->supplyRequire = -1;
 	this->parent = parentUnit;
+	this->approxPos = Positions::None;
 };
 //dành cho việc order upgrade
 OrderType::OrderType(BWAPI::UpgradeType upgradeType){
@@ -33,6 +43,7 @@ OrderType::OrderType(BWAPI::UpgradeType upgradeType){
 	this->isUnitType = false;
 	this->supplyRequire = -1;
 	this->failed = 0;
+	this->approxPos = Positions::None;
 };
 
 

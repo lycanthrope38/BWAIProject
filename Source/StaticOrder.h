@@ -38,6 +38,8 @@ public:
 		return instance;
 	}
 
+	void spamStaticDefenseMode();
+
 	bool execute();
 
 	bool isEmpty(){
@@ -45,6 +47,12 @@ public:
 			return true;
 	
 		return false;
+	}
+
+	OrderType getFirst(){
+		if (orderQueue.size() == 0)
+			return OrderType(UnitTypes::None);
+		else return *(getInstance()->orderQueue.at(0));
 	}
 
 	~StaticOrder();

@@ -1,6 +1,6 @@
 ﻿#include "ExampleAIModule.h"
 #include "Collections.h"
-#define TOTAL_ATTACK_SCORE 7000
+#define TOTAL_ATTACK_SCORE 25000
 using namespace BWAPI;
 using namespace Filter;
 
@@ -13,8 +13,6 @@ BWTA::Region* home;
 bool stopTraining;
 bool isHavingExpand;
 static int lastCheckedExpand = 0;
-
-Position ExampleAIModule::basePostion = Positions::None;
 
 DWORD WINAPI AnalyzeThread()
 {
@@ -140,34 +138,8 @@ void ExampleAIModule::onStart()
 
 	supplyBuilderTemp = nullptr;
 
-	armyOrder = new ArmyOrder(Broodwar->self());
-
-	mainOrderQueue = OrderQueue::getInstance();
-	//test đẩy 20 Zealot vào hàng đợi
-
-
-	buildingManager = BuidingManager::newInstance();
-
-	workerManager = WorkerManager::newInstance();
-
-
-	for (Unit i : Broodwar->self()->getUnits())
-	{
-		if (i->getType().isWorker())
-		{
-			//workerManager->makeAvailable(i);
-			workerManager->addWorkerMinerals(i);
-		}
-		else if (i->getType() == UnitTypes::Protoss_Nexus)
-		{
-			buildingManager->addExpansion(i);
-		}
-
-	}
-
 	isInitPostion = false;
-	staticOrderQueue = StaticOrder::getInstance();
-	jonSnow = LordCommander::getInstance();
+	increaseTroop = 0;
 }
 
 void ExampleAIModule::onEnd(bool isWinner)
@@ -179,27 +151,81 @@ void ExampleAIModule::onEnd(bool isWinner)
 	}
 }
 
+void ExampleAIModule::onInit(){
+	for (Unit u : Broodwar->self()->getUnits()){
+		if (u->getType().isBuilding())
+		{
+			Collections::basePosition = u->getPosition();
+			int tmpDistance = 9999999999;
+			//left
+			if (Collections::basePosition.x - 0 < tmpDistance){
+				tmpDistance = Collections::basePosition.x - 0;
+				Collections::rootBuildPosition = Position(Collections::basePosition.x + 250, Collections::basePosition.y);
+			}
+			//right
+			if (Broodwar->mapWidth() - Collections::basePosition.x < tmpDistance){
+				tmpDistance = Broodwar->mapWidth() - Collections::basePosition.x;
+				Collections::rootBuildPosition = Position(Collections::basePosition.x - 250, Collections::basePosition.y);
+			}
+			//top
+			if (Collections::basePosition.y - 0 < tmpDistance){
+				tmpDistance = Collections::basePosition.y;
+				Collections::rootBuildPosition = Position(Collections::basePosition.x, Collections::basePosition.y + 250);
+			}
+			//bottom
+			if (Broodwar->mapHeight() - Collections::basePosition.y < tmpDistance){
+				tmpDistance = Broodwar->mapHeight() - Collections::basePosition.y;
+				Collections::rootBuildPosition = Position(Collections::basePosition.x, Collections::basePosition.y - 250);
+			}
+
+			isInitPostion = true;	armyOrder = new ArmyOrder(Broodwar->self());
+
+			staticOrderQueue = StaticOrder::getInstance();
+			mainOrderQueue = OrderQueue::getInstance();
+			buildingManager = BuidingManager::newInstance();
+			workerManager = WorkerManager::newInstance();
+			jonSnow = LordCommander::getInstance();
+			for (Unit i : Broodwar->self()->getUnits())
+			{
+				if (i->getType().isWorker())
+				{
+					//workerManager->makeAvailable(i);
+					workerManager->addWorkerMinerals(i);
+				}
+				else if (i->getType() == UnitTypes::Protoss_Nexus)
+				{
+					buildingManager->addExpansion(i);
+				}
+
+			}
+			break;
+		}
+	}
+}
+
 void ExampleAIModule::onFrame()
 {
 	if (Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self())
 		return;
 
 	if (!isInitPostion){
-		for (Unit u : Broodwar->self()->getUnits()){
-			if (u->getType().isBuilding())
-			{
-				basePostion = u->getPosition();
-				break;
-			}
-		}
+		onInit();
 	}
-
-
+	//Broodwar->sendText("Base position x %d y %d", Collections::basePosition.x, Collections::basePosition.y);
+	Broodwar->drawBoxMap(Position(Collections::rootBuildPosition.x - 5, Collections::rootBuildPosition.y - 5),
+		Position(Collections::rootBuildPosition.x + 5, Collections::rootBuildPosition.y + 5), Colors::Red);
+	TilePosition tmpTilePosition = TilePosition(StaticOrder::getInstance()->getFirst().getApproxPos());
+	Position tmpPosition = Position(tmpTilePosition);
+	Broodwar->drawBoxMap(Position(tmpPosition.x - 5, tmpPosition.y - 5), Position(tmpPosition.x + 5, tmpPosition.y + 5), Colors::Green);
+	/*if (StaticOrder::getInstance()->getFirst().isWithPosition())
+		Broodwar->sendText("Tile : x %d y %d Position: x %d y %d", tmpTilePosition.x, tmpTilePosition.y, tmpPosition.x, tmpPosition.y);
+		*/
 	if (analyzed)
 	{
 		drawTerrainData();
-		if (jonSnow->getSelfScore() > TOTAL_ATTACK_SCORE)
-			jonSnow->totalAttack(ScoutManager::getInstance().getEnemyBase());
+		if (Broodwar->getFrameCount() % 1001 == 0){
+			
+		}
 	}
 
 	if (analysis_just_finished)
@@ -213,11 +239,9 @@ void ExampleAIModule::onFrame()
 	}
 
 	jonSnow->onFrame();
-
-
+	
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
 		return;
-
 
 	supplyCounter = Broodwar->self()->supplyUsed() / 2;
 
@@ -227,15 +251,12 @@ void ExampleAIModule::onFrame()
 
 	workerManager->tranferWorker();
 
+	if (lastCheckedExpand + 1000 < Broodwar->getFrameCount())
+	{
 
 
-
-
-	if (lastCheckedExpand + 500 < Broodwar->getFrameCount())
-		{
-			
-
-			if (Broodwar->getFrameCount() > 10000 && staticOrderQueue->isEmpty() && buildingManager->getSizeExpansion() < 2)
+		if (Broodwar->getFrameCount() > 1200 && shouldExpandNow())
+			if (Collections::lastExpansion + 10000 < Broodwar->getFrameCount())
 			{
 				lastCheckedExpand = Broodwar->getFrameCount();
 
@@ -243,23 +264,58 @@ void ExampleAIModule::onFrame()
 				//buildingManager->getBuildingWorker()
 				if (buildingManager->buildingExpand())
 				{
-				
+					isHavingExpand = true;
+					//int checkFrame = Broodwar->getFrameCount();
+
 				}
-				
 			}
-}
-
-
-
-
-	if (Broodwar->getFrameCount() % 13 == 0)
-	{ 
-		armyOrder->checkAndTrain();
-		if (staticOrderQueue->isEmpty())
-			mainOrderQueue->execute();
-		else
-			staticOrderQueue->execute();
 	}
+
+	if (isHavingExpand && lastCheckedExpand + 1000 < Broodwar->getFrameCount())
+	{
+		buildingManager->createBuilding(buildingManager->getBuildingExpandWorker(), UnitTypes::Protoss_Pylon);
+		mainOrderQueue->push(UnitTypes::Protoss_Pylon, mainOrderQueue->PRIORITY_HIGH);
+		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
+		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
+		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
+		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
+		mainOrderQueue->push(UnitTypes::Protoss_Photon_Cannon, mainOrderQueue->PRIORITY_NORMAL);
+		isHavingExpand = false;
+	}
+
+
+
+
+
+	if (Broodwar->getFrameCount() % 7 == 0)
+	{
+
+		mainOrderQueue->executeDeath();
+		if (!staticOrderQueue->isEmpty()){
+			if (Collections::buildInRow == 4 || (Collections::buildInRow == 0 && Collections::trainInRow<3 && Collections::trainInRow != 0))
+				armyOrder->checkAndTrain();
+			else
+				staticOrderQueue->execute();
+		}
+		else{
+			armyOrder->checkAndTrain();
+			mainOrderQueue->executeDeath();
+			if (staticOrderQueue->isEmpty())
+				mainOrderQueue->execute();
+			else
+				staticOrderQueue->execute();
+		}
+	}
+	
+	if (Broodwar->getFrameCount() % 700 == 0){
+		increaseTroop += 0.25;
+		Collections::currentTroopCycle = 0;
+		if (Broodwar->getFrameCount() > 4500)
+			Collections::limitTroopFor700Frame += increaseTroop;
+	}
+
+	if (Broodwar->getFrameCount() % 500 == 0)
+		changeDefensePoint();
 
 	if (ScoutManager::getInstance().getScout() != nullptr)
 	{
@@ -267,11 +323,14 @@ void ExampleAIModule::onFrame()
 
 	}
 
+	if (Collections::lastBuildCall > Collections::lastBuildSuccess)
+		if (Broodwar->getFrameCount() - Collections::lastBuildCall > 200)
+			Collections::lastBuildSuccess = Collections::lastBuildCall + 5;
+
 	if (Broodwar->getFrameCount() >= 3000)
 	{
 		workerManager->handlerNumberWorker();
 	}
-
 
 	if (Broodwar->getFrameCount() % 7 == 0)
 	{
@@ -300,7 +359,7 @@ void ExampleAIModule::onFrame()
 			{
 
 
-				if (supplyCounter >= 8 && supplyCounter <= 12)
+				if (supplyCounter > 8 && supplyCounter < 12)
 				{
 					if (ScoutManager::getInstance().getScout() == nullptr&&u != buildingManager->getBuildingWorker())
 
@@ -362,28 +421,50 @@ void ExampleAIModule::onFrame()
 	}
 }
 
+bool ExampleAIModule::shouldExpandNow(){
+	if (buildingManager->getSizeExpansion() == 0)
+		return true;
+	if (workerManager->getIdleCount() >= 4)
+		return true;
+	if (Broodwar->getFrameCount() - Collections::lastExpansion >= 10000)
+		return true;
+	//kiểm tra mỏ
+	return false;
+}
 
 void ExampleAIModule::onSendText(std::string text)
 {
 
+	if (!isInitPostion){
+		onInit();
+	}
 	Broodwar->sendText("%s", text.c_str());
 }
 
 void ExampleAIModule::onReceiveText(BWAPI::Player player, std::string text)
 {
 
+	if (!isInitPostion){
+		onInit();
+	}
 	Broodwar << player->getName().c_str() << " said \"" << text.c_str() << "\"" << std::endl;
 }
 
 void ExampleAIModule::onPlayerLeft(BWAPI::Player player)
 {
 
+	if (!isInitPostion){
+		onInit();
+	}
 	Broodwar->sendText("Goodbye %s!", player->getName().c_str());
 }
 
 void ExampleAIModule::onNukeDetect(BWAPI::Position target)
 {
 
+	if (!isInitPostion){
+		onInit();
+	}
 
 	if (target)
 	{
@@ -422,7 +503,9 @@ void ExampleAIModule::onUnitHide(BWAPI::Unit unit)
 void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 {
 
-	Collections::lastBuildSuccess = Broodwar->getFrameCount();
+	if (!isInitPostion){
+		onInit();
+	}
 
 	Broodwar->printf("isAssimilatorBuilt '%d' '%d'", mainOrderQueue->isAssimilatorBuilt ? 0 : 1, stopTraining ? 0 : 1);
 	if (unit->getPlayer() == Broodwar->self())
@@ -451,6 +534,11 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 		{
 			buildingManager->addExpansion(unit);
 		}
+		if (unit->exists() && unit->getType().isBuilding()){
+			Collections::lastBuildSuccess = Broodwar->getFrameCount();
+			Broodwar->sendText("building done");
+		}
+		
 	}
 
 
@@ -462,15 +550,14 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 {
 	if (unit->getType().isBuilding())
 	{
-		Unit worker = buildingManager->getBuildingWorker();
-		mainOrderQueue->build(unit->getType());
-
+		mainOrderQueue->pushDeath(unit->getType(), unit->getPosition());
+		Broodwar->sendText("added to death queue");
 	}
-	if (unit->getType().isResourceDepot())
+	/*if (unit->getType().isResourceDepot())
 	{
 		buildingManager->removeExpansion(unit);
 		buildingManager->buildingExpand();
-	}
+	}*/
 
 	buildingManager->removeBuildingWorker(unit);
 
@@ -486,10 +573,16 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 		LordCommander::getInstance()->removeDeadUnit(unit);
 	}
 
+	/*if (unit->getType() == Broodwar->self()->getRace().getWorker().whatBuilds().first)
+		Collections::lastExpansion -= 7000;*/
+
 }
 
 void ExampleAIModule::onUnitMorph(BWAPI::Unit unit)
 {
+	if (unit->getType().isBuilding() && unit->exists())
+		Collections::lastBuildSuccess = Broodwar->getFrameCount();
+
 	if (!(unit->getPlayer() == Broodwar->self()))
 	{
 		ScoutManager::getInstance().addEnemyBase(unit);
@@ -498,6 +591,7 @@ void ExampleAIModule::onUnitMorph(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitRenegade(BWAPI::Unit unit)
 {
+	LordCommander::getInstance()->removeDeadUnit(unit);
 }
 
 void ExampleAIModule::onSaveGame(std::string gameName)
@@ -508,6 +602,9 @@ void ExampleAIModule::onSaveGame(std::string gameName)
 void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 {
 
+	if (!isInitPostion){
+		onInit();
+	}
 	//Broodwar->printf("onUnitComplete");
 	if (unit->getPlayer() == Broodwar->self())
 	{
@@ -528,15 +625,39 @@ void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 		{
 			buildingManager->addExpansion(unit);
 		}
-		if (unit->getType().isBuilding()){
-			if (unit->getType() == UnitTypes::Protoss_Gateway)
-				unit->setRallyPoint(((unit->getRegion())->getClosestAccessibleRegion())->getCenter());
-		}
+
 		//thêm các unit lính
-		if (!(unit->getType().isBuilding()) && !(unit->getType().isWorker()) && !(unit->getType().isNeutral())){
+		if (!(unit->getType().isBuilding() || unit->getType().isWorker() || unit->getType().isNeutral() || unit->getType() == UnitTypes::Protoss_Interceptor)){
 			LordCommander::getInstance()->addUnit(unit);
 		}
+		if (unit->getType() == UnitTypes::Protoss_Nexus)
+			Collections::lastExpansion = Broodwar->getFrameCount();
+
 	}
 
 
+}
+
+void ExampleAIModule::changeDefensePoint(){
+	Position result = Position(0, 0);
+	int buildingCounter = 0;
+	Unitset uset = BWAPI::Broodwar->self()->getUnits();
+	UnitType resourceDepot;
+	resourceDepot = BWAPI::Broodwar->self()->getRace().getWorker().whatBuilds().first;
+	for (Unit u : uset){
+		if (u->getType() == resourceDepot){
+			result.x += 3 * u->getPosition().x;
+			result.y += 3 * u->getPosition().y;
+			buildingCounter++;
+		}
+		else{
+			result.x += u->getPosition().x;
+			result.y += u->getPosition().y;
+			buildingCounter++;
+		}
+	}
+	result.x /= buildingCounter;
+	result.y /= buildingCounter;
+	jonSnow->reform();
+	Collections::defensePosition = result;
 }

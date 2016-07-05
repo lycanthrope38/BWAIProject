@@ -16,8 +16,10 @@ using namespace BWAPI;
 
 OrderQueue* OrderQueue::instance = nullptr;
 bool OrderQueue::initedInstance = false;
+bool OrderQueue::isBuilding = false;
 
 OrderQueue::OrderQueue() :ArmyOrder(BWAPI::Broodwar->self()){
+
 }
 //hàm thực thi order
 bool OrderQueue::execute(){
@@ -25,7 +27,7 @@ bool OrderQueue::execute(){
 
 	OrderQueue* ins = getInstance();
 
-	BWAPI::Broodwar->sendText("Executed. Queue size %d", queue.size());
+	//BWAPI::Broodwar->sendText("Executed. Queue size %d", queue.size());
 	if ((ins->queue.size()) == 0)
 		return false;
 	//kiểm tra xem có phải là nhà hoặc quân lính hay không
@@ -42,7 +44,7 @@ bool OrderQueue::execute(){
 
 				}
 				else{
-					BWAPI::Broodwar->sendText("SupplyTotal %d is not enough to build! Required %d", (BWAPI::Broodwar->self()->supplyTotal() / 2), queue.at(0).supplyRequire);
+					//BWAPI::Broodwar->sendText("SupplyTotal %d is not enough to build! Required %d", (BWAPI::Broodwar->self()->supplyTotal() / 2), queue.at(0).supplyRequire);
 					return ins->resultAnalyze(false);
 				}
 			}
@@ -60,11 +62,12 @@ bool OrderQueue::execute(){
 	return ins->resultAnalyze(ins->upgrade(ins->queue.at(0).getUpgrade()));
 }
 
+//hàm  thực thi order
 bool OrderQueue::execute(OrderType* orderType){
 	//bool result;
 
 	OrderQueue* ins = getInstance();
-
+	//Broodwar->sendText("Execute for static");
 	//kiểm tra xem có phải là nhà hoặc quân lính hay không
 	if (orderType->isUnit()){
 		//nếu là nhà thì xây
@@ -75,6 +78,8 @@ bool OrderQueue::execute(OrderType* orderType){
 				if (BWAPI::Broodwar->self()->supplyTotal() / 2 >= orderType->supplyRequire){
 					//truyền vào this->queue.at(0) sai
 					BWAPI::UnitType unitType = orderType->getUnitType();
+					if (orderType->isWithPosition())
+						return build(unitType, orderType->getApproxPos());
 					return build(unitType);
 				}
 				else{
@@ -85,6 +90,8 @@ bool OrderQueue::execute(OrderType* orderType){
 			//nếu không yêu cầu số dân thì xây luôn
 			else{
 				BWAPI::UnitType unitType = orderType->getUnitType();
+				if (orderType->isWithPosition())
+					return build(unitType, orderType->getApproxPos());
 				return build(unitType);
 			}
 		}
@@ -95,12 +102,29 @@ bool OrderQueue::execute(OrderType* orderType){
 	//nếu là upgrade thì upgrade
 	return ins->upgrade(orderType->getUpgrade());
 }
+
+//hàm xây lại các tòa nhà đã bị đánh sập
+bool OrderQueue::executeDeath(){
+	//bool result;
+	OrderQueue* ins = getInstance();
+	if (ins->deathBuildingQueue.size() > 0){
+		if (build(ins->deathBuildingQueue.at(0).getUnitType(), ins->deathBuildingQueue.at(0).getApproxPos())){
+			ins->deathBuildingQueue.erase(ins->deathBuildingQueue.begin() + 0);
+			return true;
+		}
+		else{
+			OrderType tmpOrder = ins->deathBuildingQueue.at(0);
+			ins->deathBuildingQueue.erase(deathBuildingQueue.begin() + 0);
+			ins->deathBuildingQueue.push_back(tmpOrder);
+			return false;
+		}
+	}
+	return false;
+}
 bool OrderQueue::resultAnalyze(bool result){
 	OrderQueue* ins = getInstance();
 	if (result){
 		ins->queue.erase(queue.begin());
-		if (ins->queue.at(0).isBuilding())
-			Collections::lastBuildCall = Broodwar->getFrameCount();
 		return true;
 	}
 	else{
@@ -182,6 +206,10 @@ bool OrderQueue::push(BWAPI::UpgradeType upgradeType, int priority){
 	}
 }
 
+bool OrderQueue::pushDeath(UnitType deathType, Position deathPosition){
+	deathBuildingQueue.push_back(OrderType(deathType, deathPosition));
+	return true;
+}
 
 //hủy yêu cầu	
 bool OrderQueue::cancel(int queueIndex){
@@ -200,10 +228,20 @@ int OrderQueue::getSize(){
 
 //xử lý các yêu cầu xây dựng
 bool OrderQueue::build(BWAPI::UnitType buildingType){
+	/*
+		if (buildingType == UnitTypes::Protoss_Photon_Cannon)
+		Broodwar->sendText("dang xay canon");*/
 
 	//Broodwar->sendText("ID   %d", buildingType.getID());
+	//Broodwar->sendText("Build Called");
+	//in case other building are in process
+	if (!(Collections::lastBuildSuccess >= Collections::lastBuildCall && Broodwar->getFrameCount() > Collections::lastBuildSuccess + 5)){
+		Broodwar->sendText("is Building Other");
+		return false;
+	}
 
 	OrderQueue* ins = getInstance();
+	//staticOrder = StaticOrder::getInstance();
 
 	BuidingManager* manager = BuidingManager::newInstance();
 	//BWAPI::Unit worker = manager.getBuildingWorker();
@@ -213,70 +251,103 @@ bool OrderQueue::build(BWAPI::UnitType buildingType){
 	if (u != nullptr)
 	{
 
-
 		// Order the builder to construct the supply structure
 		if (BWAPI::Broodwar->self()->minerals() >= buildingType.mineralPrice() && BWAPI::Broodwar->self()->gas() >= buildingType.gasPrice()){
-			static int lastChecked = 0;
-
-
-			if (lastChecked + 500 < BWAPI::Broodwar->getFrameCount())
+			if (buildingType == UnitTypes::Protoss_Pylon)
 			{
-
-				//	if (u->build(buildingType, targetBuildLocation))
-				//{
-
-				if (buildingType == UnitTypes::Protoss_Pylon)
+				if (manager->createBuilding(u, buildingType))
 				{
-					if (manager->createBuilding(u, buildingType))
-					{
-						lastChecked = BWAPI::Broodwar->getFrameCount();
-						return true;
-					}
-				}
-				else if (buildingType == UnitTypes::Protoss_Nexus)
-				{
-					lastChecked = BWAPI::Broodwar->getFrameCount();
-					manager->buildingExpand();
+					Collections::lastBuildCall = Broodwar->getFrameCount();
+					Collections::trainInRow = 0;
+					Collections::buildInRow++;
 					return true;
-
 				}
-				/*else if (buildingType == UnitTypes::Protoss_Photon_Cannon)
-				{
-					lastChecked = BWAPI::Broodwar->getFrameCount();
-					Broodwar->printf("Protoss_Photon_Cannon Protoss_Photon_Cannon Protoss_Photon_Cannon");
-					if (manager->aroundBuilding(u, buildingType, manager->getExpansionLocation()))
-					{
-						return true;
-					}
-
-
-
-				}*/
 				else
-				{
-					BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, u->getTilePosition());
-					if (u->build(buildingType, targetBuildLocation))
-					{
-						lastChecked = BWAPI::Broodwar->getFrameCount();
-						if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
-						{
-							isAssimilatorBuilt = true;
-						}
-						return true;
-					}
-
-				}
+					Broodwar->printf("cannot build pylon");
+			}
+			else if (buildingType == UnitTypes::Protoss_Nexus)
+			{
+				manager->buildingExpand();
+				Collections::lastBuildCall = Broodwar->getFrameCount();
+				Collections::trainInRow = 0;
+				Collections::buildInRow ++;
+				return true;
 
 			}
+
+			else if (manager->getExpansionLocation() != TilePosition(0, 0) && buildingType == UnitTypes::Protoss_Photon_Cannon)
+			{
+				//Broodwar->printf("Protoss_Photon_Cannon Protoss_Photon_Cannon Protoss_Photon_Cannon");
+				if (manager->aroundBuilding(manager->getBuildingExpandWorker(), buildingType, manager->getExpansionLocation()))
+				{
+					Collections::lastBuildCall = Broodwar->getFrameCount();
+					Collections::trainInRow = 0;
+					Collections::buildInRow++;
+					return true;
+				}
+				else
+					Broodwar->printf("cannot build 3");
+
+			}
+			else
+			{
+				/*BWAPI::TilePosition targetBuildLocation = BWAPI::Broodwar->getBuildLocation(buildingType, TilePosition(u->getPosition()), 1000, true);
+				if (!targetBuildLocation.isValid())
+				targetBuildLocation.makeValid();
+				if (u->build(buildingType, targetBuildLocation))
+				{
+				if (buildingType == BWAPI::UnitTypes::Protoss_Assimilator)
+				{
+				isAssimilatorBuilt = true;
+				}
+				Collections::isBuildingOther = true;
+				return true;
+				}
+				else
+				Broodwar->printf("cannot build 4 x %d y %d ", Position(targetBuildLocation).x, Position(targetBuildLocation).y);*/
+				if (manager->createBuilding(u, buildingType)){
+					Collections::lastBuildCall = Broodwar->getFrameCount();
+					Collections::trainInRow = 0;
+					Collections::buildInRow++;
+					return true;
+				}
+			}
+
 		}
-
-
+		else
+			printf("price Error");
 	}
-
+	else
+		Broodwar->sendText("worker null");
+	//Broodwar->sendText("Build failed");
 	return false;
-
-
 }
+
+//xử lý các yêu cầu xây dựng kèm vị trí
+bool OrderQueue::build(BWAPI::UnitType buildingType, BWAPI::Position buildPosition){
+
+	//Broodwar->sendText("Build Called");
+	//in case other building are in process
+	if (!(Collections::lastBuildSuccess >= Collections::lastBuildCall && Broodwar->getFrameCount() > Collections::lastBuildSuccess + 5)){
+		Broodwar->sendText("is Building Order");
+		return false;
+	}
+	BuidingManager* manager = BuidingManager::newInstance();
+	//BWAPI::Unit worker = manager.getBuildingWorker();
+
+	Unit u = manager->getBuildingWorker();
+
+	if (u != nullptr)
+		if (manager->aroundBuilding(u, buildingType, TilePosition(buildPosition))){
+			Collections::lastBuildCall = Broodwar->getFrameCount();
+			Collections::trainInRow = 0;
+			Collections::buildInRow++;
+			return true;
+		}
+	//Broodwar->sendText("Build failed - approx");
+	return false;
+}
+
 //xử lí các yêu cầu mua quân lính
 bool OrderQueue::training(){
 	OrderQueue* ins = getInstance();
@@ -303,6 +374,11 @@ bool OrderQueue::training(OrderType* orderType){
 }
 //xử lý các yêu cầu nâng cấp
 bool OrderQueue::upgrade(BWAPI::UpgradeType upgradeType){
+
+	if (!(Collections::lastBuildSuccess >= Collections::lastBuildCall && Broodwar->getFrameCount() > Collections::lastBuildSuccess + 5)){
+		Broodwar->sendText("is Building Other");
+		return false;
+	}
 	OrderQueue* ins = getInstance();
 
 	int successed = 0, minUnit = -1;// Number of successed training / unit not training now
@@ -360,6 +436,7 @@ bool OrderQueue::checkExist(BWAPI::UnitType unitType){
 	}
 	return false;
 }
+
 OrderQueue::~OrderQueue()
 {
 }

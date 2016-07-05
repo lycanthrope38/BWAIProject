@@ -8,6 +8,8 @@ private:
 	bool isUnitType;
 	int frame;
 	BWAPI::UpgradeType upgrade;
+	BWAPI::Position approxPos;
+
 public:
 	BWAPI::UnitType unit;
 	int supplyRequire;
@@ -15,6 +17,8 @@ public:
 	BWAPI::UnitType parent;
 	//order nhà
 	OrderType(BWAPI::UnitType unitType);
+	//order nhà kèm vị trí xấp xỉ
+	OrderType(BWAPI::UnitType unitType, BWAPI::Position approxPosition);
 	//order nhà kèm ràng buộc số dân
 	OrderType(BWAPI::UnitType unitType, int supplyRequired);
 	//order lính
@@ -34,6 +38,19 @@ public:
 		return false;
 	}
 	
+	bool isWithPosition(){
+		if (approxPos == BWAPI::Positions::None){
+			//BWAPI::Broodwar->sendText("Do not with position!!!!!");
+			return false;
+		}
+		else
+			return true;
+	}
+
+	BWAPI::Position getApproxPos(){
+		return approxPos;
+	}
+
 	OrderType* getInstance(){
 		return this;
 	}

@@ -36,57 +36,58 @@ Unit TargetManager::getTarget(Unit myunit){
 	if (enemyList.size() != 0){
 		for (Unit u : enemyList){
 			if (u->exists())
-				if (myunit->canAttackUnit(u)){
-					selfUnitType = myunit->getType();
-					if (selfUnitType.groundWeapon() != WeaponTypes::None)
-						if (selfUnitType.groundWeapon().maxRange() < NEAR_RANGE){
-							isNearRange = true;
-							if (u->isBurrowed() || u->isCloaked())
-								continue;
-						}
+				if (u->getType() != UnitTypes::Protoss_Interceptor)
+					if (myunit->canAttackUnit(u)){
+						if (u->isBurrowed() || u->isCloaked())
+							continue;
+						selfUnitType = myunit->getType();
+						if (selfUnitType.groundWeapon() != WeaponTypes::None)
+							if (selfUnitType.groundWeapon().maxRange() < NEAR_RANGE)
+								isNearRange = true;
 
-					enemyUnitType = u->getType();
-					distance = (Collections::distance(u->getPosition(), myunit->getPosition()));
-					//trường hợp không phải lính đánh gần thì áp dụng SELF_ENEMY_TROOP_RATIO
-					if (!isNearRange){
-						if (LordCommander::getInstance()->getSelfScoreOnTarget(u) > u->getType().destroyScore() * SELF_ENEMY_TROOP_RATIO){
-							Broodwar->sendText("Too much force on this target");
+
+						enemyUnitType = u->getType();
+						distance = (Collections::distance(u->getPosition(), myunit->getPosition()));
+						//trường hợp không phải lính đánh gần thì áp dụng SELF_ENEMY_TROOP_RATIO
+						if (!isNearRange){
+							if (LordCommander::getInstance()->getSelfScoreOnTarget(u) > u->getType().destroyScore() * SELF_ENEMY_TROOP_RATIO){
+								Broodwar->sendText("Too much force on this target");
+								continue;
+							}
+						}
+						else{
+
+							if ((u->canAttack(myunit))){
+								tmpRatio = (enemyUnitType.destroyScore() + ATTACKABLE_CONST) / (distance*distance);
+								if (tmpRatio > bestRatio){
+									bestRatio = tmpRatio;
+									bestUnit = u;
+								}
+							}
+							else{
+								tmpRatio = (enemyUnitType.destroyScore()) / (distance*distance);// / ( Collections::distance(u->getPosition(), myunit->getPosition()))
+								if (tmpRatio > bestRatio){
+									bestRatio = tmpRatio;
+									bestUnit = u;
+								}
+							}
 							continue;
 						}
-					}
-					else{
-
 						if ((u->canAttack(myunit))){
-							tmpRatio = (enemyUnitType.destroyScore() + ATTACKABLE_CONST) / (distance*distance);
+							tmpRatio = (enemyUnitType.destroyScore() + ATTACKABLE_CONST) / (u->getHitPoints() + (distance*distance));
 							if (tmpRatio > bestRatio){
 								bestRatio = tmpRatio;
 								bestUnit = u;
 							}
 						}
 						else{
-							tmpRatio = (enemyUnitType.destroyScore()) / (distance*distance);// / ( Collections::distance(u->getPosition(), myunit->getPosition()))
+							tmpRatio = (enemyUnitType.destroyScore()) / (u->getHitPoints() + (distance*distance));
 							if (tmpRatio > bestRatio){
 								bestRatio = tmpRatio;
 								bestUnit = u;
 							}
 						}
-						continue;
 					}
-					if ((u->canAttack(myunit))){
-						tmpRatio = (enemyUnitType.destroyScore() + ATTACKABLE_CONST) / (u->getHitPoints() + (distance*distance));
-						if (tmpRatio > bestRatio){
-							bestRatio = tmpRatio;
-							bestUnit = u;
-						}
-					}
-					else{
-						tmpRatio = (enemyUnitType.destroyScore()) / (u->getHitPoints() + (distance*distance));
-						if (tmpRatio > bestRatio){
-							bestRatio = tmpRatio;
-							bestUnit = u;
-						}
-					}
-				}
 		}
 	}
 	if (bestUnit == nullptr)

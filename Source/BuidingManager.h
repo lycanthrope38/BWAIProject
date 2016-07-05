@@ -29,6 +29,9 @@ public:
 
 	bool BuidingManager::placeBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition approxLocation);
 	bool BuidingManager::aroundBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition aroundLocation);
+
+	bool BuidingManager::aroundBuilding(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition aroundLocation, bool isLarge);
+
 	bool placeSpecific(BWAPI::Unit builder, BWAPI::UnitType building, BWAPI::TilePosition location);
 	bool BuidingManager::createBuilding(BWAPI::Unit builder, BWAPI::UnitType building);
 	bool buildingExpand();
@@ -44,6 +47,7 @@ public:
 	BWAPI::TilePosition moveWorker(BWAPI::Unit unit, BWAPI::Position position);
 	bool makeAvailableBuildingWorker(BWAPI::Unit worker);
 	BWAPI::Unit getBuildingWorker();
+	BWAPI::Unit getBuildingExpandWorker();
 	bool addWorker(BWAPI::Unit* newWorker);
 	void addExpansion(BWAPI::Unit expansion);
 	void removeExpansion(BWAPI::Unit expansion);

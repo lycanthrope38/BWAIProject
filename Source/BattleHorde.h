@@ -21,7 +21,7 @@ private:
 	Color squadColor;
 
 	//mục tiêu
-	BWAPI::Unit target;
+	//BWAPI::Unit target;
 	//danh sách quân ta trong toán quân
 	BWAPI::Unitset selfTroops;
 	//kiểu lính của quân ta
@@ -36,8 +36,10 @@ private:
 	int endFrame;
 	//vị trí phòng thủ
 	Position defensePosition;
-
+	
 	int lastAttackCall;
+
+	map<Unit, Unit> target;
 
 	TargetManager targetManager;
 
@@ -58,13 +60,15 @@ public:
 	//lấy danh sách quân
 	Unitset getCurrentList();
 	//thêm mục tiêu
-	void addTarget(BWAPI::Unit);
+	void addTarget(Unit, BWAPI::Unit);
 	//clear dead unit
 	void clearDeadUnit(Unit u);
 
 	int getMaxUnit(){
 		return maxUnit;
 	}
+
+	void checkTarget();
 
 	int getSelfSize(){
 		return selfTroops.size();
@@ -84,11 +88,60 @@ public:
 
 	void drawSquad();
 
-	void attack(Unit u);
+	void attack(Unit selfUnit, Unit enemyUnit);
 
 	void buyInterceptor();
 
-	void runBack();
+	void runBack(Unit u);
+
+	bool isMelee(){
+		if (!(selfType.isFlyer()))
+			if (selfType.groundWeapon().maxRange() < 35)
+				return true;
+		return false;
+	}
+
+	bool isGroundFarAttack(){
+		if (!(selfType.isFlyer()))
+			if (selfType.groundWeapon().maxRange() > 35)
+				return true;
+		return false;
+	}
+
+	bool isFlyAttack(){
+		if (selfType.isFlyer())
+			if (selfType == UnitTypes::Protoss_Carrier || selfType.airWeapon() != WeaponTypes::None || selfType.groundWeapon() != WeaponTypes::None)
+				return true;
+		return false;
+	}
+
+	bool isDetector(){
+		if (selfType.isDetector())
+			return true;
+		return false;	
+	}
+
+	Position getApproxPosition(){
+		if (selfTroops.size() == 0)
+			return Positions::None;
+		Position result = Position(0, 0);
+		for (Unit u : selfTroops){
+			result.x += u->getPosition().x;
+			result.y += u->getPosition().y;
+		}
+		result.x /= selfTroops.size();
+		result.y /= selfTroops.size();
+		return result;
+	}
+
+	bool isAttacking(){
+		for (Unit u : selfTroops){
+			if (target[u] != nullptr)
+				if (target[u]->exists())
+					return true;
+		}
+		return false;
+	}
 
 	friend bool operator < (const BattleHorde &left, const BattleHorde &right)
 	{

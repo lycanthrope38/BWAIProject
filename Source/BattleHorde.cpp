@@ -3,6 +3,7 @@
 #include <BWAPI.h>
 #include <random>
 #include "Collections.h"
+#include "ArmyOrder.h"
 
 using namespace BWAPI;
 
@@ -22,7 +23,7 @@ BattleHorde::BattleHorde(UnitType type, int endFrame)
 	this->endFrame = endFrame;
 	maxUnit = calculateMaxUnit(type);
 	targetManager = TargetManager();
-	target = nullptr;
+	target = map<Unit, Unit>();
 	isAttacked = false;
 
 	isAirAttackable = false;
@@ -39,92 +40,73 @@ bool BattleHorde::onFrame(){
 	if (selfType == UnitTypes::Protoss_Carrier)
 		buyInterceptor();
 
-	Unit oldTarget = target;
+	//Unit oldTarget = target;
 
 	drawSquad();
-	/*if (target!=nullptr)
-		if (target->exists())
-		{
-		drawPosition(target->getPosition());
-		return true;
-		}*/
-
-
-	for (Unit u : selfTroops){
-
-		if (u->exists()){
-			/*if (isAirAttackable){
-				if (u->getAirWeaponCooldown() > 0){
-				runBack();
-				return true;
-				}
-				}
-				else
-				if (u->getGroundWeaponCooldown() > 0){
-				runBack();
-				return true;
-				}*/
-
-			target = targetManager.getTarget(u);
-			if (target == nullptr){
-				//Broodwar->sendText("Target == nullptr");
-				break;
-			}
-			if (oldTarget)
-				if (oldTarget->exists()){
-					if (Collections::distance(oldTarget->getPosition(), u->getPosition()) <= u->getType().seekRange()){
-						attack(oldTarget);
-						return true;
-					}
-				}
-			//if (target == oldTarget){
-			if (isHoldPosition)
-				if (Collections::distance(target->getPosition(), defensePosition) > maxDefenseRange)
-					selfTroops.move(defensePosition);
-			//	attack(target);
-			//	drawPosition(target->getPosition());
-			//	//Broodwar->sendText("Old target. Skipped");
-			//	break;
-			//}
-			if (target != oldTarget){
-				LordCommander::getInstance()->removeTarget(oldTarget, this);
-				LordCommander::getInstance()->regTarget(target, this);
-				attack(target);
-				drawPosition(target->getPosition());
-				//Broodwar->sendText("Enemy detected at %d  %d", target->getPosition().x, target->getPosition().y);
-				break;
-			}
-		}
-	}
+	checkTarget();
 	return true;
 }
 
-void BattleHorde::runBack(){
+void BattleHorde::checkTarget(){
+
+	Unitset selfSet, enemySet;
+	int selfTroopValue = 0, enemyTroopValue = 0;
+
+	for (Unit u : selfTroops){
+
+		selfSet = u->getUnitsInRadius((u->getType().seekRange() / 2), Filter::IsOwned);
+		enemySet = u->getUnitsInRadius((u->getType().seekRange() / 2),Filter::IsEnemy);
+
+		if (enemySet.size() > 0){
+			for (Unit u : selfSet)
+				selfTroopValue += u->getType().destroyScore();
+			for (Unit u : enemySet)
+				enemyTroopValue += u->getType().destroyScore();
+			if (enemyTroopValue > selfTroopValue){
+				runBack(u);
+				//Broodwar->sendText("Runback called");
+				continue;
+			}
+		}
+
+		if (target[u]){
+			if ((target[u])->exists() && !((target[u])->isBurrowed() || target[u]->isInvincible() || target[u]->isCloaked()))
+				attack(u, target[u]);
+			else{
+				target[u] = targetManager.getTarget(u);
+				attack(u, target[u]);
+			}
+		}
+		else{
+			target[u] = targetManager.getTarget(u);
+			attack(u, target[u]);
+		}
+	}
+}
+
+void BattleHorde::runBack(Unit u){
 
 	Unitset enemiesInRange;
 	WeaponType selfWeapon;
 	Unit selfUnit;
-	int cooldown;
 
 	Position runBackVector = Position(0, 0);
 
-	for (Unit u : selfTroops){
-		if (u->exists()){
-			//uset = u->getUnitsInWeaponRange()
-			selfUnit = u;
-			selfWeapon = u->getType().groundWeapon();
-			if (selfWeapon == WeaponTypes::None || selfWeapon == WeaponTypes::Unknown)
-				selfWeapon = u->getType().airWeapon();
-			enemiesInRange = Broodwar->getUnitsInRadius(u->getPosition(), selfWeapon.maxRange(), Filter::IsEnemy);
-			for (Unit enemy : enemiesInRange){
-				if (enemy->canAttack(u)){
-					runBackVector.x += (enemy->getPosition().x - u->getPosition().x);
-					runBackVector.y += (enemy->getPosition().y - u->getPosition().y);
-				}
+	if (u->exists()){
+		//uset = u->getUnitsInWeaponRange()
+		selfUnit = u;
+		selfWeapon = u->getType().groundWeapon();
+		if (selfWeapon == WeaponTypes::None || selfWeapon == WeaponTypes::Unknown)
+			selfWeapon = u->getType().airWeapon();
+		enemiesInRange = Broodwar->getUnitsInRadius(u->getPosition(), selfWeapon.maxRange(), Filter::IsEnemy);
+		for (Unit enemy : enemiesInRange){
+			if ((enemy->canAttack(u))){
+				runBackVector.x += (enemy->getPosition().x - u->getPosition().x);
+				runBackVector.y += (enemy->getPosition().y - u->getPosition().y);
 			}
-			break;
 		}
 	}
+
 	if (runBackVector != Position(0, 0))
 		selfTroops.move(Position(selfUnit->getPosition().x - runBackVector.x, selfUnit->getPosition().y - runBackVector.y));
 }
@@ -138,6 +120,8 @@ void BattleHorde::addUnit(BWAPI::Unit u){
 		isAirAttackable = false;
 	else
 		isAirAttackable = true;
+	target.insert(make_pair(u, nullptr));
+
 }
 
 //lấy danh sách quân
@@ -146,8 +130,8 @@ Unitset BattleHorde::getCurrentList(){
 }
 
 //thêm mục tiêu
-void BattleHorde::addTarget(BWAPI::Unit targetInp){
-	this->target = targetInp;
+void BattleHorde::addTarget(Unit selfUnit, BWAPI::Unit targetInp){
+	this->target[selfUnit] = targetInp;
 }
 
 void BattleHorde::clearDeadUnit(Unit u){
@@ -177,16 +161,34 @@ int BattleHorde::calculateMaxUnit(UnitType type){
 	return 1;
 }
 
-void BattleHorde::attack(Unit u){
-	if (Broodwar->getFrameCount() - lastAttackCall < u->getAirWeaponCooldown() + 3 ||
-		Broodwar->getFrameCount() - lastAttackCall < u->getGroundWeaponCooldown() + 3)
-		lastAttackCall = Broodwar->getFrameCount();
-	if (selfTroops.attack(u))
-		selfTroops.attack(u->getPosition());
+void BattleHorde::attack(Unit selfUnit, Unit enemyUnit){
+	if (selfUnit->isFlying()){
+		if (selfUnit->getAirWeaponCooldown() == 0){
+			selfUnit->attack(enemyUnit);
+		}
+		return;
+	}
+	else{
+		if (selfUnit->getGroundWeaponCooldown() == 0){
+			selfUnit->attack(enemyUnit);
+		}
+	}
 }
 
 void BattleHorde::move(Position p){
+	Unitset stuckers;
 	selfTroops.move(p);
+	for (Unit u : selfTroops){
+		if (u->isStuck())
+		{
+			stuckers = u->getUnitsInRadius(50, Filter::IsBuilding);
+			for (Unit stuck : stuckers)
+				if (stuck->getType().destroyScore() < 200){
+					u->attack(stuck);
+					continue;
+				}
+		}
+	}
 }
 
 void BattleHorde::drawPosition(Position p){
@@ -207,5 +209,5 @@ void BattleHorde::buyInterceptor(){
 
 BattleHorde::~BattleHorde()
 {
-	(LordCommander::getInstance())->removeTarget(target, this);
+	//(LordCommander::getInstance())->removeTarget(target, this);
 }
