@@ -2,7 +2,7 @@
 
 ## Introduction
 
-- This is my team open source. It just a course project Artificial Inteligent and we got 9 point for this. We hope can help you have the first take a look when you want to write your own AI starcraft bot.
+- This is my team open source. It just a course project Artificial Intelligence. We hope can help you have the first take a look when you want to write your own AI Starcraft bot.
 
 
 ## Reference
